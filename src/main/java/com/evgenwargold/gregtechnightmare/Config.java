@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package com.evgenwargold.gregtechnightmare;
 
 import java.io.File;
 
