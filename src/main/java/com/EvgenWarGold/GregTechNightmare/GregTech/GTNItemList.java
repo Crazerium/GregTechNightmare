@@ -1,0 +1,100 @@
+package com.EvgenWarGold.GregTechNightmare.GregTech;
+
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.util.GTLog;
+import gregtech.api.util.GTUtility;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nullable;
+
+public enum GTNItemList {
+    // spotless:off
+    // region Things
+
+    // region Items
+    Test
+    // endregion
+
+    ;
+    // endregion
+    // spotless:on
+
+    // region Main
+    private boolean hasNotBeenSet;
+    private ItemStack itemStack;
+
+    private static final Item ERROR_ITEM = Item.getItemFromBlock(Blocks.fire);
+    private static final ItemStack ERROR_ITEM_STACK = new ItemStack(ERROR_ITEM);
+
+    GTNItemList() {
+        hasNotBeenSet = true;
+    }
+
+    private void check() {
+        if (hasNotBeenSet) {
+            throw new IllegalAccessError("The Enum '" + name() + "' has not been set to an Item at this time!");
+        }
+    }
+
+    public boolean equal(@Nullable ItemStack itemStack) {
+        if (itemStack == null) return false;
+        if (hasNotBeenSet) return false;
+        if (this.itemStack == itemStack) return true;
+        return this.itemStack.isItemEqual(itemStack);
+    }
+    // endregion
+
+    // region Getters
+    public Item getItem() {
+        check();
+        if (GTUtility.isStackInvalid(itemStack)) return ERROR_ITEM;
+        return itemStack.getItem();
+    }
+
+    public Block getBlock() {
+        check();
+        return Block.getBlockFromItem(getItem());
+    }
+
+    public int getMeta() {
+        return itemStack.getItemDamage();
+    }
+
+    public ItemStack get(int amount) {
+        check();
+        if (GTUtility.isStackInvalid(itemStack)) {
+            GTLog.out.println("Object in the GTNItemList is null at:");
+            new NullPointerException().printStackTrace(GTLog.out);
+            return ERROR_ITEM_STACK;
+        }
+        return GTUtility.copyAmountUnsafe(amount, itemStack);
+    }
+    // endregion
+
+    // region Setters
+    public GTNItemList set(Item item) {
+        hasNotBeenSet = false;
+        if (item == null) return this;
+        ItemStack stack = new ItemStack(item, 1, 0);
+        itemStack = GTUtility.copyAmountUnsafe(1, stack);
+        return this;
+    }
+
+    public GTNItemList set(ItemStack itemStack) {
+        if (itemStack != null) {
+            hasNotBeenSet = false;
+            this.itemStack = GTUtility.copyAmountUnsafe(1, itemStack);
+
+        }
+        return this;
+    }
+
+    public GTNItemList set(IMetaTileEntity metaTileEntity) {
+        if (metaTileEntity == null) throw new IllegalArgumentException();
+        return set(metaTileEntity.getStackForm(1L));
+    }
+    // endregion
+}

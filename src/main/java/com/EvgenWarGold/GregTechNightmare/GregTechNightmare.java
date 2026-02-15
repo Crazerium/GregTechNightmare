@@ -10,12 +10,18 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = GregTechNightmare.MODID, version = Tags.VERSION, name = GregTechNightmare.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
+@Mod(
+    modid = GregTechNightmare.MOD_ID,
+    version = Tags.VERSION,
+    name = GregTechNightmare.MOD_NAME,
+    dependencies = "required-after:gregtech;" + "required-after:bartworks;" + "required-after:gtnhintergalactic;",
+    acceptedMinecraftVersions = "[1.7.10]")
 public class GregTechNightmare {
 
-    public static final String MODNAME = "GregTechNightmare";
-    public static final String MODID = "GregTechNightmare";
-    public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final String MOD_ID = "GregTechNightmare";
+    public static final String MOD_NAME = "GregTechNightmare";
+    public static final String RESOURCE_ROOT_ID = "gregtechnightmare";
+    public static final Logger LOG = LogManager.getLogger(MOD_ID);
 
     @SidedProxy(clientSide = "com.EvgenWarGold.GregTechNightmare.ClientProxy", serverSide = "com.EvgenWarGold.GregTechNightmare.CommonProxy")
     public static CommonProxy proxy;
