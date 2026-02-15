@@ -1,4 +1,4 @@
-package com.evgenwargold.gregtechnightmare;
+package com.EvgenWarGold.GregTechNightmare;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,14 +10,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@Mod(modid = GregTechNightmare.MODID, version = Tags.VERSION, name = "MyMod", acceptedMinecraftVersions = "[1.7.10]")
+@Mod(modid = GregTechNightmare.MODID, version = Tags.VERSION, name = GregTechNightmare.MODNAME, acceptedMinecraftVersions = "[1.7.10]")
 public class GregTechNightmare {
 
     public static final String MODNAME = "GregTechNightmare";
-    public static final String MODID = "gregtechnightmare";
+    public static final String MODID = "GregTechNightmare";
     public static final Logger LOG = LogManager.getLogger(MODID);
 
-    @SidedProxy(clientSide = "com.evgenwargold.gregtechnightmare.ClientProxy", serverSide = "com.evgenwargold.nightmare.CommonProxy")
+    @SidedProxy(clientSide = "com.EvgenWarGold.GregTechNightmare.ClientProxy", serverSide = "com.EvgenWarGold.GregTechNightmare.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler

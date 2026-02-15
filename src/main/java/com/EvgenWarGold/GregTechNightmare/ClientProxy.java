@@ -1,4 +1,4 @@
-package com.evgenwargold.gregtechnightmare;
+package com.EvgenWarGold.GregTechNightmare;
 
 public class ClientProxy extends CommonProxy {
 

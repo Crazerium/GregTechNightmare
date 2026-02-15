@@ -1,4 +1,4 @@
-package com.evgenwargold.gregtechnightmare;
+package com.EvgenWarGold.GregTechNightmare;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
