@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTNUtils.tr;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
@@ -54,12 +55,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public abstract String[][] getShape();
 
-    public abstract MultiblockTooltipBuilder createTstTooltip(MultiblockTooltipBuilder builder);
+    public abstract void createTstTooltip(MultiblockTooltipBuilder builder);
     // endregion
 
     // region Class Construct
-    public GTN_MultiBlockBase(int id, String name, String nameRegional) {
-        super(id, name, nameRegional);
+    private static final String TRANSLATE_KEY = "multiblock.";
+
+    public GTN_MultiBlockBase(int id, String name) {
+        super(id, TRANSLATE_KEY + name, tr(TRANSLATE_KEY + name));
     }
 
     public GTN_MultiBlockBase(String name) {

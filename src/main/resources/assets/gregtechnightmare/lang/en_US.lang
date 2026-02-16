@@ -3,3 +3,6 @@ item.MetaItem01.0.name=§cTest Item
 
 #Blocks
 tile.MetaBlockCasing01.0.name=§cTest Casing
+
+#MultiBlock
+multiblock.Test=§cTest MultiBlock
