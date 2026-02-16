@@ -44,7 +44,7 @@ public class AdvancedBBFRecipesPool {
 
         fuels.add(new DataFuels(
             GTOreDictUnificator.get(OrePrefixes.gem, Materials.Diamond, 1L),
-            10,
+            40,
             64
         ));
 
@@ -62,19 +62,19 @@ public class AdvancedBBFRecipesPool {
 
         fuels.add(new DataFuels(
             GTOreDictUnificator.get(OrePrefixes.dust, Materials.Diamond,1L),
-            10,
+            40,
             64
         ));
 
         fuels.add(new DataFuels(
             GTOreDictUnificator.get(OrePrefixes.block, Materials.Coal, 1L),
-            5,
+            8,
             10
         ));
 
         fuels.add(new DataFuels(
             GTOreDictUnificator.get(OrePrefixes.block, Materials.Charcoal, 1L),
-            5,
+            8,
             10
         ));
         //spotless:on
