@@ -6,6 +6,8 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
+import net.minecraft.util.EnumChatFormatting;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
@@ -17,7 +19,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.enums.Materials;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import net.minecraft.util.EnumChatFormatting;
 
 public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
 

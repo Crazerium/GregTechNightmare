@@ -18,7 +18,6 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.recipe.RecipeMap;
@@ -86,8 +85,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     }
 
     @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-    }
+    public void createGtnTooltip(MultiblockTooltipBuilder builder) {}
 
     @Override
     public String getMachineType() {
