@@ -249,28 +249,39 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     private final static String PARALLEL_WAILA_NBT_KEY = "trueParallel";
     private final static String EU_MODIFIER_WAILA_NBT_KEY = "euModifier";
     private final static String SPEED_BONUS_WAILA_NBT_KEY = "speedBonus";
+    private final static String TIME_REDUCTION_WAILA_NBT_KEY = "timeReduction";
+    private final static String POWER_INCREASE_WAILA_NBT_KEY = "powerIncrease";
 
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
         final NBTTagCompound tag = accessor.getNBTData();
 
         int parallel = tag.getInteger(PARALLEL_WAILA_NBT_KEY);
         float euModifier = tag.getFloat(EU_MODIFIER_WAILA_NBT_KEY);
         float speedBonus = tag.getFloat(SPEED_BONUS_WAILA_NBT_KEY);
+        int timeReduction = tag.getInteger(TIME_REDUCTION_WAILA_NBT_KEY);
+        int powerIncrease = tag.getInteger(POWER_INCREASE_WAILA_NBT_KEY);
 
         if (parallel > 0) {
-            currentTip.add("Parallel: " + parallel);
+            currentTip.add(tr("multiblock.waila.max_parallel", parallel));
         }
 
         if (euModifier > 0) {
-            currentTip.add("EuModifier: " + euModifier);
+            currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
         }
 
         if (speedBonus > 0) {
-            currentTip.add("Speed bonus: " + speedBonus);
+            currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
         }
+
+        if (getOverclockType() != null) {
+            currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+        }
+
+
+
+        super.getWailaBody(itemStack, currentTip, accessor, config);
     }
 
     @Override
@@ -281,6 +292,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tag.setInteger(PARALLEL_WAILA_NBT_KEY, getMaxParallelRecipes());
         tag.setFloat(EU_MODIFIER_WAILA_NBT_KEY, getEuModifier());
         tag.setFloat(SPEED_BONUS_WAILA_NBT_KEY, getSpeedBonus());
+        tag.setInteger(POWER_INCREASE_WAILA_NBT_KEY, getOverclockType().powerIncrease);
+        tag.setInteger(TIME_REDUCTION_WAILA_NBT_KEY, getOverclockType().timeReduction);
     }
     // endregion
 

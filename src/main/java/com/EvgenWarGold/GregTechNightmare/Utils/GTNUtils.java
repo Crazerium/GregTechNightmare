@@ -41,4 +41,8 @@ public class GTNUtils {
     public static String tr(String key) {
         return StatCollector.translateToLocal(key);
     }
+
+    public static String tr(String key, Object... formatted) {
+        return StatCollector.translateToLocalFormatted(key, formatted);
+    }
 }

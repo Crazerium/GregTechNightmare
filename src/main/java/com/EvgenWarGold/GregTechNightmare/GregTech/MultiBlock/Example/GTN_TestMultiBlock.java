@@ -66,7 +66,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public OverclockType getOverclockType() {
-        return OverclockType.PerfectOverclock;
+        return OverclockType.NONE;
     }
 
     @Override
@@ -92,6 +92,13 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         builder
             .addMachineType("Test")
             .addInfo("Test")
+            .addInfo("Test")
+            .addInfo("Test")
+            .addStructureInfoSeparator()
+            .addInfo("Test")
+            .addInfo("Test")
+            .addInfo("Test")
+            .addInputHatch("InputHatch", 1)
             .toolTipFinisher(EnumChatFormatting.DARK_RED + "GregTechNightmare");
     }
 
