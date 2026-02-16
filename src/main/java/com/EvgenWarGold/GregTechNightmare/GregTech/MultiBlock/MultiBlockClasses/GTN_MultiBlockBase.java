@@ -280,19 +280,19 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         } else {
             if (isEnergyMultiBlock()) {
                 if (parallel > 0) {
-                    currentTip.add(tr("multiblock.waila.max_parallel", parallel));
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.max_parallel", parallel));
                 }
 
                 if (euModifier > 0) {
-                    currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.eu_modifier", euModifier));
                 }
 
                 if (speedBonus > 0) {
-                    currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.speed_bonus", speedBonus));
                 }
 
                 if (getOverclockType() != null) {
-                    currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.overclock", timeReduction, powerIncrease));
                 }
             }
             super.getWailaBody(itemStack, currentTip, accessor, config);

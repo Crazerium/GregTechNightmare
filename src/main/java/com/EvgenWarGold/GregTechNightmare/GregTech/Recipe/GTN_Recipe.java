@@ -9,7 +9,7 @@ public class GTN_Recipe {
 
     public static final RecipeMap<RecipeMapBackend> AdvancedBBFRecipes = RecipeMapBuilder
         .of("gtn.recipe.AdvancedBBFRecipes")
-        .maxIO(1, 1, 0, 0)
+        .maxIO(2, 1, 0, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .build();
 }

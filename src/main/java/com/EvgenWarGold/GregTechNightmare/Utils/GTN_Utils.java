@@ -1,6 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -77,5 +78,29 @@ public class GTN_Utils {
         return recipeMap.findRecipeQuery()
             .items(itemStacks)
             .find();
+    }
+
+    public static boolean removeItems(List<ItemStack> items, ItemStack itemToRemove, int amount) {
+        if (items == null || itemToRemove == null || amount <= 0) {
+            return false;
+        }
+
+        int remainingToRemove = amount;
+        ListIterator<ItemStack> iterator = items.listIterator();
+
+        while (iterator.hasNext() && remainingToRemove > 0) {
+            ItemStack currentItem = iterator.next();
+
+            if (currentItem.isItemEqual(itemToRemove)) {
+                if (currentItem.stackSize < remainingToRemove) {
+                    iterator.remove();
+                } else {
+                    currentItem.stackSize = currentItem.stackSize - remainingToRemove;
+                    remainingToRemove = 0;
+                }
+            }
+        }
+
+        return remainingToRemove == 0;
     }
 }
