@@ -1,14 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
-import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTNItems.META_ITEM_01;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.META_ITEM_01;
 
 import net.minecraft.item.Item;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.GTNItemList;
+import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class GTNItemsRegister {
+public class GTN_ItemsRegister {
 
     public static void init() {
         registryItems();
@@ -25,7 +25,7 @@ public class GTNItemsRegister {
 
     private static void registryItemContainers() {
         // spotless:off
-        GTNItemList.TestItem.set(META_ITEM_01.registerVariantWithTooltips(
+        GTN_ItemList.TestItem.set(META_ITEM_01.registerVariantWithTooltips(
             0,
             new String[]{
                 "Test"

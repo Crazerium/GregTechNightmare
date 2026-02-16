@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-public class GTNUtils {
+public class GTN_Utils {
 
     /**
      * Create a new {@link ItemStack} of given Item with meta.

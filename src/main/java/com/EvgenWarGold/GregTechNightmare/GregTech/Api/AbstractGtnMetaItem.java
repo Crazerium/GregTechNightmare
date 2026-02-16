@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import com.EvgenWarGold.GregTechNightmare.GregTechNightmare;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTNUtils;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -116,7 +116,7 @@ public abstract class AbstractGtnMetaItem extends Item implements IHasVariantAnd
     protected static ItemStack checkAndGetVariant(Item self, int meta, Collection<Integer> allowMetaValues)
         throws IllegalArgumentException {
         if (allowMetaValues.contains(meta)) {
-            return GTNUtils.newItemWithMeta(self, meta);
+            return GTN_Utils.newItemWithMeta(self, meta);
         } else {
             throw new IllegalArgumentException("Invalid meta value: " + meta);
         }
@@ -136,14 +136,14 @@ public abstract class AbstractGtnMetaItem extends Item implements IHasVariantAnd
                     + ")");
         } else {
             allowMetaValues.add(meta);
-            return GTNUtils.newItemWithMeta(self, meta);
+            return GTN_Utils.newItemWithMeta(self, meta);
         }
     }
 
     @ApiStatus.Internal
     protected static ItemStack[] getAllVariants(Item self, Collection<Integer> allowMetaValues) {
         return allowMetaValues.stream()
-            .map(m -> GTNUtils.newItemWithMeta(self, m))
+            .map(m -> GTN_Utils.newItemWithMeta(self, m))
             .toArray(ItemStack[]::new);
     }
 }

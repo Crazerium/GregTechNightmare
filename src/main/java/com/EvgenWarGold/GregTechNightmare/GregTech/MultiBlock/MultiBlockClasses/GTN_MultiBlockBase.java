@@ -1,10 +1,13 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTNUtils.tr;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.tr;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_GLOW;
+import static mcp.mobius.waila.api.SpecialChars.RED;
+import static mcp.mobius.waila.api.SpecialChars.RESET;
+import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.List;
 
@@ -263,25 +266,27 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         int timeReduction = tag.getInteger(TIME_REDUCTION_WAILA_NBT_KEY);
         int powerIncrease = tag.getInteger(POWER_INCREASE_WAILA_NBT_KEY);
 
-        if (parallel > 0) {
-            currentTip.add(tr("multiblock.waila.max_parallel", parallel));
+        if (tag.getBoolean("incompleteStructure")) {
+            currentTip.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
+        } else {
+            if (parallel > 0) {
+                currentTip.add(tr("multiblock.waila.max_parallel", parallel));
+            }
+
+            if (euModifier > 0) {
+                currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
+            }
+
+            if (speedBonus > 0) {
+                currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
+            }
+
+            if (getOverclockType() != null) {
+                currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+            }
+
+            super.getWailaBody(itemStack, currentTip, accessor, config);
         }
-
-        if (euModifier > 0) {
-            currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
-        }
-
-        if (speedBonus > 0) {
-            currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
-        }
-
-        if (getOverclockType() != null) {
-            currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
-        }
-
-
-
-        super.getWailaBody(itemStack, currentTip, accessor, config);
     }
 
     @Override
@@ -294,6 +299,28 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tag.setFloat(SPEED_BONUS_WAILA_NBT_KEY, getSpeedBonus());
         tag.setInteger(POWER_INCREASE_WAILA_NBT_KEY, getOverclockType().powerIncrease);
         tag.setInteger(TIME_REDUCTION_WAILA_NBT_KEY, getOverclockType().timeReduction);
+    }
+    // endregion
+
+    // region Buttons
+    @Override
+    public boolean supportsVoidProtection() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsInputSeparation() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsBatchMode() {
+        return true;
+    }
+
+    @Override
+    public boolean supportsSingleRecipeLocking() {
+        return true;
     }
     // endregion
 

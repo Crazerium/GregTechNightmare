@@ -16,9 +16,9 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.util.GTLanguageManager;
 
-public class GtnMetaBlockItem extends ItemBlock {
+public class MetaBlockItem extends ItemBlock {
 
-    public GtnMetaBlockItem(Block aBlock) {
+    public MetaBlockItem(Block aBlock) {
         super(requireGtnMetaBlock(aBlock));
         setHasSubtypes(true);
         setMaxDamage(0);

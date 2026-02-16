@@ -11,7 +11,7 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 
-public enum GTNItemList {
+public enum GTN_ItemList {
     // spotless:off
     // region Things
 
@@ -38,7 +38,7 @@ public enum GTNItemList {
     private static final Item ERROR_ITEM = Item.getItemFromBlock(Blocks.fire);
     private static final ItemStack ERROR_ITEM_STACK = new ItemStack(ERROR_ITEM);
 
-    GTNItemList() {
+    GTN_ItemList() {
         hasNotBeenSet = true;
     }
 
@@ -84,7 +84,7 @@ public enum GTNItemList {
     // endregion
 
     // region Setters
-    public GTNItemList set(Item item) {
+    public GTN_ItemList set(Item item) {
         hasNotBeenSet = false;
         if (item == null) return this;
         ItemStack stack = new ItemStack(item, 1, 0);
@@ -92,7 +92,7 @@ public enum GTNItemList {
         return this;
     }
 
-    public GTNItemList set(ItemStack itemStack) {
+    public GTN_ItemList set(ItemStack itemStack) {
         if (itemStack != null) {
             hasNotBeenSet = false;
             this.itemStack = GTUtility.copyAmountUnsafe(1, itemStack);
@@ -101,7 +101,7 @@ public enum GTNItemList {
         return this;
     }
 
-    public GTNItemList set(IMetaTileEntity metaTileEntity) {
+    public GTN_ItemList set(IMetaTileEntity metaTileEntity) {
         if (metaTileEntity == null) throw new IllegalArgumentException();
         return set(metaTileEntity.getStackForm(1L));
     }

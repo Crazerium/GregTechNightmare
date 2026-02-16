@@ -91,13 +91,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     public void createTstTooltip(MultiblockTooltipBuilder builder) {
         builder
             .addMachineType("Test")
-            .addInfo("Test")
-            .addInfo("Test")
-            .addInfo("Test")
-            .addStructureInfoSeparator()
-            .addInfo("Test")
-            .addInfo("Test")
-            .addInfo("Test")
+            .addInfo("Test Info")
             .addInputHatch("InputHatch", 1)
             .toolTipFinisher(EnumChatFormatting.DARK_RED + "GregTechNightmare");
     }
@@ -119,10 +113,5 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                     .dot(1)
                     .buildAndChain(onElementPass(GTN_TestMultiBlock::mainCasingAdd, ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
-    }
-
-    @Override
-    public boolean isBatchModeEnabled() {
-        return false;
     }
 }
