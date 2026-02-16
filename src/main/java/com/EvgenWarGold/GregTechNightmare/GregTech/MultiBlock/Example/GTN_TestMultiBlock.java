@@ -15,6 +15,13 @@ import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
+import java.util.List;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
@@ -25,7 +32,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.logic.ProcessingLogic;
-import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -33,13 +39,6 @@ import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.VoidProtectionHelper;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
@@ -151,7 +150,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
                 if (GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4)) {
                     duration = 10;
-                    outputItems = new ItemStack[]{GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Steel, 1L)};
+                    outputItems = new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Steel, 1L) };
 
                     VoidProtectionHelper voidProtection = new VoidProtectionHelper().setMachine(machine)
                         .setItemOutputs(outputItems)

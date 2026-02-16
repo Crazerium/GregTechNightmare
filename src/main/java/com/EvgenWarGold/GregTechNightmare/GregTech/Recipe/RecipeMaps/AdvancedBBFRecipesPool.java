@@ -1,8 +1,8 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
-import it.unimi.dsi.fastutil.Pair;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Items;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
@@ -13,9 +13,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IRecipeMap;
 import gregtech.api.util.GTOreDictUnificator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AdvancedBBFRecipesPool {
 
     private static final List<DataFuels> fuels = new ArrayList<>();
@@ -25,7 +22,7 @@ public class AdvancedBBFRecipesPool {
     private static final int DURATION = 10 * 20;
 
     static {
-        //spotless:off
+        // spotless:off
         iron = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Iron, 1L);
         wroughtIron = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.WroughtIron, 1L);
         steel = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Steel, 1L);
