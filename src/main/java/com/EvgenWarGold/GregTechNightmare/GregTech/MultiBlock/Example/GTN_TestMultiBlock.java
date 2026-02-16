@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
@@ -93,7 +94,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             .addMachineType("Test")
             .addInfo("Test Info")
             .addInputHatch("InputHatch", 1)
-            .toolTipFinisher(EnumChatFormatting.DARK_RED + "GregTechNightmare");
+            .toolTipFinisher(Constants.MOD_NAME);
     }
 
     @Override
