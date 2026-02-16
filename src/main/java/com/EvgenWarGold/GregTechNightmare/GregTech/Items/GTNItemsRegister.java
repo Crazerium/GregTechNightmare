@@ -25,7 +25,7 @@ public class GTNItemsRegister {
 
     private static void registryItemContainers() {
         // spotless:off
-        GTNItemList.Test.set(META_ITEM_01.registerVariantWithTooltips(
+        GTNItemList.TestItem.set(META_ITEM_01.registerVariantWithTooltips(
             0,
             new String[]{
                 "Test"

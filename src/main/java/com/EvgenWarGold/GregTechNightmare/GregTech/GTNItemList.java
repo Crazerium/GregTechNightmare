@@ -15,7 +15,11 @@ public enum GTNItemList {
     // region Things
 
     // region Items
-    Test
+    TestItem,
+    // endregion
+
+    // region Casings
+    TestCasing
     // endregion
 
     ;

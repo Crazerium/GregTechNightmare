@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTNBlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTNItemsRegister;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -15,6 +16,7 @@ public class CommonProxy {
         GregTechNightmare.LOG.info(GregTechNightmare.MOD_NAME + " at version " + Tags.VERSION);
 
         GTNItemsRegister.init();
+        GTNBlocksRegister.init();
     }
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
