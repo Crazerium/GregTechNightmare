@@ -1,0 +1,211 @@
+package com.EvgenWarGold.GregTechNightmare.Utils;
+
+import java.util.Objects;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
+
+import org.jetbrains.annotations.Nullable;
+
+import appeng.api.storage.data.IAEItemStack;
+import gregtech.api.util.GTUtility;
+
+public class GTN_ItemID extends GTUtility.ItemId {
+
+    // region Member Variables
+    private Item item;
+    private int metaData;
+    private NBTTagCompound nbt;
+    // endregion
+
+    // region Class Constructors
+    public GTN_ItemID(Item item, int metaData, NBTTagCompound nbt) {
+        this.item = item;
+        this.metaData = metaData;
+        this.nbt = nbt;
+    }
+
+    public GTN_ItemID(Item item, int metaData) {
+        this.item = item;
+        this.metaData = metaData;
+    }
+
+    public GTN_ItemID(Item item) {
+        this.item = item;
+        this.metaData = 0;
+    }
+
+    public GTN_ItemID() {}
+    // endregion
+
+    // region Static Methods
+    public static final GTN_ItemID NULL = new GTN_ItemID();
+
+    public static GTN_ItemID create(ItemStack itemStack) {
+        if (null == itemStack) return NULL;
+        return new GTN_ItemID(itemStack.getItem(), itemStack.getItemDamage(), itemStack.getTagCompound());
+    }
+
+    public static GTN_ItemID create(Item item) {
+        if (null == item) return NULL;
+        return new GTN_ItemID(item, 0);
+    }
+
+    public static GTN_ItemID create(Item item, int metaData) {
+        if (null == item) return NULL;
+        return new GTN_ItemID(item, metaData);
+    }
+
+    public static GTN_ItemID create(Block block) {
+        if (null == block) return NULL;
+        return create(new ItemStack(block));
+    }
+
+    public static GTN_ItemID create(Block block, int metaData) {
+        if (null == block) return NULL;
+        return create(new ItemStack(block, 1, metaData));
+    }
+
+    public static GTN_ItemID createNoNBT(ItemStack itemStack) {
+        if (null == itemStack) return NULL;
+        return new GTN_ItemID(itemStack.getItem(), itemStack.getItemDamage());
+    }
+
+    public static GTN_ItemID createAsWildcard(ItemStack itemStack) {
+        if (null == itemStack) return NULL;
+        return new GTN_ItemID(itemStack.getItem(), OreDictionary.WILDCARD_VALUE);
+    }
+
+    public static GTN_ItemID create(IAEItemStack aeStack) {
+        return create(aeStack.getItemStack());
+    }
+
+    public static GTN_ItemID[] create(ItemStack... itemStacks) {
+        GTN_ItemID[] out = new GTN_ItemID[itemStacks.length];
+        for (int i = 0; i < itemStacks.length; i++) {
+            out[i] = GTN_ItemID.create(itemStacks[i]);
+        }
+        return out;
+    }
+    // endregion
+
+    // region Special Methods
+    public ItemStack getItemStack() {
+        ItemStack r = new ItemStack(item, 1, metaData);
+        if (nbt != null) {
+            r.setTagCompound(nbt);
+        }
+        return r;
+    }
+
+    public ItemStack getItemStack(int amount) {
+        ItemStack r = new ItemStack(item, amount, metaData);
+        if (nbt != null) {
+            r.setTagCompound(nbt);
+        }
+        return r;
+    }
+
+    public ItemStack getItemStackWithNBT() {
+        ItemStack itemStack = new ItemStack(item, 1, metaData);
+        itemStack.setTagCompound(nbt);
+        return itemStack;
+    }
+
+    public ItemStack getItemStackWithNBT(int amount) {
+        ItemStack itemStack = new ItemStack(item, amount, metaData);
+        itemStack.setTagCompound(nbt);
+        return itemStack;
+    }
+
+    public ItemStack getItemStackWithoutNBT() {
+        return new ItemStack(item, 1, metaData);
+    }
+
+    public ItemStack getItemStackWithoutNBT(int amount) {
+        return new ItemStack(item, amount, metaData);
+    }
+
+    // endregion
+
+    // region General Methods
+    public boolean isWildcard() {
+        return this.metaData == OreDictionary.WILDCARD_VALUE;
+    }
+
+    public GTN_ItemID setItem(Item item) {
+        this.item = item;
+        return this;
+    }
+
+    public GTN_ItemID setMetaData(int metaData) {
+        this.metaData = metaData;
+        return this;
+    }
+
+    public GTN_ItemID setNbt(NBTTagCompound nbt) {
+        this.nbt = nbt;
+        return this;
+    }
+
+    @Override
+    protected Item item() {
+        return item;
+    }
+
+    @Override
+    protected int metaData() {
+        return metaData;
+    }
+
+    @Nullable
+    @Override
+    protected NBTTagCompound nbt() {
+        return nbt;
+    }
+
+    @Nullable
+    @Override
+    protected Integer stackSize() {
+        // todo
+        return null;
+    }
+
+    @Nullable
+    protected NBTTagCompound getNBT() {
+        return nbt;
+    }
+
+    protected Item getItem() {
+        return item;
+    }
+
+    protected int getMetaData() {
+        return metaData;
+    }
+
+    public boolean equalItemStack(ItemStack itemStack) {
+        if (isWildcard()) return equals(createAsWildcard(itemStack));
+        if (nbt != null) return equals(create(itemStack));
+        return equals(createNoNBT(itemStack));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GTN_ItemID itemID)) {
+            return false;
+        }
+        return metaData == itemID.metaData && Objects.equals(item, itemID.item) && Objects.equals(nbt, itemID.nbt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(item, metaData, nbt);
+    }
+}

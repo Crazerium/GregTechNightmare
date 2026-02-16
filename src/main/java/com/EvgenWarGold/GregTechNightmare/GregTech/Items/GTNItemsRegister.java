@@ -1,10 +1,12 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.GTNItemList;
-import cpw.mods.fml.common.registry.GameRegistry;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTNItems.META_ITEM_01;
+
 import net.minecraft.item.Item;
 
-import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTNItems.META_ITEM_01;
+import com.EvgenWarGold.GregTechNightmare.GregTech.GTNItemList;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GTNItemsRegister {
 
@@ -14,9 +16,7 @@ public class GTNItemsRegister {
     }
 
     private static void registryItems() {
-        Item[] itemsToReg = {
-            META_ITEM_01
-        };
+        Item[] itemsToReg = { META_ITEM_01 };
 
         for (Item item : itemsToReg) {
             GameRegistry.registerItem(item, item.unlocalizedName);

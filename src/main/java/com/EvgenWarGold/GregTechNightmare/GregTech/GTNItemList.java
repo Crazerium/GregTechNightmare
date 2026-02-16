@@ -1,14 +1,15 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech;
 
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
-import gregtech.api.util.GTLog;
-import gregtech.api.util.GTUtility;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
+import gregtech.api.util.GTLog;
+import gregtech.api.util.GTUtility;
 
 public enum GTNItemList {
     // spotless:off
@@ -19,7 +20,11 @@ public enum GTNItemList {
     // endregion
 
     // region Casings
-    TestCasing
+    TestCasing,
+    // endregion
+
+    // region MultiBlock
+    TestMultiBlock
     // endregion
 
     ;

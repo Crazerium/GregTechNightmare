@@ -1,20 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Api;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTNUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GTUtility;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Unmodifiable;
+import static com.EvgenWarGold.GregTechNightmare.GregTechNightmare.RESOURCE_ROOT_ID;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,7 +10,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.EvgenWarGold.GregTechNightmare.GregTechNightmare.RESOURCE_ROOT_ID;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Unmodifiable;
+
+import com.EvgenWarGold.GregTechNightmare.Utils.GTNUtils;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class AbstractGtnMetaBlock extends Block implements IHasVariantAndTooltips {
 
@@ -120,7 +122,7 @@ public abstract class AbstractGtnMetaBlock extends Block implements IHasVariantA
                     + self.getUnlocalizedName()
                     + " ("
                     + self.getClass()
-                    .getSimpleName()
+                        .getSimpleName()
                     + ")");
         } else {
             allowMetaValues.add(meta);

@@ -23,7 +23,9 @@ public class GregTechNightmare {
     public static final String RESOURCE_ROOT_ID = "gregtechnightmare";
     public static final Logger LOG = LogManager.getLogger(MOD_ID);
 
-    @SidedProxy(clientSide = "com.EvgenWarGold.GregTechNightmare.ClientProxy", serverSide = "com.EvgenWarGold.GregTechNightmare.CommonProxy")
+    @SidedProxy(
+        clientSide = "com.EvgenWarGold.GregTechNightmare.ClientProxy",
+        serverSide = "com.EvgenWarGold.GregTechNightmare.CommonProxy")
     public static CommonProxy proxy;
 
     @Mod.EventHandler

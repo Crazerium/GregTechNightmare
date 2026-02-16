@@ -1,15 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Api;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.Unmodifiable;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Unmodifiable;
 
 public interface IHasVariant {
 

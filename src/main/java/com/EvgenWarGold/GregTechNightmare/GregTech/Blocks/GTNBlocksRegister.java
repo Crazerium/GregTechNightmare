@@ -1,10 +1,11 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Blocks;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTNBlocks.META_BLOCK_CASING_01;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTNItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GtnMetaBlockItem;
-import cpw.mods.fml.common.registry.GameRegistry;
 
-import static com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTNBlocks.META_BLOCK_CASING_01;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class GTNBlocksRegister {
 

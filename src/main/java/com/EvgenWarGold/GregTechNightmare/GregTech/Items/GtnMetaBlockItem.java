@@ -1,18 +1,20 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.AbstractGtnMetaBlock;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasMoreBlockInfo;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasTooltips;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GTLanguageManager;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-import java.util.Arrays;
-import java.util.List;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.AbstractGtnMetaBlock;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasMoreBlockInfo;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasTooltips;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.util.GTLanguageManager;
 
 public class GtnMetaBlockItem extends ItemBlock {
 
@@ -30,7 +32,7 @@ public class GtnMetaBlockItem extends ItemBlock {
                 "Block is not a TstMetaBlockBase: " + block.getUnlocalizedName()
                     + " ("
                     + block.getClass()
-                    .getSimpleName()
+                        .getSimpleName()
                     + ")");
         }
     }
@@ -47,7 +49,7 @@ public class GtnMetaBlockItem extends ItemBlock {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack aItemStack, EntityPlayer p_77624_2_, List<String> theTooltipsList,
-                               boolean advanced) {
+        boolean advanced) {
         int meta = aItemStack.getItemDamage();
 
         var tooltips = getMetaBlock().getTooltips(meta, IHasTooltips.isShiftKeyDown());

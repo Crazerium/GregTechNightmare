@@ -1,9 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Api;
 
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.Textures;
-import gregtech.api.render.TextureFactory;
-import gregtech.api.util.GTUtility;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
@@ -11,6 +7,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import gregtech.api.GregTechAPI;
+import gregtech.api.enums.Textures;
+import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTUtility;
 
 public abstract class AbstractGtnMetaBlockCasing extends AbstractGtnMetaBlock implements IHasMoreBlockInfo, ICasing {
 
