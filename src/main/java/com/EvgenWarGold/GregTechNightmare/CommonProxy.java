@@ -3,8 +3,10 @@ package com.EvgenWarGold.GregTechNightmare;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockLoader;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -31,4 +33,8 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {}
+
+    public void complete(FMLLoadCompleteEvent event) {
+        RecipeLoader.init();
+    }
 }

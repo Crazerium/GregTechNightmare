@@ -6,9 +6,18 @@ tile.MetaBlockCasing01.0.name=§cTest Casing
 
 #MultiBlock Controller Name
 multiblock.Test=§cTest MultiBlock
+multiblock.AdvancedBBF=Advanced BBF
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
 multiblock.waila.eu_modifier=§aEu Modifier: §6%s
 multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s
 multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
+
+#Recipe Maps
+gtn.recipe.AdvancedBBFRecipes=Advanced BBF
+
+
+#AdvancedBBF
+multiblock.advancedbbf.machine_type=BBF
+multiblock.advancedbbf.tooltip.00=Improved version of §aBricked Blast Furnace

@@ -9,8 +9,11 @@ import static mcp.mobius.waila.api.SpecialChars.RED;
 import static mcp.mobius.waila.api.SpecialChars.RESET;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,6 +36,8 @@ import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBas
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -58,14 +63,16 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public abstract String[][] getShape();
 
-    public abstract void createTstTooltip(MultiblockTooltipBuilder builder);
+    public abstract void createGtnTooltip(MultiblockTooltipBuilder builder);
+
+    public abstract String getMachineType();
     // endregion
 
     // region Class Construct
     private static final String TRANSLATE_KEY = "multiblock.";
 
     public GTN_MultiBlockBase(int id, String name) {
-        super(id, TRANSLATE_KEY + name, tr(TRANSLATE_KEY + name));
+        super(id, TRANSLATE_KEY + name, GTN_Utils.tr(TRANSLATE_KEY + name));
     }
 
     public GTN_MultiBlockBase(String name) {
@@ -208,9 +215,9 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             @Override
             public CheckRecipeResult process() {
 
-                setEuModifier(getEuModifier());
-                setSpeedBonus(getSpeedBonus());
-                setOverclockType(getOverclockType());
+                setEuModifier(isEnergyMultiBlock() ? getEuModifier() : 0);
+                setSpeedBonus(isEnergyMultiBlock() ? getSpeedBonus() : 1);
+                setOverclockType(isEnergyMultiBlock() ? getOverclockType() : OverclockType.NONE);
                 return super.process();
             }
 
@@ -243,7 +250,9 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
         final MultiblockTooltipBuilder tt = new MultiblockTooltipBuilder();
-        createTstTooltip(tt);
+        tt.addMachineType(getMachineType());
+        createGtnTooltip(tt);
+        tt.toolTipFinisher(Constants.MOD_NAME);
         return tt;
     }
     // endregion
@@ -269,22 +278,23 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         if (tag.getBoolean("incompleteStructure")) {
             currentTip.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
         } else {
-            if (parallel > 0) {
-                currentTip.add(tr("multiblock.waila.max_parallel", parallel));
-            }
+            if (isEnergyMultiBlock()) {
+                if (parallel > 0) {
+                    currentTip.add(tr("multiblock.waila.max_parallel", parallel));
+                }
 
-            if (euModifier > 0) {
-                currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
-            }
+                if (euModifier > 0) {
+                    currentTip.add(tr("multiblock.waila.eu_modifier", euModifier));
+                }
 
-            if (speedBonus > 0) {
-                currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
-            }
+                if (speedBonus > 0) {
+                    currentTip.add(tr("multiblock.waila.speed_bonus", speedBonus));
+                }
 
-            if (getOverclockType() != null) {
-                currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+                if (getOverclockType() != null) {
+                    currentTip.add(tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+                }
             }
-
             super.getWailaBody(itemStack, currentTip, accessor, config);
         }
     }
@@ -324,7 +334,52 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
     // endregion
 
-    // region new methods
+    // region Nei
+    @Override
+    public int getRecipeCatalystPriority() {
+        return 1000;
+    }
+    // endregion
+
+    // region Hatches
+    public ArrayList<MTEHatchSteamBusInput> mSteamInputBusses = new ArrayList<>();
+    public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
+
+    private boolean baseCheckHatch(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (tileEntity == null) {
+            return false;
+        }
+        IMetaTileEntity aMetaTileEntity = tileEntity.getMetaTileEntity();
+
+        return aMetaTileEntity == null;
+    }
+
+    public final boolean addSteamInputBusToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+
+        if (tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusInput steamBusInput) {
+            steamBusInput.updateTexture(baseCasingIndex);
+            steamBusInput.updateCraftingIcon(this.getMachineCraftingIcon());
+            mInputBusses.add(steamBusInput);
+            return mSteamInputBusses.add(steamBusInput);
+        }
+        return false;
+    }
+
+    public final boolean addSteamOutputBusToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+
+        if (tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusOutput steamBusOutput) {
+            steamBusOutput.updateTexture(baseCasingIndex);
+            steamBusOutput.updateCraftingIcon(this.getMachineCraftingIcon());
+            mOutputBusses.add(steamBusOutput);
+            return mSteamOutputBusses.add(steamBusOutput);
+        }
+        return false;
+    }
+    // endregion
+
+    // region Others methods
     public void repairMachine() {
         mHardHammer = true;
         mSoftMallet = true;
@@ -332,6 +387,18 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         mCrowbar = true;
         mSolderingTool = true;
         mWrench = true;
+    }
+
+    public boolean isEnergyMultiBlock() {
+        return true;
+    }
+
+    protected String tr(String key) {
+        return GTN_Utils.tr(this.mName + "." + key);
+    }
+
+    protected String tr(String key, Object... formatted) {
+        return GTN_Utils.tr(this.mName + "." + key, formatted);
     }
     // endregion
 }

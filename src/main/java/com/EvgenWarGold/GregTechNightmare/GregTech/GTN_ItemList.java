@@ -24,7 +24,8 @@ public enum GTN_ItemList {
     // endregion
 
     // region MultiBlock
-    TestMultiBlock
+    TestMultiBlock,
+    AdvancedBBF
     // endregion
 
     ;

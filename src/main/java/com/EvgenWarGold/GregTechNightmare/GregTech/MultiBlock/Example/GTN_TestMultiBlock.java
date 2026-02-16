@@ -86,11 +86,12 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     }
 
     @Override
-    public void createTstTooltip(MultiblockTooltipBuilder builder) {
-        builder.addMachineType("Test")
-            .addInfo("Test Info")
-            .addInputHatch("InputHatch", 1)
-            .toolTipFinisher(Constants.MOD_NAME);
+    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
+    }
+
+    @Override
+    public String getMachineType() {
+        return "TEST";
     }
 
     @Override
