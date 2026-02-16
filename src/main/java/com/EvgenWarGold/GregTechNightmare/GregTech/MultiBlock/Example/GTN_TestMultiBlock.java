@@ -1,15 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
-import net.minecraft.util.EnumChatFormatting;
-
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
@@ -24,6 +14,16 @@ import static gregtech.api.enums.HatchElement.MultiAmpEnergy;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.MultiblockTooltipBuilder;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
@@ -82,16 +82,12 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] {
-            { "AAA", "AAA", "AAA" },
-            { "A~A", "A A", "AAA" },
-            { "AAA", "AAA", "AAA" } };
+        return new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } };
     }
 
     @Override
     public void createTstTooltip(MultiblockTooltipBuilder builder) {
-        builder
-            .addMachineType("Test")
+        builder.addMachineType("Test")
             .addInfo("Test Info")
             .addInputHatch("InputHatch", 1)
             .toolTipFinisher(Constants.MOD_NAME);
@@ -109,10 +105,23 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             .addElement(
                 'A',
                 buildHatchAdder(GTN_TestMultiBlock.class)
-                    .atLeast(InputHatch, OutputHatch, InputBus, OutputBus, Energy, MultiAmpEnergy, ExoticEnergy, Maintenance, Muffler, Dynamo)
+                    .atLeast(
+                        InputHatch,
+                        OutputHatch,
+                        InputBus,
+                        OutputBus,
+                        Energy,
+                        MultiAmpEnergy,
+                        ExoticEnergy,
+                        Maintenance,
+                        Muffler,
+                        Dynamo)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
-                    .buildAndChain(onElementPass(GTN_TestMultiBlock::mainCasingAdd, ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
+                    .buildAndChain(
+                        onElementPass(
+                            GTN_TestMultiBlock::mainCasingAdd,
+                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
 }

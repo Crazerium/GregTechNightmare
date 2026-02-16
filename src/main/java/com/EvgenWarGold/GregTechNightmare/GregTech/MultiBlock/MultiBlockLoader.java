@@ -6,7 +6,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 public final class MultiBlockLoader {
 
     public static void init() {
-        GTN_ItemList.TestMultiBlock.set(
-            new GTN_TestMultiBlock(20_000, "Test"));
+        GTN_ItemList.TestMultiBlock.set(new GTN_TestMultiBlock(20_000, "Test"));
     }
 }
