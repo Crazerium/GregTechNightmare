@@ -80,6 +80,8 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     @Override
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
         builder.addInfo(tr("tooltip.00"))
+            .addInfo(tr("tooltip.01"))
+            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
             .beginStructureBlock(5, 6, 5, true)
             .addSteamInputBus(EnumChatFormatting.GOLD + "1", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1", 1);
