@@ -17,6 +17,7 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -150,7 +151,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
                 if (GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4)) {
                     duration = 10;
-                    outputItems = new ItemStack[] { GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Steel, 1L) };
+                    outputItems = GTN_Utils.addItemsToArrays(GTN_OreDict.getIngot(Materials.Steel), 20_000_000_000L);
 
                     VoidProtectionHelper voidProtection = new VoidProtectionHelper().setMachine(machine)
                         .setItemOutputs(outputItems)

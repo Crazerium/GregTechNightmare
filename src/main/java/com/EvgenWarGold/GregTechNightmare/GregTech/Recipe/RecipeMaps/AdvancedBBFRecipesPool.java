@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
@@ -23,54 +24,54 @@ public class AdvancedBBFRecipesPool {
 
     static {
         // spotless:off
-        iron = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Iron, 1L);
-        wroughtIron = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.WroughtIron, 1L);
-        steel = GTOreDictUnificator.get(OrePrefixes.ingot, Materials.Steel, 1L);
+        iron = GTN_OreDict.getIngot(Materials.Iron);
+        wroughtIron = GTN_OreDict.getIngot(Materials.WroughtIron);
+        steel = GTN_OreDict.getIngot(Materials.Steel);
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.gem, Materials.Coal, 1L),
+            GTN_OreDict.getGem(Materials.Coal),
             1,
             1
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.gem, Materials.Charcoal, 1L),
+            GTN_OreDict.getGem(Materials.Charcoal),
             1,
             1
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.gem, Materials.Diamond, 1L),
+            GTN_OreDict.getGem(Materials.Diamond),
             40,
             64
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.dust, Materials.Coal,1L),
+            GTN_OreDict.getDust(Materials.Coal),
             1,
             1
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.dust, Materials.Charcoal,1L),
+            GTN_OreDict.getDust(Materials.Charcoal),
             1,
             1
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.dust, Materials.Diamond,1L),
+            GTN_OreDict.getDust(Materials.Diamond),
             40,
             64
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.block, Materials.Coal, 1L),
+            GTN_OreDict.getBlock(Materials.Coal),
             8,
             10
         ));
 
         fuels.add(new DataFuels(
-            GTOreDictUnificator.get(OrePrefixes.block, Materials.Charcoal, 1L),
+            GTN_OreDict.getBlock(Materials.Charcoal),
             8,
             10
         ));

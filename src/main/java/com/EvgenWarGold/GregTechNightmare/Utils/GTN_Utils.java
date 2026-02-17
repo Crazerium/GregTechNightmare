@@ -1,8 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import gregtech.api.util.GTUtility;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,37 +17,14 @@ import gregtech.api.util.GTRecipe;
 
 public class GTN_Utils {
 
-    /**
-     * Create a new {@link ItemStack} of given Item with meta.
-     *
-     * @param item the Item
-     * @param meta the meta value
-     * @return a new ItemStack of given Item with meta
-     */
     public static ItemStack newItemWithMeta(Item item, int meta) {
         return new ItemStack(item, 1, meta);
     }
 
-    /**
-     * Create a new {@link ItemStack} of given Block with meta.
-     *
-     * @param block the Block
-     * @param meta  the meta value
-     * @return a new ItemStack of given Item with meta
-     */
     public static ItemStack newItemWithMeta(Block block, int meta) {
         return new ItemStack(block, 1, meta);
     }
 
-    /**
-     * Localize by the key.
-     * If the key does not exist in both of the currently used language and fallback language (English), the key itself
-     * is returned.
-     *
-     * @param key the localization key
-     * @return the localized text by the key, or key if the key does not exist.
-     * @see StatCollector#translateToLocal(String)
-     */
     public static String tr(String key) {
         return StatCollector.translateToLocal(key);
     }
@@ -54,14 +33,6 @@ public class GTN_Utils {
         return StatCollector.translateToLocalFormatted(key, formatted);
     }
 
-    /**
-     * Set the stacksize of the given ItemStack, and return the given stack.
-     * The 64 limit is unchecked, be aware.
-     *
-     * @param itemStack the given stack
-     * @param size      the size to set
-     * @return the given stack
-     */
     public static ItemStack setStackSize(@NotNull ItemStack itemStack, int size) {
         itemStack.stackSize = size;
         return itemStack;
@@ -85,22 +56,84 @@ public class GTN_Utils {
             return false;
         }
 
+        int totalCount = 0;
+        for (ItemStack item : items) {
+            if (item != null && item.isItemEqual(itemToRemove)) {
+                totalCount += item.stackSize;
+            }
+        }
+
+        if (totalCount < amount) {
+            return false;
+        }
+
         int remainingToRemove = amount;
         ListIterator<ItemStack> iterator = items.listIterator();
 
         while (iterator.hasNext() && remainingToRemove > 0) {
             ItemStack currentItem = iterator.next();
 
-            if (currentItem.isItemEqual(itemToRemove)) {
-                if (currentItem.stackSize < remainingToRemove) {
+            if (currentItem != null && currentItem.isItemEqual(itemToRemove)) {
+                int currentAmount = currentItem.stackSize;
+
+                if (currentAmount <= remainingToRemove) {
+                    currentItem.stackSize = currentAmount - remainingToRemove;
+                    remainingToRemove -= currentAmount;
                     iterator.remove();
                 } else {
-                    currentItem.stackSize = currentItem.stackSize - remainingToRemove;
+                    currentItem.stackSize = currentAmount - remainingToRemove;
                     remainingToRemove = 0;
                 }
             }
         }
 
-        return remainingToRemove == 0;
+        return true;
+    }
+
+    public static List<ItemStack> addItemsToList(ItemStack item, long amount) {
+        List<ItemStack> result = new ArrayList<>();
+
+        if (amount <= 0 || item == null) {
+            return result;
+        }
+
+        long remainingAmount = amount;
+
+        while (remainingAmount > Integer.MAX_VALUE) {
+            result.add(GTUtility.copyAmountUnsafe(Integer.MAX_VALUE, item));
+            remainingAmount -= Integer.MAX_VALUE;
+        }
+
+        if (remainingAmount > 0) {
+            result.add(GTUtility.copyAmountUnsafe((int) remainingAmount, item));
+        }
+
+        return result;
+    }
+
+    public static ItemStack[] addItemsToArrays(ItemStack item, long amount) {
+        if (amount <= 0 || item == null) {
+            return new ItemStack[0];
+        }
+
+        // Вычисляем количество элементов в массиве
+        int arraySize = (int) (amount / Integer.MAX_VALUE);
+        if (amount % Integer.MAX_VALUE != 0) {
+            arraySize++;
+        }
+
+        ItemStack[] result = new ItemStack[arraySize];
+        long remainingAmount = amount;
+
+        for (int i = 0; i < result.length; i++) {
+            if (remainingAmount > Integer.MAX_VALUE) {
+                result[i] = GTUtility.copyAmountUnsafe(Integer.MAX_VALUE, item);
+                remainingAmount -= Integer.MAX_VALUE;
+            } else {
+                result[i] = GTUtility.copyAmountUnsafe((int) remainingAmount, item);
+            }
+        }
+
+        return result;
     }
 }
