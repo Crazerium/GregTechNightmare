@@ -17,7 +17,6 @@ import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -27,19 +26,17 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import gregtech.api.util.VoidProtectionHelper;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
@@ -149,17 +146,16 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             public CheckRecipeResult process() {
                 List<ItemStack> inputItems = getStoredInputs();
 
-                if (GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4)) {
-                    duration = 10;
+                if (GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4, true)) {
                     outputItems = GTN_Utils.addItemsToArrays(GTN_OreDict.getIngot(Materials.Steel), 20_000_000_000L);
 
-                    VoidProtectionHelper voidProtection = new VoidProtectionHelper().setMachine(machine)
-                        .setItemOutputs(outputItems)
-                        .build();
-
-                    if (voidProtection.isFluidFull()) {
+                    if (isOutputItemsFull(outputItems, machine)) {
                         return CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
                     }
+
+                    GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4);
+
+                    setDurationInDays(1_242);
 
                     return CheckRecipeResultRegistry.SUCCESSFUL;
                 }

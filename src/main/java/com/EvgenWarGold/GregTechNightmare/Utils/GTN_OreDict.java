@@ -1,9 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
+import net.minecraft.item.ItemStack;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
-import net.minecraft.item.ItemStack;
 
 public class GTN_OreDict {
 

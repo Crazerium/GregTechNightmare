@@ -3,16 +3,14 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IRecipeMap;
-import gregtech.api.util.GTOreDictUnificator;
 
 public class AdvancedBBFRecipesPool {
 

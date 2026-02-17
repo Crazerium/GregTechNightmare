@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import gregtech.api.util.GTUtility;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.util.GTRecipe;
+import gregtech.api.util.GTUtility;
 
 public class GTN_Utils {
 
@@ -51,7 +51,7 @@ public class GTN_Utils {
             .find();
     }
 
-    public static boolean removeItems(List<ItemStack> items, ItemStack itemToRemove, int amount) {
+    public static boolean removeItems(List<ItemStack> items, ItemStack itemToRemove, int amount, boolean simulate) {
         if (items == null || itemToRemove == null || amount <= 0) {
             return false;
         }
@@ -65,6 +65,10 @@ public class GTN_Utils {
 
         if (totalCount < amount) {
             return false;
+        }
+
+        if (simulate) {
+            return true;
         }
 
         int remainingToRemove = amount;
@@ -88,6 +92,10 @@ public class GTN_Utils {
         }
 
         return true;
+    }
+
+    public static boolean removeItems(List<ItemStack> items, ItemStack itemToRemove, int amount) {
+        return removeItems(items, itemToRemove, amount, false);
     }
 
     public static List<ItemStack> addItemsToList(ItemStack item, long amount) {
