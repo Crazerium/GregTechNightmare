@@ -2,6 +2,9 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 
 import gregtech.api.enums.ItemList;
@@ -22,6 +25,16 @@ public class GTN_MultiBlockRecipes {
                 'C', ItemList.Machine_Bricked_BlastFurnace
             });
 
+        // Bronze Void Miner
+        addCraftingRecipe(
+            GTN_ItemList.BronzeVoidMiner.get(1),
+            new Object[]{"ABA", "BCB", "EDE",
+                'A', OrePrefixes.frameGt.get(Materials.Bronze),
+                'B', ItemList.Casing_BronzePlatedBricks,
+                'D', ItemList.Machine_Bronze_Boiler.get(1),
+                'C', new ItemStack(Items.diamond_pickaxe),
+                'E', ItemList.Casing_Firebox_Bronze
+            });
         //spotless:on
     }
 }

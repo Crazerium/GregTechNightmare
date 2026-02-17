@@ -37,6 +37,7 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -63,8 +64,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public abstract String[][] getShape();
 
     public abstract void createGtnTooltip(MultiblockTooltipBuilder builder);
-
-    public abstract String getMachineType();
     // endregion
 
     // region Class Construct
@@ -216,7 +215,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
                 setEuModifier(isEnergyMultiBlock() ? getEuModifier() : 0);
                 setSpeedBonus(isEnergyMultiBlock() ? getSpeedBonus() : 1);
-                setOverclockType(isEnergyMultiBlock() ? getOverclockType() : OverclockType.NONE);
+                setOverclockType(getOverclockType());
                 return super.process();
             }
 
@@ -245,6 +244,9 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Tooltip
+    public String getMachineType() {
+        return tr("machine_type");
+    }
 
     @Override
     protected MultiblockTooltipBuilder createTooltip() {
@@ -343,6 +345,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // region Hatches
     public ArrayList<MTEHatchSteamBusInput> mSteamInputBusses = new ArrayList<>();
     public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
+    public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
 
     private boolean baseCheckHatch(IGregTechTileEntity tileEntity, int baseCasingIndex) {
         if (tileEntity == null) {
@@ -361,6 +364,17 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             steamBusInput.updateCraftingIcon(this.getMachineCraftingIcon());
             mInputBusses.add(steamBusInput);
             return mSteamInputBusses.add(steamBusInput);
+        }
+        return false;
+    }
+
+    public final boolean addSteamInputHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+
+        if (tileEntity.getMetaTileEntity() instanceof MTEHatchCustomFluidBase steamHatchInput) {
+            steamHatchInput.updateTexture(baseCasingIndex);
+            steamHatchInput.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mSteamInputFluids.add(steamHatchInput);
         }
         return false;
     }
@@ -386,6 +400,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         mCrowbar = true;
         mSolderingTool = true;
         mWrench = true;
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+        this.mSteamInputFluids.clear();
+        this.mSteamInputBusses.clear();
+        this.mSteamOutputBusses.clear();
     }
 
     public boolean isEnergyMultiBlock() {

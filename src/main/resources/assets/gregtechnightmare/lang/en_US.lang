@@ -7,6 +7,7 @@ tile.MetaBlockCasing01.0.name=§cTest Casing
 #MultiBlock Controller Name
 multiblock.Test=§cTest MultiBlock
 multiblock.AdvancedBBF=Advanced BBF
+multiblock.BronzeVoidMiner=Bronze Void Miner
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -22,6 +23,14 @@ gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 multiblock.advancedbbf.machine_type=BBF
 multiblock.advancedbbf.tooltip.00=Improved version of §aBricked Blast Furnace
 multiblock.advancedbbf.tooltip.01=§eCheck nei recipes
+
+#BronzeVoidMiner
+multiblock.bronzevoidminer.machine_type=Void Miner
+multiblock.bronzevoidminer.tooltip.00=Steam consumption: §e8 000 L/s
+multiblock.bronzevoidminer.tooltip.01=Generate §94§7 random ores
+multiblock.bronzevoidminer.tooltip.02=§cWorks only in the Overworld
+
+
 
 #Authors
 Author_EvgenWarGold=Added by: §cEvgen§9War§6Gold

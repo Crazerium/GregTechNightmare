@@ -92,11 +92,6 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     }
 
     @Override
-    public String getMachineType() {
-        return tr("machine_type");
-    }
-
-    @Override
     public IStructureDefinition<GTN_AdvancedBBF> getStructureDefinition() {
         return IStructureDefinition.<GTN_AdvancedBBF>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))

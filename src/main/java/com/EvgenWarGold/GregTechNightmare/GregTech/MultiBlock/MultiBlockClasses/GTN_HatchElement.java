@@ -10,8 +10,19 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.IGTHatchAdder;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 
 public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
+
+    SteamInputHatch("SteamInputHatch", GTN_MultiBlockBase::addSteamInputHatchToMachineList,
+        MTEHatchCustomFluidBase.class) {
+
+        @Override
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
+            return gtnMultiBlockBase.mSteamInputFluids.size();
+        }
+
+    },
 
     SteamInputBus("SteamInputBus", GTN_MultiBlockBase::addSteamInputBusToMachineList, MTEHatchSteamBusInput.class) {
 
