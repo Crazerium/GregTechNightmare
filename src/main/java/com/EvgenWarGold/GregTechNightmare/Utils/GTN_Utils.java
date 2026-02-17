@@ -124,7 +124,6 @@ public class GTN_Utils {
             return new ItemStack[0];
         }
 
-        // Вычисляем количество элементов в массиве
         int arraySize = (int) (amount / Integer.MAX_VALUE);
         if (amount % Integer.MAX_VALUE != 0) {
             arraySize++;
