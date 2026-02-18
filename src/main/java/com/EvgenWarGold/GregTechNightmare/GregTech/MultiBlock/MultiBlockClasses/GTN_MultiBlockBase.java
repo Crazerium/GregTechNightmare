@@ -35,6 +35,7 @@ import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBas
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import gregtech.api.util.VoidProtectionHelper;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
@@ -410,6 +411,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamOutputBusses.clear();
     }
 
+    protected int getEfficiency() {
+        return getCurrentEfficiency(this.getStackForm(1));
+    }
+
     public boolean isEnergyMultiBlock() {
         return true;
     }
@@ -420,6 +425,24 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     protected String tr(String key, Object... formatted) {
         return GTN_Utils.tr(this.mName + "." + key, formatted);
+    }
+    // endregion
+
+    // region Energy
+    protected long getEnergyUsageWithoutLoss(long lEUt) {
+        return (long) (-lEUt * 0.95);
+    }
+    // endregion
+
+    // region Void Helper
+    protected boolean isItemOutputFull(ItemStack[] itemOutputs) {
+        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
+
+        voidProtectionHelper.setMachine(this)
+            .setItemOutputs(itemOutputs)
+            .build();
+
+        return voidProtectionHelper.isItemFull();
     }
     // endregion
 }

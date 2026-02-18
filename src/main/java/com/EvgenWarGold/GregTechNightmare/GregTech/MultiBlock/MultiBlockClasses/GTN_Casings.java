@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +34,7 @@ import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 import gtPlusPlus.core.block.ModBlocks;
+import org.jetbrains.annotations.Nullable;
 import tectech.thing.block.BlockGodforgeGlass;
 import tectech.thing.block.BlockQuantumGlass;
 import tectech.thing.casing.BlockGTCasingsTT;
@@ -591,6 +595,10 @@ public enum GTN_Casings implements ICasing {
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 32091, 32091),
     BoltedIridiumCasing
         (() -> WerkstoffLoader.BWBlockCasings, 31850,31850),
+    BoltedArditeCasing
+        (() -> WerkstoffLoader.BWBlockCasings, 32148, 32148),
+    BoltedCobaltCasing
+        (() -> WerkstoffLoader.BWBlockCasings, 31799, 31799),
     ReboltedIridiumCasing
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 31850, 31850),
 
@@ -1086,6 +1094,11 @@ public enum GTN_Casings implements ICasing {
         }
 
         return block;
+    }
+
+    @Nullable
+    public ItemStack getItemStack() {
+        return GTN_Utils.newItemWithMeta(getBlock(), meta);
     }
 
     @Override

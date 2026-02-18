@@ -102,7 +102,7 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(5, 6, 5, true)
+            .beginStructureBlock(3, 7, 3, true)
             .addInputHatch(EnumChatFormatting.GOLD + "1", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1", 1);
     }

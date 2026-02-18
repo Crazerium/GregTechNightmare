@@ -8,6 +8,7 @@ tile.MetaBlockCasing01.0.name=§cTest Casing
 multiblock.Test=§cTest MultiBlock
 multiblock.AdvancedBBF=Advanced BBF
 multiblock.BronzeVoidMiner=Bronze Void Miner
+multiblock.LowPowerVoidMiner=Low Power Void Miner
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -29,6 +30,12 @@ multiblock.bronzevoidminer.machine_type=Void Miner
 multiblock.bronzevoidminer.tooltip.00=Steam consumption: §e8 000 L/s
 multiblock.bronzevoidminer.tooltip.01=Generate §94§7 random ores
 multiblock.bronzevoidminer.tooltip.02=§cWorks only in the Overworld
+
+#LowPowerVoidMiner
+multiblock.lowpowervoidminer.machine_type=Void Miner
+multiblock.lowpowervoidminer.tooltip.00=Consumption: §e128 Eu/t
+multiblock.lowpowervoidminer.tooltip.01=Generate §98§7 random ores per second
+multiblock.lowpowervoidminer.tooltip.02=§cWorks only in the Overworld, Twilight Forest and Nether
 
 
 

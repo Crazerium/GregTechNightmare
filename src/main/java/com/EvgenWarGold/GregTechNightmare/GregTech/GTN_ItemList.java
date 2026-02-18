@@ -26,10 +26,11 @@ public enum GTN_ItemList {
     // region MultiBlock
     TestMultiBlock,
     AdvancedBBF,
-    BronzeVoidMiner
+    BronzeVoidMiner,
+    LowPowerVoidMiner,
     // endregion
 
-    ,;
+    ;
     // endregion
     // spotless:on
 
