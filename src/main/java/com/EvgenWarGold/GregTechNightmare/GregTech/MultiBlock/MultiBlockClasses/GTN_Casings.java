@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
-
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.gtnhlib.util.data.BlockSupplier;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
@@ -34,7 +34,6 @@ import gregtech.api.util.GTStructureUtility;
 import gregtech.api.util.GTUtility;
 import gregtech.common.tileentities.storage.MTEDigitalChestBase;
 import gtPlusPlus.core.block.ModBlocks;
-import org.jetbrains.annotations.Nullable;
 import tectech.thing.block.BlockGodforgeGlass;
 import tectech.thing.block.BlockQuantumGlass;
 import tectech.thing.casing.BlockGTCasingsTT;

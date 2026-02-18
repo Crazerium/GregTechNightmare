@@ -12,9 +12,6 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +21,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
@@ -43,6 +41,7 @@ import gregtech.api.util.VoidProtectionHelper;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
+import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -258,7 +257,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
             }
         }
-
 
         return super.checkProcessing();
     }

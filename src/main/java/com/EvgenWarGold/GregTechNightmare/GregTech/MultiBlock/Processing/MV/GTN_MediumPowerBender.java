@@ -1,21 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.TierEU;
-import gregtech.api.enums.VoltageIndex;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
-import it.unimi.dsi.fastutil.Pair;
-import net.minecraft.util.EnumChatFormatting;
-
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
@@ -25,6 +9,21 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import net.minecraft.util.EnumChatFormatting;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBender> {
 
@@ -73,11 +72,8 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     public String[][] getShape() {
-        return new String[][]{
-            {"BB   B","AAAAAA","BB   B"},
-            {"A~   A","AA   A","AA   A"},
-            {"AABBBA","AAAAAA","AABBBA"}
-        };
+        return new String[][] { { "BB   B", "AAAAAA", "BB   B" }, { "A~   A", "AA   A", "AA   A" },
+            { "AABBBA", "AAAAAA", "AABBBA" } };
     }
 
     @Override
@@ -99,8 +95,7 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
             .addElement('B', ofFrame(Materials.Steel))
             .addElement(
                 'A',
-                buildHatchAdder(GTN_MediumPowerBender.class)
-                    .atLeast(InputBus, OutputBus, Energy, Maintenance)
+                buildHatchAdder(GTN_MediumPowerBender.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
                     .buildAndChain(

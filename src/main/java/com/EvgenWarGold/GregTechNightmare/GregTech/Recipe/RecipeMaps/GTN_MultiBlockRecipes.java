@@ -2,24 +2,20 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.setStackSize;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils;
-import gregtech.api.enums.GTValues;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.GTOreDictUnificator;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 
+import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.recipe.RecipeMaps;
 
 public class GTN_MultiBlockRecipes {
 

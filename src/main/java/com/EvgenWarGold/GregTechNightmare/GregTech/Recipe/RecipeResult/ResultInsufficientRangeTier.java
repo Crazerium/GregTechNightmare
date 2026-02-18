@@ -1,16 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
-import gregtech.api.recipe.check.CheckRecipeResult;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.StatCollector;
-import org.jetbrains.annotations.NotNull;
+import static gregtech.api.enums.GTValues.VN;
 
 import java.util.Objects;
 
-import static gregtech.api.enums.GTValues.V;
-import static gregtech.api.enums.GTValues.VN;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
+
+import gregtech.api.recipe.check.CheckRecipeResult;
 
 public class ResultInsufficientRangeTier implements CheckRecipeResult {
 

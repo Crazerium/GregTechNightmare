@@ -4,8 +4,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
-
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.RecipeResultRegisters;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
