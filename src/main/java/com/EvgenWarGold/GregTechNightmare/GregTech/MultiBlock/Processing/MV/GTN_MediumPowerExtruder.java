@@ -121,7 +121,7 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     protected Pair<Integer, Integer> getMaxEnergyTier() {
-        return Pair.of(0, VoltageIndex.HV);
+        return Pair.of(VoltageIndex.MV, VoltageIndex.HV);
     }
 
     @Override

@@ -26,24 +26,24 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import it.unimi.dsi.fastutil.Pair;
 
-public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPowerAssembler> {
+public class GTN_MediumPowerCircuitAssembler extends GTN_MultiBlockBase<GTN_MediumPowerCircuitAssembler> {
 
-    public GTN_MediumPowerAssembler(int id, String name) {
+    public GTN_MediumPowerCircuitAssembler(int id, String name) {
         super(id, name);
     }
 
-    public GTN_MediumPowerAssembler(String name) {
+    public GTN_MediumPowerCircuitAssembler(String name) {
         super(name);
     }
 
     @Override
     public int getOffsetHorizontal() {
-        return 3;
+        return 1;
     }
 
     @Override
     public int getOffsetVertical() {
-        return 4;
+        return 1;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     }
 
     @Override
-    public GTN_MediumPowerAssembler createNewMetaEntity() {
-        return new GTN_MediumPowerAssembler(this.mName);
+    public GTN_MediumPowerCircuitAssembler createNewMetaEntity() {
+        return new GTN_MediumPowerCircuitAssembler(this.mName);
     }
 
     @Override
@@ -73,11 +73,8 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " C   C ", " C   C ", " C   C ", " CCCCC ", " C   C " },
-            { " C   C ", "       ", "       ", "  B    ", " C   C " },
-            { " C   C ", "       ", "       ", "       ", " C   C " },
-            { " C   C ", " AAAAA ", " AAAAA ", " AAAAA ", " C   C " },
-            { " AA~AA ", "AAAAAAA", "AAAAAAA", "AAAAAAA", " AAAAA " } };
+        return new String[][] { { " B   AAA ", "AA   AAAA", " B   AAA " }, { "A~     AA", "AABBABAAA", "AA     AA" },
+            { "AABBABAAA", "AABBABAAA", "AABBABAAA" } };
     }
 
     @Override
@@ -86,7 +83,7 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(7, 5, 5, false)
+            .beginStructureBlock(3, 9, 3, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
             .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
@@ -94,27 +91,26 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     }
 
     @Override
-    public IStructureDefinition<GTN_MediumPowerAssembler> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerAssembler>builder()
+    public IStructureDefinition<GTN_MediumPowerCircuitAssembler> getStructureDefinition() {
+        return IStructureDefinition.<GTN_MediumPowerCircuitAssembler>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('C', ofFrame(Materials.Steel))
-            .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
+            .addElement('B', ofFrame(Materials.Steel))
             .addElement(
                 'A',
-                buildHatchAdder(GTN_MediumPowerAssembler.class)
+                buildHatchAdder(GTN_MediumPowerCircuitAssembler.class)
                     .atLeast(InputBus, OutputBus, Energy, Maintenance, InputHatch)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
                     .buildAndChain(
                         onElementPass(
-                            GTN_MediumPowerAssembler::mainCasingAdd,
+                            GTN_MediumPowerCircuitAssembler::mainCasingAdd,
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
 
     @Override
     public RecipeMap<?> getRecipeMap() {
-        return RecipeMaps.assemblerRecipes;
+        return RecipeMaps.circuitAssemblerRecipes;
     }
 
     @Override

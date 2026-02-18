@@ -117,7 +117,7 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     protected Pair<Integer, Integer> getMaxEnergyTier() {
-        return Pair.of(0, VoltageIndex.HV);
+        return Pair.of(VoltageIndex.MV, VoltageIndex.HV);
     }
 
     @Override

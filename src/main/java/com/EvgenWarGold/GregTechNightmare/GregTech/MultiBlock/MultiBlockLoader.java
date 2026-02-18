@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerExtruder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
@@ -20,6 +21,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.MediumPowerBender.set(new GTN_MediumPowerBender(20_004, "MediumPowerBender"));
         GTN_ItemList.MediumPowerExtruder.set(new GTN_MediumPowerExtruder(20_005, "MediumPowerExtruder"));
         GTN_ItemList.MediumPowerAssembler.set(new GTN_MediumPowerAssembler(20_006, "MediumPowerAssembler"));
+        GTN_ItemList.MediumPowerCircuitAssembler.set(new GTN_MediumPowerCircuitAssembler(20_007, "MediumPowerCircuitAssembler"));
         //spotless:on
     }
 }
