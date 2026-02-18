@@ -1,4 +1,4 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
@@ -60,11 +60,6 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     }
 
     @Override
-    public String getStructurePieceMain() {
-        return this.mName;
-    }
-
-    @Override
     public GTN_Casings getMainCasings() {
         return GTN_Casings.SolidSteelMachineCasing;
     }
@@ -96,7 +91,7 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 7, 3, true)
+            .beginStructureBlock(3, 7, 3, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
     }

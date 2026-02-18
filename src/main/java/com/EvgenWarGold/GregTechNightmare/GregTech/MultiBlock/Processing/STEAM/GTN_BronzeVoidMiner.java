@@ -66,11 +66,6 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     }
 
     @Override
-    public String getStructurePieceMain() {
-        return this.mName;
-    }
-
-    @Override
     public GTN_Casings getMainCasings() {
         return GTN_Casings.BronzeFireboxCasing;
     }
@@ -102,7 +97,7 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 7, 3, true)
+            .beginStructureBlock(3, 7, 3, false)
             .addInputHatch(EnumChatFormatting.GOLD + "1", 1)
             .addSteamOutputBus(EnumChatFormatting.GOLD + "1", 1);
     }

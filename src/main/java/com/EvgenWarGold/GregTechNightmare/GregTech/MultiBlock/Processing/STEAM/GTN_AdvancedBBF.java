@@ -49,11 +49,6 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     }
 
     @Override
-    public String getStructurePieceMain() {
-        return this.mName;
-    }
-
-    @Override
     public GTN_Casings getMainCasings() {
         return GTN_Casings.Firebricks;
     }

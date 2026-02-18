@@ -9,6 +9,7 @@ multiblock.Test=§cTest MultiBlock
 multiblock.AdvancedBBF=Advanced BBF
 multiblock.BronzeVoidMiner=Bronze Void Miner
 multiblock.LowPowerVoidMiner=Low Power Void Miner
+multiblock.MediumPowerBender=Medium Power Bender
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -37,7 +38,16 @@ multiblock.lowpowervoidminer.tooltip.00=Consumption: §e128 Eu/t
 multiblock.lowpowervoidminer.tooltip.01=Generate §98§7 random ores per second
 multiblock.lowpowervoidminer.tooltip.02=§cWorks only in the Overworld, Twilight Forest and Nether
 
+#MediumPowerBender
+multiblock.mediumpowerbender.machine_type=Bending Machine
+multiblock.mediumpowerbender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.mediumpowerbender.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.mediumpowerbender.tooltip.02=Max parallel: §910
 
+
+#RecipeResult
+multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
+multiblock.reciperesult.max_tier=§cRequired energy hatch: %s
 
 #Authors
-Author_EvgenWarGold=Added by: §cEvgen§9War§6Gold
+Author_EvgenWarGold=Author: §cEvgen§9War§6Gold

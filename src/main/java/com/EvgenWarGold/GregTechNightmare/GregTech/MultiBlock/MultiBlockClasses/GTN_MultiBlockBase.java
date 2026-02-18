@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
@@ -11,6 +12,9 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -51,8 +55,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public abstract int getOffsetVertical();
 
     public abstract int getOffsetDepth();
-
-    public abstract String getStructurePieceMain();
 
     public abstract GTN_Casings getMainCasings();
 
@@ -95,6 +97,27 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     protected int getMainCasingMax() {
         return 0;
+    }
+
+    public String getStructurePieceMain() {
+        return this.mName;
+    }
+
+    public void repairMachine() {
+        mHardHammer = true;
+        mSoftMallet = true;
+        mScrewdriver = true;
+        mCrowbar = true;
+        mSolderingTool = true;
+        mWrench = true;
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+        this.mSteamInputFluids.clear();
+        this.mSteamInputBusses.clear();
+        this.mSteamOutputBusses.clear();
     }
 
     @Override
@@ -194,6 +217,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected int maxParallel = 1;
     protected float euModifier = 1;
     protected float speedBonus = 1;
+    private boolean isCustomHatches = false;
 
     public int getMaxParallelRecipes() {
         return maxParallel;
@@ -221,6 +245,26 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             }
 
         }.setMaxParallelSupplier(this::getMaxParallelRecipes);
+    }
+
+    @Override
+    public @NotNull CheckRecipeResult checkProcessing() {
+        Pair<Integer, Integer> dynamoTier = getMaxEnergyTier();
+
+        if (dynamoTier != null) {
+            final long inputVoltage = getMaxInputVoltage();
+
+            if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
+                return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
+            }
+        }
+
+
+        return super.checkProcessing();
+    }
+
+    protected Pair<Integer, Integer> getMaxEnergyTier() {
+        return null;
     }
     // endregion
 
@@ -339,7 +383,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // region Nei
     @Override
     public int getRecipeCatalystPriority() {
-        return 1000;
+        return -1;
     }
     // endregion
 
@@ -394,29 +438,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Others methods
-    public void repairMachine() {
-        mHardHammer = true;
-        mSoftMallet = true;
-        mScrewdriver = true;
-        mCrowbar = true;
-        mSolderingTool = true;
-        mWrench = true;
-    }
-
-    @Override
-    public void clearHatches() {
-        super.clearHatches();
-        this.mSteamInputFluids.clear();
-        this.mSteamInputBusses.clear();
-        this.mSteamOutputBusses.clear();
-    }
-
     protected int getEfficiency() {
         return getCurrentEfficiency(this.getStackForm(1));
-    }
-
-    public boolean isEnergyMultiBlock() {
-        return true;
     }
 
     protected String tr(String key) {
@@ -431,6 +454,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // region Energy
     protected long getEnergyUsageWithoutLoss(long lEUt) {
         return (long) (-lEUt * 0.95);
+    }
+
+    public boolean isEnergyMultiBlock() {
+        return true;
     }
     // endregion
 

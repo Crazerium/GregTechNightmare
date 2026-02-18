@@ -1,9 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.setStackSize;
+import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils;
+import gregtech.api.enums.GTValues;
+import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.GTOreDictUnificator;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -48,6 +55,21 @@ public class GTN_MultiBlockRecipes {
                 'C', GTN_ItemList.BronzeVoidMiner.get(1),
                 'D', GTN_Casings.SolidSteelMachineCasing.getItemStack()
             });
+
+        // Medium Power Bender
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_MV.get(10),
+                ItemList.Machine_MV_Bender.get(1),
+                ItemList.Electric_Piston_MV.get(2),
+                ItemList.Electric_Motor_MV.get(2),
+                getCircuits(Materials.MV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MediumPowerBender.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }
 }
