@@ -96,3 +96,22 @@ Adds 5 new multiblocks. More content and multiblocks are planned. Suggestions ar
   </tr>
 </table>
 
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Medium Power Assembler</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="501" height="437" alt="image" src="https://github.com/user-attachments/assets/e002b5c7-778d-4437-80de-3013deb8d7e4" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="393" height="353" alt="image" src="https://github.com/user-attachments/assets/d9552cec-de3b-4c54-8202-286a0f8359e4" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="783" height="346" alt="image" src="https://github.com/user-attachments/assets/803f3e20-cfcb-40ff-a84c-c67ac4eac023" />
+    </td>
+  </tr>
+</table>
+
