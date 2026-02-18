@@ -5,6 +5,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElement
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
@@ -18,7 +19,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
@@ -26,19 +26,19 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import it.unimi.dsi.fastutil.Pair;
 
-public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerExtruder> {
+public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPowerAssembler> {
 
-    public GTN_MediumPowerExtruder(int id, String name) {
+    public GTN_MediumPowerAssembler(int id, String name) {
         super(id, name);
     }
 
-    public GTN_MediumPowerExtruder(String name) {
+    public GTN_MediumPowerAssembler(String name) {
         super(name);
     }
 
     @Override
     public int getOffsetHorizontal() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     }
 
     @Override
-    public GTN_MediumPowerExtruder createNewMetaEntity() {
-        return new GTN_MediumPowerExtruder(this.mName);
+    public GTN_MediumPowerAssembler createNewMetaEntity() {
+        return new GTN_MediumPowerAssembler(this.mName);
     }
 
     @Override
@@ -73,10 +73,11 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " AAA ", "AAAAA", "AAAAA", "AAAAA", " AAA " },
-            { "     ", "     ", "A C A", "     ", "     " }, { "     ", " CCC ", "BCCCB", " CCC ", "     " },
-            { "     ", "     ", "B   B", "     ", "     " }, { " A~A ", "A   A", "B   B", "A   A", " AAA " },
-            { " AAA ", "ACCCA", "ACCCA", "ACCCA", " AAA " } };
+        return new String[][] { { " C   C ", " C   C ", " C   C ", " CCCCC ", " C   C " },
+            { " C   C ", "       ", "       ", "  B    ", " C   C " },
+            { " C   C ", "       ", "       ", "       ", " C   C " },
+            { " C   C ", " AAAAA ", " AAAAA ", " AAAAA ", " C   C " },
+            { " AA~AA ", "AAAAAAA", "AAAAAAA", "AAAAAAA", " AAAAA " } };
     }
 
     @Override
@@ -85,33 +86,35 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(5, 6, 5, false)
+            .beginStructureBlock(7, 5, 5, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
+            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
-    public IStructureDefinition<GTN_MediumPowerExtruder> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerExtruder>builder()
+    public IStructureDefinition<GTN_MediumPowerAssembler> getStructureDefinition() {
+        return IStructureDefinition.<GTN_MediumPowerAssembler>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', ofFrame(Materials.Steel))
-            .addElement('C', ofBlock(GregTechAPI.sBlockMetal6, 13))
+            .addElement('C', ofFrame(Materials.Steel))
+            .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
             .addElement(
                 'A',
-                buildHatchAdder(GTN_MediumPowerExtruder.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
+                buildHatchAdder(GTN_MediumPowerAssembler.class)
+                    .atLeast(InputBus, OutputBus, Energy, Maintenance, InputHatch)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
                     .buildAndChain(
                         onElementPass(
-                            GTN_MediumPowerExtruder::mainCasingAdd,
+                            GTN_MediumPowerAssembler::mainCasingAdd,
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
 
     @Override
     public RecipeMap<?> getRecipeMap() {
-        return RecipeMaps.extruderRecipes;
+        return RecipeMaps.assemblerRecipes;
     }
 
     @Override

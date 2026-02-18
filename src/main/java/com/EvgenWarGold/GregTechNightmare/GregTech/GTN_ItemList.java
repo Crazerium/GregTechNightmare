@@ -30,6 +30,7 @@ public enum GTN_ItemList {
     LowPowerVoidMiner,
     MediumPowerBender,
     MediumPowerExtruder,
+    MediumPowerAssembler,
     // endregion
 
     ;
