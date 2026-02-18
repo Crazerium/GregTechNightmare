@@ -39,3 +39,22 @@ Adds 2 new multiblocks. More content and multiblocks are planned. Suggestions ar
   </tr>
 </table>
 
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Low Power Void Miner</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="500" height="438" alt="image" src="https://github.com/user-attachments/assets/1c7599e9-26cf-40c3-9202-56ec51e8c787" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="386" height="194" alt="image" src="https://github.com/user-attachments/assets/82023ad9-c803-45ea-99cb-80fbb58d85d8" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="857" height="342" alt="image" src="https://github.com/user-attachments/assets/3a37d63c-91c2-4e94-bdec-60008561d122" />
+    </td>
+  </tr>
+</table>
+
