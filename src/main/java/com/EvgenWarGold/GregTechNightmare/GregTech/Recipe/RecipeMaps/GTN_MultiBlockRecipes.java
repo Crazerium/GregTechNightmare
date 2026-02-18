@@ -66,6 +66,21 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_MV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // Medium Power Extruder
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_MV.get(10),
+                ItemList.Machine_MV_Extruder.get(1),
+                ItemList.Electric_Piston_MV.get(2),
+                ItemList.Robot_Arm_MV.get(2),
+                getCircuits(Materials.MV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MediumPowerExtruder.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }
 }

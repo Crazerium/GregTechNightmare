@@ -10,6 +10,7 @@ multiblock.AdvancedBBF=Advanced BBF
 multiblock.BronzeVoidMiner=Bronze Void Miner
 multiblock.LowPowerVoidMiner=Low Power Void Miner
 multiblock.MediumPowerBender=Medium Power Bender
+multiblock.MediumPowerExtruder=Medium Power Extruder
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -43,6 +44,12 @@ multiblock.mediumpowerbender.machine_type=Bending Machine
 multiblock.mediumpowerbender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
 multiblock.mediumpowerbender.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.mediumpowerbender.tooltip.02=Max parallel: §910
+
+#MediumPowerExtruder
+multiblock.mediumpowerextruder.machine_type=Extruder
+multiblock.mediumpowerextruder.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.mediumpowerextruder.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.mediumpowerextruder.tooltip.02=Max parallel: §910
 
 
 #RecipeResult
