@@ -25,11 +25,16 @@ public class GTN_ItemsRegister {
 
     private static void registryItemContainers() {
         // spotless:off
+
+        // Test Item
         GTN_ItemList.TestItem.set(META_ITEM_01.registerVariantWithTooltips(
             0,
             new String[]{
                 "Test"
             }));
+
+        // Advanced Clay
+        GTN_ItemList.AdvancedClay.set(META_ITEM_01.registerVariant(1));
         // spotless:on
     }
 }

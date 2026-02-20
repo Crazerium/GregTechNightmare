@@ -1,5 +1,6 @@
 #Items
 item.MetaItem01.0.name=§cTest Item
+item.MetaItem01.1.name=Advanced Clay
 
 #Blocks
 tile.MetaBlockCasing01.0.name=§cTest Casing
@@ -71,6 +72,8 @@ multiblock.mediumpowercircuitassembler.tooltip.02=Max parallel: §910
 
 #CokeOven
 multiblock.AdvancedCokeOven=Advanced Coke Oven
+multiblock.advancedcokeoven.machine_type=Coke Oven
+multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s

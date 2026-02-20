@@ -97,7 +97,6 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     @Override
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
         builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
             .beginStructureBlock(3, 3, 3, false)
             .addSteamInputBus(EnumChatFormatting.GOLD + "1", 1)

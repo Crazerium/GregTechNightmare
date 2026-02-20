@@ -17,6 +17,7 @@ public enum GTN_ItemList {
 
     // region Items
     TestItem,
+    AdvancedClay,
     // endregion
 
     // region Casings
