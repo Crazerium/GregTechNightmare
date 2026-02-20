@@ -1,18 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
-import net.minecraft.init.Blocks;
-
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.createItem;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
+
+import net.minecraft.init.Blocks;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 
 public class GTN_META_ITEM_01_Recipes {
 
     public static void init() {
-        //spotless:off
+        // spotless:off
 
         // Advanced Clay
         addCraftingRecipe(
