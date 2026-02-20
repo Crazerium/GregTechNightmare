@@ -112,6 +112,14 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_MV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // Advanced Coke Oven
+        addCraftingRecipe(
+            GTN_ItemList.AdvancedCokeOven.get(1),
+            new Object[]{"AAA", "A A", "AAA",
+                'A', GTN_Casings.CokeOvenCasing.getItemStack()
+            });
+
         //spotless:on
     }
 }
