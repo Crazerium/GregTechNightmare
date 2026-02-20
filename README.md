@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 7 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 8 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -130,6 +130,25 @@ Adds 7 new multiblocks. More content and multiblocks are planned. Suggestions ar
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="889" height="344" alt="image" src="https://github.com/user-attachments/assets/b66d5529-03dd-4cf1-819f-b8aa210becac" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Advanced Coke Oven</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="493" height="434" alt="image" src="https://github.com/user-attachments/assets/2f7dd11c-c3a9-4853-a20b-bcc8d26cd4fd" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="444" height="205" alt="image" src="https://github.com/user-attachments/assets/f58b7547-f77f-4f4f-af78-2096c52d3862" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="752" height="256" alt="image" src="https://github.com/user-attachments/assets/e73b1986-77d7-4c93-b746-d1e614b64948" />
     </td>
   </tr>
 </table>
