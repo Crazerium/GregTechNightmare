@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 7 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 8 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
