@@ -23,4 +23,9 @@ public class GTN_Recipe {
         .useSpecialSlot()
         .specialSlotSensitive()
         .build();
+    public static final RecipeMap<?> ARCANE_ASSEMBLER_RECIPES = RecipeMapBuilder.of("gtn.arcaneassembler")
+        .maxIO(9, 1, 0, 0)
+        .minInputs(1, 0)
+        .build();
+
 }

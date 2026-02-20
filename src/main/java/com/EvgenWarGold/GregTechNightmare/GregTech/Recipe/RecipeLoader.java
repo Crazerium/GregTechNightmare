@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedCok
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_BLOCK_CASING_01_Recipes;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_ITEM_01_Recipes;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_MultiBlockRecipes;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.LargeArcaneAssemblerRecipesPool;
 
 public class RecipeLoader {
 
@@ -14,5 +15,6 @@ public class RecipeLoader {
         GTN_META_BLOCK_CASING_01_Recipes.init();
         AdvancedBBFRecipesPool.init();
         AdvancedCokeOvenRecipesPool.init();
+        LargeArcaneAssemblerRecipesPool.init();
     }
 }

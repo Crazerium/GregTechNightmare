@@ -15,6 +15,7 @@ multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
+gtn.recipe.arcaneassembler=Large Arcane Assembler
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -75,9 +76,17 @@ multiblock.AdvancedCokeOven=Advanced Coke Oven
 multiblock.advancedcokeoven.machine_type=Coke Oven
 multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 
+#LargeArcaneAssembler
+multiblock.LargeArcaneAssembler=Large Arcane Assembler
+multiblock.largearcaneassembler.machine_type=Arcane Assembler
+multiblock.largearcaneassembler.tooltip.00= §9 Energy hatch tier limited by §fGlass tier
+multiblock.largearcaneassembler.tooltip.01= §aUV-Tier glasses unlocks Laser Hatches
+multiblock.largearcaneassembler.tooltip.02=Why are you need laser for this?
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
 multiblock.reciperesult.max_tier=§cRequired energy hatch: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold
+Author_Crazer=Author: §aCrazer

@@ -10,5 +10,6 @@ public class Constants {
 
     // region Authors
     public static final String AUTHOR_EVGEN_WAR_GOLD = GTN_Utils.tr("Author_EvgenWarGold");
+    public static final String AUTHOR_CRAZER = GTN_Utils.tr("Author_Crazer");
     // endregion
 }
