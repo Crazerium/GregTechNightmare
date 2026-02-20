@@ -134,3 +134,22 @@ Adds 7 new multiblocks. More content and multiblocks are planned. Suggestions ar
   </tr>
 </table>
 
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Advanced Coke Oven</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="493" height="434" alt="image" src="https://github.com/user-attachments/assets/2f7dd11c-c3a9-4853-a20b-bcc8d26cd4fd" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="444" height="205" alt="image" src="https://github.com/user-attachments/assets/f58b7547-f77f-4f4f-af78-2096c52d3862" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="752" height="256" alt="image" src="https://github.com/user-attachments/assets/e73b1986-77d7-4c93-b746-d1e614b64948" />
+    </td>
+  </tr>
+</table>
+
