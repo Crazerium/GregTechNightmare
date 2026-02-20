@@ -13,7 +13,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_Blocks;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils;
 import com.gtnewhorizon.gtnhlib.util.data.BlockSupplier;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
@@ -42,6 +43,8 @@ import tectech.thing.casing.TTCasingsContainer;
 public enum GTN_Casings implements ICasing {
 
     // spotless:off
+    CokeOvenCasing
+        (() -> GTN_Blocks.META_BLOCK_CASING_01, 1, gt(116, 0, 1)),
     // I know this indenting looks weird, but I think it makes it easier to read because everything is aligned
     // ------------------ Gregtech Casings -----------------
 
@@ -1097,7 +1100,7 @@ public enum GTN_Casings implements ICasing {
 
     @Nullable
     public ItemStack getItemStack() {
-        return GTN_Utils.newItemWithMeta(getBlock(), meta);
+        return GTN_InventoryUtils.createItemWithMeta(getBlock(), meta);
     }
 
     @Override

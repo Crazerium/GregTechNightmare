@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import gregtech.api.interfaces.tileentity.IVoidable;
 import gregtech.api.logic.ProcessingLogic;
@@ -39,6 +40,14 @@ public class GTN_ProcessingLogic extends ProcessingLogic {
             .build();
 
         return voidProtection.isItemFull();
+    }
+
+    public boolean isOutputFluidsFull(FluidStack[] outputFluids, IVoidable machine) {
+        VoidProtectionHelper voidProtection = new VoidProtectionHelper().setMachine(machine)
+            .setFluidOutputs(outputFluids)
+            .build();
+
+        return voidProtection.isFluidFull();
     }
 
     public void setDurationInTicks(int ticks) {

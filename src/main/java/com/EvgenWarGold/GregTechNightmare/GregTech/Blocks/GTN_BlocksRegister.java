@@ -20,5 +20,6 @@ public class GTN_BlocksRegister {
 
     private static void registryBlockContainers() {
         GTN_ItemList.TestCasing.set(META_BLOCK_CASING_01.registerVariant(0));
+        GTN_ItemList.CokeOvenCasing.set(META_BLOCK_CASING_01.registerVariant(1));
     }
 }

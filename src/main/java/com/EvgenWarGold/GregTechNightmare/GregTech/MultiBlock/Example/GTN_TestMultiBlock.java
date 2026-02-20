@@ -1,5 +1,11 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example;
 
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.createItem;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.createItemsWithLong;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.fluidListToArray;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.itemListToArray;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeItems;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
@@ -15,10 +21,13 @@ import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +36,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.enums.Materials;
@@ -138,6 +146,26 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             .build();
     }
 
+    private static final List<ItemStack> removeItems = new ArrayList<>();
+    private static final List<ItemStack> addItems = new ArrayList<>();
+
+    private static final List<FluidStack> removeFluids = new ArrayList<>();
+    private static final List<FluidStack> addFluids = new ArrayList<>();
+
+    static {
+        removeItems.add(createItem(Items.iron_ingot, 5));
+        removeItems.add(createItem(Items.coal, 10));
+        removeItems.add(createItem(Blocks.dirt, 5));
+
+        addItems.addAll(createItemsWithLong(Items.iron_ingot, 20_000));
+        addItems.addAll(createItemsWithLong(GTN_OreDict.getIngot(Materials.Steel), 100));
+
+        removeFluids.add(Materials.Water.getFluid(1_000));
+        removeFluids.add(Materials.Lava.getFluid(2_000));
+
+        addFluids.add(Materials.Acetone.getFluid(1_000));
+    }
+
     protected ProcessingLogic createProcessingLogic() {
         return new GTN_ProcessingLogic() {
 
@@ -145,17 +173,24 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             @Override
             public CheckRecipeResult process() {
                 List<ItemStack> inputItems = getStoredInputs();
+                List<FluidStack> inputFluids = getStoredFluids();
 
-                if (GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4, true)) {
-                    outputItems = GTN_Utils.addItemsToArrays(GTN_OreDict.getIngot(Materials.Steel), 20_000_000_000L);
+                if (removeItems(inputItems, removeItems, true) && removeFluids(inputFluids, removeFluids, true)) {
+                    outputItems = itemListToArray(addItems);
+                    outputFluids = fluidListToArray(addFluids);
 
                     if (isOutputItemsFull(outputItems, machine)) {
                         return CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
                     }
 
-                    GTN_Utils.removeItems(inputItems, new ItemStack(Items.iron_ingot), 4);
+                    if (isOutputFluidsFull(outputFluids, machine)) {
+                        return CheckRecipeResultRegistry.FLUID_OUTPUT_FULL;
+                    }
 
-                    setDurationInDays(1_242);
+                    removeItems(inputItems, removeItems);
+                    removeFluids(inputFluids, removeFluids);
+
+                    setDurationInSeconds(1);
 
                     return CheckRecipeResultRegistry.SUCCESSFUL;
                 }

@@ -39,4 +39,5 @@ public class GTN_OreDict {
     public static ItemStack getBlock(Materials materials) {
         return GTOreDictUnificator.get(OrePrefixes.block, materials, 1L);
     }
+
 }

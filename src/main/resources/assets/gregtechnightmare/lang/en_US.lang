@@ -3,16 +3,7 @@ item.MetaItem01.0.name=§cTest Item
 
 #Blocks
 tile.MetaBlockCasing01.0.name=§cTest Casing
-
-#MultiBlock Controller Name
-multiblock.Test=§cTest MultiBlock
-multiblock.AdvancedBBF=Advanced BBF
-multiblock.BronzeVoidMiner=Bronze Void Miner
-multiblock.LowPowerVoidMiner=Low Power Void Miner
-multiblock.MediumPowerBender=Medium Power Bender
-multiblock.MediumPowerExtruder=Medium Power Extruder
-multiblock.MediumPowerAssembler=Medium Power Assembler
-multiblock.MediumPowerCircuitAssembler=Medium Power Circuit Assembler
+tile.MetaBlockCasing01.1.name=Coke Oven Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -22,49 +13,64 @@ multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
+gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 
+#RecipeUtils
+gtn.recipe.utils.all_logs=All Logs
+
+#TestMultiBlock
+multiblock.Test=§cTest MultiBlock
 
 #AdvancedBBF
+multiblock.AdvancedBBF=Advanced BBF
 multiblock.advancedbbf.machine_type=BBF
 multiblock.advancedbbf.tooltip.00=Improved version of §aBricked Blast Furnace
 multiblock.advancedbbf.tooltip.01=§eCheck nei recipes
 
 #BronzeVoidMiner
+multiblock.BronzeVoidMiner=Bronze Void Miner
 multiblock.bronzevoidminer.machine_type=Void Miner
 multiblock.bronzevoidminer.tooltip.00=Steam consumption: §e8 000 L/s
 multiblock.bronzevoidminer.tooltip.01=Generate §94§7 random ores
 multiblock.bronzevoidminer.tooltip.02=§cWorks only in the Overworld
 
 #LowPowerVoidMiner
+multiblock.LowPowerVoidMiner=Low Power Void Miner
 multiblock.lowpowervoidminer.machine_type=Void Miner
 multiblock.lowpowervoidminer.tooltip.00=Consumption: §e128 Eu/t
 multiblock.lowpowervoidminer.tooltip.01=Generate §98§7 random ores per second
 multiblock.lowpowervoidminer.tooltip.02=§cWorks only in the Overworld, Twilight Forest and Nether
 
 #MediumPowerBender
+multiblock.MediumPowerBender=Medium Power Bender
 multiblock.mediumpowerbender.machine_type=Bending Machine
 multiblock.mediumpowerbender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
 multiblock.mediumpowerbender.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.mediumpowerbender.tooltip.02=Max parallel: §910
 
 #MediumPowerExtruder
+multiblock.MediumPowerExtruder=Medium Power Extruder
 multiblock.mediumpowerextruder.machine_type=Extruder
 multiblock.mediumpowerextruder.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
 multiblock.mediumpowerextruder.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.mediumpowerextruder.tooltip.02=Max parallel: §910
 
 #MediumPowerAssembler
+multiblock.MediumPowerAssembler=Medium Power Assembler
 multiblock.mediumpowerassembler.machine_type=Assembler
 multiblock.mediumpowerassembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
 multiblock.mediumpowerassembler.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.mediumpowerassembler.tooltip.02=Max parallel: §910
 
 #MediumPowerCircuitAssembler
+multiblock.MediumPowerCircuitAssembler=Medium Power Circuit Assembler
 multiblock.mediumpowercircuitassembler.machine_type=Circuit Assembler
 multiblock.mediumpowercircuitassembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
 multiblock.mediumpowercircuitassembler.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.mediumpowercircuitassembler.tooltip.02=Max parallel: §910
 
+#CokeOven
+multiblock.AdvancedCokeOven=Advanced Coke Oven
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s

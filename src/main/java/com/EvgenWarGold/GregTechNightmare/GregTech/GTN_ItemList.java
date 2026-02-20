@@ -21,6 +21,7 @@ public enum GTN_ItemList {
 
     // region Casings
     TestCasing,
+    CokeOvenCasing,
     // endregion
 
     // region MultiBlock
@@ -32,6 +33,7 @@ public enum GTN_ItemList {
     MediumPowerExtruder,
     MediumPowerAssembler,
     MediumPowerCircuitAssembler,
+    AdvancedCokeOven,
     // endregion
 
     ;
