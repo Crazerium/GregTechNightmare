@@ -26,7 +26,7 @@ public class GTN_Recipe {
         .useSpecialSlot()
         .specialSlotSensitive()
         .build();
-    public static final RecipeMap<?> ARCANE_ASSEMBLER_RECIPES = RecipeMapBuilder.of("gtn.arcaneassembler")
+    public static final RecipeMap<?> ARCANE_ASSEMBLER_RECIPES = RecipeMapBuilder.of("gtn.recipe.LargeArcaneAssemblerRecipes")
         .maxIO(9, 1, 0, 0)
         .minInputs(1, 0)
         .build();
@@ -35,5 +35,9 @@ public class GTN_Recipe {
             AspectList.class,
             "aspect_cost"
         );
-
+    public static final RecipeMetadataKey<String> RESEARCH_KEY =
+        SimpleRecipeMetadataKey.create(
+            String.class,
+            "research_key"
+        );
 }

@@ -3,33 +3,34 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.Magic;
 import bartworks.API.BorosilicateGlass;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-import gregtech.api.enums.VoltageIndex;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
-import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import gregtech.api.util.ParallelHelper;
-import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategoryList;
+import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.visnet.VisNetHandler;
-
-import javax.annotation.Nonnull;
-
+import thaumcraft.common.lib.research.ResearchManager;
+import java.util.ArrayList;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
 import static gregtech.api.enums.HatchElement.*;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
@@ -37,6 +38,7 @@ import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
 import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
 
 public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcaneAssembler> {
+    protected ArrayList<String> Research = new ArrayList<>();
     public GTN_LargeArcaneAssembler(int id, String name) {
         super(id, name);
     }
@@ -80,12 +82,47 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
         aNBT.setByte("glassTier", glassTier);
+        NBTTagList list = new NBTTagList();
+        for (String key : Research) {
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setString("ResearchKey", key);
+            list.appendTag(tag);
+        }
+        aNBT.setTag("ResearchList", list);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
         glassTier = aNBT.getByte("glassTier");
+        Research.clear();
+        if (aNBT.hasKey("ResearchList")) {
+            NBTTagList list = aNBT.getTagList("ResearchList", 10);
+            for (int i = 0; i < list.tagCount(); i++) {
+                Research.add(list.getCompoundTagAt(i).getString("ResearchKey"));
+            }
+        }
+    }
+    @Override
+    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.onFirstTick(aBaseMetaTileEntity);
+
+        if (!aBaseMetaTileEntity.isServerSide()) return;
+
+        String owner = aBaseMetaTileEntity.getOwnerName();
+        if (owner == null || owner.isEmpty()) return;
+
+        Research.clear();
+
+        for (ResearchCategoryList category : ResearchCategories.researchCategories.values()) {
+
+            for (ResearchItem item : category.research.values()) {
+
+                if (ResearchManager.isResearchComplete(owner, item.key)) {
+                    Research.add(item.key);
+                }
+            }
+        }
     }
 
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
@@ -108,8 +145,6 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
         for (MTEHatchEnergy hatch : mEnergyHatches) {
             if (hatch.mTier > glassTier) {
                 return false;
-            }else if (glassTier == 10){
-                return true;
             }
         }
         return true;
@@ -146,43 +181,57 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
         return GTN_Recipe.ARCANE_ASSEMBLER_RECIPES;
     }
     @Override
-    public int getMaxParallelRecipes() {
-        return 10;
-    }
-    @Override
     public OverclockType getOverclockType() {
         return OverclockType.NONE;
     }
-    public float getSpeedBonus() {
-        return 0.10F;
-    }
     @Override
     protected ProcessingLogic createProcessingLogic() {
-        return new ProcessingLogic() {
+
+        GTN_ProcessingLogic logic = new GTN_ProcessingLogic() {
+
             @NotNull
             @Override
             public CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
 
-                AspectList required = recipe.getMetadata(GTN_Recipe.ASPECT_COST);
+                CheckRecipeResult base = super.validateRecipe(recipe);
+                if (!base.wasSuccessful()) {
+                    return base;
+                }
 
+                String researchKey = recipe.getMetadata(GTN_Recipe.RESEARCH_KEY);
+                String owner = getBaseMetaTileEntity().getOwnerName();
+
+                if (researchKey != null &&
+                    !ResearchManager.isResearchComplete(owner, researchKey)) {
+                    return SimpleCheckRecipeResult.ofFailure("research_not_completed");
+                }
+
+                AspectList required = recipe.getMetadata(GTN_Recipe.ASPECT_COST);
                 if (required != null && required.size() > 0) {
+
                     World world = getBaseMetaTileEntity().getWorld();
                     int x = getBaseMetaTileEntity().getXCoord();
                     int y = getBaseMetaTileEntity().getYCoord();
                     int z = getBaseMetaTileEntity().getZCoord();
 
                     for (Aspect aspect : required.getAspects()) {
-
                         int amount = required.getAmount(aspect);
-
                         int drained = VisNetHandler.drainVis(world, x, y, z, aspect, amount);
 
-                        if (drained < amount) { return CheckRecipeResultRegistry.insufficientPower(0); }
+                        if (drained < amount) {
+                            return CheckRecipeResultRegistry.insufficientPower(0);
+                        }
                     }
                 }
+
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
         };
+
+        logic.setOverclockType(OverclockType.NONE);
+        logic.setMaxParallel(1);
+
+        return logic;
     }
 
 }

@@ -15,7 +15,7 @@ multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
-gtn.recipe.arcaneassembler=Large Arcane Assembler
+gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -81,8 +81,9 @@ multiblock.LargeArcaneAssembler=Large Arcane Assembler
 multiblock.largearcaneassembler.machine_type=Arcane Assembler
 multiblock.largearcaneassembler.tooltip.00= §9Energy hatch tier limited by §fGlass tier
 multiblock.largearcaneassembler.tooltip.01= §1Requires a §aEnergized §cNode §1in a structure
-multiblock.largearcaneassembler.tooltip.02= §eSpeed is always 10 sec
+multiblock.largearcaneassembler.tooltip.02= §eSpeed is always 1 sec
 multiblock.largearcaneassembler.tooltip.03= §eMax parralel = max aspect in a §aEnergized §cNode 
+GT5U.gui.text.research_not_completed=Not enough Research
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s

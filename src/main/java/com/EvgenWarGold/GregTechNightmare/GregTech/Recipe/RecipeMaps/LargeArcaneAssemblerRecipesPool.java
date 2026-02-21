@@ -2,6 +2,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import gregtech.api.enums.GTValues;
@@ -24,14 +26,16 @@ public class LargeArcaneAssemblerRecipesPool {
             if (output == null) continue;
 
             ItemStack[] inputs = convertRecipeInput(recipe);
+            String researchKey = recipe.getResearch();
             if (inputs.length == 0) continue;
             AspectList aspects = recipe.getAspects();
             GTValues.RA.stdBuilder()
                 .itemInputs(inputs)
                 .itemOutputs(output.copy())
-                .duration(200)
+                .duration(20)
                 .eut(2048)
                 .metadata(GTN_Recipe.ASPECT_COST, aspects)
+                .metadata(GTN_Recipe.RESEARCH_KEY, researchKey)
                 .addTo(GTN_Recipe.ARCANE_ASSEMBLER_RECIPES);
         }
     }
