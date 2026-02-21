@@ -90,8 +90,8 @@ multiblock.nodeenergizer.tooltip.05=2x LUV energy hatch -> Unlock HV bus
 multiblock.nodeenergizer.tooltip.06=HV bus enables aspect modifiers (Item stack size matters)
 
 #RecipeResult
-multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
-multiblock.reciperesult.max_tier=§cRequired energy hatch: %s
+multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
+multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold

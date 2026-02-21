@@ -112,8 +112,9 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
             .addInfo(tr("tooltip.06"))
             .addInfo(GTN_Utils.tr("Author_Structure", "Magma_Block"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 3, 3, true)
+            .beginStructureBlock(7, 6, 6, true)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addMaintenanceHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
