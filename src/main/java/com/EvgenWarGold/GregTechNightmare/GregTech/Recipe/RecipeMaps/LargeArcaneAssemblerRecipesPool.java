@@ -2,13 +2,11 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.minecraft.item.ItemStack;
-
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-
 import gregtech.api.enums.GTValues;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
@@ -16,7 +14,6 @@ import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 public class LargeArcaneAssemblerRecipesPool {
 
     public static void init() {
-
         for (Object obj : ThaumcraftApi.getCraftingRecipes()) {
 
             if (!(obj instanceof IArcaneRecipe)) continue;
@@ -27,18 +24,17 @@ public class LargeArcaneAssemblerRecipesPool {
             if (output == null) continue;
 
             ItemStack[] inputs = convertRecipeInput(recipe);
-
             if (inputs.length == 0) continue;
-
+            AspectList aspects = recipe.getAspects();
             GTValues.RA.stdBuilder()
                 .itemInputs(inputs)
                 .itemOutputs(output.copy())
                 .duration(200)
-                .eut(30)
+                .eut(2048)
+                .metadata(GTN_Recipe.ASPECT_COST, aspects)
                 .addTo(GTN_Recipe.ARCANE_ASSEMBLER_RECIPES);
         }
     }
-
     private static ItemStack[] convertRecipeInput(IArcaneRecipe recipe) {
 
         List<ItemStack> result = new ArrayList<>();

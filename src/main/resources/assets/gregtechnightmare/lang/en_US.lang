@@ -79,9 +79,10 @@ multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 #LargeArcaneAssembler
 multiblock.LargeArcaneAssembler=Large Arcane Assembler
 multiblock.largearcaneassembler.machine_type=Arcane Assembler
-multiblock.largearcaneassembler.tooltip.00= §9 Energy hatch tier limited by §fGlass tier
-multiblock.largearcaneassembler.tooltip.01= §aUV-Tier glasses unlocks Laser Hatches
-multiblock.largearcaneassembler.tooltip.02=Why are you need laser for this?
+multiblock.largearcaneassembler.tooltip.00= §9Energy hatch tier limited by §fGlass tier
+multiblock.largearcaneassembler.tooltip.01= §1Requires a §aEnergized §cNode §1in a structure
+multiblock.largearcaneassembler.tooltip.02= §eSpeed is always 10 sec
+multiblock.largearcaneassembler.tooltip.03= §eMax parralel = max aspect in a §aEnergized §cNode 
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
