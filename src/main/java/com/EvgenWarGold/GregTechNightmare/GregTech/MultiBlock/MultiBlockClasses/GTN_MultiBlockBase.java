@@ -119,6 +119,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamOutputBusses.clear();
     }
 
+    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        return true;
+    }
+
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         boolean built = false;
@@ -136,7 +140,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         if (isNoMaintenanceIssue()) {
             repairMachine();
         }
-        return built && hasEnoughCasing;
+        return built && hasEnoughCasing && GTN_checkMachine(aBaseMetaTileEntity, aStack);
     }
 
     @Override

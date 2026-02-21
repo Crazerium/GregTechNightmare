@@ -4,4 +4,8 @@ repositories {
     maven {
         url = "https://slprime.github.io/ChromaticTooltips/"
     }
+
+    maven {
+        url = "https://slprime.github.io/ChromaticTooltipsCompat/"
+    }
 }

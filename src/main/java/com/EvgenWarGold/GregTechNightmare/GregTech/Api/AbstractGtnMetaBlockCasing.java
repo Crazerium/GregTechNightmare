@@ -15,7 +15,7 @@ import gregtech.api.util.GTUtility;
 
 public abstract class AbstractGtnMetaBlockCasing extends AbstractGtnMetaBlock implements IHasMoreBlockInfo, ICasing {
 
-    public static final byte TEXTURE_PAGE_INDEX = 116;
+    public static final byte TEXTURE_PAGE_INDEX = 117;
 
     static {
         GTUtility.addTexturePage(TEXTURE_PAGE_INDEX);

@@ -1,10 +1,10 @@
 #Items
-item.MetaItem01.0.name=§cTest Item
-item.MetaItem01.1.name=Advanced Clay
+item.GTN_MetaItem01.0.name=§cTest Item
+item.GTN_MetaItem01.1.name=Advanced Clay
 
 #Blocks
-tile.MetaBlockCasing01.0.name=§cTest Casing
-tile.MetaBlockCasing01.1.name=Coke Oven Casing
+tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
+tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -18,6 +18,9 @@ gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
+
+#SimpleCheckRecipeResult
+GT5U.gui.text.node_enough=Node is empty
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -75,9 +78,21 @@ multiblock.AdvancedCokeOven=Advanced Coke Oven
 multiblock.advancedcokeoven.machine_type=Coke Oven
 multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 
+#NodeEnergizer
+multiblock.NodeEnergizer=Node Energizer
+multiblock.nodeenergizer.machine_type=Arcane breacher
+multiblock.nodeenergizer.tooltip.00=This machine will try to add aspects from items in input bus, but what the cost?
+multiblock.nodeenergizer.tooltip.01=Items go into Input Buses. Higher tier energy unlock better buses
+multiblock.nodeenergizer.tooltip.02=2x HV energy hatch -> Unlock ULV bus
+multiblock.nodeenergizer.tooltip.03=2x EV energy hatch -> Unlock LV bus
+multiblock.nodeenergizer.tooltip.04=2x IV energy hatch -> Unlock MV bus
+multiblock.nodeenergizer.tooltip.05=2x LUV energy hatch -> Unlock HV bus
+multiblock.nodeenergizer.tooltip.06=HV bus enables aspect modifiers (Item stack size matters)
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
 multiblock.reciperesult.max_tier=§cRequired energy hatch: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold
+Author_Structure=Structure author: §6%s
