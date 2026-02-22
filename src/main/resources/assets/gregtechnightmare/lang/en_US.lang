@@ -81,9 +81,11 @@ multiblock.LargeArcaneAssembler=Large Arcane Assembler
 multiblock.largearcaneassembler.machine_type=Arcane Assembler
 multiblock.largearcaneassembler.tooltip.00= §9Energy hatch tier limited by §fGlass tier
 multiblock.largearcaneassembler.tooltip.01= §1Requires a §aEnergized §cNode §1in a structure
-multiblock.largearcaneassembler.tooltip.02= §eSpeed is always 1 sec
-multiblock.largearcaneassembler.tooltip.03= §eMax parralel = max aspect in a §aEnergized §cNode 
-GT5U.gui.text.research_not_completed=Not enough Research
+multiblock.largearcaneassembler.tooltip.02= §1Requires a §aResearch §1for craft
+multiblock.largearcaneassembler.tooltip.03= §eSpeed is always 1 sec
+multiblock.largearcaneassembler.tooltip.04= §eMax parralel = min aspect in a §aEnergized §cNode from the required aspects from recipe of item 
+GT5U.gui.text.research_not_completed=§cNot enough Research
+GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s

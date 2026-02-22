@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
@@ -52,6 +53,21 @@ public class GTN_MultiBlockRecipes {
                 'D', GTN_Casings.SolidSteelMachineCasing.getItemStack()
             });
 
+        // Large Arcane Assembler
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_LuV.get(32),
+                ItemList.Machine_IV_Assembler.get(1),
+                ItemList.Electric_Piston_LuV.get(4),
+                ItemList.Electric_Motor_LuV.get(4),
+                getCircuits(Materials.ZPM, 8)
+
+            )
+            .itemOutputs(GTN_ItemList.LargeArcaneAssembler.get(1))
+
+            .eut(RECIPE_LuV)
+            .duration(20 * 600)
+            .addTo(RecipeMaps.assemblerRecipes);
         // Medium Power Bender
         GTValues.RA.stdBuilder()
             .itemInputs(

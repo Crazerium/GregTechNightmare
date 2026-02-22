@@ -1,6 +1,21 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.Magic;
 
-import bartworks.API.BorosilicateGlass;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
+import static gregtech.api.enums.HatchElement.*;
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
+import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
+
+import java.util.ArrayList;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
@@ -8,6 +23,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import bartworks.API.BorosilicateGlass;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
@@ -17,12 +34,6 @@ import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
@@ -30,15 +41,11 @@ import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.research.ResearchManager;
-import java.util.ArrayList;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
-import static gregtech.api.enums.HatchElement.*;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
-import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
-import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
 
 public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcaneAssembler> {
+
     protected ArrayList<String> Research = new ArrayList<>();
+
     public GTN_LargeArcaneAssembler(int id, String name) {
         super(id, name);
     }
@@ -66,18 +73,20 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public GTN_LargeArcaneAssembler createNewMetaEntity() {
         return new GTN_LargeArcaneAssembler(this.mName);
     }
-    public boolean isNoMaintenanceIssue() {return true;}
+
+    public boolean isNoMaintenanceIssue() {
+        return true;
+    }
 
     public String[][] getShape() {
-        return new String[][]{
-            {"BBBBB","BAAAB","BAAAB","BAAAB","BBBBB"},
-            {"BAAAB","A   A","A   A","A   A","BAAAB"},
-            {"BAAAB","A   A","A F A","A   A","BAAAB"},
-            {"BAAAB","A   A","A   A","A   A","BAAAB"},
-            {"BAAAB","A   A","A E A","A   A","BAAAB"},
-            {"BB~BB","BCCCB","BCCCB","BCCCB","BBBBB"}};
+        return new String[][] { { "BBBBB", "BAAAB", "BAAAB", "BAAAB", "BBBBB" },
+            { "BAAAB", "A   A", "A   A", "A   A", "BAAAB" }, { "BAAAB", "A   A", "A F A", "A   A", "BAAAB" },
+            { "BAAAB", "A   A", "A   A", "A   A", "BAAAB" }, { "BAAAB", "A   A", "A E A", "A   A", "BAAAB" },
+            { "BB~BB", "BCCCB", "BCCCB", "BCCCB", "BBBBB" } };
     }
+
     private byte glassTier = 0;
+
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
@@ -99,10 +108,13 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
         if (aNBT.hasKey("ResearchList")) {
             NBTTagList list = aNBT.getTagList("ResearchList", 10);
             for (int i = 0; i < list.tagCount(); i++) {
-                Research.add(list.getCompoundTagAt(i).getString("ResearchKey"));
+                Research.add(
+                    list.getCompoundTagAt(i)
+                        .getString("ResearchKey"));
             }
         }
     }
+
     @Override
     public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
         super.onFirstTick(aBaseMetaTileEntity);
@@ -130,12 +142,14 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
             .addInfo(this.tr("tooltip.01"))
             .addInfo(this.tr("tooltip.02"))
             .addInfo(this.tr("tooltip.03"))
+            .addInfo(this.tr("tooltip.04"))
             .addInfo(Constants.AUTHOR_CRAZER)
             .beginStructureBlock(5, 6, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[]{1})
-            .addInputBus(EnumChatFormatting.GOLD + "1", new int[]{1})
-            .addOutputBus(EnumChatFormatting.GOLD + "1", new int[]{1});
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
+            .addInputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
+            .addOutputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 });
     }
+
     @Override
     public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
 
@@ -149,19 +163,22 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
         }
         return true;
     }
+
     @Override
     public IStructureDefinition<GTN_LargeArcaneAssembler> getStructureDefinition() {
         return IStructureDefinition.<GTN_LargeArcaneAssembler>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
             .addElement('C', ofBlock(blockMetalDevice, 9))
-            .addElement('A', withChannel(
-                "glass",
-                BorosilicateGlass.ofBoroGlass(
-                    (byte) 0,
-                    (byte) 1,
-                    Byte.MAX_VALUE,
-                    (te, t) -> te.glassTier = t,
-                    te -> te.glassTier)))
+            .addElement(
+                'A',
+                withChannel(
+                    "glass",
+                    BorosilicateGlass.ofBoroGlass(
+                        (byte) 0,
+                        (byte) 1,
+                        Byte.MAX_VALUE,
+                        (te, t) -> te.glassTier = t,
+                        te -> te.glassTier)))
             .addElement('E', ofBlock(blockStoneDevice, 10))
             .addElement('F', ofBlock(blockStoneDevice, 11))
             .addElement(
@@ -180,10 +197,12 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public RecipeMap<?> getRecipeMap() {
         return GTN_Recipe.ARCANE_ASSEMBLER_RECIPES;
     }
+
     @Override
     public OverclockType getOverclockType() {
         return OverclockType.NONE;
     }
+
     @Override
     protected ProcessingLogic createProcessingLogic() {
 
@@ -200,9 +219,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
 
                 String researchKey = recipe.getMetadata(GTN_Recipe.RESEARCH_KEY);
                 String owner = getBaseMetaTileEntity().getOwnerName();
-
-                if (researchKey != null &&
-                    !ResearchManager.isResearchComplete(owner, researchKey)) {
+                if (researchKey != null && !ResearchManager.isResearchComplete(owner, researchKey)) {
                     return SimpleCheckRecipeResult.ofFailure("research_not_completed");
                 }
 
@@ -214,22 +231,28 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                     int y = getBaseMetaTileEntity().getYCoord();
                     int z = getBaseMetaTileEntity().getZCoord();
 
-                    for (Aspect aspect : required.getAspects()) {
-                        int amount = required.getAmount(aspect);
-                        int drained = VisNetHandler.drainVis(world, x, y, z, aspect, amount);
+                    int minAspectAmount = Integer.MAX_VALUE;
 
-                        if (drained < amount) {
-                            return CheckRecipeResultRegistry.insufficientPower(0);
+                    for (Aspect aspect : required.getAspects()) {
+
+                        int available = VisNetHandler.drainVis(world, x, y, z, aspect, Integer.MAX_VALUE);
+
+                        if (available <= 0) {
+                            return SimpleCheckRecipeResult.ofFailure("not_enough_aspects");
+                        }
+
+                        if (available < minAspectAmount) {
+                            minAspectAmount = available;
                         }
                     }
+
+                    setMaxParallel(minAspectAmount);
                 }
 
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
         };
-
         logic.setOverclockType(OverclockType.NONE);
-        logic.setMaxParallel(1);
 
         return logic;
     }

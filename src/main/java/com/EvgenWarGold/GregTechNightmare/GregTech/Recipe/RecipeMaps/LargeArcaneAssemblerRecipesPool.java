@@ -3,15 +3,17 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import net.minecraft.item.ItemStack;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+
 import gregtech.api.enums.GTValues;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
+import thaumcraft.common.config.ConfigItems;
 
 public class LargeArcaneAssemblerRecipesPool {
 
@@ -25,12 +27,26 @@ public class LargeArcaneAssemblerRecipesPool {
             ItemStack output = recipe.getRecipeOutput();
             if (output == null) continue;
 
-            ItemStack[] inputs = convertRecipeInput(recipe);
+            ItemStack[] rawInputs = convertRecipeInput(recipe);
+            if (rawInputs.length == 0) continue;
+
+            List<ItemStack> fixedInputs = new ArrayList<>();
+
+            for (ItemStack stack : rawInputs) {
+                if (stack == null) continue;
+                if (stack.getItem() == ConfigItems.itemEldritchObject && stack.getItemDamage() == 3) {
+
+                    ItemStack pearl = stack.copy();
+                    pearl.stackSize = 0;
+                    fixedInputs.add(pearl);
+                } else {
+                    fixedInputs.add(stack.copy());
+                }
+            }
             String researchKey = recipe.getResearch();
-            if (inputs.length == 0) continue;
             AspectList aspects = recipe.getAspects();
             GTValues.RA.stdBuilder()
-                .itemInputs(inputs)
+                .itemInputs(fixedInputs.toArray(new ItemStack[0]))
                 .itemOutputs(output.copy())
                 .duration(20)
                 .eut(2048)
@@ -39,6 +55,7 @@ public class LargeArcaneAssemblerRecipesPool {
                 .addTo(GTN_Recipe.ARCANE_ASSEMBLER_RECIPES);
         }
     }
+
     private static ItemStack[] convertRecipeInput(IArcaneRecipe recipe) {
 
         List<ItemStack> result = new ArrayList<>();
