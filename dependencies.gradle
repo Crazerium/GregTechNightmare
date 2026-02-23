@@ -58,6 +58,8 @@ dependencies {
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:BetterLoadingScreen:1.7.4-GTNH:dev") { transitive = false }
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:AppleCore:3.3.9:dev") { transitive = false }
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:DuraDisplay:1.4.0:dev")
+    runtimeOnlyNonPublishable("com.github.slprime:ChromaticTooltips:1.0.11:dev")
+    runtimeOnlyNonPublishable("com.github.slprime:ChromaticTooltipsCompat:1.0.14:dev")
     //Others
     implementation('com.google.auto.value:auto-value-annotations:1.10.4')
     annotationProcessor('com.google.auto.value:auto-value:1.10.4')

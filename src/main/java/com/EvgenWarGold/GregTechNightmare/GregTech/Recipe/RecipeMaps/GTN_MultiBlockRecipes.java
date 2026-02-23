@@ -120,6 +120,15 @@ public class GTN_MultiBlockRecipes {
                 'A', GTN_Casings.CokeOvenCasing.getItemStack()
             });
 
+        // Node Energizer
+        addCraftingRecipe(
+            GTN_ItemList.NodeEnergizer.get(1),
+            new Object[]{"ABA", "BCB", "ABA",
+                'A', GTN_Casings.MagicCasing.getItemStack(),
+                'B', ItemList.Field_Generator_HV.get(1),
+                'C', OrePrefixes.frameGt.get(Materials.Thaumium)
+            });
+
         //spotless:on
     }
 }

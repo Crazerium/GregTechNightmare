@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.RecipeResultRegisters;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
@@ -28,6 +29,7 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         MultiBlockLoader.init();
         RecipeResultRegisters.init();
+        ModBlocks.init();
     }
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)

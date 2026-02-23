@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 8 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 9 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -149,6 +149,25 @@ Adds 8 new multiblocks. More content and multiblocks are planned. Suggestions ar
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="752" height="256" alt="image" src="https://github.com/user-attachments/assets/e73b1986-77d7-4c93-b746-d1e614b64948" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Node Energizer</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="495" height="442" alt="image" src="https://github.com/user-attachments/assets/711109b1-808e-4e57-af12-9be05fce1118" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="404" height="222" alt="image" src="https://github.com/user-attachments/assets/01f05532-0bec-4f79-9257-8c4abbf57b77" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="1205" height="505" alt="image" src="https://github.com/user-attachments/assets/f99ae418-98b0-4129-92f5-38e0aff5d28d" />
     </td>
   </tr>
 </table>
