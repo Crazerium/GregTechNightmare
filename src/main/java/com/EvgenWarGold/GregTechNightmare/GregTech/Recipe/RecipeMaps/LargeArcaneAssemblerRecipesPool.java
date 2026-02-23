@@ -34,14 +34,13 @@ public class LargeArcaneAssemblerRecipesPool {
 
             for (ItemStack stack : rawInputs) {
                 if (stack == null) continue;
+                ItemStack copy = stack.copy();
                 if (stack.getItem() == ConfigItems.itemEldritchObject && stack.getItemDamage() == 3) {
-
-                    ItemStack pearl = stack.copy();
-                    pearl.stackSize = 0;
-                    fixedInputs.add(pearl);
-                } else {
-                    fixedInputs.add(stack.copy());
+                    copy.stackSize = 0;
+                } else if (stack.getItem() == ConfigItems.itemFocusWarding) {
+                    copy.stackSize = 0;
                 }
+                fixedInputs.add(copy);
             }
             String researchKey = recipe.getResearch();
             AspectList aspects = recipe.getAspects();
