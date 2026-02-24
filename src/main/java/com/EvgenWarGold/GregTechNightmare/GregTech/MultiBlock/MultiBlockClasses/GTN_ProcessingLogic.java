@@ -34,6 +34,10 @@ public class GTN_ProcessingLogic extends ProcessingLogic {
         return this;
     }
 
+    public void setEnergyUsage(long EUt) {
+        overwriteCalculatedEut(EUt);
+    }
+
     public boolean isOutputItemsFull(ItemStack[] outputItems, IVoidable machine) {
         VoidProtectionHelper voidProtection = new VoidProtectionHelper().setMachine(machine)
             .setItemOutputs(outputItems)

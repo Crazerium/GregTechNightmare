@@ -44,7 +44,7 @@ public enum GTN_Casings implements ICasing {
 
     // spotless:off
     CokeOvenCasing
-        (() -> GTN_Blocks.META_BLOCK_CASING_01, 1, gt(116, 0, 1)),
+        (() -> GTN_Blocks.META_BLOCK_CASING_01, 1, gt(117, 0, 1)),
     // I know this indenting looks weird, but I think it makes it easier to read because everything is aligned
     // ------------------ Gregtech Casings -----------------
 
@@ -1004,7 +1004,7 @@ public enum GTN_Casings implements ICasing {
 
     // ------------------ Miscellaneous Elements -----------------
     MagicCasing
-        (() -> Loaders.magicCasing, 0, -1),
+        (() -> Loaders.magicCasing, 0, 1536),
 
     BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override

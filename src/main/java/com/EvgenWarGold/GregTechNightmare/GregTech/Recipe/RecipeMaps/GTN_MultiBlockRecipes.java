@@ -54,20 +54,6 @@ public class GTN_MultiBlockRecipes {
             });
 
         // Large Arcane Assembler
-        GTValues.RA.stdBuilder()
-            .itemInputs(
-                ItemList.Casing_LuV.get(32),
-                ItemList.Machine_IV_Assembler.get(1),
-                ItemList.Electric_Piston_LuV.get(4),
-                ItemList.Electric_Motor_LuV.get(4),
-                getCircuits(Materials.ZPM, 8)
-
-            )
-            .itemOutputs(GTN_ItemList.LargeArcaneAssembler.get(1))
-
-            .eut(RECIPE_LuV)
-            .duration(20 * 600)
-            .addTo(RecipeMaps.assemblerRecipes);
         // Medium Power Bender
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -134,6 +120,15 @@ public class GTN_MultiBlockRecipes {
             GTN_ItemList.AdvancedCokeOven.get(1),
             new Object[]{"AAA", "A A", "AAA",
                 'A', GTN_Casings.CokeOvenCasing.getItemStack()
+            });
+
+        // Node Energizer
+        addCraftingRecipe(
+            GTN_ItemList.NodeEnergizer.get(1),
+            new Object[]{"ABA", "BCB", "ABA",
+                'A', GTN_Casings.MagicCasing.getItemStack(),
+                'B', ItemList.Field_Generator_HV.get(1),
+                'C', OrePrefixes.frameGt.get(Materials.Thaumium)
             });
 
         //spotless:on
