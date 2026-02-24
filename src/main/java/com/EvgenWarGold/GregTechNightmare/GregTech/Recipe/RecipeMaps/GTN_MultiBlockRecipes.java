@@ -5,6 +5,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircui
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
+import static gregtech.api.util.GTModHandler.getModItem;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,8 @@ import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.GTOreDictUnificator;
+import gregtech.api.util.GTUtility;
 
 public class GTN_MultiBlockRecipes {
 
@@ -54,6 +57,20 @@ public class GTN_MultiBlockRecipes {
             });
 
         // Large Arcane Assembler
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                getModItem("GoodGenerator", "magicCasing", 32),
+                getModItem("thaumicenergistics", "thaumicenergistics.block.arcane.assembler"),
+                ItemList.Electric_Piston_LuV.get(8),
+                ItemList.Electric_Motor_LuV.get(16),
+                GTUtility.copyAmount(8, GTOreDictUnificator.get(OrePrefixes.block, Materials.Ichorium, 1)),
+                getCircuits(Materials.ZPM, 4)
+            )
+            .itemOutputs(GTN_ItemList.LargeArcaneAssembler.get(1))
+
+            .eut(RECIPE_LuV)
+            .duration(150 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
         // Medium Power Bender
         GTValues.RA.stdBuilder()
             .itemInputs(

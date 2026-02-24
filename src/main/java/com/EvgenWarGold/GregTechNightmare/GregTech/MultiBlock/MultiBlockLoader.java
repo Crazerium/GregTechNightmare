@@ -27,6 +27,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.MediumPowerCircuitAssembler.set(new GTN_MediumPowerCircuitAssembler(21_007, "MediumPowerCircuitAssembler"));
         GTN_ItemList.AdvancedCokeOven.set(new GTN_AdvancedCokeOven(21_008, "AdvancedCokeOven"));
         GTN_ItemList.NodeEnergizer.set(new GTN_NodeEnergizer(21_009, "NodeEnergizer"));
+        GTN_ItemList.LargeArcaneAssembler.set(new GTN_LargeArcaneAssembler(21_010, "LargeArcaneAssembler"));
         //spotless:on
     }
 }

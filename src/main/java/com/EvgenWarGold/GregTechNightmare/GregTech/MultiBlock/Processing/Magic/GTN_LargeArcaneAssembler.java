@@ -67,7 +67,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     public GTN_Casings getMainCasings() {
-        return GTN_Casings.FrostProofMachineCasing;
+        return GTN_Casings.MagicCasing;
     }
 
     public GTN_LargeArcaneAssembler createNewMetaEntity() {

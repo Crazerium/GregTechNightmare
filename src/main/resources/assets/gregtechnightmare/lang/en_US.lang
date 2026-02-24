@@ -22,6 +22,8 @@ gtn.recipe.utils.all_logs=All Logs
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
+GT5U.gui.text.research_not_completed=§cNot enough Research
+GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -82,13 +84,11 @@ multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 #LargeArcaneAssembler
 multiblock.LargeArcaneAssembler=Large Arcane Assembler
 multiblock.largearcaneassembler.machine_type=Arcane Assembler
-multiblock.largearcaneassembler.tooltip.00= §9Energy hatch tier limited by §fGlass tier
-multiblock.largearcaneassembler.tooltip.01= §1Requires a §aEnergized §cNode §1in a structure
-multiblock.largearcaneassembler.tooltip.02= §1Requires a §aResearch §1for craft
-multiblock.largearcaneassembler.tooltip.03= §eSpeed is always 1 sec
-multiblock.largearcaneassembler.tooltip.04= §eMax parralel = min aspect in a §aEnergized §cNode from the required aspects from recipe of item 
-GT5U.gui.text.research_not_completed=§cNot enough Research
-GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
+multiblock.largearcaneassembler.tooltip.00= Energy hatch tier limited by §fGlass tier
+multiblock.largearcaneassembler.tooltip.01= Requires a §aEnergized Node§7  in a structure
+multiblock.largearcaneassembler.tooltip.02= Requires a §aResearch§7 for craft
+multiblock.largearcaneassembler.tooltip.03= Speed is always 1 sec
+multiblock.largearcaneassembler.tooltip.04= Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
