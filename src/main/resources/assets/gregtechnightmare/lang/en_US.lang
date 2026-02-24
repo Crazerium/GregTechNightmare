@@ -15,12 +15,15 @@ multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
+gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
+GT5U.gui.text.research_not_completed=§cNot enough Research
+GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -78,16 +81,14 @@ multiblock.AdvancedCokeOven=Advanced Coke Oven
 multiblock.advancedcokeoven.machine_type=Coke Oven
 multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
 
-#NodeEnergizer
-multiblock.NodeEnergizer=Node Energizer
-multiblock.nodeenergizer.machine_type=Arcane breacher
-multiblock.nodeenergizer.tooltip.00=This machine will try to add aspects from items in input bus, but what the cost?
-multiblock.nodeenergizer.tooltip.01=Items go into Input Buses. Higher tier energy unlock better buses
-multiblock.nodeenergizer.tooltip.02=2x HV energy hatch -> Unlock ULV bus
-multiblock.nodeenergizer.tooltip.03=2x EV energy hatch -> Unlock LV bus
-multiblock.nodeenergizer.tooltip.04=2x IV energy hatch -> Unlock MV bus
-multiblock.nodeenergizer.tooltip.05=2x LUV energy hatch -> Unlock HV bus
-multiblock.nodeenergizer.tooltip.06=HV bus enables aspect modifiers (Item stack size matters)
+#LargeArcaneAssembler
+multiblock.LargeArcaneAssembler=Large Arcane Assembler
+multiblock.largearcaneassembler.machine_type=Arcane Assembler
+multiblock.largearcaneassembler.tooltip.00= Energy hatch tier limited by §fGlass tier
+multiblock.largearcaneassembler.tooltip.01= Requires a §aEnergized Node§7  in a structure
+multiblock.largearcaneassembler.tooltip.02= Requires a §aResearch§7 for craft
+multiblock.largearcaneassembler.tooltip.03= Speed is always 1 sec
+multiblock.largearcaneassembler.tooltip.04= Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
@@ -95,4 +96,5 @@ multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold
+Author_Crazer=Author: §aCrazer
 Author_Structure=Structure author: §6%s

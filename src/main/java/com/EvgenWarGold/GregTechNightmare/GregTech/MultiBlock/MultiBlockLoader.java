@@ -8,6 +8,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerExtruder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.Magic.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedCokeOven;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
@@ -26,6 +27,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.MediumPowerCircuitAssembler.set(new GTN_MediumPowerCircuitAssembler(21_007, "MediumPowerCircuitAssembler"));
         GTN_ItemList.AdvancedCokeOven.set(new GTN_AdvancedCokeOven(21_008, "AdvancedCokeOven"));
         GTN_ItemList.NodeEnergizer.set(new GTN_NodeEnergizer(21_009, "NodeEnergizer"));
+        GTN_ItemList.LargeArcaneAssembler.set(new GTN_LargeArcaneAssembler(21_010, "LargeArcaneAssembler"));
         //spotless:on
     }
 }

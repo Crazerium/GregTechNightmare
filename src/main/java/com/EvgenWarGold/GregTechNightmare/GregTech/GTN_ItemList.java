@@ -36,6 +36,7 @@ public enum GTN_ItemList {
     MediumPowerCircuitAssembler,
     AdvancedCokeOven,
     NodeEnergizer,
+    LargeArcaneAssembler,
     // endregion
 
     ;
