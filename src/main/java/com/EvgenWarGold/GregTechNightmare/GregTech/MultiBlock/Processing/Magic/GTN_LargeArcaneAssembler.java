@@ -233,7 +233,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                 }
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
-        }.setOverclockType(OverclockType.NONE)
+        }.setOverclockType(getOverclockType())
             .setMaxParallelSupplier(this::getMaxParallelRecipes);
     }
 
