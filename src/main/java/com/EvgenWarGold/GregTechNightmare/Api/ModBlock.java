@@ -1,14 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.Api;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import gregtech.api.enums.Mods;
-import gregtech.api.util.GTModHandler;
+import static gregtech.api.util.GTUtility.copyAmount;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
+
 import org.jetbrains.annotations.NotNull;
 
-import static gregtech.api.util.GTUtility.copyAmount;
+import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+
+import gregtech.api.enums.Mods;
+import gregtech.api.util.GTModHandler;
 
 public class ModBlock {
 

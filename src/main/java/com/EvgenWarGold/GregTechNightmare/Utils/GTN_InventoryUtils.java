@@ -187,7 +187,6 @@ public class GTN_InventoryUtils {
         return removeFluids(inputFluids, removeFluids, false);
     }
 
-
     // endregion
 
     // region Help

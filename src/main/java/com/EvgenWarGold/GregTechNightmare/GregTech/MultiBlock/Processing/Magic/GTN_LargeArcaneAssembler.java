@@ -202,6 +202,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     @Override
     protected ProcessingLogic createProcessingLogic() {
         return new GTN_ProcessingLogic() {
+
             @NotNull
             @Override
             public CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {

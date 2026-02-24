@@ -1,12 +1,9 @@
 package com.EvgenWarGold.GregTechNightmare.ModBlocks;
 
+import static gregtech.api.enums.Mods.ThaumicEnergistics;
+
 import com.EvgenWarGold.GregTechNightmare.Api.ModBlock;
 import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import gregtech.api.enums.Mods;
-import it.unimi.dsi.fastutil.Pair;
-import net.minecraft.block.Block;
-
-import static gregtech.api.enums.Mods.ThaumicEnergistics;
 
 public class ThaumicEnergeticsBlocks extends ModHandler {
 
