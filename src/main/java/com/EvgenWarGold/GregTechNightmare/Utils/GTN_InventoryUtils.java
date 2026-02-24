@@ -101,6 +101,14 @@ public class GTN_InventoryUtils {
         return createItemWithMeta(block, 0, 1);
     }
 
+    public static ItemStack createItemWithDisplayName(Block block, String name) {
+        ItemStack itemStack = createItem(block);
+
+        itemStack.setStackDisplayName(name);
+
+        return itemStack;
+    }
+
     public static ItemStack[] itemListToArray(List<ItemStack> list) {
         return list.toArray(new ItemStack[0]);
     }
@@ -178,6 +186,8 @@ public class GTN_InventoryUtils {
     public static boolean removeFluids(List<FluidStack> inputFluids, List<FluidStack> removeFluids) {
         return removeFluids(inputFluids, removeFluids, false);
     }
+
+
     // endregion
 
     // region Help

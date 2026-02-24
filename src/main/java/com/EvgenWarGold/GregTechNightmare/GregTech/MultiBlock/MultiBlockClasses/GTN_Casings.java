@@ -1099,8 +1099,12 @@ public enum GTN_Casings implements ICasing {
     }
 
     @Nullable
+    public ItemStack getItemStack(int amount) {
+        return GTN_InventoryUtils.createItemWithMeta(getBlock(), meta, amount);
+    }
+
     public ItemStack getItemStack() {
-        return GTN_InventoryUtils.createItemWithMeta(getBlock(), meta);
+        return getItemStack(1);
     }
 
     @Override

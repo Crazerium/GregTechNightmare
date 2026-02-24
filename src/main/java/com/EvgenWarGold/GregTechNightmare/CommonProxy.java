@@ -29,7 +29,6 @@ public class CommonProxy {
     public void init(FMLInitializationEvent event) {
         MultiBlockLoader.init();
         RecipeResultRegisters.init();
-        ModBlocks.init();
     }
 
     // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
