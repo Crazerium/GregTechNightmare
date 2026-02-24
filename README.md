@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 9 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 10 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -168,6 +168,25 @@ Adds 9 new multiblocks. More content and multiblocks are planned. Suggestions ar
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="1205" height="505" alt="image" src="https://github.com/user-attachments/assets/f99ae418-98b0-4129-92f5-38e0aff5d28d" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Arcane Assembler</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="452" height="429" alt="image" src="https://github.com/user-attachments/assets/8894b752-5863-4a70-bdc4-2a2fe390da6e" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="397" height="356" alt="image" src="https://github.com/user-attachments/assets/8590d11b-48d8-469e-9775-18138de30eaf" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="1374" height="415" alt="image" src="https://github.com/user-attachments/assets/b6e11466-d5aa-4825-8013-7d00e6dcd550" />
     </td>
   </tr>
 </table>
