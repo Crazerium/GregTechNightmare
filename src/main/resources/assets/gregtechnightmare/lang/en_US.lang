@@ -91,8 +91,8 @@ multiblock.largearcaneassembler.tooltip.03= Speed is always 1 sec
 multiblock.largearcaneassembler.tooltip.04= Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
 
 #RecipeResult
-multiblock.reciperesult.range_tier=§cRequired energy hatch: %s - %s
-multiblock.reciperesult.max_tier=§cRequired energy hatch: %s
+multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
+multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold

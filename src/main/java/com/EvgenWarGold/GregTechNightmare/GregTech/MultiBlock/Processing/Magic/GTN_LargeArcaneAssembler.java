@@ -151,11 +151,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-
-        if (!super.checkMachine(aBaseMetaTileEntity, aStack)) {
-            return false;
-        }
+    public boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         for (MTEHatchEnergy hatch : mEnergyHatches) {
             if (hatch.mTier > glassTier) {
                 return false;
@@ -205,9 +201,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
 
     @Override
     protected ProcessingLogic createProcessingLogic() {
-
-        GTN_ProcessingLogic logic = new GTN_ProcessingLogic() {
-
+        return new GTN_ProcessingLogic() {
             @NotNull
             @Override
             public CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
@@ -216,45 +210,31 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                 if (!base.wasSuccessful()) {
                     return base;
                 }
-
                 String researchKey = recipe.getMetadata(GTN_Recipe.RESEARCH_KEY);
                 String owner = getBaseMetaTileEntity().getOwnerName();
                 if (researchKey != null && !ResearchManager.isResearchComplete(owner, researchKey)) {
                     return SimpleCheckRecipeResult.ofFailure("research_not_completed");
                 }
-
                 AspectList required = recipe.getMetadata(GTN_Recipe.ASPECT_COST);
                 if (required != null && required.size() > 0) {
-
                     World world = getBaseMetaTileEntity().getWorld();
                     int x = getBaseMetaTileEntity().getXCoord();
                     int y = getBaseMetaTileEntity().getYCoord();
                     int z = getBaseMetaTileEntity().getZCoord();
-
                     int minAspectAmount = Integer.MAX_VALUE;
-
                     for (Aspect aspect : required.getAspects()) {
-
                         int available = VisNetHandler.drainVis(world, x, y, z, aspect, Integer.MAX_VALUE);
-
                         if (available <= 0) {
                             return SimpleCheckRecipeResult.ofFailure("not_enough_aspects");
                         }
-
-                        if (available < minAspectAmount) {
-                            minAspectAmount = available;
-                        }
+                        minAspectAmount = Math.min(minAspectAmount, available);
                     }
-
                     setMaxParallel(minAspectAmount);
                 }
-
                 return CheckRecipeResultRegistry.SUCCESSFUL;
             }
-        };
-        logic.setOverclockType(OverclockType.NONE);
-
-        return logic;
+        }.setOverclockType(OverclockType.NONE)
+            .setMaxParallelSupplier(this::getMaxParallelRecipes);
     }
 
 }
