@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 10 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 11 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -187,6 +187,25 @@ Adds 10 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="1374" height="415" alt="image" src="https://github.com/user-attachments/assets/b6e11466-d5aa-4825-8013-7d00e6dcd550" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Tree Sprouter</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="322" height="209" alt="image" src="https://github.com/user-attachments/assets/4539798e-fce9-46fc-87e9-f684eedf4604" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="273" height="230" alt="image" src="https://github.com/user-attachments/assets/70c73c67-8cda-4ae7-84f6-2e361189e928" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="509" height="259" alt="image" src="https://github.com/user-attachments/assets/b4096db6-3023-4c1d-a828-55bdca81e02f" />
     </td>
   </tr>
 </table>
