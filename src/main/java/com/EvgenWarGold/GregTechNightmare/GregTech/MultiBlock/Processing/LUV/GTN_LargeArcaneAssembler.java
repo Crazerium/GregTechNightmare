@@ -1,4 +1,4 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.Magic;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.*;
 import static gregtech.api.enums.HatchElement.*;
