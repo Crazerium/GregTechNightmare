@@ -170,7 +170,7 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
 
                         itemStack.stackSize -= 1;
 
-                        setDurationInSeconds(1);
+                        setDurationInSeconds(5);
 
                         return CheckRecipeResultRegistry.SUCCESSFUL;
                     }
