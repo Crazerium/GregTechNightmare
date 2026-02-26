@@ -30,7 +30,7 @@ public class AdvancedCokeOvenRecipesPool {
             .fluidOutputs(Materials.Creosote.getFluid(250))
             .special(allWoodWithTag)
             .fake()
-            .duration(20)
+            .duration(20 * 5)
             .eut(0)
             .fake()
             .addTo(GTN_Recipe.CokeOvenRecipes);

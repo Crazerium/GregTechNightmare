@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 
 import gregtech.api.enums.GTValues;
 import thaumcraft.api.ThaumcraftApi;
@@ -49,9 +50,9 @@ public class LargeArcaneAssemblerRecipesPool {
                 .itemOutputs(output.copy())
                 .duration(20)
                 .eut(2048)
-                .metadata(GTN_Recipe.ASPECT_COST, aspects)
-                .metadata(GTN_Recipe.RESEARCH_KEY, researchKey)
-                .addTo(GTN_Recipe.ARCANE_ASSEMBLER_RECIPES);
+                .metadata(SimpleMetaData.ASPECT_COST, aspects)
+                .metadata(SimpleMetaData.RESEARCH_KEY, researchKey)
+                .addTo(GTN_Recipe.ArcaneAssemblerRecipes);
         }
     }
 

@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
@@ -146,6 +147,24 @@ public class GTN_MultiBlockRecipes {
 
             .eut(RECIPE_LuV)
             .duration(150 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Tree Sprouter
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                getCircuits(Materials.LV, 4),
+                ItemList.Robot_Arm_LV.get(1),
+                ItemList.Conveyor_Module_LV.get(2),
+                GTN_Casings.AborealCasing.getItemStack(4),
+                ItemList.Hull_LV.get(1)
+            )
+            .fluidInputs(
+                Materials.Water.getFluid(16_000)
+            )
+            .itemOutputs(GTN_ItemList.TreeSprouter.get(1))
+
+            .eut(RECIPE_LV)
+            .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
         //spotless:on

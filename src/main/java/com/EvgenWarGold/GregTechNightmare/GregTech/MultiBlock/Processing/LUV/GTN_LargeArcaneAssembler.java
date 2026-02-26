@@ -21,6 +21,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -191,7 +192,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
 
     @Override
     public RecipeMap<?> getRecipeMap() {
-        return GTN_Recipe.ARCANE_ASSEMBLER_RECIPES;
+        return GTN_Recipe.ArcaneAssemblerRecipes;
     }
 
     @Override
@@ -211,12 +212,12 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                 if (!base.wasSuccessful()) {
                     return base;
                 }
-                String researchKey = recipe.getMetadata(GTN_Recipe.RESEARCH_KEY);
+                String researchKey = recipe.getMetadata(SimpleMetaData.RESEARCH_KEY);
                 String owner = getBaseMetaTileEntity().getOwnerName();
                 if (researchKey != null && !ResearchManager.isResearchComplete(owner, researchKey)) {
                     return SimpleCheckRecipeResult.ofFailure("research_not_completed");
                 }
-                AspectList required = recipe.getMetadata(GTN_Recipe.ASPECT_COST);
+                AspectList required = recipe.getMetadata(SimpleMetaData.ASPECT_COST);
                 if (required != null && required.size() > 0) {
                     World world = getBaseMetaTileEntity().getWorld();
                     int x = getBaseMetaTileEntity().getXCoord();

@@ -23,6 +23,7 @@ public enum GTN_ItemList {
     // region Casings
     TestCasing,
     CokeOvenCasing,
+    ArborealCasing,
     // endregion
 
     // region MultiBlock
@@ -37,6 +38,7 @@ public enum GTN_ItemList {
     AdvancedCokeOven,
     NodeEnergizer,
     LargeArcaneAssembler,
+    TreeSprouter,
     // endregion
 
     ;

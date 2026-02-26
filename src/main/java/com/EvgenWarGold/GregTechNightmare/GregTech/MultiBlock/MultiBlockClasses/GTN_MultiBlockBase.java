@@ -29,6 +29,7 @@ import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructa
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
 
 import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -171,19 +172,19 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Textures
-    public Textures.BlockIcons getMainOverlay() {
+    public IIconContainer getMainOverlay() {
         return OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE;
     }
 
-    public Textures.BlockIcons getMainOverlayActive() {
+    public IIconContainer getMainOverlayActive() {
         return OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
     }
 
-    public Textures.BlockIcons getMainOverlayGlow() {
+    public IIconContainer getMainOverlayGlow() {
         return OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_GLOW;
     }
 
-    public Textures.BlockIcons getMainOverlayActiveGlow() {
+    public IIconContainer getMainOverlayActiveGlow() {
         return OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
     }
 

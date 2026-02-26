@@ -5,6 +5,7 @@ item.GTN_MetaItem01.1.name=Advanced Clay
 #Blocks
 tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
 tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
+tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -22,6 +23,7 @@ gtn.recipe.utils.all_logs=All Logs
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
+GT5U.gui.text.sapling_enough=Sapling is empty
 GT5U.gui.text.research_not_completed=§cNot enough Research
 GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
 
@@ -99,6 +101,16 @@ multiblock.largearcaneassembler.tooltip.01=Requires a §aEnergized Node§7  in a
 multiblock.largearcaneassembler.tooltip.02=Requires a §aResearch§7 for craft
 multiblock.largearcaneassembler.tooltip.03=Speed is always 1 sec
 multiblock.largearcaneassembler.tooltip.04=Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
+
+#TreeSprouter
+multiblock.TreeSprouter=Tree Sprouter
+multiblock.treesprouter.machine_type=Tree Farm
+multiblock.treesprouter.tooltip.00=A slow but free arboregeneration engine
+multiblock.treesprouter.tooltip.01=Produces: §664x§7 Logs per §c300 sec
+multiblock.treesprouter.tooltip.02=Steam injection: §616,000L§7 reduces time to §c120 sec
+multiblock.treesprouter.tooltip.03=§aNo EU required
+
+
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
