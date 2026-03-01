@@ -12,6 +12,7 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.ArrayList;
 import java.util.List;
 
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -253,20 +254,35 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        Pair<Integer, Integer> dynamoTier = getMaxEnergyTier();
+        Pair<Integer, Integer> energyTier = getMinMaxEnergyTier();
+        int minTierEnergyHatch = mEnergyHatches.stream()
+            .mapToInt(MTEHatchEnergy::getTierForStructure)
+            .min()
+            .orElse(-1);
 
-        if (dynamoTier != null) {
-            final long inputVoltage = getMaxInputVoltage();
+        int maxTierEnergyHatch = mEnergyHatches.stream()
+            .mapToInt(MTEHatchEnergy::getTierForStructure)
+            .max()
+            .orElse(-1);
 
-            if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
-                return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
+//        if (dynamoTier != null) {
+//            final long inputVoltage = getMaxInputVoltage();
+//
+//            if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
+//                return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
+//            }
+//        }
+
+        if (energyTier != null) {
+            if (!(minTierEnergyHatch >= energyTier.left() && maxTierEnergyHatch <= energyTier.right())) {
+                return ResultInsufficientRangeTier.of(energyTier.left(), energyTier.right());
             }
         }
 
         return super.checkProcessing();
     }
 
-    protected Pair<Integer, Integer> getMaxEnergyTier() {
+    protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return null;
     }
     // endregion
@@ -473,6 +489,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             .build();
 
         return voidProtectionHelper.isItemFull();
+    }
+
+    public int getMaxEnergyTier() {
+
+        return 1;
     }
     // endregion
 }
