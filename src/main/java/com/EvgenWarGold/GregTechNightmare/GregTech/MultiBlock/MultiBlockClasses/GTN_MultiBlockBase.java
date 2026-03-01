@@ -1,6 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
-import static gregtech.api.enums.GTValues.V;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
@@ -12,7 +11,6 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.ArrayList;
 import java.util.List;
 
-import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,6 +34,7 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEExtendedPowerMultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
@@ -265,13 +264,13 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             .max()
             .orElse(-1);
 
-//        if (dynamoTier != null) {
-//            final long inputVoltage = getMaxInputVoltage();
-//
-//            if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
-//                return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
-//            }
-//        }
+        // if (dynamoTier != null) {
+        // final long inputVoltage = getMaxInputVoltage();
+        //
+        // if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
+        // return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
+        // }
+        // }
 
         if (energyTier != null) {
             if (!(minTierEnergyHatch >= energyTier.left() && maxTierEnergyHatch <= energyTier.right())) {
