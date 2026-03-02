@@ -6,7 +6,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.GregTechAPI;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.util.EnumChatFormatting;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
@@ -100,5 +104,25 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
                             GTN_MediumPowerEngraver::mainCasingAdd,
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return RecipeMaps.laserEngraverRecipes;
+    }
+
+    @Override
+    public float getSpeedBonus() {
+        return 0.80F;
+    }
+
+    @Override
+    protected Pair<Integer, Integer> getMinMaxEnergyTier() {
+        return Pair.of(VoltageIndex.MV, VoltageIndex.HV);
+    }
+
+    @Override
+    public int getMaxParallelRecipes() {
+        return 10;
     }
 }
