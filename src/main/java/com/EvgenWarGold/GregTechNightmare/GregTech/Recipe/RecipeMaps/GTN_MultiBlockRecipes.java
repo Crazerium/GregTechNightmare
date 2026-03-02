@@ -198,6 +198,22 @@ public class GTN_MultiBlockRecipes {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Medium Power Engraver
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_MV.get(10),
+                ItemList.Machine_MV_LaserEngraver.get(1),
+                ItemList.Electric_Pump_MV.get(2),
+                ItemList.Electric_Piston_MV.get(2),
+                ItemList.Robot_Arm_MV.get(2),
+                getCircuits(Materials.HV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MediumPowerEngraver.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

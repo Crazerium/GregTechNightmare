@@ -126,6 +126,13 @@ multiblock.MediumPowerWireMill.tooltip.00=Can only use §aMV§7-§aHV§7 energy 
 multiblock.MediumPowerWireMill.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.MediumPowerWireMill.tooltip.02=Max parallel: §910
 
+#MediumPowerEngraver
+multiblock.MediumPowerEngraver=Medium Power Engraver
+multiblock.MediumPowerEngraver.machine_type=Laser Engraver
+multiblock.MediumPowerEngraver.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerEngraver.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerEngraver.tooltip.02=Max parallel: §910
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

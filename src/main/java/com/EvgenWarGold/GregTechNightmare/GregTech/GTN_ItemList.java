@@ -41,6 +41,7 @@ public enum GTN_ItemList {
     TreeSprouter,
     CreosoteEngine,
     MediumPowerWireMill,
+    MediumPowerEngraver,
     // endregion
 
     ;

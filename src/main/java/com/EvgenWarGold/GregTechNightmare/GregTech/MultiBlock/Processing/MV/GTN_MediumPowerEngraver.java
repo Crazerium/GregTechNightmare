@@ -1,5 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import gregtech.api.GregTechAPI;
+import gregtech.api.util.MultiblockTooltipBuilder;
+import net.minecraft.util.EnumChatFormatting;
+
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
@@ -10,34 +19,19 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
-import net.minecraft.util.EnumChatFormatting;
+public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerEngraver> {
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-
-import gregtech.api.GregTechAPI;
-import gregtech.api.enums.VoltageIndex;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
-import it.unimi.dsi.fastutil.Pair;
-
-public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerWireMill> {
-
-    public GTN_MediumPowerWireMill(int id, String name) {
+    public GTN_MediumPowerEngraver(int id, String name) {
         super(id, name);
     }
 
-    public GTN_MediumPowerWireMill(String name) {
+    public GTN_MediumPowerEngraver(String name) {
         super(name);
     }
 
     @Override
     public int getOffsetHorizontal() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -56,8 +50,8 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     }
 
     @Override
-    public GTN_MediumPowerWireMill createNewMetaEntity() {
-        return new GTN_MediumPowerWireMill(this.mName);
+    public GTN_MediumPowerEngraver createNewMetaEntity() {
+        return new GTN_MediumPowerEngraver(this.mName);
     }
 
     @Override
@@ -72,8 +66,11 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "A  A    ", "A  A    ", "A  A    " }, { "~  A   A", "ACCCCCCA", "A  A   A" },
-            { "AAAAAAAA", "ABBBBBBA", "AAAAAAAA" } };
+        return new String[][]{
+            {" ABBA"," ABBA"," ABBA"},
+            {" ~BBA"," ABBA","AABBA"},
+            {" AAAA","AAAAA","AAAAA"}
+        };
     }
 
     @Override
@@ -82,47 +79,26 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(8, 3, 3, false)
+            .beginStructureBlock(5, 3, 3, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
             .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
-    public IStructureDefinition<GTN_MediumPowerWireMill> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerWireMill>builder()
+    public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
+        return IStructureDefinition.<GTN_MediumPowerEngraver>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-            .addElement('C', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 3))
+            .addElement('B', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 3))
             .addElement(
                 'A',
-                buildHatchAdder(GTN_MediumPowerWireMill.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
+                buildHatchAdder(GTN_MediumPowerEngraver.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
                     .buildAndChain(
                         onElementPass(
-                            GTN_MediumPowerWireMill::mainCasingAdd,
+                            GTN_MediumPowerEngraver::mainCasingAdd,
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
-    }
-
-    @Override
-    public RecipeMap<?> getRecipeMap() {
-        return RecipeMaps.wiremillRecipes;
-    }
-
-    @Override
-    public float getSpeedBonus() {
-        return 0.80F;
-    }
-
-    @Override
-    protected Pair<Integer, Integer> getMinMaxEnergyTier() {
-        return Pair.of(VoltageIndex.MV, VoltageIndex.HV);
-    }
-
-    @Override
-    public int getMaxParallelRecipes() {
-        return 10;
     }
 }
