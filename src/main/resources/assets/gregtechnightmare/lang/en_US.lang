@@ -110,7 +110,14 @@ multiblock.TreeSprouter.tooltip.01=Produces: §664x§7 Logs per §c300 sec
 multiblock.TreeSprouter.tooltip.02=Steam injection: §616,000L§7 reduces time to §c120 sec
 multiblock.TreeSprouter.tooltip.03=§aNo EU required
 
-
+№CreosoteEngine
+multiblock.CreosoteEngine=Creosote Engine
+multiblock.CreosoteEngine.machine_type=Generator
+multiblock.CreosoteEngine.tooltip.00=Only one Dynamo tier allowed per structure §cLV §7or §cMV
+multiblock.CreosoteEngine.tooltip.01=accepts buffered dynamo
+multiblock.CreosoteEngine.tooltip.02=Fuel consumption: §eCreosote
+multiblock.CreosoteEngine.tooltip.03=LV: §a25L/s §7per amp
+multiblock.CreosoteEngine.tooltip.04=MV: §a100L/s §7per amp
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s

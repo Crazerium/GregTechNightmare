@@ -167,6 +167,23 @@ public class GTN_MultiBlockRecipes {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Creosote Engine
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.SolidSteelMachineCasing.getItemStack(8),
+                GTN_Casings.SteelGearBoxCasing.getItemStack(4),
+                ItemList.Electric_Pump_LV.get(2),
+                ItemList.Hull_LV.get(1)
+            )
+            .fluidInputs(
+                Materials.Creosote.getFluid(4_000)
+            )
+            .itemOutputs(GTN_ItemList.CreosoteEngine.get(1))
+
+            .eut(RECIPE_LV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

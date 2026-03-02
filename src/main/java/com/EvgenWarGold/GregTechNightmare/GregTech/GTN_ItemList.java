@@ -39,6 +39,7 @@ public enum GTN_ItemList {
     NodeEnergizer,
     LargeArcaneAssembler,
     TreeSprouter,
+    CreosoteEngine,
     // endregion
 
     ;

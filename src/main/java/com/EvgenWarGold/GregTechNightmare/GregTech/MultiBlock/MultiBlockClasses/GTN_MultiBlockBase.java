@@ -4,6 +4,7 @@ import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAS
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_ACTIVE_GLOW;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_FRONT_ELECTRIC_BLAST_FURNACE_GLOW;
+import static gregtech.api.util.GTUtility.validMTEList;
 import static mcp.mobius.waila.api.SpecialChars.RED;
 import static mcp.mobius.waila.api.SpecialChars.RESET;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
@@ -11,6 +12,8 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 import java.util.ArrayList;
 import java.util.List;
 
+import gregtech.api.metatileentity.implementations.MTEHatch;
+import gregtech.api.metatileentity.implementations.MTEHatchDynamo;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -460,15 +463,109 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected String tr(String key, Object... formatted) {
         return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key, formatted);
     }
+
+    public void setDurationInTicks(int ticks) {
+        mMaxProgresstime = ticks;
+    }
+
+    public void setDurationInSeconds(int seconds) {
+        setDurationInTicks(seconds * 20);
+    }
+
+    public void setDurationInMinutes(int minutes) {
+        setDurationInSeconds(minutes * 60);
+    }
+
+    public void setDurationInHours(int hours) {
+        setDurationInMinutes(hours * 60);
+    }
+
+    public void setDurationInDays(int days) {
+        setDurationInHours(days * 24);
+    }
     // endregion
 
     // region Energy
-    protected long getEnergyUsageWithoutLoss(long lEUt) {
-        return (long) (-lEUt * 0.95);
+    protected void setEnergyUsageWithoutLoss(long lEUt) {
+        this.lEUt = (long) (-lEUt * 0.95);
+    }
+
+    protected void setEnergyGenerate(long lEUt) {
+        this.lEUt = lEUt;
     }
 
     public boolean isEnergyMultiBlock() {
         return true;
+    }
+
+    public long getAllDynamoBuffer() {
+        long buffer = 0;
+        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
+            buffer += tHatch.getEUVar();
+        }
+        return buffer;
+    }
+
+    public long getAllMaxDynamoBuffer() {
+        long buffer = 0;
+        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
+            buffer += tHatch.maxEUStore();
+        }
+        return buffer;
+    }
+
+    public long getDynamoAmperage() {
+        long dynamoAmperage = 0;
+        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
+            assert tHatch.getBaseMetaTileEntity() != null;
+            dynamoAmperage += tHatch.getBaseMetaTileEntity()
+                .getOutputAmperage();
+        }
+        return dynamoAmperage;
+    }
+
+    public boolean checkMixedDynamo() {
+        long firstVoltage = -1;
+        for (MTEHatchDynamo tHatch : validMTEList(mDynamoHatches)) {
+            long aVoltage = tHatch.maxEUOutput();
+            if (firstVoltage == -1) {
+                firstVoltage = aVoltage;
+            } else {
+                if (firstVoltage != aVoltage) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkCountDynamo(int countAvaliableDynamo) {
+        int count = 0;
+        for (MTEHatchDynamo tHatch : validMTEList(mDynamoHatches)) {
+            count++;
+            if (count > countAvaliableDynamo) return false;
+        }
+        return true;
+    }
+
+    public int getTierDynamo() {
+        if (!checkMixedDynamo()) {
+            return mDynamoHatches.stream()
+                .mapToInt(MTEHatchDynamo::getTierForStructure)
+                .distinct()
+                .reduce((a, b) -> 0)
+                .orElse(0);
+        }
+        return 0;
+    }
+
+    public boolean setDynamoTier(int tier, boolean onlyThisTier) {
+        if (onlyThisTier) {
+            return mDynamoHatches.stream()
+                .allMatch(dynamo -> dynamo.getTierForStructure() == tier);
+        }
+        return mDynamoHatches.stream()
+            .allMatch(dynamo -> dynamo.getTierForStructure() <= tier);
     }
     // endregion
 
