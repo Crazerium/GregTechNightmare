@@ -1,40 +1,39 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-import gregtech.api.enums.Materials;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.util.MultiblockTooltipBuilder;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Dynamo;
-import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
+import java.util.Collections;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import gregtech.api.enums.Materials;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.util.MultiblockTooltipBuilder;
+
 public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
+
     private static int DYNAMO_TIER;
     private static long DYNAMO_AMP;
     private static final int CREOSOTE_USAGE_PER_SEC = 25;
@@ -89,11 +88,8 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
 
     @Override
     public String[][] getShape() {
-        return new String[][]{
-            {"      B ","     E B","     E B","      B "},
-            {"BFFFB~B ","     E B","     E B","BFFFBBB "},
-            {"BCCCBD  ","AAAAABBB","AAAAABBB","BCCCBD  "}
-        };
+        return new String[][] { { "      B ", "     E B", "     E B", "      B " },
+            { "BFFFB~B ", "     E B", "     E B", "BFFFBBB " }, { "BCCCBD  ", "AAAAABBB", "AAAAABBB", "BCCCBD  " } };
     }
 
     @Override
