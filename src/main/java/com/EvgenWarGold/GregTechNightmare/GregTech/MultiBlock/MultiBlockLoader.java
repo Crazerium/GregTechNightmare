@@ -11,6 +11,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerExtruder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerWireMill;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedCokeOven;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
@@ -32,6 +33,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.LargeArcaneAssembler.set(new GTN_LargeArcaneAssembler(21_010, "LargeArcaneAssembler"));
         GTN_ItemList.TreeSprouter.set(new GTN_TreeSprouter(21_011, "TreeSprouter"));
         GTN_ItemList.CreosoteEngine.set(new GTN_CreosoteEngine(21_012, "CreosoteEngine"));
+        GTN_ItemList.MediumPowerWireMill.set(new GTN_MediumPowerWireMill(21_013, "MediumPowerWireMill"));
         //spotless:on
     }
 }
