@@ -71,9 +71,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Class Construct
     private static final String TRANSLATE_KEY = "multiblock.";
+    private String MULTIBLOCK_NAME_KEY;
 
     public GTN_MultiBlockBase(int id, String name) {
         super(id, TRANSLATE_KEY + name, GTN_Utils.tr(TRANSLATE_KEY + name));
+        MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
     }
 
     public GTN_MultiBlockBase(String name) {
@@ -221,7 +223,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected int maxParallel = 1;
     protected float euModifier = 1;
     protected float speedBonus = 1;
-    private boolean isCustomHatches = false;
 
     public int getMaxParallelRecipes() {
         return maxParallel;
@@ -263,14 +264,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             .mapToInt(MTEHatchEnergy::getTierForStructure)
             .max()
             .orElse(-1);
-
-        // if (dynamoTier != null) {
-        // final long inputVoltage = getMaxInputVoltage();
-        //
-        // if (inputVoltage < V[dynamoTier.left()] || inputVoltage > V[dynamoTier.right()]) {
-        // return ResultInsufficientRangeTier.of(dynamoTier.left(), dynamoTier.right());
-        // }
-        // }
 
         if (energyTier != null) {
             if (!(minTierEnergyHatch >= energyTier.left() && maxTierEnergyHatch <= energyTier.right())) {
@@ -461,11 +454,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     protected String tr(String key) {
-        return GTN_Utils.tr(this.mName + "." + key);
+        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key);
     }
 
     protected String tr(String key, Object... formatted) {
-        return GTN_Utils.tr(this.mName + "." + key, formatted);
+        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key, formatted);
     }
     // endregion
 
@@ -488,11 +481,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             .build();
 
         return voidProtectionHelper.isItemFull();
-    }
-
-    public int getMaxEnergyTier() {
-
-        return 1;
     }
     // endregion
 }
