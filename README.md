@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 12 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 13 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -225,6 +225,25 @@ Adds 12 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="821" height="411" alt="image" src="https://github.com/user-attachments/assets/54bbbbdf-7dba-4aed-bf09-a2e20c9301a9" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Medium Power Wiremill</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="464" height="400" alt="image" src="https://github.com/user-attachments/assets/69738ebf-6057-4a82-bce1-1abfeb91d625" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="387" height="355" alt="image" src="https://github.com/user-attachments/assets/5d7e55aa-7ab4-4bdb-bdc8-03f1dda33fc0" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="638" height="347" alt="image" src="https://github.com/user-attachments/assets/e3e09139-9985-411b-bd47-06974c349819" />
     </td>
   </tr>
 </table>
