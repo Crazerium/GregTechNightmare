@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
@@ -211,6 +212,24 @@ public class GTN_MultiBlockRecipes {
             .itemOutputs(GTN_ItemList.MediumPowerEngraver.get(1))
 
             .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Extreme Power Circuit Assembler
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.StableTitaniumMachineCasing.getItemStack(8),
+                ItemList.Emitter_EV.get(2),
+                ItemList.Sensor_EV.get(2),
+                ItemList.Field_Generator_EV.get(2),
+                ItemList.Machine_EV_CircuitAssembler.get(1)
+            )
+            .fluidInputs(
+                Materials.Radon.getGas(8_000)
+            )
+            .itemOutputs(GTN_ItemList.ExtremePowerCircuitAssembler.get(1))
+
+            .eut(RECIPE_EV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 

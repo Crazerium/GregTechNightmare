@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
@@ -36,6 +37,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.CreosoteEngine.set(new GTN_CreosoteEngine(21_012, "CreosoteEngine"));
         GTN_ItemList.MediumPowerWireMill.set(new GTN_MediumPowerWireMill(21_013, "MediumPowerWireMill"));
         GTN_ItemList.MediumPowerEngraver.set(new GTN_MediumPowerEngraver(21_014, "MediumPowerEngraver"));
+        GTN_ItemList.ExtremePowerCircuitAssembler.set(new GTN_ExtremePowerCircuitAssembler(21_015, "ExtremePowerCircuitAssembler"));
         //spotless:on
     }
 }

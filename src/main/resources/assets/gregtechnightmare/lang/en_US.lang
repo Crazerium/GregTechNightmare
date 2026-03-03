@@ -133,6 +133,14 @@ multiblock.MediumPowerEngraver.tooltip.00=Can only use §aMV§7-§aHV§7 energy 
 multiblock.MediumPowerEngraver.tooltip.01=§a25%§7 faster than singleblocks
 multiblock.MediumPowerEngraver.tooltip.02=Max parallel: §910
 
+#ExtremePowerCircuitAssembler
+multiblock.ExtremePowerCircuitAssembler=Extreme Power Circuit Assembler
+multiblock.ExtremePowerCircuitAssembler.machine_type=Circuit Assembler
+multiblock.ExtremePowerCircuitAssembler.tooltip.00=Can only use §aEV§7-§aIV§7 energy hatch
+multiblock.ExtremePowerCircuitAssembler.tooltip.01=§a35%§7 faster than singleblocks
+multiblock.ExtremePowerCircuitAssembler.tooltip.02=Max parallel: §920
+
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

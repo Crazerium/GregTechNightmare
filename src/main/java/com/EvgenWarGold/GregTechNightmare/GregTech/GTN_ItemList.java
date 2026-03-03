@@ -42,6 +42,7 @@ public enum GTN_ItemList {
     CreosoteEngine,
     MediumPowerWireMill,
     MediumPowerEngraver,
+    ExtremePowerCircuitAssembler,
     // endregion
 
     ;
