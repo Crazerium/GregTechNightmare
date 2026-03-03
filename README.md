@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 13 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 16 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -237,13 +237,51 @@ Adds 13 new multiblocks. More content and multiblocks are planned. Suggestions a
   </tr>
   <tr>
     <td align="center" style="width:33.33%; padding: 15px;">
-      <img width="464" height="400" alt="image" src="https://github.com/user-attachments/assets/69738ebf-6057-4a82-bce1-1abfeb91d625" />
+      <img width="311" height="204" alt="image" src="https://github.com/user-attachments/assets/00b30920-ba2d-4d58-acc6-916c06a0a3f7" />
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
-     <img width="387" height="355" alt="image" src="https://github.com/user-attachments/assets/5d7e55aa-7ab4-4bdb-bdc8-03f1dda33fc0" />
+     <img width="276" height="241" alt="image" src="https://github.com/user-attachments/assets/c80296fa-49f3-47c4-b976-ceba54aa0fca" />
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
-      <img width="638" height="347" alt="image" src="https://github.com/user-attachments/assets/e3e09139-9985-411b-bd47-06974c349819" />
+      <img width="424" height="234" alt="image" src="https://github.com/user-attachments/assets/cf61c80e-ffa9-4a71-8667-c5e1b40488ab" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Medium Power Engraver</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="473" height="436" alt="image" src="https://github.com/user-attachments/assets/50f916c4-7718-4238-b28f-da817ae237b3" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="400" height="342" alt="image" src="https://github.com/user-attachments/assets/625d31aa-3eab-49f3-8e84-402b8bec298e" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="673" height="342" alt="image" src="https://github.com/user-attachments/assets/ab8d00ea-0f23-4f78-919e-71f5dfedafcf" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Extreme Power Circuit Assembler</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="469" height="435" alt="image" src="https://github.com/user-attachments/assets/14f49b36-f649-437e-9307-4886eab5865a" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="385" height="356" alt="image" src="https://github.com/user-attachments/assets/67b1ed65-dd12-4b60-ae72-46641ad048c5" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="819" height="351" alt="image" src="https://github.com/user-attachments/assets/a2981ba7-1b88-4969-b337-5abf8b3f0250" />
     </td>
   </tr>
 </table>
