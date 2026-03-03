@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 15 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 16 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -263,6 +263,25 @@ Adds 15 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="673" height="342" alt="image" src="https://github.com/user-attachments/assets/ab8d00ea-0f23-4f78-919e-71f5dfedafcf" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Extreme Power Circuit Assembler</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="469" height="435" alt="image" src="https://github.com/user-attachments/assets/14f49b36-f649-437e-9307-4886eab5865a" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="385" height="356" alt="image" src="https://github.com/user-attachments/assets/67b1ed65-dd12-4b60-ae72-46641ad048c5" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="819" height="351" alt="image" src="https://github.com/user-attachments/assets/a2981ba7-1b88-4969-b337-5abf8b3f0250" />
     </td>
   </tr>
 </table>
