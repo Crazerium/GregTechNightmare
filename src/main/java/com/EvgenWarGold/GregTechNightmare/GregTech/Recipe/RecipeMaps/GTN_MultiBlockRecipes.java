@@ -2,7 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
-import static gregtech.api.enums.TierEU.LV;
+import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
@@ -108,7 +108,6 @@ public class GTN_MultiBlockRecipes {
                 ItemList.Casing_MV.get(10),
                 ItemList.Machine_MV_CircuitAssembler.get(1),
                 ItemList.Electric_Pump_MV.get(2),
-                ItemList.Electric_Pump_MV.get(2),
                 ItemList.Robot_Arm_MV.get(2),
                 getCircuits(Materials.MV, 2)
             )
@@ -167,6 +166,73 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_LV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // Creosote Engine
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.SolidSteelMachineCasing.getItemStack(8),
+                GTN_Casings.SteelGearBoxCasing.getItemStack(4),
+                ItemList.Electric_Pump_LV.get(2),
+                ItemList.Hull_LV.get(1)
+            )
+            .fluidInputs(
+                Materials.Creosote.getFluid(4_000)
+            )
+            .itemOutputs(GTN_ItemList.CreosoteEngine.get(1))
+
+            .eut(RECIPE_LV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Medium Power Wiremill
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_MV.get(10),
+                ItemList.Machine_MV_Wiremill.get(1),
+                ItemList.Electric_Piston_MV.get(2),
+                ItemList.Robot_Arm_MV.get(2),
+                getCircuits(Materials.MV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MediumPowerWireMill.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Medium Power Engraver
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Casing_MV.get(10),
+                ItemList.Machine_MV_LaserEngraver.get(1),
+                ItemList.Electric_Pump_MV.get(2),
+                ItemList.Electric_Piston_MV.get(2),
+                ItemList.Robot_Arm_MV.get(2),
+                getCircuits(Materials.HV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MediumPowerEngraver.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Extreme Power Circuit Assembler
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.StableTitaniumMachineCasing.getItemStack(8),
+                ItemList.Emitter_EV.get(2),
+                ItemList.Sensor_EV.get(2),
+                ItemList.Field_Generator_EV.get(2),
+                ItemList.Machine_EV_CircuitAssembler.get(1)
+            )
+            .fluidInputs(
+                Materials.Radon.getGas(8_000)
+            )
+            .itemOutputs(GTN_ItemList.ExtremePowerCircuitAssembler.get(1))
+
+            .eut(RECIPE_EV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         // Gas Collector
         addCraftingRecipe(
             GTN_ItemList.GasCollector.get(1),

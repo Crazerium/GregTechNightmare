@@ -123,7 +123,7 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     }
 
     @Override
-    protected Pair<Integer, Integer> getMaxEnergyTier() {
+    protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return Pair.of(VoltageIndex.MV, VoltageIndex.HV);
     }
 

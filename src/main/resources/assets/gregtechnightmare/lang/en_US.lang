@@ -32,90 +32,120 @@ multiblock.Test=§cTest MultiBlock
 
 #AdvancedBBF
 multiblock.AdvancedBBF=Advanced BBF
-multiblock.advancedbbf.machine_type=BBF
-multiblock.advancedbbf.tooltip.00=Improved version of §aBricked Blast Furnace
-multiblock.advancedbbf.tooltip.01=§eCheck nei recipes
+multiblock.AdvancedBBF.machine_type=BBF
+multiblock.AdvancedBBF.tooltip.00=Improved version of §aBricked Blast Furnace
+multiblock.AdvancedBBF.tooltip.01=§eCheck nei recipes
 
 #BronzeVoidMiner
 multiblock.BronzeVoidMiner=Bronze Void Miner
-multiblock.bronzevoidminer.machine_type=Void Miner
-multiblock.bronzevoidminer.tooltip.00=Steam consumption: §e8 000 L/s
-multiblock.bronzevoidminer.tooltip.01=Generate §94§7 random ores
-multiblock.bronzevoidminer.tooltip.02=§cWorks only in the Overworld
+multiblock.BronzeVoidMiner.machine_type=Void Miner
+multiblock.BronzeVoidMiner.tooltip.00=Steam consumption: §e8 000 L/s
+multiblock.BronzeVoidMiner.tooltip.01=Generate §94§7 random ores
+multiblock.BronzeVoidMiner.tooltip.02=§cWorks only in the Overworld
 
 #LowPowerVoidMiner
 multiblock.LowPowerVoidMiner=Low Power Void Miner
-multiblock.lowpowervoidminer.machine_type=Void Miner
-multiblock.lowpowervoidminer.tooltip.00=Consumption: §e128 Eu/t
-multiblock.lowpowervoidminer.tooltip.01=Generate §98§7 random ores per second
-multiblock.lowpowervoidminer.tooltip.02=§cWorks only in the Overworld, Twilight Forest and Nether
+multiblock.LowPowerVoidMiner.machine_type=Void Miner
+multiblock.LowPowerVoidMiner.tooltip.00=Consumption: §e128 Eu/t
+multiblock.LowPowerVoidMiner.tooltip.01=Generate §98§7 random ores per second
+multiblock.LowPowerVoidMiner.tooltip.02=§cWorks only in the Overworld, Twilight Forest and Nether
 
 #MediumPowerBender
 multiblock.MediumPowerBender=Medium Power Bender
-multiblock.mediumpowerbender.machine_type=Bending Machine
-multiblock.mediumpowerbender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.mediumpowerbender.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.mediumpowerbender.tooltip.02=Max parallel: §910
+multiblock.MediumPowerBender.machine_type=Bending Machine
+multiblock.MediumPowerBender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerBender.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerBender.tooltip.02=Max parallel: §910
 
 #MediumPowerExtruder
 multiblock.MediumPowerExtruder=Medium Power Extruder
-multiblock.mediumpowerextruder.machine_type=Extruder
-multiblock.mediumpowerextruder.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.mediumpowerextruder.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.mediumpowerextruder.tooltip.02=Max parallel: §910
+multiblock.MediumPowerExtruder.machine_type=Extruder
+multiblock.MediumPowerExtruder.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerExtruder.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerExtruder.tooltip.02=Max parallel: §910
 
 #MediumPowerAssembler
 multiblock.MediumPowerAssembler=Medium Power Assembler
-multiblock.mediumpowerassembler.machine_type=Assembler
-multiblock.mediumpowerassembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.mediumpowerassembler.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.mediumpowerassembler.tooltip.02=Max parallel: §910
+multiblock.MediumPowerAssembler.machine_type=Assembler
+multiblock.MediumPowerAssembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerAssembler.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerAssembler.tooltip.02=Max parallel: §910
 
 #MediumPowerCircuitAssembler
 multiblock.MediumPowerCircuitAssembler=Medium Power Circuit Assembler
-multiblock.mediumpowercircuitassembler.machine_type=Circuit Assembler
-multiblock.mediumpowercircuitassembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.mediumpowercircuitassembler.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.mediumpowercircuitassembler.tooltip.02=Max parallel: §910
+multiblock.MediumPowerCircuitAssembler.machine_type=Circuit Assembler
+multiblock.MediumPowerCircuitAssembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerCircuitAssembler.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerCircuitAssembler.tooltip.02=Max parallel: §910
 
 #CokeOven
 multiblock.AdvancedCokeOven=Advanced Coke Oven
-multiblock.advancedcokeoven.machine_type=Coke Oven
-multiblock.advancedcokeoven.tooltip.00=Improved Coke Oven
+multiblock.AdvancedCokeOven.machine_type=Coke Oven
+multiblock.AdvancedCokeOven.tooltip.00=Improved Coke Oven
 
 #NodeEnergizer
 multiblock.NodeEnergizer=Node Energizer
-multiblock.nodeenergizer.machine_type=Arcane breacher
-multiblock.nodeenergizer.tooltip.00=This machine will try to add aspects from items in input bus, but what the cost?
-multiblock.nodeenergizer.tooltip.01=2x HV energy hatch -> Unlock ULV bus
-multiblock.nodeenergizer.tooltip.02=2x EV energy hatch -> Unlock LV bus
-multiblock.nodeenergizer.tooltip.03=2x IV energy hatch -> Unlock MV bus
-multiblock.nodeenergizer.tooltip.04=2x LUV energy hatch -> Unlock HV bus
-multiblock.nodeenergizer.tooltip.05=HV bus enables aspect modifiers (Item stack size matters)
+multiblock.NodeEnergizer.machine_type=Arcane breacher
+multiblock.NodeEnergizer.tooltip.00=This machine will try to add aspects from items in input bus, but what the cost?
+multiblock.NodeEnergizer.tooltip.01=2x HV energy hatch -> Unlock ULV bus
+multiblock.NodeEnergizer.tooltip.02=2x EV energy hatch -> Unlock LV bus
+multiblock.NodeEnergizer.tooltip.03=2x IV energy hatch -> Unlock MV bus
+multiblock.NodeEnergizer.tooltip.04=2x LUV energy hatch -> Unlock HV bus
+multiblock.NodeEnergizer.tooltip.05=HV bus enables aspect modifiers (Item stack size matters)
 
 #LargeArcaneAssembler
 multiblock.LargeArcaneAssembler=Large Arcane Assembler
-multiblock.largearcaneassembler.machine_type=Arcane Assembler
-multiblock.largearcaneassembler.tooltip.00=Energy hatch tier limited by §fGlass tier
-multiblock.largearcaneassembler.tooltip.01=Requires a §aEnergized Node§7  in a structure
-multiblock.largearcaneassembler.tooltip.02=Requires a §aResearch§7 for craft
-multiblock.largearcaneassembler.tooltip.03=Speed is always 1 sec
-multiblock.largearcaneassembler.tooltip.04=Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
+multiblock.LargeArcaneAssembler.machine_type=Arcane Assembler
+multiblock.LargeArcaneAssembler.tooltip.00=Energy hatch tier limited by §fGlass tier
+multiblock.LargeArcaneAssembler.tooltip.01=Requires a §aEnergized Node§7  in a structure
+multiblock.LargeArcaneAssembler.tooltip.02=Requires a §aResearch§7 for craft
+multiblock.LargeArcaneAssembler.tooltip.03=Speed is always 1 sec
+multiblock.LargeArcaneAssembler.tooltip.04=Max parallel is determined by the lowest required aspect available in the §aEnergized Node.
 
 #TreeSprouter
 multiblock.TreeSprouter=Tree Sprouter
-multiblock.treesprouter.machine_type=Tree Farm
-multiblock.treesprouter.tooltip.00=A slow but free arboregeneration engine
-multiblock.treesprouter.tooltip.01=Produces: §664x§7 Logs per §c300 sec
-multiblock.treesprouter.tooltip.02=Steam injection: §616,000L§7 reduces time to §c120 sec
-multiblock.treesprouter.tooltip.03=§aNo EU required
+multiblock.TreeSprouter.machine_type=Tree Farm
+multiblock.TreeSprouter.tooltip.00=A slow but free arboregeneration engine
+multiblock.TreeSprouter.tooltip.01=Produces: §664x§7 Logs per §c300 sec
+multiblock.TreeSprouter.tooltip.02=Steam injection: §616,000L§7 reduces time to §c120 sec
+multiblock.TreeSprouter.tooltip.03=§aNo EU required
+
+#CreosoteEngine
+multiblock.CreosoteEngine=Creosote Engine
+multiblock.CreosoteEngine.machine_type=Generator
+multiblock.CreosoteEngine.tooltip.00=Only one Dynamo tier allowed per structure §cLV §7or §cMV
+multiblock.CreosoteEngine.tooltip.01=accepts buffered dynamo
+multiblock.CreosoteEngine.tooltip.02=Fuel consumption: §eCreosote
+multiblock.CreosoteEngine.tooltip.03=LV: §a25L/s §7per amp
+multiblock.CreosoteEngine.tooltip.04=MV: §a100L/s §7per amp
+
+#MediumPowerWireMill
+multiblock.MediumPowerWireMill=Medium Power Wiremill
+multiblock.MediumPowerWireMill.machine_type=Wiremill
+multiblock.MediumPowerWireMill.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerWireMill.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerWireMill.tooltip.02=Max parallel: §910
+
+#MediumPowerEngraver
+multiblock.MediumPowerEngraver=Medium Power Engraver
+multiblock.MediumPowerEngraver.machine_type=Laser Engraver
+multiblock.MediumPowerEngraver.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
+multiblock.MediumPowerEngraver.tooltip.01=§a25%§7 faster than singleblocks
+multiblock.MediumPowerEngraver.tooltip.02=Max parallel: §910
+
+#ExtremePowerCircuitAssembler
+multiblock.ExtremePowerCircuitAssembler=Extreme Power Circuit Assembler
+multiblock.ExtremePowerCircuitAssembler.machine_type=Circuit Assembler
+multiblock.ExtremePowerCircuitAssembler.tooltip.00=Can only use §aEV§7-§aIV§7 energy hatch
+multiblock.ExtremePowerCircuitAssembler.tooltip.01=§a35%§7 faster than singleblocks
+multiblock.ExtremePowerCircuitAssembler.tooltip.02=Max parallel: §920
 
 #GasCollector
 multiblock.GasCollector=Gas Collector
-multiblock.gascollector.machine_type=Gas Collector
-multiblock.gascollector.tooltip.00=Collect various gases from atmosphere
-multiblock.gascollector.tooltip.01=Energy hatch tier limited by §fGlass tier
-multiblock.gascollector.tooltip.02=Currently has only Air gas generation
+multiblock.GasCollector.machine_type=Gas Collector
+multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
+multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
+multiblock.GasCollector.tooltip.02=Currently has only Air gas generation
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s

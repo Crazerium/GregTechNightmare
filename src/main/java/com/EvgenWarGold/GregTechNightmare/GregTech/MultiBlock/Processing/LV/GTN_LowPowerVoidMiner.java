@@ -150,7 +150,7 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
         mOutputItems = result;
         mEfficiency = getEfficiency();
         mMaxProgresstime = 20;
-        lEUt = getEnergyUsageWithoutLoss(128);
+        setEnergyUsageWithoutLoss(128);
 
         return CheckRecipeResultRegistry.SUCCESSFUL;
     }
