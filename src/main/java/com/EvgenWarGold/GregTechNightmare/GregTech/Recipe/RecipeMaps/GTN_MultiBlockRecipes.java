@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.LV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
@@ -166,7 +167,14 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_LV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
-
+        // Gas Collector
+        addCraftingRecipe(
+            GTN_ItemList.GasCollector.get(1),
+            new Object[]{"ABA", "BCB", "ABA",
+                'A', GTN_Casings.HeatProofMachineCasing.getItemStack(),
+                'B', getCircuit(Materials.LV),
+                'C', ItemList.Electric_Pump_LV.get(1)
+            });
         //spotless:on
     }
 }

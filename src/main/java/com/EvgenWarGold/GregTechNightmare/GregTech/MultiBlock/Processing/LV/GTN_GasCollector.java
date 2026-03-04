@@ -32,7 +32,7 @@ import gregtech.api.util.MultiblockTooltipBuilder;
 
 public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
-    private Byte glassTier;
+    private byte glassTier;
 
     public GTN_GasCollector(int id, String name) {
         super(id, name);
@@ -110,6 +110,7 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
         builder.addInfo(this.tr("tooltip.00"))
             .addInfo(this.tr("tooltip.01"))
+            .addInfo(this.tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_CRAZER)
             .beginStructureBlock(5, 6, 5, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
@@ -146,23 +147,15 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
     @Override
     public CheckRecipeResult checkProcessing() {
-
         IGregTechTileEntity tile = getBaseMetaTileEntity();
-
         if (tile == null || tile.getWorld() == null) return CheckRecipeResultRegistry.INTERNAL_ERROR;
-
         if (tile.getWorld().provider.dimensionId != 0) return CheckRecipeResultRegistry.NO_RECIPE;
-
         long inputEut = getMaxInputVoltage();
-        int parallel = (int) (inputEut / 128);
-
-        if (inputEut < TierEU.RECIPE_MV) return CheckRecipeResultRegistry.insufficientPower(TierEU.RECIPE_MV);
-
+        int parallel = (int) (inputEut / 32);
+        if (inputEut < TierEU.RECIPE_LV) return CheckRecipeResultRegistry.insufficientPower(TierEU.RECIPE_LV);
         mOutputFluids = new FluidStack[] { Materials.Air.getGas(1000 * parallel) };
-
-        mEUt = (int) (-TierEU.RECIPE_MV * parallel);
-        mMaxProgresstime = 200;
-
+        mEUt = (int) (-TierEU.RECIPE_LV * parallel);
+        mMaxProgresstime = 20;
         return CheckRecipeResultRegistry.SUCCESSFUL;
     }
 }

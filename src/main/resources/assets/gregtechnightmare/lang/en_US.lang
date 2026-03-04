@@ -115,6 +115,7 @@ multiblock.GasCollector=Gas Collector
 multiblock.gascollector.machine_type=Gas Collector
 multiblock.gascollector.tooltip.00=Collect various gases from atmosphere
 multiblock.gascollector.tooltip.01=Energy hatch tier limited by §fGlass tier
+multiblock.gascollector.tooltip.02=Currently has only Air gas generation
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
