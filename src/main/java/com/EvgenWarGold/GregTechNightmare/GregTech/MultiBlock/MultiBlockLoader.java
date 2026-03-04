@@ -4,6 +4,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
@@ -30,6 +31,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.NodeEnergizer.set(new GTN_NodeEnergizer(21_009, "NodeEnergizer"));
         GTN_ItemList.LargeArcaneAssembler.set(new GTN_LargeArcaneAssembler(21_010, "LargeArcaneAssembler"));
         GTN_ItemList.TreeSprouter.set(new GTN_TreeSprouter(21_011, "TreeSprouter"));
+        GTN_ItemList.GasCollector.set(new GTN_GasCollector(21_012, "GasCollector"));
         //spotless:on
     }
 }

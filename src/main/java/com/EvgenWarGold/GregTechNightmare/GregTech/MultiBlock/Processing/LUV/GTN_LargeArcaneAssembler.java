@@ -8,6 +8,7 @@ import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.ArcaneAssemblerCraftingFX;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
@@ -26,6 +28,8 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import bartworks.API.BorosilicateGlass;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
@@ -135,6 +139,29 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                     Research.add(item.key);
                 }
             }
+        }
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity tile, long tick) {
+        super.onPostTick(tile, tick);
+        if (!tile.isClientSide()) return;
+        if (!tile.isActive()) return;
+        if (tick % 2 == 0) {
+            spawnLAAStyleFX(tile);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    private void spawnLAAStyleFX(IGregTechTileEntity tile) {
+        World world = tile.getWorld();
+        double baseX = tile.getXCoord() + 0.5;
+        double baseZ = tile.getZCoord() + 0.5;
+        for (int i = 0; i < 12; i++) {
+            double x = baseX + (world.rand.nextDouble() - 0.5D) * 4.0D;
+            double y = tile.getYCoord() + world.rand.nextDouble() * 6.0D;
+            double z = baseZ + (world.rand.nextDouble() - 0.5D) * 4.0D;
+            Minecraft.getMinecraft().effectRenderer.addEffect(new ArcaneAssemblerCraftingFX(world, x, y, z));
         }
     }
 

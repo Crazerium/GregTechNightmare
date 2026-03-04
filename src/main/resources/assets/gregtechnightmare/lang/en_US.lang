@@ -110,7 +110,11 @@ multiblock.treesprouter.tooltip.01=Produces: §664x§7 Logs per §c300 sec
 multiblock.treesprouter.tooltip.02=Steam injection: §616,000L§7 reduces time to §c120 sec
 multiblock.treesprouter.tooltip.03=§aNo EU required
 
-
+#GasCollector
+multiblock.GasCollector=Gas Collector
+multiblock.gascollector.machine_type=Gas Collector
+multiblock.gascollector.tooltip.00=Collect various gases from atmosphere
+multiblock.gascollector.tooltip.01=Energy hatch tier limited by §fGlass tier
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
