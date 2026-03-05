@@ -43,6 +43,7 @@ public enum GTN_ItemList {
     MediumPowerWireMill,
     MediumPowerEngraver,
     ExtremePowerCircuitAssembler,
+    UltimatePrecise,
     // endregion
 
     ;

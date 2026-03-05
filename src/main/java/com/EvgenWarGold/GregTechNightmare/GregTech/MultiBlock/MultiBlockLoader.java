@@ -17,6 +17,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedCokeOven;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
 
 public final class MultiBlockLoader {
 
@@ -28,6 +29,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.LowPowerVoidMiner.set(new GTN_LowPowerVoidMiner(21_003, "LowPowerVoidMiner"));
         GTN_ItemList.MediumPowerBender.set(new GTN_MediumPowerBender(21_004, "MediumPowerBender"));
         GTN_ItemList.MediumPowerExtruder.set(new GTN_MediumPowerExtruder(21_005, "MediumPowerExtruder"));
+
         GTN_ItemList.MediumPowerAssembler.set(new GTN_MediumPowerAssembler(21_006, "MediumPowerAssembler"));
         GTN_ItemList.MediumPowerCircuitAssembler.set(new GTN_MediumPowerCircuitAssembler(21_007, "MediumPowerCircuitAssembler"));
         GTN_ItemList.AdvancedCokeOven.set(new GTN_AdvancedCokeOven(21_008, "AdvancedCokeOven"));
@@ -38,6 +40,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.MediumPowerWireMill.set(new GTN_MediumPowerWireMill(21_013, "MediumPowerWireMill"));
         GTN_ItemList.MediumPowerEngraver.set(new GTN_MediumPowerEngraver(21_014, "MediumPowerEngraver"));
         GTN_ItemList.ExtremePowerCircuitAssembler.set(new GTN_ExtremePowerCircuitAssembler(21_015, "ExtremePowerCircuitAssembler"));
+        GTN_ItemList.UltimatePrecise.set(new GTN_UltimatePrecise(21_016, "UltimatePrecise"));
         //spotless:on
     }
 }

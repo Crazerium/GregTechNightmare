@@ -1007,6 +1007,8 @@ public enum GTN_Casings implements ICasing {
     // ------------------ Miscellaneous Elements -----------------
     MagicCasing
         (() -> Loaders.magicCasing, 0, 1536),
+    PreciseCasingMk4
+        (() -> Loaders.preciseUnitCasing, 3, 1544),
 
     BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override

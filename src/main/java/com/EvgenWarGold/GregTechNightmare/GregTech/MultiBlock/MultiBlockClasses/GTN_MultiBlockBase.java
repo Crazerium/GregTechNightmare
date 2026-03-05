@@ -268,10 +268,33 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             .max()
             .orElse(-1);
 
+        int minTierExoticEnergyHatch = mExoticEnergyHatches.stream()
+            .mapToInt(MTEHatch::getTierForStructure)
+            .min()
+            .orElse(-1);
+
+        int maxTierExoticEnergyHatch = mExoticEnergyHatches.stream()
+            .mapToInt(MTEHatch::getTierForStructure)
+            .max()
+            .orElse(-1);
+
+        boolean validEnergyHatch = false;
+        boolean validExoticEnergyHatch = false;
+
         if (energyTier != null) {
             if (!(minTierEnergyHatch >= energyTier.left() && maxTierEnergyHatch <= energyTier.right())) {
-                return ResultInsufficientRangeTier.of(energyTier.left(), energyTier.right());
+                validEnergyHatch = true;
             }
+        }
+
+        if (energyTier != null) {
+            if (!(minTierExoticEnergyHatch >= energyTier.left() && maxTierExoticEnergyHatch <= energyTier.right())) {
+                validExoticEnergyHatch = true;
+            }
+        }
+
+        if (validEnergyHatch && validExoticEnergyHatch) {
+            return ResultInsufficientRangeTier.of(energyTier.left(), energyTier.right());
         }
 
         return super.checkProcessing();
