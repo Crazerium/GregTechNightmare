@@ -17,31 +17,27 @@ import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.enums.TierEU.RECIPE_UHV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 import static gregtech.api.util.GTModHandler.getModItem;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
-import static gregtech.api.util.GTRecipeBuilder.STACKS;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
-import goodgenerator.loader.Loaders;
-import goodgenerator.util.ItemRefer;
-import gregtech.api.util.GTRecipeConstants;
-import gregtech.api.util.recipe.Scanning;
-import gtPlusPlus.core.material.MaterialMisc;
-import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
+import goodgenerator.util.ItemRefer;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.util.GTRecipeConstants;
+import gregtech.api.util.recipe.Scanning;
+import gtPlusPlus.core.material.MaterialMisc;
+import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class GTN_MultiBlockRecipes {
 
