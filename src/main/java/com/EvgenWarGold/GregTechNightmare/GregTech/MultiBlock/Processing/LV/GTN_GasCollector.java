@@ -29,6 +29,7 @@ import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import org.jetbrains.annotations.NotNull;
 
 public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
@@ -146,7 +147,7 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
-    public CheckRecipeResult checkProcessing() {
+    public @NotNull CheckRecipeResult checkProcessing() {
         IGregTechTileEntity tile = getBaseMetaTileEntity();
         if (tile == null || tile.getWorld() == null) return CheckRecipeResultRegistry.INTERNAL_ERROR;
         if (tile.getWorld().provider.dimensionId != 0) return CheckRecipeResultRegistry.NO_RECIPE;
