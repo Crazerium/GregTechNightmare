@@ -9,14 +9,12 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getSuperDense
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
-import static gregtech.api.enums.Mods.NewHorizonsCoreMod;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.enums.TierEU.RECIPE_UHV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
-import static gregtech.api.util.GTModHandler.getModItem;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
@@ -265,7 +263,7 @@ public class GTN_MultiBlockRecipes {
                 ItemList.Circuit_Chip_Biocell.get(64),
                 getSuperDense(Materials.RadoxPolymer, 64),
                 getFrameGt(Materials.CosmicNeutronium, 64),
-                getModItem(NewHorizonsCoreMod.ID, "HighEnergyFlowCircuit", 64, 0),
+//                getModItem(NewHorizonsCoreMod.ID, "HighEnergyFlowCircuit", 64, 0),
                 ItemList.Circuit_Chip_BioCPU.get(64),
                 getGearGt(Materials.CosmicNeutronium, 64),
                 GregtechItemList.Laser_Lens_Special.get(1),
