@@ -6,6 +6,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
@@ -41,6 +42,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.MediumPowerEngraver.set(new GTN_MediumPowerEngraver(21_014, "MediumPowerEngraver"));
         GTN_ItemList.ExtremePowerCircuitAssembler.set(new GTN_ExtremePowerCircuitAssembler(21_015, "ExtremePowerCircuitAssembler"));
         GTN_ItemList.UltimatePrecise.set(new GTN_UltimatePrecise(21_016, "UltimatePrecise"));
+        GTN_ItemList.GasCollector.set(new GTN_GasCollector(21_017, "GasCollector"));
         //spotless:on
     }
 }
