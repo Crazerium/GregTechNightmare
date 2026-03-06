@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 
 import goodgenerator.util.ItemRefer;
 import gregtech.api.enums.GTValues;
@@ -248,7 +249,7 @@ public class GTN_MultiBlockRecipes {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
-       
+
         // UltimatePrecise
         GTValues.RA.stdBuilder()
             .metadata(RESEARCH_ITEM, ItemList.AssemblingMachineUHV.get(1))
@@ -264,7 +265,7 @@ public class GTN_MultiBlockRecipes {
                 ItemList.Circuit_Chip_Biocell.get(64),
                 getSuperDense(Materials.RadoxPolymer, 64),
                 getFrameGt(Materials.CosmicNeutronium, 64),
-//                getModItem(NewHorizonsCoreMod.ID, "HighEnergyFlowCircuit", 64, 0),
+                ModItems.NEW_HORIZONS_CORE_MOD_ITEMS.HighEnergyFlowCircuit.get(64),
                 ItemList.Circuit_Chip_BioCPU.get(64),
                 getGearGt(Materials.CosmicNeutronium, 64),
                 GregtechItemList.Laser_Lens_Special.get(1),
@@ -281,7 +282,7 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_UHV)
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
-      
+
            // Gas Collector
          addCraftingRecipe(
             GTN_ItemList.GasCollector.get(1),
