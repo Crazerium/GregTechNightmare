@@ -250,6 +250,7 @@ public class GTN_MultiBlockRecipes {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
+       
         // UltimatePrecise
         GTValues.RA.stdBuilder()
             .metadata(RESEARCH_ITEM, ItemList.AssemblingMachineUHV.get(1))
@@ -282,6 +283,15 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_UHV)
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
+      
+           // Gas Collector
+         addCraftingRecipe(
+            GTN_ItemList.GasCollector.get(1),
+            new Object[]{"ABA", "BCB", "ABA",
+                'A', GTN_Casings.HeatProofMachineCasing.getItemStack(),
+                'B', getCircuit(Materials.LV),
+                'C', ItemList.Electric_Pump_LV.get(1)
+            });
 
 
         //spotless:on

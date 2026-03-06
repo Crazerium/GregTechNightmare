@@ -44,6 +44,7 @@ public enum GTN_ItemList {
     MediumPowerEngraver,
     ExtremePowerCircuitAssembler,
     UltimatePrecise,
+    GasCollector,
     // endregion
 
     ;
