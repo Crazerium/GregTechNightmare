@@ -140,12 +140,20 @@ multiblock.ExtremePowerCircuitAssembler.tooltip.00=Can only use §aEV§7-§aIV§
 multiblock.ExtremePowerCircuitAssembler.tooltip.01=§a35%§7 faster than singleblocks
 multiblock.ExtremePowerCircuitAssembler.tooltip.02=Max parallel: §920
 
+#UltimatePrecise
+multiblock.UltimatePrecise=Ultimate Precise
+multiblock.UltimatePrecise.machine_type=Assembler
+multiblock.UltimatePrecise.tooltip.00=Up to §94096§7 parallels
+multiblock.UltimatePrecise.tooltip.01=Recipe tier up to §cUIV
+multiblock.UltimatePrecise.tooltip.02=§aTier skipping allowed
+
 #GasCollector
 multiblock.GasCollector=Gas Collector
 multiblock.GasCollector.machine_type=Gas Collector
 multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
 multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
 multiblock.GasCollector.tooltip.02=Currently has only Air gas generation
+
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
