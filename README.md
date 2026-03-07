@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 16 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 17 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -282,6 +282,25 @@ Adds 16 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="819" height="351" alt="image" src="https://github.com/user-attachments/assets/a2981ba7-1b88-4969-b337-5abf8b3f0250" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Ultimate Precise</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="482" height="433" alt="image" src="https://github.com/user-attachments/assets/af2ef3e7-7a4c-44ee-aedd-361d7d2d0539" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="500" height="335" alt="image" src="https://github.com/user-attachments/assets/00e3f87e-23e8-4482-9b5d-c8d33a128dd4" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="564" height="352" alt="image" src="https://github.com/user-attachments/assets/188bb016-671d-497c-9508-bf68311ab29b" />
     </td>
   </tr>
 </table>
