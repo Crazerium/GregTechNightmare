@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
@@ -547,10 +548,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     private static int getFortuneTier(ItemStack itemStack) {
         if (itemStack == null || itemStack.stackSize < 1) return 0;
-        Item t = itemStack.getItem();
-        // if (MiscHelper.PickaxeOfTheCore.equals(t)) return 1;
-        // if (MiscHelper.BoundPickaxe.equals(t)) return 2;
-        // if (MiscHelper.TerraShatterer.equals(t)) return 3;
+
+        if (itemStack.isItemEqual(ModItems.THAUMCRAFT_ITEMS.PickaxeElemental.get(1))) return 1;
+        if (itemStack.isItemEqual(ModItems.BLOOD_MAGIC_ITEMS.BoundPickaxe.get(1))) return 2;
+        if (itemStack.isItemEqual(ModItems.BOTANIA_ITEMS.TerraShatterer.get(1))) return 3;
         return 0;
     }
 
