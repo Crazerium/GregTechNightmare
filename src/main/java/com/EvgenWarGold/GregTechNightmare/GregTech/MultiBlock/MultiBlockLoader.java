@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
@@ -30,7 +31,6 @@ public final class MultiBlockLoader {
         GTN_ItemList.LowPowerVoidMiner.set(new GTN_LowPowerVoidMiner(21_003, "LowPowerVoidMiner"));
         GTN_ItemList.MediumPowerBender.set(new GTN_MediumPowerBender(21_004, "MediumPowerBender"));
         GTN_ItemList.MediumPowerExtruder.set(new GTN_MediumPowerExtruder(21_005, "MediumPowerExtruder"));
-
         GTN_ItemList.MediumPowerAssembler.set(new GTN_MediumPowerAssembler(21_006, "MediumPowerAssembler"));
         GTN_ItemList.MediumPowerCircuitAssembler.set(new GTN_MediumPowerCircuitAssembler(21_007, "MediumPowerCircuitAssembler"));
         GTN_ItemList.AdvancedCokeOven.set(new GTN_AdvancedCokeOven(21_008, "AdvancedCokeOven"));
@@ -43,6 +43,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.ExtremePowerCircuitAssembler.set(new GTN_ExtremePowerCircuitAssembler(21_015, "ExtremePowerCircuitAssembler"));
         GTN_ItemList.UltimatePrecise.set(new GTN_UltimatePrecise(21_016, "UltimatePrecise"));
         GTN_ItemList.GasCollector.set(new GTN_GasCollector(21_017, "GasCollector"));
+        GTN_ItemList.LaserMeteorMiner.set(new GTN_LaserMeteorMiner(21_018, "LaserMeteorMiner"));
         //spotless:on
     }
 }

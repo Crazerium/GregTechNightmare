@@ -1,6 +1,8 @@
 #Items
 item.GTN_MetaItem01.0.name=§cTest Item
 item.GTN_MetaItem01.1.name=Advanced Clay
+item.GTN_MetaItem01.2.name=Meteor Miner Schematic Tier I
+item.GTN_MetaItem01.3.name=Meteor Miner Schematic Tier II
 
 #Blocks
 tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
@@ -26,6 +28,10 @@ GT5U.gui.text.node_enough=Node is empty
 GT5U.gui.text.sapling_enough=Sapling is empty
 GT5U.gui.text.research_not_completed=§cNot enough Research
 GT5U.gui.text.not_enough_aspects=§cNot enough Aspects
+GT5U.gui.text.meteor_mining=§dCurrently Mining!
+GT5U.gui.text.meteor_waiting=§dWaiting for a Meteor...
+GT5U.gui.text.meteor_reset=§dReset completed!
+GT5U.gui.text.missing_schematic=§dMissing Schematic.
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -153,6 +159,21 @@ multiblock.GasCollector.machine_type=Gas Collector
 multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
 multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
 multiblock.GasCollector.tooltip.02=Currently has only Air gas generation
+
+#LaserMeteorMiner
+multiblock.LaserMeteorMiner=Laser Meteor Miner
+multiblock.LaserMeteorMiner.machine_type=Meteor Miner
+multiblock.LaserMeteorMiner.tooltip.00=Collect various gases from atmosphere
+multiblock.LaserMeteorMiner.tooltip.01=Energy hatch tier limited by §fGlass tier
+multiblock.LaserMeteorMiner.tooltip.02=Currently has only Air gas generation
+multiblock.LaserMeteorMiner.fortune.0=Augment: §fNo Augment Applied
+multiblock.LaserMeteorMiner.fortune.1=Augment: §fFortune I
+multiblock.LaserMeteorMiner.fortune.2=Augment: §fFortune II
+multiblock.LaserMeteorMiner.fortune.3=Augment: §fFortune III
+multiblock.LaserMeteorMiner.tier.0=Current Tier: §f0
+multiblock.LaserMeteorMiner.tier.1=Current Tier: §f1
+multiblock.LaserMeteorMiner.tier.2=Current Tier: §f2
+multiblock.LaserMeteorMiner.button.reset=Reset machine
 
 
 #RecipeResult

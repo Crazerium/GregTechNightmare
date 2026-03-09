@@ -27,6 +27,7 @@ import gregtech.api.GregTechAPI;
 import gregtech.api.casing.ICasing;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Mods;
+import gregtech.api.enums.TAE;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.IStructureProvider;
@@ -805,7 +806,7 @@ public enum GTN_Casings implements ICasing {
     TeslaContainmentCasing
         (() -> ModBlocks.blockSpecialMultiCasings, 5, gtpp(1, 5)),
     StructuralSolarCasing
-        (() -> ModBlocks.blockSpecialMultiCasings, 6, gtpp(1, 6)),
+        (() -> ModBlocks.blockSpecialMultiCasings, 6, TAE.getIndexFromPage(0, 6)),
     SaltContainmentCasing
         (() -> ModBlocks.blockSpecialMultiCasings, 7, gtpp(1, 7)),
     ThermallyInsulatedCasing

@@ -18,6 +18,8 @@ public enum GTN_ItemList {
     // region Items
     TestItem,
     AdvancedClay,
+    MeteorMinerSchematic1,
+    MeteorMinerSchematic2,
     // endregion
 
     // region Casings
@@ -45,6 +47,7 @@ public enum GTN_ItemList {
     ExtremePowerCircuitAssembler,
     UltimatePrecise,
     GasCollector,
+    LaserMeteorMiner,
     // endregion
 
     ;

@@ -74,7 +74,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Class Construct
     private static final String TRANSLATE_KEY = "multiblock.";
-    private String MULTIBLOCK_NAME_KEY;
+    private final String MULTIBLOCK_NAME_KEY;
 
     public GTN_MultiBlockBase(int id, String name) {
         super(id, TRANSLATE_KEY + name, GTN_Utils.tr(TRANSLATE_KEY + name));
@@ -83,6 +83,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public GTN_MultiBlockBase(String name) {
         super(name);
+        MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
     }
     // endregion
 

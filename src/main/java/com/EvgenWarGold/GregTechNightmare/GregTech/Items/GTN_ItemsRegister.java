@@ -35,6 +35,13 @@ public class GTN_ItemsRegister {
 
         // Advanced Clay
         GTN_ItemList.AdvancedClay.set(META_ITEM_01.registerVariant(1));
+
+        // MeteorMinerSchematic1
+        GTN_ItemList.MeteorMinerSchematic1.set(META_ITEM_01.registerVariant(2));
+
+        // MeteorMinerSchematic2
+        GTN_ItemList.MeteorMinerSchematic2.set(META_ITEM_01.registerVariant(3));
+
         // spotless:on
     }
 }
