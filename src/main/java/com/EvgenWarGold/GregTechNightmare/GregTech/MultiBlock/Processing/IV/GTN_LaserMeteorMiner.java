@@ -77,6 +77,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     Collection<ItemStack> res = new HashSet<>();
     private boolean showBlockHighlight = true;
     private final BlockHighlighter blockHighlighter = new BlockHighlighter();
+    private int currentLayer = 0;
+    private int minY = 0;
+    private int maxY = 0;
+    private boolean isLayerInitialized = false;
 
     public GTN_LaserMeteorMiner(int id, String name) {
         super(id, name);
@@ -322,6 +326,12 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         this.isStartInitialized = true;
         this.hasFinished = false;
+
+        if (this.multiTier == 2) {
+            this.currentLayer = 0;
+            this.isLayerInitialized = false;
+            this.initializeLayerBounds();
+        }
     }
 
     private boolean checkCenter() {
@@ -382,6 +392,55 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         }
     }
 
+    private void moveToNextLayer() {
+        if (this.currentLayer < (this.maxY - this.minY)) {
+            this.currentLayer++;
+            this.yDrill = this.minY + this.currentLayer;
+        } else {
+            this.hasFinished = true;
+            this.isLayerInitialized = false;
+        }
+    }
+
+    private void initializeLayerBounds() {
+        World world = getBaseMetaTileEntity().getWorld();
+
+        this.minY = yStart + currentRadius;
+        for (int y = yStart - currentRadius; y <= yStart + currentRadius; y++) {
+            for (int xOffset = -2; xOffset <= 2; xOffset++) {
+                int currentX = this.xStart + xOffset;
+                if (!world.isAirBlock(currentX, y, zStart)) {
+                    if (y < this.minY) {
+                        this.minY = y;
+                    }
+                    break;
+                }
+            }
+        }
+
+        this.maxY = yStart - currentRadius;
+        for (int y = yStart + currentRadius; y >= yStart - currentRadius; y--) {
+            for (int xOffset = -2; xOffset <= 2; xOffset++) {
+                int currentX = this.xStart + xOffset;
+                if (!world.isAirBlock(currentX, y, zStart)) {
+                    if (y > this.maxY) {
+                        this.maxY = y;
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (this.minY > this.maxY) {
+            this.minY = yStart - currentRadius;
+            this.maxY = yStart + currentRadius;
+        }
+
+        this.yDrill = this.minY;
+        this.currentLayer = 0;
+        this.isLayerInitialized = true;
+    }
+
     private void mineBlock(int currentX, int currentY, int currentZ) {
         Block target = getBaseMetaTileEntity().getBlock(currentX, currentY, currentZ);
         if (target.getBlockHardness(getBaseMetaTileEntity().getWorld(), currentX, currentY, currentZ) > 0) {
@@ -425,9 +484,34 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private void startMining(int tier) {
         switch (tier) {
             case 1 -> this.mineRow();
-            case 2 -> this.mineRow();
+            case 2 -> this.mineFullLayer();
             default -> throw new IllegalArgumentException("Invalid Multiblock Tier");
         }
+    }
+
+    private void mineFullLayer() {
+        if (!this.isLayerInitialized) {
+            this.initializeLayerBounds();
+        }
+
+        for (int xOffset = -currentRadius; xOffset <= currentRadius; xOffset++) {
+            int currentX = this.xStart + xOffset;
+
+            for (int zOffset = -currentRadius; zOffset <= currentRadius; zOffset++) {
+                int currentZ = this.zStart + zOffset;
+
+                World world = getBaseMetaTileEntity().getWorld();
+                if (!world.blockExists(currentX, this.yDrill, currentZ)) {
+                    continue;
+                }
+
+                if (!world.isAirBlock(currentX, this.yDrill, currentZ)) {
+                    this.mineBlock(currentX, this.yDrill, currentZ);
+                }
+            }
+        }
+
+        this.moveToNextLayer();
     }
 
     private void mineRow() {
@@ -455,7 +539,9 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     @NotNull
     public CheckRecipeResult checkProcessing() {
-        if (this.multiTier != this.getMultiTier(mInventory[1])) {
+        setMultiTier(getMultiTier(mInventory[1]));
+
+        if (this.multiTier <= 0) {
             return SimpleCheckRecipeResult.ofFailure("missing_schematic");
         }
 
@@ -509,6 +595,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         aNBT.setInteger("multiTier", multiTier);
         aNBT.setInteger("fortuneTier", fortuneTier);
         aNBT.setBoolean("showBlockHighlight", showBlockHighlight);
+        aNBT.setInteger("currentLayer", currentLayer);
+        aNBT.setInteger("minY", minY);
+        aNBT.setInteger("maxY", maxY);
+        aNBT.setBoolean("isLayerInitialized", isLayerInitialized);
     }
 
     @Override
@@ -527,6 +617,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         multiTier = aNBT.getInteger("multiTier");
         fortuneTier = aNBT.getInteger("fortuneTier");
         showBlockHighlight = aNBT.getBoolean("showBlockHighlight");
+        currentLayer = aNBT.getInteger("currentLayer");
+        minY = aNBT.getInteger("minY");
+        maxY = aNBT.getInteger("maxY");
+        isLayerInitialized = aNBT.getBoolean("isLayerInitialized");
     }
 
     private void setFortuneTier() {
@@ -561,11 +655,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             : GTN_ItemList.MeteorMinerSchematic1.equal(inventory) ? 1 : 0;
     }
 
-    @Override
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-        this.multiTier = getMultiTier(mInventory[1]);
-
-        return multiTier > 0;
+    private void setMultiTier(int tier) {
+        this.multiTier = tier;
     }
 
     @Override
