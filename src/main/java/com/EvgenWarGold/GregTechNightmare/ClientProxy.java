@@ -1,10 +1,12 @@
 package com.EvgenWarGold.GregTechNightmare;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
+
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy {
 

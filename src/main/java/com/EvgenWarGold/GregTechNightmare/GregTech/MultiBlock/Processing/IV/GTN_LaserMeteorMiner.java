@@ -11,17 +11,14 @@ import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
-import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -35,6 +32,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizons.modularui.api.drawable.IDrawable;
@@ -73,7 +73,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private boolean isWaiting = false;
     private static final int MAX_RADIUS = 40;
     private static final int distanceFromMeteor = 48;
-    Collection<ItemStack> res = new HashSet<>();
+    private final List<ItemStack> res = new ArrayList<>();
     private boolean showBlockHighlight = true;
     private final BlockHighlighter blockHighlighter = new BlockHighlighter();
     private int currentLayer = 0;
@@ -277,8 +277,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
             showBlockHighlight = !showBlockHighlight;
-                assert getBaseMetaTileEntity() != null;
-                getBaseMetaTileEntity().issueClientUpdate();
+            assert getBaseMetaTileEntity() != null;
+            getBaseMetaTileEntity().issueClientUpdate();
         })
             .setPlayClickSound(true)
             .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_CYCLIC })
@@ -677,10 +677,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         if (aBaseMetaTileEntity.isServerSide()) {
             if (isStartInitialized) {
                 blockHighlighter.updatePosition(
-                    xStart, yStart, zStart,
+                    xStart,
+                    yStart,
+                    zStart,
                     aBaseMetaTileEntity.getWorld().provider.dimensionId,
-                    showBlockHighlight
-                );
+                    showBlockHighlight);
             } else {
                 blockHighlighter.disable();
             }
