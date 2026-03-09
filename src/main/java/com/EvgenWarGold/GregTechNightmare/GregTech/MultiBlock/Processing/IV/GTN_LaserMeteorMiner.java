@@ -71,7 +71,6 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private boolean isStartInitialized = false;
     private boolean hasFinished = true;
     private boolean isWaiting = false;
-    private boolean isResetting = false;
     private static final int MAX_RADIUS = 40;
     private static final int distanceFromMeteor = 48;
     Collection<ItemStack> res = new HashSet<>();
