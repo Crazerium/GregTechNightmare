@@ -173,7 +173,7 @@ multiblock.LaserMeteorMiner.fortune.3=Augment: §fFortune III
 multiblock.LaserMeteorMiner.tier.0=Current Tier: §f0
 multiblock.LaserMeteorMiner.tier.1=Current Tier: §f1
 multiblock.LaserMeteorMiner.tier.2=Current Tier: §f2
-multiblock.LaserMeteorMiner.button.reset=Reset machine
+multiblock.LaserMeteorMiner.button.highlight=Highlight Center Block
 
 
 #RecipeResult

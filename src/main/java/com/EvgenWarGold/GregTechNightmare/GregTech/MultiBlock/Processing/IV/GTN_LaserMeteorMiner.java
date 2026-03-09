@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -72,6 +74,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private static final int MAX_RADIUS = 40;
     private static final int distanceFromMeteor = 48;
     Collection<ItemStack> res = new HashSet<>();
+    private boolean showBlockHighlight = true;
+    private final BlockHighlighter blockHighlighter = new BlockHighlighter();
 
     public GTN_LaserMeteorMiner(int id, String name) {
         super(id, name);
@@ -103,7 +107,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     @Override
     public GTN_LaserMeteorMiner createNewMetaEntity() {
-        return new GTN_LaserMeteorMiner("LaserMeteorMiner");
+        return new GTN_LaserMeteorMiner(this.mName);
     }
 
     @Override
@@ -268,27 +272,15 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         super.addUIWidgets(builder, buildContext);
 
         builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
-
+            showBlockHighlight = !showBlockHighlight;
+                assert getBaseMetaTileEntity() != null;
+                getBaseMetaTileEntity().issueClientUpdate();
         })
             .setPlayClickSound(true)
             .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_CYCLIC })
             .setPos(new Pos2d(174, 112))
-            .addTooltip(tr("button.reset"))
+            .addTooltip(tr("button.highlight"))
             .setSize(16, 16));
-    }
-
-    private void reset() {
-        this.isResetting = false;
-        this.hasFinished = true;
-        this.isWaiting = false;
-        currentRadius = MAX_RADIUS;
-        this.initializeDrillPos();
-    }
-
-    private void startReset() {
-        this.isResetting = true;
-        stopMachine(ShutDownReasonRegistry.NONE);
-        enableWorking();
     }
 
     protected void setElectricityStats() {
@@ -378,15 +370,6 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             && itemData.mMaterial.mMaterial != Materials.Oilsands;
     }
 
-    private void moveToNextBlock() {
-        if (this.zDrill <= this.zStart + currentRadius) {
-            this.zDrill++;
-        } else {
-            this.zDrill = this.zStart - currentRadius;
-            this.moveToNextColumn();
-        }
-    }
-
     private void moveToNextColumn() {
         if (this.xDrill <= this.xStart + currentRadius) {
             this.xDrill++;
@@ -474,10 +457,6 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         if (this.multiTier != this.getMultiTier(mInventory[1])) {
             return SimpleCheckRecipeResult.ofFailure("missing_schematic");
         }
-        if (isResetting) {
-            this.reset();
-            return SimpleCheckRecipeResult.ofSuccess("meteor_reset");
-        }
 
         setElectricityStats();
         if (!isEnergyEnough()) {
@@ -528,6 +507,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         aNBT.setBoolean("isWaiting", isWaiting);
         aNBT.setInteger("multiTier", multiTier);
         aNBT.setInteger("fortuneTier", fortuneTier);
+        aNBT.setBoolean("showBlockHighlight", showBlockHighlight);
     }
 
     @Override
@@ -545,6 +525,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         isWaiting = aNBT.getBoolean("isWaiting");
         multiTier = aNBT.getInteger("multiTier");
         fortuneTier = aNBT.getInteger("fortuneTier");
+        showBlockHighlight = aNBT.getBoolean("showBlockHighlight");
     }
 
     private void setFortuneTier() {
@@ -584,5 +565,39 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         this.multiTier = getMultiTier(mInventory[1]);
 
         return multiTier > 0;
+    }
+
+    @Override
+    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.onFirstTick(aBaseMetaTileEntity);
+        BlockHighlighter.registerHighlighter(this, blockHighlighter);
+    }
+
+    @Override
+    public void onRemoval() {
+        super.onRemoval();
+        BlockHighlighter.removeHighlighter(this);
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+
+        if (aBaseMetaTileEntity.isServerSide()) {
+            if (isStartInitialized) {
+                blockHighlighter.updatePosition(
+                    xStart, yStart, zStart,
+                    aBaseMetaTileEntity.getWorld().provider.dimensionId,
+                    showBlockHighlight
+                );
+            } else {
+                blockHighlighter.disable();
+            }
+        }
+    }
+
+    @Override
+    protected String tr(String key) {
+        return GTN_Utils.tr("multiblock.LaserMeteorMiner." + key);
     }
 }
