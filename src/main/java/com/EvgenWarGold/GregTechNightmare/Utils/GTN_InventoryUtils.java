@@ -1,14 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import gregtech.api.objects.GTItemStack;
 import gregtech.api.util.GTUtility;
 
 public class GTN_InventoryUtils {
@@ -185,6 +188,35 @@ public class GTN_InventoryUtils {
 
     public static boolean removeFluids(List<FluidStack> inputFluids, List<FluidStack> removeFluids) {
         return removeFluids(inputFluids, removeFluids, false);
+    }
+
+    public static void mergeAllSameItems(List<ItemStack> inputs) {
+        if (inputs == null || inputs.isEmpty()) {
+            return;
+        }
+
+        Map<GTItemStack, Long> map = new LinkedHashMap<>();
+
+        for (ItemStack stack : inputs) {
+            if (stack == null || stack.stackSize <= 0) continue;
+
+            GTItemStack key = new GTItemStack(stack);
+            map.merge(key, (long) stack.stackSize, Long::sum);
+        }
+
+        inputs.clear();
+
+        for (Map.Entry<GTItemStack, Long> entry : map.entrySet()) {
+            long total = entry.getValue();
+            ItemStack template = entry.getKey()
+                .toStack();
+
+            while (total > 0) {
+                int amount = (int) Math.min(total, Integer.MAX_VALUE);
+                inputs.add(GTUtility.copyAmountUnsafe(amount, template));
+                total -= amount;
+            }
+        }
     }
 
     // endregion
