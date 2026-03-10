@@ -246,6 +246,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             .addInfo(tr("tooltip.12"))
             .addInfo(tr("tooltip.13"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
+            .addInfo(Constants.AUTHOR_TOTTO)
             .beginStructureBlock(7, 5, 5, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
