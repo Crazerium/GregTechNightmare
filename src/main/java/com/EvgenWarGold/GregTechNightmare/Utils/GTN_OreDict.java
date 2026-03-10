@@ -81,6 +81,15 @@ public class GTN_OreDict {
         return getWireGt01(materials, 1L);
     }
 
+    // WireGt16
+    public static ItemStack getWireGt16(Materials materials, long amount) {
+        return GTOreDictUnificator.get(OrePrefixes.wireGt16, materials, amount);
+    }
+
+    public static ItemStack getWireGt16(Materials materials) {
+        return getWireGt16(materials, 1L);
+    }
+
     // Nanite
     public static ItemStack getNanite(Materials materials, long amount) {
         return GTOreDictUnificator.get(OrePrefixes.nanite, materials, amount);

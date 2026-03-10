@@ -7,9 +7,11 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getGearGt;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getNanite;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getSuperDense;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
+import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
@@ -292,6 +294,24 @@ public class GTN_MultiBlockRecipes {
                 'C', ItemList.Electric_Pump_LV.get(1)
             });
 
+        // Laser Meteor Miner
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_ItemList.LowPowerVoidMiner.get(16),
+                ModBlocks.THAUMCRAFT_BLOCKS.ArcaneBore.getItemStack(48),
+                ItemList.Robot_Arm_IV.get(4),
+                ItemList.Conveyor_Module_IV.get(4),
+                ItemRefer.HiC_T1.get(8),
+                getWireGt16(Materials.TungstenSteel, 8),
+                ModItems.TAINTED_MAGIC_ITEMS.WandFocusTime.get(1),
+                ModItems.THAUMIC_TINKERER_ITEMS.WandFocusEfreetFlame.get(1),
+                ModItems.THAUMIC_HORIZONS.WandFocusDisintegration.get(1)
+            )
+            .itemOutputs(GTN_ItemList.LaserMeteorMiner.get(1))
+
+            .eut(RECIPE_IV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
 
         //spotless:on
     }
