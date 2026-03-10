@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -63,6 +64,7 @@ import gregtech.api.util.OverclockCalculator;
 import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMiner> {
 
@@ -229,7 +231,26 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     @Override
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-
+        builder.addInfo(tr("tooltip.00"))
+            .addInfo(tr("tooltip.01"))
+            .addInfo(tr("tooltip.02"))
+            .addInfo(tr("tooltip.03"))
+            .addInfo(tr("tooltip.04"))
+            .addInfo(tr("tooltip.05"))
+            .addInfo(tr("tooltip.06"))
+            .addInfo(tr("tooltip.07"))
+            .addInfo(tr("tooltip.08"))
+            .addInfo(tr("tooltip.09"))
+            .addInfo(tr("tooltip.10"))
+            .addInfo(tr("tooltip.11"))
+            .addInfo(tr("tooltip.12"))
+            .addInfo(tr("tooltip.13"))
+            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
+            .beginStructureBlock(7, 5, 5, false)
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
+            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
@@ -646,10 +667,6 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     private void setFortuneTier() {
         this.fortuneTier = 0;
-        if (this.multiTier == 2) {
-            this.fortuneTier = 3;
-            return;
-        }
         if (!mInputBusses.isEmpty()) {
             Optional<ItemStack> input = Optional.ofNullable(
                 mInputBusses.get(0)
@@ -662,9 +679,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private static int getFortuneTier(ItemStack itemStack) {
         if (itemStack == null || itemStack.stackSize < 1) return 0;
 
-        if (itemStack.isItemEqual(ModItems.THAUMCRAFT_ITEMS.PickaxeElemental.get(1))) return 1;
-        if (itemStack.isItemEqual(ModItems.BLOOD_MAGIC_ITEMS.BoundPickaxe.get(1))) return 2;
-        if (itemStack.isItemEqual(ModItems.BOTANIA_ITEMS.TerraShatterer.get(1))) return 3;
+        if (itemStack.getItem() instanceof ItemTerraPick) {
+            return ItemTerraPick.getLevel(itemStack) + 1;
+        }
+
         return 0;
     }
 
