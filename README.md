@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 18 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 19 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -320,6 +320,25 @@ Adds 18 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="614" height="349" alt="image" src="https://github.com/user-attachments/assets/9782d254-de87-4a33-ada5-956b72f64ec8" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Gas Collector</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="483" height="440" alt="image" src="https://github.com/user-attachments/assets/ef05659b-0979-47ef-97dd-b5cf4a150c1f" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="382" height="345" alt="image" src="https://github.com/user-attachments/assets/f406304e-db54-442d-80c6-941dbce6d146" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="1059" height="704" alt="image" src="https://github.com/user-attachments/assets/14fa24f9-489d-4835-acfd-248b04ab5406" />
     </td>
   </tr>
 </table>
