@@ -327,7 +327,7 @@ Adds 19 new multiblocks. More content and multiblocks are planned. Suggestions a
 <table style="width:100%;">
   <tr>
     <td colspan="3" align="center" style="padding: 20px;">
-      <h1 style="margin:0;">Gas Collector</h1>
+      <h1 style="margin:0;">Laser Meteor Miner</h1>
     </td>
   </tr>
   <tr>
