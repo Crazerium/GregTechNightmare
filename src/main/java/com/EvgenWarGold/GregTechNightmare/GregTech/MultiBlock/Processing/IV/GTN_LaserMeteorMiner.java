@@ -24,6 +24,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
@@ -299,7 +301,9 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
             showBlockHighlight = !showBlockHighlight;
-            assert getBaseMetaTileEntity() != null;
+
+            if (getBaseMetaTileEntity() == null) return;
+
             getBaseMetaTileEntity().issueClientUpdate();
         })
             .setPlayClickSound(true)
@@ -354,7 +358,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private boolean checkCenter() {
-        assert getBaseMetaTileEntity() != null;
+        if (getBaseMetaTileEntity() == null) return false;
         return !getBaseMetaTileEntity().getWorld()
             .isAirBlock(xStart, yStart + 1, zStart);
     }
@@ -363,7 +367,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         currentRadius = MAX_RADIUS;
         int delta = 0;
         for (int zCoord = zStart - currentRadius; delta < MAX_RADIUS - 1; zCoord++) {
-            assert getBaseMetaTileEntity() != null;
+            if (getBaseMetaTileEntity() == null) return;
+
             if (!getBaseMetaTileEntity().getWorld()
                 .isAirBlock(xStart, yStart, zCoord)) {
                 break;
@@ -374,20 +379,23 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private void setStartCoords() {
-        assert getBaseMetaTileEntity() != null;
-        ForgeDirection facing = getBaseMetaTileEntity().getBackFacing();
+        if (getBaseMetaTileEntity() == null) return;
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+        ForgeDirection direction = getExtendedFacing().getRelativeBackInWorld();
+
+        ForgeDirection facing = gte.getBackFacing();
         if (facing == ForgeDirection.NORTH || facing == ForgeDirection.SOUTH) {
-            xStart = getBaseMetaTileEntity().getXCoord();
-            zStart = 2 * getExtendedFacing().getRelativeBackInWorld().offsetZ + getBaseMetaTileEntity().getZCoord();
+            xStart = gte.getXCoord();
+            zStart = 2 * direction.offsetZ + gte.getZCoord();
         } else {
-            xStart = 2 * getExtendedFacing().getRelativeBackInWorld().offsetX + getBaseMetaTileEntity().getXCoord();
-            zStart = getBaseMetaTileEntity().getZCoord();
+            xStart = 2 * direction.offsetX + gte.getXCoord();
+            zStart = gte.getZCoord();
         }
-        yStart = distanceFromMeteor + 15 + getBaseMetaTileEntity().getYCoord();
+        yStart = distanceFromMeteor + 15 + gte.getYCoord();
     }
 
     private ItemStack multiplyStackSize(ItemStack itemStack) {
-        assert getBaseMetaTileEntity() != null;
+        if (getBaseMetaTileEntity() == null) return null;
         itemStack.stackSize *= getBaseMetaTileEntity().getRandomNumber(this.fortuneTier + 1) + 1;
         return itemStack;
     }
@@ -426,7 +434,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private void initializeLayerBounds() {
-        assert getBaseMetaTileEntity() != null;
+        if (getBaseMetaTileEntity() == null) return;
         World world = getBaseMetaTileEntity().getWorld();
 
         this.minY = yStart + currentRadius;
@@ -465,18 +473,52 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         this.isLayerInitialized = true;
     }
 
+    private void setBlockToAir(World world, int x, int y, int z) {
+        if (y < 0 || y > 255 || !world.blockExists(x, y, z)) {
+            return;
+        }
+
+        Chunk chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+        if (chunk == null) return;
+
+        int localX = x & 15;
+        int localY = y & 15;
+        int localZ = z & 15;
+        int storageIndex = y >> 4;
+
+        ExtendedBlockStorage storage = chunk.getBlockStorageArray()[storageIndex];
+        if (storage == null) {
+            storage = new ExtendedBlockStorage(storageIndex << 4, world.provider.hasNoSky);
+            chunk.getBlockStorageArray()[storageIndex] = storage;
+        }
+
+        storage.func_150818_a(localX, localY, localZ, net.minecraft.init.Blocks.air);
+        storage.setExtBlockMetadata(localX, localY, localZ, 0);
+
+        if (!world.isRemote) {
+            world.markBlockForUpdate(x, y, z);
+        }
+
+        chunk.isModified = true;
+    }
+
     private void mineBlock(int currentX, int currentY, int currentZ) {
-        assert getBaseMetaTileEntity() != null;
-        Block target = getBaseMetaTileEntity().getBlock(currentX, currentY, currentZ);
-        if (target.getBlockHardness(getBaseMetaTileEntity().getWorld(), currentX, currentY, currentZ) > 0) {
-            final int targetMeta = getBaseMetaTileEntity().getMetaID(currentX, currentY, currentZ);
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+
+        if (gte == null) return;
+        World world = gte.getWorld();
+
+        Block target = gte.getBlock(currentX, currentY, currentZ);
+        if (target.getBlockHardness(world, currentX, currentY, currentZ) > 0) {
+            final int targetMeta = gte.getMetaID(currentX, currentY, currentZ);
             Collection<ItemStack> drops = target
-                .getDrops(getBaseMetaTileEntity().getWorld(), currentX, currentY, currentZ, targetMeta, 0);
+                .getDrops(world, currentX, currentY, currentZ, targetMeta, 0);
             if (GTUtility.isOre(target, targetMeta)) {
                 res.addAll(getOutputByDrops(drops));
-            } else res.addAll(drops);
-            getBaseMetaTileEntity().getWorld()
-                .setBlockToAir(currentX, currentY, currentZ);
+            } else {
+                res.addAll(drops);
+            }
+            setBlockToAir(world, currentX, currentY, currentZ);
         }
     }
 
@@ -498,7 +540,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             }
             for (int i = 0; i < tRecipe.mOutputs.length; i++) {
                 ItemStack recipeOutput = tRecipe.mOutputs[i].copy();
-                assert getBaseMetaTileEntity() != null;
+                if (getBaseMetaTileEntity() == null) return;
                 if (getBaseMetaTileEntity().getRandomNumber(10000) < tRecipe.getOutputChance(i))
                     multiplyStackSize(recipeOutput);
                 outputItems.add(recipeOutput);
@@ -526,7 +568,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             for (int zOffset = -currentRadius; zOffset <= currentRadius; zOffset++) {
                 int currentZ = this.zStart + zOffset;
 
-                assert getBaseMetaTileEntity() != null;
+                if (getBaseMetaTileEntity() == null) return;
+
                 World world = getBaseMetaTileEntity().getWorld();
                 if (!world.blockExists(currentX, this.yDrill, currentZ)) {
                     continue;
@@ -544,10 +587,13 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private void mineRow() {
         int currentX = this.xDrill;
         int currentY = this.yDrill;
-        while (true) {
-            assert getBaseMetaTileEntity() != null;
-            if (!getBaseMetaTileEntity().getWorld() // Skips empty rows
-                .isAirBlock(currentX, currentY, this.zStart)) break;
+
+        if (getBaseMetaTileEntity() == null) return;
+
+        World world = getBaseMetaTileEntity().getWorld();
+
+        while (world.isAirBlock(currentX, currentY, this.zStart)) {
+
             this.moveToNextColumn();
             if (this.hasFinished) return;
             currentX = this.xDrill;
@@ -557,10 +603,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         int opposite = 0;
         for (int z = -currentRadius; z <= (currentRadius - opposite); z++) {
             int currentZ = this.zStart + z;
-            if (!getBaseMetaTileEntity().getWorld()
-                .isAirBlock(this.xDrill, this.yDrill, currentZ)) {
+            if (!world.isAirBlock(this.xDrill, this.yDrill, currentZ)) {
                 this.mineBlock(this.xDrill, this.yDrill, currentZ);
-            } else opposite++;
+            } else {
+                opposite++;
+            }
         }
         this.moveToNextColumn();
     }
