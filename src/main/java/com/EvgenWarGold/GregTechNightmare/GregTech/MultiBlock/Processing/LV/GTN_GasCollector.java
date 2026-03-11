@@ -10,6 +10,8 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import gregtech.api.recipe.RecipeMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
@@ -148,16 +150,15 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
+    public RecipeMap<?> getRecipeMap() {
+        return GTN_Recipe.GasCollectorRecipes;
+    }
+
+    @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        IGregTechTileEntity tile = getBaseMetaTileEntity();
-        if (tile == null || tile.getWorld() == null) return CheckRecipeResultRegistry.INTERNAL_ERROR;
-        if (tile.getWorld().provider.dimensionId != 0) return CheckRecipeResultRegistry.NO_RECIPE;
-        long inputEut = getMaxInputVoltage();
-        int parallel = (int) (inputEut / 32);
-        if (inputEut < TierEU.RECIPE_LV) return CheckRecipeResultRegistry.insufficientPower(TierEU.RECIPE_LV);
-        mOutputFluids = new FluidStack[] { Materials.Air.getGas(1000 * parallel) };
-        mEUt = (int) (-TierEU.RECIPE_LV * parallel);
-        mMaxProgresstime = 20;
-        return CheckRecipeResultRegistry.SUCCESSFUL;
+        if (getBaseMetaTileEntity().getWorld().provider.dimensionId != 0) {
+            return CheckRecipeResultRegistry.NO_RECIPE;
+        }
+        return super.checkProcessing();
     }
 }

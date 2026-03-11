@@ -29,4 +29,10 @@ public class GTN_Recipe {
         .maxIO(9, 1, 0, 0)
         .minInputs(1, 0)
         .build();
+    public static final RecipeMap<RecipeMapBackend> GasCollectorRecipes = RecipeMapBuilder
+        .of("gtn.recipe.GasCollectorRecipes")
+        .maxIO(0, 0, 0, 1)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .build();
+
 }

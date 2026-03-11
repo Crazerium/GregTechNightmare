@@ -19,10 +19,10 @@ multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
+gtn.recipe.GasCollectorRecipes=Gas Collector
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
-
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
 GT5U.gui.text.sapling_enough=Sapling is empty
