@@ -6,6 +6,7 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.withChannel;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
@@ -119,7 +120,7 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
             .beginStructureBlock(5, 6, 5, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
             .addInputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addOutputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 });
+            .addOutputHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 });
     }
 
     @Override
@@ -148,17 +149,8 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
-
     @Override
     public RecipeMap<?> getRecipeMap() {
         return GTN_Recipe.GasCollectorRecipes;
-    }
-
-    @Override
-    public @NotNull CheckRecipeResult checkProcessing() {
-        if (getBaseMetaTileEntity().getWorld().provider.dimensionId != 0) {
-            return CheckRecipeResultRegistry.NO_RECIPE;
-        }
-        return super.checkProcessing();
     }
 }

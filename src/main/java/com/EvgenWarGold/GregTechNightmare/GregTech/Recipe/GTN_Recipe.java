@@ -2,10 +2,12 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.CokeOvenRecipesFrontend;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMapBackend;
 import gregtech.api.recipe.RecipeMapBuilder;
+import gregtech.api.recipe.maps.DistillationTowerFrontend;
 
 public class GTN_Recipe {
 
@@ -29,10 +31,14 @@ public class GTN_Recipe {
         .maxIO(9, 1, 0, 0)
         .minInputs(1, 0)
         .build();
-    public static final RecipeMap<RecipeMapBackend> GasCollectorRecipes = RecipeMapBuilder
+    public static final RecipeMap<?> GasCollectorRecipes = RecipeMapBuilder
         .of("gtn.recipe.GasCollectorRecipes")
-        .maxIO(0, 0, 0, 1)
+        .maxIO(1, 0, 0, 12)
+        .minInputs(1, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .frontend(GasCollectorRecipesFrontend::new)
+        .useSpecialSlot()
+        .specialSlotSensitive()
         .build();
 
 }

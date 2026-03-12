@@ -158,7 +158,7 @@ multiblock.GasCollector=Gas Collector
 multiblock.GasCollector.machine_type=Gas Collector
 multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
 multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
-multiblock.GasCollector.tooltip.02=Currently has only Air gas generation
+multiblock.GasCollector.tooltip.02=Place a valid planet in Input Bus for recipe
 
 #LaserMeteorMiner
 multiblock.LaserMeteorMiner=Laser Meteor Miner
