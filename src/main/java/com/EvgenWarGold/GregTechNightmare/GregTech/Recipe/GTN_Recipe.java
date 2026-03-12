@@ -33,12 +33,10 @@ public class GTN_Recipe {
         .build();
     public static final RecipeMap<?> GasCollectorRecipes = RecipeMapBuilder
         .of("gtn.recipe.GasCollectorRecipes")
-        .maxIO(1, 0, 0, 12)
+        .maxIO(1, 0, 0, 11)
         .minInputs(1, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .frontend(GasCollectorRecipesFrontend::new)
-        .useSpecialSlot()
-        .specialSlotSensitive()
         .build();
 
 }

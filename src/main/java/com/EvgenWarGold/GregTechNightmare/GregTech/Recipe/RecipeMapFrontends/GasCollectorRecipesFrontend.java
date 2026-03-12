@@ -18,7 +18,7 @@ public class GasCollectorRecipesFrontend extends RecipeMapFrontend {
     @Override
     public @NotNull List<Pos2d> getFluidOutputPositions(int fluidOutputCount) {
         List<Pos2d> list = new ArrayList<>();
-        int startX = 110;
+        int startX = 100;
         int startY = 10;
         int columns = 3;
         for (int i = 0; i < fluidOutputCount; i++) {
@@ -30,6 +30,6 @@ public class GasCollectorRecipesFrontend extends RecipeMapFrontend {
     }
     @Override
     public @NotNull Pos2d getSpecialItemPosition() {
-        return new Pos2d(52, 24);
+        return new Pos2d(50, 25);
     }
 }
