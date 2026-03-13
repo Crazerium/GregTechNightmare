@@ -44,8 +44,8 @@ public class GTN_StructureUtility {
 
         List<Pair<Block, Integer>> blocks = new ArrayList<>();
         for (ItemStack stack : itemStacks) {
-            if (stack != null && stack.getItem() instanceof ItemBlock ib) {
-                blocks.add(Pair.of(ib.field_150939_a, stack.getItemDamage()));
+            if (stack != null && stack.getItem() instanceof ItemBlock itemBlock) {
+                blocks.add(Pair.of(itemBlock.field_150939_a, stack.getItemDamage()));
             }
         }
 
