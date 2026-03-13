@@ -512,8 +512,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         Block target = gte.getBlock(currentX, currentY, currentZ);
         if (target.getBlockHardness(world, currentX, currentY, currentZ) > 0) {
             final int targetMeta = gte.getMetaID(currentX, currentY, currentZ);
-            Collection<ItemStack> drops = target
-                .getDrops(world, currentX, currentY, currentZ, targetMeta, 0);
+            Collection<ItemStack> drops = target.getDrops(world, currentX, currentY, currentZ, targetMeta, 0);
             if (GTUtility.isOre(target, targetMeta)) {
                 res.addAll(getOutputByDrops(drops));
             } else {
