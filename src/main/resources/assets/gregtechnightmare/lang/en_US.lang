@@ -185,13 +185,28 @@ multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 #LaserMeteorMiner
 multiblock.LaserMeteorMiner=Laser Meteor Miner
 multiblock.LaserMeteorMiner.machine_type=Meteor Miner
-multiblock.LaserMeteorMiner.tooltip.00=Collect various gases from atmosphere
-multiblock.LaserMeteorMiner.tooltip.01=Energy hatch tier limited by §fGlass tier
-multiblock.LaserMeteorMiner.tooltip.02=Currently has only Air gas generation
+multiblock.LaserMeteorMiner.tooltip.00=Schematics unlock tier
+multiblock.LaserMeteorMiner.tooltip.01=Insert Terra Shatterer pickaxes into Input Bus to increase Fortune
+multiblock.LaserMeteorMiner.tooltip.02=Fortune I: D rank
+multiblock.LaserMeteorMiner.tooltip.03=Fortune II: C rank
+multiblock.LaserMeteorMiner.tooltip.04=Fortune III: B rank
+multiblock.LaserMeteorMiner.tooltip.05=Fortune IV: A rank
+multiblock.LaserMeteorMiner.tooltip.06=Fortune V: S rank
+multiblock.LaserMeteorMiner.tooltip.07=Fortune VI: SS rank
+multiblock.LaserMeteorMiner.tooltip.08=§4TIER I
+multiblock.LaserMeteorMiner.tooltip.09=Consumption: §aLUV§7 1x Amp
+multiblock.LaserMeteorMiner.tooltip.10=Mines one row every cycle (§91§7 tick)
+multiblock.LaserMeteorMiner.tooltip.11=§4TIER II
+multiblock.LaserMeteorMiner.tooltip.12=Consumption: §aZPM§7 1x Amp
+multiblock.LaserMeteorMiner.tooltip.13=Mines one layer every cycle (§910§7 tick)
+
 multiblock.LaserMeteorMiner.fortune.0=Augment: §fNo Augment Applied
 multiblock.LaserMeteorMiner.fortune.1=Augment: §fFortune I
 multiblock.LaserMeteorMiner.fortune.2=Augment: §fFortune II
 multiblock.LaserMeteorMiner.fortune.3=Augment: §fFortune III
+multiblock.LaserMeteorMiner.fortune.4=Augment: §fFortune IV
+multiblock.LaserMeteorMiner.fortune.5=Augment: §fFortune V
+multiblock.LaserMeteorMiner.fortune.6=Augment: §fFortune VI
 multiblock.LaserMeteorMiner.tier.0=Current Tier: §f0
 multiblock.LaserMeteorMiner.tier.1=Current Tier: §f1
 multiblock.LaserMeteorMiner.tier.2=Current Tier: §f2
@@ -205,4 +220,5 @@ multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold
 Author_Crazer=Author: §aCrazer
+Author_Totto=Author: §bTotto
 Author_Structure=Structure author: §6%s

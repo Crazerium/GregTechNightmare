@@ -8,10 +8,12 @@ import gregtech.api.enums.Mods;
 public class BotaniaItems extends ModHandler {
 
     public final ModItem TerraShatterer;
+    public final ModItem ManaLensBore;
 
     public BotaniaItems() {
         super(Mods.Botania);
 
         TerraShatterer = new ModItem(mod, "terraPick", 0, "Terra Shatterer");
+        ManaLensBore = new ModItem(mod, "lens", 7, "Mana Lens: Bore");
     }
 }

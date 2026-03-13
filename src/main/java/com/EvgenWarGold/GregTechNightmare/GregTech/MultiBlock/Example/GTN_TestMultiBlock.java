@@ -34,11 +34,13 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
@@ -103,7 +105,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } };
+        return new String[][] { { "BBB", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } };
     }
 
     @Override
@@ -119,10 +121,20 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         return 10;
     }
 
+    private final GTN_StructureUtility.TierData preciseAssemblerData = new GTN_StructureUtility.TierData();
+
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
         return IStructureDefinition.<GTN_TestMultiBlock>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
+            .addElement(
+                'B',
+                GTN_StructureUtility.createTierBlocks(
+                    preciseAssemblerData,
+                    GTN_Casings.FlotationCellCasings,
+                    GTN_Casings.AborealCasing,
+                    GTN_Casings.MagicCasing,
+                    GTN_Casings.AdvancedAirFilterTurbineCasing))
             .addElement(
                 'A',
                 buildHatchAdder(GTN_TestMultiBlock.class)
@@ -144,6 +156,17 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             GTN_TestMultiBlock::mainCasingAdd,
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
+    }
+
+    @Override
+    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        return true;
+    }
+
+    @Override
+    public void clearHatches() {
+        super.clearHatches();
+        preciseAssemblerData.reset();
     }
 
     private static final List<ItemStack> removeItems = new ArrayList<>();

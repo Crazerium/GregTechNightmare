@@ -4,10 +4,10 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElement
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.TierEU.RECIPE_MV;
+import static gregtech.api.enums.TierEU.RECIPE_LuV;
+import static gregtech.api.enums.TierEU.RECIPE_ZPM;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
@@ -19,11 +19,14 @@ import java.util.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,8 +35,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
+import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -45,21 +49,24 @@ import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
 
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.enums.VoltageIndex;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.objects.ItemData;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
-import gregtech.api.util.shutdown.ShutDownReasonRegistry;
+import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMiner> {
 
@@ -149,57 +156,57 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "         J         ", "     J       J     ", "                   ", "                   ",
-                "    J              ", "    J    B    J    ", "                   ", "                   ",
+                "    J              ", "    J    I    J    ", "                   ", "                   ",
                 "                   ", "     J       J     ", "         J         ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "         J         ",
                 "    J         J    ", "                   ", "                   ", "                   ",
-                "         I         ", "   J    IBI    J   ", "         I         ", "                   ",
+                "         I         ", "   J    III    J   ", "         I         ", "                   ",
                 "                   ", "                   ", "    J         J    ", "         J         ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "    JJJJJJJJJJJ    ", "   JJLLLLLLLLLJJ   ",
                 "  JJLL       LLJJ  ", "  JLL         LLJ  ", "  JL           LJ  ", "  JL           LJ  ",
-                "  JL     I     LJ  ", "  JL    IBI    LJ  ", "  JL     I     LJ  ", "  JL           LJ  ",
+                "  JL     I     LJ  ", "  JL    III    LJ  ", "  JL     I     LJ  ", "  JL           LJ  ",
                 "  JL           LJ  ", "  JLL         LLJ  ", "  JJLL       LLJJ  ", "   JJLLLLLLLLLJJ   ",
                 "    JJJJJJJJJJJ    ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "         J         ",
                 "      LLLLLLL      ", "     LL     LL     ", "    LL       LL    ", "    L         L    ",
-                "    L    I    L    ", "   JL   IBI   LJ   ", "    L    I    L    ", "    L         L    ",
+                "    L    I    L    ", "   JL   III   LJ   ", "    L    I    L    ", "    L         L    ",
                 "    LL       LL    ", "     LL     LL     ", "      LLLLLLL      ", "         J         ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "         J         ", "       LLLLL       ", "      LL   LL      ", "     LL  I  LL     ",
-                "     L  III  L     ", "    JL IIBII LJ    ", "     L  III  L     ", "     LL  I  LL     ",
+                "     L  III  L     ", "    JL IIIII LJ    ", "     L  III  L     ", "     LL  I  LL     ",
                 "      LL   LL      ", "       LLLLL       ", "         J         ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "         J         ", "        LLL        ", "       LLLLL       ",
-                "      LLLLLLL      ", "     JLLLBLLLJ     ", "      LLLLLLL      ", "       LLLLL       ",
+                "      LLLLLLL      ", "     JLLLILLLJ     ", "      LLLLLLL      ", "       LLLLL       ",
                 "        LLL        ", "         J         ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "         J         ", "        JJJ        ",
-                "       JKAKJ       ", "      JJABAJJ      ", "       JKAKJ       ", "        JJJ        ",
+                "       JKAKJ       ", "      JJAIAJJ      ", "       JKAKJ       ", "        JJJ        ",
                 "         J         ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   ", "                   ",
-                "        KAK        ", "        ABA        ", "        KAK        ", "                   ",
+                "        KAK        ", "        AIA        ", "        KAK        ", "                   ",
                 "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   ", "                   ",
-                "        KAK        ", "        ABA        ", "        KAK        ", "                   ",
+                "        KAK        ", "        AIA        ", "        KAK        ", "                   ",
                 "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   ", "        K~K        ",
-                "       KKKKK       ", "       KKBKK       ", "       KKKKK       ", "        KKK        ",
+                "       KKKKK       ", "       KKIKK       ", "       KKKKK       ", "        KKK        ",
                 "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "        KKK        ", "       KKKKK       ",
-                "      KKBBBKK      ", "      KKBBBKK      ", "      KKBBBKK      ", "       KKKKK       ",
+                "      KKIIIKK      ", "      KKIIIKK      ", "      KKIIIKK      ", "       KKKKK       ",
                 "        KKK        ", "                   ", "                   ", "                   ",
                 "                   ", "                   ", "                   " },
             { "                   ", "                   ", "                   ", "                   ",
@@ -226,7 +233,27 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     @Override
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-
+        builder.addInfo(tr("tooltip.00"))
+            .addInfo(tr("tooltip.01"))
+            .addInfo(tr("tooltip.02"))
+            .addInfo(tr("tooltip.03"))
+            .addInfo(tr("tooltip.04"))
+            .addInfo(tr("tooltip.05"))
+            .addInfo(tr("tooltip.06"))
+            .addInfo(tr("tooltip.07"))
+            .addInfo(tr("tooltip.08"))
+            .addInfo(tr("tooltip.09"))
+            .addInfo(tr("tooltip.10"))
+            .addInfo(tr("tooltip.11"))
+            .addInfo(tr("tooltip.12"))
+            .addInfo(tr("tooltip.13"))
+            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
+            .addInfo(Constants.AUTHOR_TOTTO)
+            .beginStructureBlock(7, 5, 5, false)
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
+            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
@@ -234,14 +261,12 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         return IStructureDefinition.<GTN_LaserMeteorMiner>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
             .addElement('A', chainAllGlasses())
-            .addElement('B', GTN_Casings.SuperconductingCoilBlock.asElement())
             .addElement('I', GTN_Casings.NaquadahCoilBlock.asElement())
             .addElement('J', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
             .addElement('L', GTN_Casings.ThermallyInsulatedCasing.asElement())
             .addElement(
                 'K',
-                buildHatchAdder(GTN_LaserMeteorMiner.class)
-                    .atLeast(InputBus, OutputBus, Energy, Maintenance, InputHatch)
+                buildHatchAdder(GTN_LaserMeteorMiner.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)
                     .buildAndChain(onElementPass(GTN_LaserMeteorMiner::mainCasingAdd, getMainCasings().asElement())))
@@ -277,11 +302,13 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
             showBlockHighlight = !showBlockHighlight;
-            assert getBaseMetaTileEntity() != null;
+
+            if (getBaseMetaTileEntity() == null) return;
+
             getBaseMetaTileEntity().issueClientUpdate();
         })
             .setPlayClickSound(true)
-            .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_CYCLIC })
+            .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_SHUFFLE })
             .setPos(new Pos2d(174, 112))
             .addTooltip(tr("button.highlight"))
             .setSize(16, 16));
@@ -295,17 +322,15 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         OverclockCalculator calculator = new OverclockCalculator().setEUt(getAverageInputVoltage())
             .setAmperage(getMaxInputAmps())
-            .setRecipeEUt(RECIPE_MV)
-            .setDuration(10 * 20)
-            .setAmperageOC(mEnergyHatches.size() != 1)
-            .enablePerfectOC();
+            .setRecipeEUt(this.multiTier == 2 ? RECIPE_ZPM : RECIPE_LuV)
+            .setDuration(this.multiTier == 2 ? 10 : 1);
         calculator.calculate();
         this.mMaxProgresstime = (isWaiting) ? 20 * 10 : calculator.getDuration();
-        this.mEUt = (int) (isWaiting ? 0 : -calculator.getConsumption());
+        this.lEUt = (int) (isWaiting ? 0 : -calculator.getConsumption());
     }
 
     private boolean isEnergyEnough() {
-        long requiredEnergy = 512 + getMaxInputVoltage() * 4;
+        long requiredEnergy = this.multiTier == 2 ? 128_000 : 30_000;
         for (MTEHatchEnergy energyHatch : mEnergyHatches) {
             requiredEnergy -= energyHatch.getEUVar();
             if (requiredEnergy <= 0) return true;
@@ -334,6 +359,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private boolean checkCenter() {
+        if (getBaseMetaTileEntity() == null) return false;
         return !getBaseMetaTileEntity().getWorld()
             .isAirBlock(xStart, yStart + 1, zStart);
     }
@@ -342,6 +368,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         currentRadius = MAX_RADIUS;
         int delta = 0;
         for (int zCoord = zStart - currentRadius; delta < MAX_RADIUS - 1; zCoord++) {
+            if (getBaseMetaTileEntity() == null) return;
+
             if (!getBaseMetaTileEntity().getWorld()
                 .isAirBlock(xStart, yStart, zCoord)) {
                 break;
@@ -352,18 +380,23 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private void setStartCoords() {
-        ForgeDirection facing = getBaseMetaTileEntity().getBackFacing();
+        if (getBaseMetaTileEntity() == null) return;
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+        ForgeDirection direction = getExtendedFacing().getRelativeBackInWorld();
+
+        ForgeDirection facing = gte.getBackFacing();
         if (facing == ForgeDirection.NORTH || facing == ForgeDirection.SOUTH) {
-            xStart = getBaseMetaTileEntity().getXCoord();
-            zStart = 2 * getExtendedFacing().getRelativeBackInWorld().offsetZ + getBaseMetaTileEntity().getZCoord();
+            xStart = gte.getXCoord();
+            zStart = 2 * direction.offsetZ + gte.getZCoord();
         } else {
-            xStart = 2 * getExtendedFacing().getRelativeBackInWorld().offsetX + getBaseMetaTileEntity().getXCoord();
-            zStart = getBaseMetaTileEntity().getZCoord();
+            xStart = 2 * direction.offsetX + gte.getXCoord();
+            zStart = gte.getZCoord();
         }
-        yStart = distanceFromMeteor + 15 + getBaseMetaTileEntity().getYCoord();
+        yStart = distanceFromMeteor + 15 + gte.getYCoord();
     }
 
     private ItemStack multiplyStackSize(ItemStack itemStack) {
+        if (getBaseMetaTileEntity() == null) return null;
         itemStack.stackSize *= getBaseMetaTileEntity().getRandomNumber(this.fortuneTier + 1) + 1;
         return itemStack;
     }
@@ -402,6 +435,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     private void initializeLayerBounds() {
+        if (getBaseMetaTileEntity() == null) return;
         World world = getBaseMetaTileEntity().getWorld();
 
         this.minY = yStart + currentRadius;
@@ -440,17 +474,51 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         this.isLayerInitialized = true;
     }
 
+    private void setBlockToAir(World world, int x, int y, int z) {
+        if (y < 0 || y > 255 || !world.blockExists(x, y, z)) {
+            return;
+        }
+
+        Chunk chunk = world.getChunkFromChunkCoords(x >> 4, z >> 4);
+        if (chunk == null) return;
+
+        int localX = x & 15;
+        int localY = y & 15;
+        int localZ = z & 15;
+        int storageIndex = y >> 4;
+
+        ExtendedBlockStorage storage = chunk.getBlockStorageArray()[storageIndex];
+        if (storage == null) {
+            storage = new ExtendedBlockStorage(storageIndex << 4, world.provider.hasNoSky);
+            chunk.getBlockStorageArray()[storageIndex] = storage;
+        }
+
+        storage.func_150818_a(localX, localY, localZ, Blocks.air);
+        storage.setExtBlockMetadata(localX, localY, localZ, 0);
+
+        if (!world.isRemote) {
+            world.markBlockForUpdate(x, y, z);
+        }
+
+        chunk.isModified = true;
+    }
+
     private void mineBlock(int currentX, int currentY, int currentZ) {
-        Block target = getBaseMetaTileEntity().getBlock(currentX, currentY, currentZ);
-        if (target.getBlockHardness(getBaseMetaTileEntity().getWorld(), currentX, currentY, currentZ) > 0) {
-            final int targetMeta = getBaseMetaTileEntity().getMetaID(currentX, currentY, currentZ);
-            Collection<ItemStack> drops = target
-                .getDrops(getBaseMetaTileEntity().getWorld(), currentX, currentY, currentZ, targetMeta, 0);
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+
+        if (gte == null) return;
+        World world = gte.getWorld();
+
+        Block target = gte.getBlock(currentX, currentY, currentZ);
+        if (target.getBlockHardness(world, currentX, currentY, currentZ) > 0) {
+            final int targetMeta = gte.getMetaID(currentX, currentY, currentZ);
+            Collection<ItemStack> drops = target.getDrops(world, currentX, currentY, currentZ, targetMeta, 0);
             if (GTUtility.isOre(target, targetMeta)) {
                 res.addAll(getOutputByDrops(drops));
-            } else res.addAll(drops);
-            getBaseMetaTileEntity().getWorld()
-                .setBlockToAir(currentX, currentY, currentZ);
+            } else {
+                res.addAll(drops);
+            }
+            setBlockToAir(world, currentX, currentY, currentZ);
         }
     }
 
@@ -472,6 +540,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             }
             for (int i = 0; i < tRecipe.mOutputs.length; i++) {
                 ItemStack recipeOutput = tRecipe.mOutputs[i].copy();
+                if (getBaseMetaTileEntity() == null) return;
                 if (getBaseMetaTileEntity().getRandomNumber(10000) < tRecipe.getOutputChance(i))
                     multiplyStackSize(recipeOutput);
                 outputItems.add(recipeOutput);
@@ -499,6 +568,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             for (int zOffset = -currentRadius; zOffset <= currentRadius; zOffset++) {
                 int currentZ = this.zStart + zOffset;
 
+                if (getBaseMetaTileEntity() == null) return;
+
                 World world = getBaseMetaTileEntity().getWorld();
                 if (!world.blockExists(currentX, this.yDrill, currentZ)) {
                     continue;
@@ -516,8 +587,13 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private void mineRow() {
         int currentX = this.xDrill;
         int currentY = this.yDrill;
-        while (getBaseMetaTileEntity().getWorld() // Skips empty rows
-            .isAirBlock(currentX, currentY, this.zStart)) {
+
+        if (getBaseMetaTileEntity() == null) return;
+
+        World world = getBaseMetaTileEntity().getWorld();
+
+        while (world.isAirBlock(currentX, currentY, this.zStart)) {
+
             this.moveToNextColumn();
             if (this.hasFinished) return;
             currentX = this.xDrill;
@@ -527,10 +603,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         int opposite = 0;
         for (int z = -currentRadius; z <= (currentRadius - opposite); z++) {
             int currentZ = this.zStart + z;
-            if (!getBaseMetaTileEntity().getWorld()
-                .isAirBlock(this.xDrill, this.yDrill, currentZ)) {
+            if (!world.isAirBlock(this.xDrill, this.yDrill, currentZ)) {
                 this.mineBlock(this.xDrill, this.yDrill, currentZ);
-            } else opposite++;
+            } else {
+                opposite++;
+            }
         }
         this.moveToNextColumn();
     }
@@ -538,17 +615,30 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     @NotNull
     public CheckRecipeResult checkProcessing() {
-        setMultiTier(getMultiTier(mInventory[1]));
+        this.setMultiTier(getMultiTier(mInventory[1]));
+        this.setFortuneTier();
 
         if (this.multiTier <= 0) {
             return SimpleCheckRecipeResult.ofFailure("missing_schematic");
         }
 
-        setElectricityStats();
-        if (!isEnergyEnough()) {
-            stopMachine(ShutDownReasonRegistry.NONE);
-            return SimpleCheckRecipeResult.ofFailure("not_enough_energy");
+        long availableEUt = getMaxInputPower();
+
+        switch (this.multiTier) {
+            case 1 -> {
+                if (availableEUt < 32_768) {
+                    return CheckRecipeResultRegistry.insufficientPower(32_768);
+                }
+            }
+
+            case 2 -> {
+                if (availableEUt < 131_072) {
+                    return CheckRecipeResultRegistry.insufficientPower(131_072);
+                }
+            }
         }
+
+        this.setElectricityStats();
 
         if (!isStartInitialized) {
             this.setStartCoords();
@@ -557,8 +647,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
         }
 
         if (!hasFinished) {
-            this.setFortuneTier();
             this.startMining(this.multiTier);
+            GTN_InventoryUtils.mergeAllSameItems(res);
             mOutputItems = res.toArray(new ItemStack[0]);
             res.clear();
         } else {
@@ -624,27 +714,22 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
     private void setFortuneTier() {
         this.fortuneTier = 0;
-        if (this.multiTier == 2) {
-            this.fortuneTier = 3;
-            return;
-        }
         if (!mInputBusses.isEmpty()) {
             Optional<ItemStack> input = Optional.ofNullable(
                 mInputBusses.get(0)
                     .getInventoryHandler()
                     .getStackInSlot(0));
-            if (input.isPresent()) {
-                this.fortuneTier = getFortuneTier(input.get());
-            }
+            input.ifPresent(itemStack -> this.fortuneTier = getFortuneTier(itemStack));
         }
     }
 
     private static int getFortuneTier(ItemStack itemStack) {
         if (itemStack == null || itemStack.stackSize < 1) return 0;
 
-        if (itemStack.isItemEqual(ModItems.THAUMCRAFT_ITEMS.PickaxeElemental.get(1))) return 1;
-        if (itemStack.isItemEqual(ModItems.BLOOD_MAGIC_ITEMS.BoundPickaxe.get(1))) return 2;
-        if (itemStack.isItemEqual(ModItems.BOTANIA_ITEMS.TerraShatterer.get(1))) return 3;
+        if (itemStack.getItem() instanceof ItemTerraPick) {
+            return ItemTerraPick.getLevel(itemStack) + 1;
+        }
+
         return 0;
     }
 
@@ -691,5 +776,10 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     protected String tr(String key) {
         return GTN_Utils.tr("multiblock.LaserMeteorMiner." + key);
+    }
+
+    @Override
+    protected Pair<Integer, Integer> getMinMaxEnergyTier() {
+        return Pair.of(VoltageIndex.IV, VoltageIndex.LuV);
     }
 }
