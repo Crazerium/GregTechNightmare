@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -492,7 +493,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
             chunk.getBlockStorageArray()[storageIndex] = storage;
         }
 
-        storage.func_150818_a(localX, localY, localZ, net.minecraft.init.Blocks.air);
+        storage.func_150818_a(localX, localY, localZ, Blocks.air);
         storage.setExtBlockMetadata(localX, localY, localZ, 0);
 
         if (!world.isRemote) {
