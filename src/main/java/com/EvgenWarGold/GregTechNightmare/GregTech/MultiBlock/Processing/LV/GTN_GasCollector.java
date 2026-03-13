@@ -6,33 +6,26 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.withChannel;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import gregtech.api.recipe.RecipeMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fluids.FluidStack;
-
-import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import bartworks.API.BorosilicateGlass;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.TierEU;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
-import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.recipe.RecipeMap;
 import gregtech.api.util.MultiblockTooltipBuilder;
 
 public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
@@ -149,6 +142,7 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
                             ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
+
     @Override
     public RecipeMap<?> getRecipeMap() {
         return GTN_Recipe.GasCollectorRecipes;

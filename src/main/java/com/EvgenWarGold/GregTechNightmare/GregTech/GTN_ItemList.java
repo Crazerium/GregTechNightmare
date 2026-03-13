@@ -48,6 +48,7 @@ public enum GTN_ItemList {
     UltimatePrecise,
     GasCollector,
     LaserMeteorMiner,
+    BloodEnchanter,
     // endregion
 
     ;

@@ -10,6 +10,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
+import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
@@ -19,6 +20,9 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
+import gregtech.api.util.GTModHandler;
+import net.minecraft.block.BlockEnchantmentTable;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -292,6 +296,20 @@ public class GTN_MultiBlockRecipes {
                 'C', ItemList.Electric_Pump_LV.get(1)
             });
 
+        // Blood Enchanter
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.RobustTungstenSteelMachineCasing.getItemStack(8),
+                GTModHandler.getModItem("AWWayofTime", "ritualStone", 4),
+                GTModHandler.getModItem("thaumicbases", "overchanter", 1),
+                GTModHandler.getModItem("DraconicEvolution", "dissEnchanter", 1),
+                new ItemStack(Blocks.enchanting_table, 1),
+                getCircuits(Materials.IV, 4)
+            )
+            .itemOutputs(GTN_ItemList.BloodEnchanter.get(1))
+            .eut(RECIPE_IV)
+            .duration(120 * 20)
+            .addTo(RecipeMaps.assemblerRecipes);
 
         //spotless:on
     }

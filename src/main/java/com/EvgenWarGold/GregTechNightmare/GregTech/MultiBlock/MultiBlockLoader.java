@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_BloodEnchanter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
@@ -44,6 +45,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.UltimatePrecise.set(new GTN_UltimatePrecise(21_016, "UltimatePrecise"));
         GTN_ItemList.GasCollector.set(new GTN_GasCollector(21_017, "GasCollector"));
         GTN_ItemList.LaserMeteorMiner.set(new GTN_LaserMeteorMiner(21_018, "LaserMeteorMiner"));
+        GTN_ItemList.BloodEnchanter.set(new GTN_BloodEnchanter(21_019, "BloodEnchanter"));
         //spotless:on
     }
 }

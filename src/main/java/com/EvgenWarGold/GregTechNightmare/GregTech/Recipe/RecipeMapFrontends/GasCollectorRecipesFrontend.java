@@ -1,18 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends;
 
-
-
+import java.util.ArrayList;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
 import gregtech.api.recipe.BasicUIPropertiesBuilder;
 import gregtech.api.recipe.NEIRecipePropertiesBuilder;
 import gregtech.api.recipe.RecipeMapFrontend;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GasCollectorRecipesFrontend extends RecipeMapFrontend {
-    public GasCollectorRecipesFrontend(BasicUIPropertiesBuilder uiPropertiesBuilder, NEIRecipePropertiesBuilder neiPropertiesBuilder) {
+
+    public GasCollectorRecipesFrontend(BasicUIPropertiesBuilder uiPropertiesBuilder,
+        NEIRecipePropertiesBuilder neiPropertiesBuilder) {
         super(uiPropertiesBuilder, neiPropertiesBuilder);
     }
     @Override
