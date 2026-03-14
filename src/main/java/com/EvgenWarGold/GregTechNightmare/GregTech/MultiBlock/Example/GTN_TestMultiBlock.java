@@ -105,7 +105,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "BBB", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } };
+        return new String[][] { { "BCB", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } };
     }
 
     @Override
@@ -127,6 +127,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
         return IStructureDefinition.<GTN_TestMultiBlock>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
+            .addElement('C', GTN_Casings.TintedGlassBlack.asElement())
             .addElement(
                 'B',
                 GTN_StructureUtility.createTierBlocks(
