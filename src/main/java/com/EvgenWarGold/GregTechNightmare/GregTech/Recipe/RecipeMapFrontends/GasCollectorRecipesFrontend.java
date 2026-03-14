@@ -2,8 +2,11 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.jetbrains.annotations.NotNull;
+
 import com.gtnewhorizons.modularui.api.math.Pos2d;
+
 import gregtech.api.recipe.BasicUIPropertiesBuilder;
 import gregtech.api.recipe.NEIRecipePropertiesBuilder;
 import gregtech.api.recipe.RecipeMapFrontend;
@@ -14,6 +17,7 @@ public class GasCollectorRecipesFrontend extends RecipeMapFrontend {
         NEIRecipePropertiesBuilder neiPropertiesBuilder) {
         super(uiPropertiesBuilder, neiPropertiesBuilder);
     }
+
     @Override
     public @NotNull List<Pos2d> getFluidOutputPositions(int fluidOutputCount) {
         List<Pos2d> list = new ArrayList<>();
@@ -27,6 +31,7 @@ public class GasCollectorRecipesFrontend extends RecipeMapFrontend {
         }
         return list;
     }
+
     @Override
     public @NotNull Pos2d getSpecialItemPosition() {
         return new Pos2d(50, 25);
