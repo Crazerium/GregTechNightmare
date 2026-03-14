@@ -19,6 +19,16 @@ import codechicken.nei.NEIClientUtils;
 @Mixin(BRUtil.class)
 public class FixTreeSprouterCrushMixins {
 
+    /**
+     * Retrieves the list of items (ingredients) from rendered blocks in the scene.
+     * Fixes TreeSprouter crash issue caused by incorrect drop handling.
+     *
+     * @param renderer The world scene renderer containing the rendered blocks
+     * @return List of item stacks representing the blocks in the scene
+     * @author EvgenWarGold
+     * @reason Fixes TreeSprouter crash when handling blocks with incorrect drop quantities
+     *         that would otherwise cause NullPointerException or ClassCastException
+     */
     @Overwrite(remap = false)
     public static List<ItemStack> getIngredients(WorldSceneRenderer renderer) {
         List<ItemStack> ingredients = new ArrayList<>();

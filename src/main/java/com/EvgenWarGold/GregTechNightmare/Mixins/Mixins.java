@@ -11,7 +11,8 @@ public enum Mixins implements IMixins {
         .addClientMixins(
             "FixTreeSprouterCrushMixins",
             "MTEMultiblockBaseMixins",
-            "MTEAdvancedDebugStructureWriterMixins")
+            "MTEAdvancedDebugStructureWriterMixins",
+            "FixGalaxySpaceCapeCrushMixins")
         .setPhase(Phase.LATE)),
 
     // MINECRAFT_EARLY(new MixinBuilder("Minecraft Early").addClientMixins("Test", "Test")
