@@ -12,6 +12,7 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteam
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 
+@SuppressWarnings("unchecked")
 public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
     SteamInputHatch("SteamInputHatch", GTN_MultiBlockBase::addSteamInputHatchToMachineList,
@@ -27,7 +28,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
     SteamInputBus("SteamInputBus", GTN_MultiBlockBase::addSteamInputBusToMachineList, MTEHatchSteamBusInput.class) {
 
         @Override
-        public long count(GTN_MultiBlockBase gtnMultiBlockBase) {
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.mSteamInputBusses.size();
         }
     },
@@ -35,17 +36,17 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
     SteamOutputBus("SteamOutputBus", GTN_MultiBlockBase::addSteamOutputBusToMachineList, MTEHatchSteamBusOutput.class) {
 
         @Override
-        public long count(GTN_MultiBlockBase gtnMultiBlockBase) {
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.mSteamOutputBusses.size();
         }
     };
 
     private final String name;
     private final List<Class<? extends IMetaTileEntity>> mteClasses;
-    private final IGTHatchAdder<GTN_MultiBlockBase<?>> adder;
+    private final IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder;
 
     @SafeVarargs
-    GTN_HatchElement(String name, IGTHatchAdder<GTN_MultiBlockBase<?>> adder,
+    GTN_HatchElement(String name, IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder,
         Class<? extends IMetaTileEntity>... mteClasses) {
         this.name = name;
         this.mteClasses = Collections.unmodifiableList(Arrays.asList(mteClasses));
@@ -62,6 +63,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         return GTUtility.translate(name);
     }
 
+    @Override
     public IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder() {
         return adder;
     }

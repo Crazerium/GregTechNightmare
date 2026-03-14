@@ -36,18 +36,18 @@ import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
 import gtPlusPlus.core.material.MaterialsAlloy;
 
-@Mixin(value = MTEAdvDebugStructureWriter.class)
+@Mixin(value = MTEAdvDebugStructureWriter.class, remap = false)
 public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEntity {
 
     private static final String NICE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz=|!@#$%&()[]{};:<>/?_,.*^'`";
 
-    @Shadow
+    @Shadow(remap = false)
     private short[] numbers;
 
-    @Shadow
+    @Shadow(remap = false)
     private boolean transpose;
 
-    @Shadow
+    @Shadow(remap = false)
     private String[] result;
 
     public MTEAdvancedDebugStructureWriterMixins(int aID, String aBasicName, String aRegionalName, int aInvSlotCount) {
@@ -58,6 +58,18 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
         super(aName, aInvSlotCount);
     }
 
+    /**
+     * Overrides the structure printing method to add custom logic
+     * with support for GTN_Casings and other mods
+     *
+     * @param aPlayer The player who invoked the method
+     * @throws IllegalAccessException If there are errors accessing fields
+     * @author EvgenWarGold
+     * @reason Original method doesn't handle custom GTN_Casings and other mod blocks properly.
+     *         This version adds support for GTN_Casings enumeration, FrameBox blocks from GT,
+     *         and modular blocks from GT++, providing more accurate structure definitions
+     *         for multiblock validation.
+     */
     @Overwrite(remap = false)
     public void printStructure(EntityPlayer aPlayer) throws IllegalAccessException {
         IGregTechTileEntity aBaseMetaTileEntity = getBaseMetaTileEntity();
