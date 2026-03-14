@@ -158,30 +158,6 @@ multiblock.UltimatePrecise.tooltip.00=Up to §94096§7 parallels
 multiblock.UltimatePrecise.tooltip.01=Recipe tier up to §cUIV
 multiblock.UltimatePrecise.tooltip.02=§aTier skipping allowed
 
-#GasCollector
-multiblock.GasCollector=Gas Collector
-multiblock.GasCollector.machine_type=Gas Collector
-multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
-multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
-multiblock.GasCollector.tooltip.02=Place a valid planet in Input Bus for recipe
-
-#BloodEnchanter
-multiblock.BloodEnchanter=Blood Enchanter
-multiblock.BloodEnchanter.machine_type=Enchanter
-multiblock.BloodEnchanter.tooltip.00=Automatic version of §cBloodMagic§7 enchanter spell ritual and overchanting table from §5Thaumic Bases
-multiblock.BloodEnchanter.tooltip.01=Has 2 working mods depends on circuit in bus
-multiblock.BloodEnchanter.tooltip.02=Circuit 1 active duplicate enchanting book mode
-multiblock.BloodEnchanter.tooltip.03=Circuit 2 active overchanting table mode from Thaumic Bases
-multiblock.BloodEnchanter.tooltip.04=In mode 1 enchanting book don't consume and enchant a any item from input bus
-multiblock.BloodEnchanter.tooltip.05=In mode 2 consume enchanting book and 32 §5Praecantatio§7 aspect to add +1 to all enchantment in her
-multiblock.BloodEnchanter.tooltip.06=§5Praecantatio§7 can be supplied by Infusion Provider located an any casing
-multiblock.BloodEnchanter.tooltip.07=Each operation on all modes requires §a16500 liquid XP§7 and §cBlood§7 from network
-multiblock.BloodEnchanter.tooltip.08=§cBlood§7 cost dependencies at level of enchantment
-multiblock.BloodEnchanter.tooltip.09=Drain §cBlood§7 from the multiblock owner network
-multiblock.BloodEnchanter.tooltip.10=Use portable scanner on machine to know how much §cBlood§7 is required
-multiblock.BloodEnchanter.tooltip.11=Does not require power!
-multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
-
 #LaserMeteorMiner
 multiblock.LaserMeteorMiner=Laser Meteor Miner
 multiblock.LaserMeteorMiner.machine_type=Meteor Miner
@@ -212,6 +188,29 @@ multiblock.LaserMeteorMiner.tier.1=Current Tier: §f1
 multiblock.LaserMeteorMiner.tier.2=Current Tier: §f2
 multiblock.LaserMeteorMiner.button.highlight=Highlight Center Block
 
+#GasCollector
+multiblock.GasCollector=Gas Collector
+multiblock.GasCollector.machine_type=Gas Collector
+multiblock.GasCollector.tooltip.00=Collect various gases from atmosphere
+multiblock.GasCollector.tooltip.01=Energy hatch tier limited by §fGlass tier
+multiblock.GasCollector.tooltip.02=Place a valid planet in Input Bus for recipe
+
+#BloodEnchanter
+multiblock.BloodEnchanter=Blood Enchanter
+multiblock.BloodEnchanter.machine_type=Enchanter
+multiblock.BloodEnchanter.tooltip.00=Automatic version of §cBloodMagic§7 enchanter spell ritual and overchanting table from §5Thaumic Bases
+multiblock.BloodEnchanter.tooltip.01=Has 2 working mods depends on circuit in bus
+multiblock.BloodEnchanter.tooltip.02=Circuit 1 active duplicate enchanting book mode
+multiblock.BloodEnchanter.tooltip.03=Circuit 2 active overchanting table mode from Thaumic Bases
+multiblock.BloodEnchanter.tooltip.04=In mode 1 enchanting book don't consume and enchant a any item from input bus
+multiblock.BloodEnchanter.tooltip.05=In mode 2 consume enchanting book and 32 §5Praecantatio§7 aspect to add +1 to all enchantment in her
+multiblock.BloodEnchanter.tooltip.06=§5Praecantatio§7 can be supplied by Infusion Provider located an any casing
+multiblock.BloodEnchanter.tooltip.07=Each operation on all modes requires §a16500 liquid XP§7 and §cBlood§7 from network
+multiblock.BloodEnchanter.tooltip.08=§cBlood§7 cost dependencies at level of enchantment
+multiblock.BloodEnchanter.tooltip.09=Drain §cBlood§7 from the multiblock owner network
+multiblock.BloodEnchanter.tooltip.10=Use portable scanner on machine to know how much §cBlood§7 is required
+multiblock.BloodEnchanter.tooltip.11=Does not require power!
+multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s

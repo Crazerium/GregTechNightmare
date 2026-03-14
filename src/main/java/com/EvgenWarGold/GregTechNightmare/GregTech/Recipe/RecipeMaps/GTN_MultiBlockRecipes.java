@@ -319,10 +319,10 @@ public class GTN_MultiBlockRecipes {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTN_Casings.RobustTungstenSteelMachineCasing.getItemStack(8),
-                GTModHandler.getModItem("AWWayofTime", "ritualStone", 4),
-                GTModHandler.getModItem("thaumicbases", "overchanter", 1),
-                GTModHandler.getModItem("DraconicEvolution", "dissEnchanter", 1),
-                new ItemStack(Blocks.enchanting_table, 1),
+                ModBlocks.BLOOD_MAGIC_BLOCKS.RitualStone.getItemStack(4),
+                ModBlocks.THAUMIC_BASES_BLOCKS.Overchanter.getItemStack(1),
+                ModBlocks.DRACONIC_EVOLUTION_BLOCKS.DissEnchanter.getItemStack(1),
+                new ItemStack(Blocks.enchanting_table),
                 getCircuits(Materials.IV, 4)
             )
             .itemOutputs(GTN_ItemList.BloodEnchanter.get(1))
