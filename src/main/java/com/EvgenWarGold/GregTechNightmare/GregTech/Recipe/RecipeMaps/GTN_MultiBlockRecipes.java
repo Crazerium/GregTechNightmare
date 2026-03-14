@@ -21,6 +21,7 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -311,6 +312,20 @@ public class GTN_MultiBlockRecipes {
 
             .eut(RECIPE_IV)
             .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+        // Blood Enchanter
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.RobustTungstenSteelMachineCasing.getItemStack(8),
+                ModBlocks.BLOOD_MAGIC_BLOCKS.RitualStone.getItemStack(4),
+                ModBlocks.THAUMIC_BASES_BLOCKS.Overchanter.getItemStack(1),
+                ModBlocks.DRACONIC_EVOLUTION_BLOCKS.DissEnchanter.getItemStack(1),
+                new ItemStack(Blocks.enchanting_table),
+                getCircuits(Materials.IV, 4)
+            )
+            .itemOutputs(GTN_ItemList.BloodEnchanter.get(1))
+            .eut(RECIPE_IV)
+            .duration(120 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
 
         //spotless:on
