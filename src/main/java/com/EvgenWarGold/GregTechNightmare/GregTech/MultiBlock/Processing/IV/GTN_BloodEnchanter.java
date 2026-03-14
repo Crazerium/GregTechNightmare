@@ -41,6 +41,7 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.MultiblockTooltipBuilder;
+import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.tiles.TileInfusionProvider;
 
@@ -53,7 +54,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     private static final String XP_FLUID_NAME = "xpjuice";
     // 30 player lvl
     private static final int FIXED_XP_COST_MB = 16500;
-    protected final ArrayList<TileInfusionProvider> mTileInfusionProviders = new ArrayList<TileInfusionProvider>();
+    protected final ArrayList<TileInfusionProvider> mTileInfusionProviders = new ArrayList<>();
     private int mLastMode = 0;
     private int mLastNeedLP = 0;
     private int mLastNeedXP = 0;
@@ -121,13 +122,6 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     @Override
-    public boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-        return !mInputBusses.isEmpty() && !mOutputBusses.isEmpty()
-            && !mInputHatches.isEmpty()
-            && !mMufflerHatches.isEmpty();
-    }
-
-    @Override
     public String[][] getShape() {
         return new String[][] {
             { "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA",
@@ -153,25 +147,25 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(this.tr("tooltip.00"))
-            .addInfo(this.tr("tooltip.01"))
-            .addInfo(this.tr("tooltip.02"))
-            .addInfo(this.tr("tooltip.03"))
-            .addInfo(this.tr("tooltip.04"))
-            .addInfo(this.tr("tooltip.05"))
-            .addInfo(this.tr("tooltip.06"))
-            .addInfo(this.tr("tooltip.07"))
-            .addInfo(this.tr("tooltip.08"))
-            .addInfo(this.tr("tooltip.09"))
-            .addInfo(this.tr("tooltip.10"))
-            .addInfo(this.tr("tooltip.11"))
-            .addInfo(this.tr("tooltip.12"))
+        builder.addInfo(tr("tooltip.00"))
+            .addInfo(tr("tooltip.01"))
+            .addInfo(tr("tooltip.02"))
+            .addInfo(tr("tooltip.03"))
+            .addInfo(tr("tooltip.04"))
+            .addInfo(tr("tooltip.05"))
+            .addInfo(tr("tooltip.06"))
+            .addInfo(tr("tooltip.07"))
+            .addInfo(tr("tooltip.08"))
+            .addInfo(tr("tooltip.09"))
+            .addInfo(tr("tooltip.10"))
+            .addInfo(tr("tooltip.11"))
+            .addInfo(tr("tooltip.12"))
             .addInfo(Constants.AUTHOR_CRAZER)
-            .beginStructureBlock(5, 6, 5, false)
-            .addInputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addOutputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addInputHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addMufflerHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 });
+            .beginStructureBlock(11, 10, 11, true)
+            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addInputHatch(EnumChatFormatting.GOLD + "1", 1)
+            .addMufflerHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
@@ -206,8 +200,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     public boolean addInfusionProvider(TileEntity aTileEntity) {
-        if (aTileEntity instanceof TileInfusionProvider) {
-            TileInfusionProvider provider = (TileInfusionProvider) aTileEntity;
+        if (aTileEntity instanceof TileInfusionProvider provider) {
             if (!this.mTileInfusionProviders.contains(provider)) {
                 this.mTileInfusionProviders.add(provider);
             }
@@ -232,7 +225,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         public int mode;
         public ItemStack sourceStack;
         public ItemStack resultStack;
-        public List<EnchantmentData> enchants = new ArrayList<EnchantmentData>();
+        public List<EnchantmentData> enchants = new ArrayList<>();
         public int lpCost;
         public int xpCost;
         public int praecantatioCost;
@@ -240,7 +233,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     private ArrayList<ItemStack> getSafeStoredInputs() {
         ArrayList<ItemStack> inputs = getStoredInputs();
-        return inputs == null ? new ArrayList<ItemStack>() : inputs;
+        return inputs == null ? new ArrayList<>() : inputs;
     }
 
     private int getModeFromCircuit() {
@@ -277,7 +270,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     private List<ItemStack> findEnchantedBooks() {
-        List<ItemStack> books = new ArrayList<ItemStack>();
+        List<ItemStack> books = new ArrayList<>();
         for (ItemStack stack : getSafeStoredInputs()) {
             if (stack != null && stack.getItem() == Items.enchanted_book) {
                 books.add(stack);
@@ -310,7 +303,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     private List<EnchantmentData> readBookEnchantments(ItemStack book) {
-        List<EnchantmentData> result = new ArrayList<EnchantmentData>();
+        List<EnchantmentData> result = new ArrayList<>();
         appendBookEnchantments(book, result);
         return result;
     }
@@ -341,7 +334,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
             Enchantment ench = Enchantment.enchantmentsList[data.enchant];
             if (ench == null) continue;
             double lpDiff = Math.min(
-                (double) Integer.MAX_VALUE,
+                Integer.MAX_VALUE,
                 500D * (15D / (double) ench.getWeight() * 1.05D)
                     * (0.75D + 2.25D * (double) data.level / (double) ench.getMaxLevel())
                     * (0.9D + enchants.size() * 0.05D));
@@ -401,7 +394,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         if (target == null || books.isEmpty()) {
             return null;
         }
-        List<EnchantmentData> allBookEnchants = new ArrayList<EnchantmentData>();
+        List<EnchantmentData> allBookEnchants = new ArrayList<>();
         for (ItemStack book : books) {
             appendBookEnchantments(book, allBookEnchants);
         }
@@ -410,7 +403,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         }
         ItemStack resultTarget = target.copy();
         resultTarget.stackSize = 1;
-        List<EnchantmentData> validEnchants = new ArrayList<EnchantmentData>();
+        List<EnchantmentData> validEnchants = new ArrayList<>();
         for (EnchantmentData data : allBookEnchants) {
             if (isEnchantmentValidForItem((short) data.enchant, resultTarget, validEnchants)) {
                 validEnchants.add(data);
@@ -440,7 +433,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         if (enchants.isEmpty()) {
             return null;
         }
-        List<EnchantmentData> upgraded = new ArrayList<EnchantmentData>();
+        List<EnchantmentData> upgraded = new ArrayList<>();
         for (EnchantmentData data : enchants) {
             upgraded.add(new EnchantmentData(data.enchant, data.level + 1));
         }
@@ -525,7 +518,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     @Override
-    public CheckRecipeResult checkProcessing() {
+    public @NotNull CheckRecipeResult checkProcessing() {
         mLastMode = 0;
         mLastNeedLP = 0;
         mLastNeedXP = 0;
@@ -595,5 +588,10 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         ret[origin.length] = EnumChatFormatting.AQUA + "Mode: " + EnumChatFormatting.GOLD + modeName;
         ret[origin.length + 1] = EnumChatFormatting.AQUA + "LP Required: " + EnumChatFormatting.GOLD + mLastNeedLP;
         return ret;
+    }
+
+    @Override
+    public boolean isEnergyMultiBlock() {
+        return false;
     }
 }
