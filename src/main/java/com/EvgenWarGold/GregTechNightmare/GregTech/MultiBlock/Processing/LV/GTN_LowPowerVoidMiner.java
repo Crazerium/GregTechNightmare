@@ -81,8 +81,17 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "   ", " C ", "   " }, { "   ", " C ", "   " }, { "   ", " C ", "   " },
-            { " C ", "CAC", " C " }, { " C ", "CAC", " C " }, { " C ", "CAC", " C " }, { "B~B", "BBB", "BBB" } };
+        // spotless:off
+        return new String[][]{
+            {"   "," B ","   "},
+            {"   "," B ","   "},
+            {"   "," B ","   "},
+            {" B ","BCB"," B "},
+            {" B ","BCB"," B "},
+            {" B ","BCB"," B "},
+            {"A~A","AAA","AAA"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -100,10 +109,10 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     public IStructureDefinition<GTN_LowPowerVoidMiner> getStructureDefinition() {
         return IStructureDefinition.<GTN_LowPowerVoidMiner>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('C', ofFrame(Materials.Cobalt))
-            .addElement('A', GTN_Casings.BoltedCobaltCasing.asElement())
+            .addElement('B', ofFrame(Materials.Cobalt))
+            .addElement('C', GTN_Casings.BoltedCobaltCasing.asElement())
             .addElement(
-                'B',
+                'A',
                 buildHatchAdder(GTN_LowPowerVoidMiner.class).atLeast(OutputBus, Energy, Maintenance)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)

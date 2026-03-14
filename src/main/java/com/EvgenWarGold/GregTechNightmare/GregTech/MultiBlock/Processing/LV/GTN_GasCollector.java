@@ -99,10 +99,17 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "DDDDD", "DDDDD", "DDDDD", "DDDDD", "DDDDD" },
-            { "EAAAE", "A   A", "A   A", "A   A", "EAAAE" }, { "EAAAE", "A   A", "A   A", "A   A", "EAAAE" },
-            { "EAAAE", "A   A", "A   A", "A   A", "EAAAE" }, { "EAAAE", "A   A", "A   A", "A   A", "EAAAE" },
-            { "EAAAE", "A   A", "A   A", "A   A", "EAAAE" }, { "DD~DD", "DDDDD", "DDDDD", "DDDDD", "DDDDD" } };
+        // spotless:off
+        return new String[][]{
+            {"BBBBB","BBBBB","BBBBB","BBBBB","BBBBB"},
+            {"CAAAC","A   A","A   A","A   A","CAAAC"},
+            {"CAAAC","A   A","A   A","A   A","CAAAC"},
+            {"CAAAC","A   A","A   A","A   A","CAAAC"},
+            {"CAAAC","A   A","A   A","A   A","CAAAC"},
+            {"CAAAC","A   A","A   A","A   A","CAAAC"},
+            {"BB~BB","BBBBB","BBBBB","BBBBB","BBBBB"}
+        };
+        //spotless:on
     }
 
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
@@ -110,10 +117,10 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
             .addInfo(this.tr("tooltip.01"))
             .addInfo(this.tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_CRAZER)
-            .beginStructureBlock(5, 6, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addInputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addOutputHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 });
+            .beginStructureBlock(5, 7, 5, false)
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
+            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addOutputHatch(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
@@ -130,9 +137,9 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
                         Byte.MAX_VALUE,
                         (te, t) -> te.glassTier = t,
                         te -> te.glassTier)))
-            .addElement('E', ofFrame(Materials.Steel))
+            .addElement('C', ofFrame(Materials.Steel))
             .addElement(
-                'D',
+                'B',
                 buildHatchAdder(GTN_GasCollector.class).atLeast(InputBus, OutputHatch, Energy)
                     .casingIndex(getMainCasings().textureId)
                     .dot(1)

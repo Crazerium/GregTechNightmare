@@ -1,7 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
@@ -20,7 +19,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
@@ -75,11 +73,15 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "DDDDDDD ", "DBBBCC  ", "DAAACC  ", "DBBBCC  ", "DDDDDDD " },
-            { "DEEECCCD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD" },
-            { "DEEEC~CD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD" },
-            { "DEEECCCD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD" },
-            { "DDDDDDDD", "DCCCCCCD", "DCCCCCCD", "DCCCCCCD", "DDDDDDDD" } };
+        // spotless:off
+        return new String[][]{
+            {"DDDDDDD ","DBBBCC  ","DAAACC  ","DBBBCC  ","DDDDDDD "},
+            {"DEEECCCD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
+            {"DEEEC~CD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
+            {"DEEECCCD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
+            {"DDDDDDDD","DCCCCCCD","DCCCCCCD","DCCCCCCD","DDDDDDDD"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -88,7 +90,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(7, 5, 5, false)
+            .beginStructureBlock(8, 5, 5, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
             .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
@@ -100,7 +102,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
         return IStructureDefinition.<GTN_ExtremePowerCircuitAssembler>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
             .addElement('D', ofFrame(Materials.Aluminium))
-            .addElement('E', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 0))
+            .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
             .addElement('B', GTN_Casings.TitaniumPipeCasing.asElement())
             .addElement('A', GTN_Casings.TitaniumGearBoxCasing.asElement())
             .addElement(

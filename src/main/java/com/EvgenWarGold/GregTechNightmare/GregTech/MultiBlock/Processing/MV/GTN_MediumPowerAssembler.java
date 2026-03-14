@@ -73,11 +73,15 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " C   C ", " C   C ", " C   C ", " CCCCC ", " C   C " },
-            { " C   C ", "       ", "       ", "  B    ", " C   C " },
-            { " C   C ", "       ", "       ", "       ", " C   C " },
-            { " C   C ", " AAAAA ", " AAAAA ", " AAAAA ", " C   C " },
-            { " AA~AA ", "AAAAAAA", "AAAAAAA", "AAAAAAA", " AAAAA " } };
+        // spotless:off
+        return new String[][]{
+            {" C   C "," C   C "," C   C "," CCCCC "," C   C "},
+            {" C   C ","       ","       ","  B    "," C   C "},
+            {" C   C ","       ","       ","       "," C   C "},
+            {" C   C "," AAAAA "," AAAAA "," AAAAA "," C   C "},
+            {" AA~AA ","AAAAAAA","AAAAAAA","AAAAAAA"," AAAAA "}
+        };
+        //spotless:on
     }
 
     @Override

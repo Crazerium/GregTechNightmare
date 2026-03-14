@@ -91,7 +91,13 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "AAA", "AAA" }, { "AAA", "AAA", "AAA" } };
+        // spotless:off
+        return new String[][]{
+            {"AAA","AAA","AAA"},
+            {"A~A","AAA","AAA"},
+            {"AAA","AAA","AAA"}
+        };
+        //spotless:on
     }
 
     @Override

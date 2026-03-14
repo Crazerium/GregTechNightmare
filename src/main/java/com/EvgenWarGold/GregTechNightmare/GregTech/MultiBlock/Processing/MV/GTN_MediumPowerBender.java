@@ -72,8 +72,13 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "BB   B", "AAAAAA", "BB   B" }, { "A~   A", "AA   A", "AA   A" },
-            { "AABBBA", "AAAAAA", "AABBBA" } };
+        // spotless:off
+        return new String[][]{
+            {"BB   B","AAAAAA","BB   B"},
+            {"A~   A","AA   A","AA   A"},
+            {"AABBBA","AAAAAA","AABBBA"}
+        };
+        //spotless:on
     }
 
     @Override

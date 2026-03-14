@@ -1,7 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
@@ -18,7 +17,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
@@ -72,8 +70,13 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "A  A    ", "A  A    ", "A  A    " }, { "~  A   A", "ACCCCCCA", "A  A   A" },
-            { "AAAAAAAA", "ABBBBBBA", "AAAAAAAA" } };
+        // spotless:off
+        return new String[][]{
+            {"A  A    ","A  A    ","A  A    "},
+            {"~  A   A","ACCCCCCA","A  A   A"},
+            {"AAAAAAAA","ABBBBBBA","AAAAAAAA"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -93,7 +96,7 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
         return IStructureDefinition.<GTN_MediumPowerWireMill>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
             .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-            .addElement('C', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 3))
+            .addElement('C', GTN_Casings.TintedGlassBlack.asElement())
             .addElement(
                 'A',
                 buildHatchAdder(GTN_MediumPowerWireMill.class).atLeast(InputBus, OutputBus, Energy, Maintenance)

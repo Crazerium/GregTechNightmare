@@ -73,8 +73,13 @@ public class GTN_MediumPowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Medi
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " B   AAA ", "AA   AAAA", " B   AAA " }, { "A~     AA", "AABBABAAA", "AA     AA" },
-            { "AABBABAAA", "AABBABAAA", "AABBABAAA" } };
+        // spotless:off
+        return new String[][]{
+            {" B   AAA ","AA   AAAA"," B   AAA "},
+            {"A~     AA","AABBABAAA","AA     AA"},
+            {"AABBABAAA","AABBABAAA","AABBABAAA"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -83,7 +88,7 @@ public class GTN_MediumPowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Medi
             .addInfo(tr("tooltip.01"))
             .addInfo(tr("tooltip.02"))
             .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 9, 3, false)
+            .beginStructureBlock(9, 3, 3, false)
             .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
             .addInputBus(EnumChatFormatting.GOLD + "1", 1)
             .addOutputBus(EnumChatFormatting.GOLD + "1", 1)

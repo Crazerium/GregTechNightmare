@@ -241,7 +241,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                         .append("', ")
                         .append("GTN_Casings.")
                         .append(casingName)
-                        .append(".asElement()\n");
+                        .append(".asElement())\n");
 
                 } else if (block instanceof BlockFrameBox) {
                     String materialName = BlockFrameBox.getMaterial(meta)
@@ -254,7 +254,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                         .append("', ")
                         .append("ofFrame(Materials.")
                         .append(materialName)
-                        .append(")\n");
+                        .append("))\n");
                 } else if (block instanceof BlockBaseModular blockBaseModular) {
                     if (BasicBlock.BlockTypes.FRAME == blockBaseModular.thisBlock) {
                         Field[] fields = MaterialsAlloy.class.getDeclaredFields();
@@ -274,7 +274,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                                     .append("GTN_StructureUtility.ofFrame(")
                                     .append("MaterialsAlloy.")
                                     .append(field.getName())
-                                    .append(")\n");
+                                    .append("))\n");
                             }
                         }
                     }
@@ -289,7 +289,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                         .append(block.getUnlocalizedName())
                         .append("\", ")
                         .append(meta)
-                        .append(")\n");
+                        .append("))\n");
                 }
             }
         }
@@ -314,7 +314,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                     .append("', ")
                     .append("ofTileAdder(")
                     .append(tile)
-                    .append(")\n");
+                    .append("))\n");
             }
         }
 
@@ -338,7 +338,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                     .append("', ")
                     .append("ofSpecialTileAdder(")
                     .append(tile)
-                    .append(")\n");
+                    .append("))\n");
             }
         }
 
@@ -367,7 +367,8 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
         if (transpose) {
 
             builder.append("\nTransposed Scan:\n")
-                .append("new String[][]{\n")
+                .append("    //spotless:off\n")
+                .append("return new String[][]{\n")
                 .append("    {\"");
 
             iterate(
@@ -433,7 +434,9 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                 });
 
             builder.setLength(builder.length() - 8);
-            builder.append("\n}\n\n");
+            builder.append("\n};\n");
+            builder.append("    //spotless:on");
+            builder.append("\n\n");
 
         } else {
 

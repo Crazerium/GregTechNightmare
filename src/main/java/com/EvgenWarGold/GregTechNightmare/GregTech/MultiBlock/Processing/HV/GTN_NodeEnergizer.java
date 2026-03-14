@@ -1,7 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
@@ -31,7 +30,6 @@ import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
@@ -93,12 +91,16 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "       ", "       ", "   C   ", "       ", "       ", "       " },
-            { "  BBB  ", " B C B ", " BCCCB ", " B C B ", "  BBB  ", "       " },
-            { "       ", "  CAC  ", "B A A B", "  CAC  ", "       ", "   B   " },
-            { "       ", "  C C  ", "B ADA B", "  CAC  ", "       ", "   B   " },
-            { "       ", "  CAC  ", "B A A B", "  CAC  ", "       ", "   B   " },
-            { "  C~C  ", " CCCCC ", "BCCCCCB", " CCCCC ", "  CCC  ", "   B   " } };
+        // spotless:off
+        return new String[][]{
+            {"       ","       ","   C   ","       ","       ","       "},
+            {"  AAA  "," A C A "," ACCCA "," A C A ","  AAA  ","       "},
+            {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
+            {"       ","  C C  ","A BDB A","  CBC  ","       ","   A   "},
+            {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
+            {"  C~C  "," CCCCC ","ACCCCCA"," CCCCC ","  CCC  ","   A   "}
+        };
+        //spotless:on
     }
 
     @Override
@@ -121,11 +123,11 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     public IStructureDefinition<GTN_NodeEnergizer> getStructureDefinition() {
         return IStructureDefinition.<GTN_NodeEnergizer>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('A', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 0))
+            .addElement('B', GTN_Casings.TintedGlassWhite.asElement())
             .addElement(
                 'D',
                 ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))
-            .addElement('B', ofFrame(Materials.Silver))
+            .addElement('A', ofFrame(Materials.Silver))
             .addElement(
                 'C',
                 buildHatchAdder(GTN_NodeEnergizer.class).atLeast(InputBus, Energy, Maintenance)

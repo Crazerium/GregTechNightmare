@@ -84,10 +84,16 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     public String[][] getShape() {
-        return new String[][] { { "BBBBB", "BAAAB", "BAAAB", "BAAAB", "BBBBB" },
-            { "BAAAB", "A   A", "A   A", "A   A", "BAAAB" }, { "BAAAB", "A   A", "A F A", "A   A", "BAAAB" },
-            { "BAAAB", "A   A", "A   A", "A   A", "BAAAB" }, { "BAAAB", "A   A", "A E A", "A   A", "BAAAB" },
-            { "BB~BB", "BCCCB", "BCCCB", "BCCCB", "BBBBB" } };
+        // spotless:off
+        return new String[][]{
+            {"BBBBB","BAAAB","BAAAB","BAAAB","BBBBB"},
+            {"BAAAB","A   A","A   A","A   A","BAAAB"},
+            {"BAAAB","A   A","A E A","A   A","BAAAB"},
+            {"BAAAB","A   A","A   A","A   A","BAAAB"},
+            {"BAAAB","A   A","A D A","A   A","BAAAB"},
+            {"BB~BB","BCCCB","BCCCB","BCCCB","BBBBB"}
+        };
+        //spotless:on
     }
 
     private byte glassTier = 0;
@@ -173,9 +179,9 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
             .addInfo(this.tr("tooltip.04"))
             .addInfo(Constants.AUTHOR_CRAZER)
             .beginStructureBlock(5, 6, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addInputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 })
-            .addOutputBus(EnumChatFormatting.GOLD + "1", new int[] { 1 });
+            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
+            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
+            .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
     }
 
     @Override
@@ -203,8 +209,8 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                         Byte.MAX_VALUE,
                         (te, t) -> te.glassTier = t,
                         te -> te.glassTier)))
-            .addElement('E', ofBlock(blockStoneDevice, 10))
-            .addElement('F', ofBlock(blockStoneDevice, 11))
+            .addElement('D', ofBlock(blockStoneDevice, 10))
+            .addElement('E', ofBlock(blockStoneDevice, 11))
             .addElement(
                 'B',
                 buildHatchAdder(GTN_LargeArcaneAssembler.class).atLeast(InputBus, OutputBus, Energy)

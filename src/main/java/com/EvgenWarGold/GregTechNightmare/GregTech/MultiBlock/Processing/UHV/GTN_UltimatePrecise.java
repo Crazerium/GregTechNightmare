@@ -1,7 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
@@ -21,7 +20,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
@@ -76,57 +74,20 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
 
     @Override
     public String[][] getShape() {
-        return new String[][] {
-            { "                             ", "                             ", "                             ",
-                "            GGGGG            ", "            GGGGG            ", "            GGGGG            ",
-                "            GGGGG            ", "            GGGGG            ", "            GGGGG            ",
-                "            GGGGG            ", "                             ", "                             ",
-                "                             " },
-            { "                             ", "                             ", "             GGG             ",
-                "            G B G            ", "           G     G           ", "           G     G           ",
-                "           G     G           ", "           G     G           ", "           G     G           ",
-                "            G B G            ", "             GGG             ", "                             ",
-                "                             " },
-            { "                             ", "                             ", "            GFFFG            ",
-                "    D    D G     G D    D    ", "  BBBBBBBBBG  B  GBBBBBBBBB  ", "    D    D G  B  G D    D    ",
-                "           G BBB G           ", "    D    D G  B  G D    D    ", "  BBBBBBBBBG  B  GBBBBBBBBB  ",
-                "    D    D G     G D    D    ", "            GFFFG            ", "                             ",
-                "                             " },
-            { "                             ", "                             ", "            GFFFG            ",
-                "    D    D G     G D    D    ", "  B D    D G  C  G D    D B  ", "    D    D G  C  G D    D    ",
-                "    D    D GB C BG D    D    ", "    D    D G  C  G D    D    ", "  B D    D G  C  G D    D B  ",
-                "    D    D G     G D    D    ", "            GFFFG            ", "                             ",
-                "                             " },
-            { "                             ", "                             ", "             GFG             ",
-                "    D    D  G   G  D    D    ", "  B         G B G         B  ", "           G  B  G           ",
-                "            G B G            ", "           G  B  G           ", "  B         G B G         B  ",
-                "    D    D  G   G  D    D    ", "             GFG             ", "                             ",
-                "                             " },
-            { "                             ", "                             ", "             GFG             ",
-                "    D    D  G   G  D    D    ", "  B         G E G         B  ", "           G  E  G           ",
-                "            G E G            ", "           G  E  G           ", "  B         G E G         B  ",
-                "    D    D  G   G  D    D    ", "             GFG             ", "                             ",
-                "                             " },
-            { "                             ", " E        E       E        E ", " E        E  GFG  E        E ",
-                " E  D    DE G   G ED    D  E ", " EB       E G B G E       BE ", " E        EG  B  GE        E ",
-                " E        E G B G E        E ", " E        EG  B  GE        E ", " EB       E G B G E       BE ",
-                " E  D    DE G   G ED    D  E ", " E        E  GFG  E        E ", " E        E       E        E ",
-                "                             " },
-            { " E   BB   E       E   BB   E ", "GGGGGGGGGGGG     GGGGGGGGGGGG", "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
-                "GGGGGGGGGGGGG   GGGGGGGGGGGGG", "GGGGGGGGGGGGG C GGGGGGGGGGGGG", "GGGGGGGGGGGGG C GGGGGGGGGGGGG",
-                "GGGGGGGGGGGGG C GGGGGGGGGGGGG", "GGGGGGGGGGGGG C GGGGGGGGGGGGG", "GGGGGGGGGGGGG C GGGGGGGGGGGGG",
-                "GGGGGGGGGGGGG   GGGGGGGGGGGGG", "GGGGGGGGGGGGGGGGGGGGGGGGGGGGG", "GGGGGGGGGGGG     GGGGGGGGGGGG",
-                " E   BB   E       E   BB   E " },
-            { " E   BB   E       E   BB   E ", "BBFFFBBFFFBB     BBFFFBBFFFBB", "B          BGGGGGB          B",
-                "F          BG B GB          F", "FCCCCCCCCCBBG B GBBCCCCCCCCCF", "F          BG B GB          F",
-                "BBBBBBBBBBBBGBBBGBBBBBBBBBBBB", "F          BG B GB          F", "FCCCCCCCCCBBG B GBBCCCCCCCCCF",
-                "F          BG B GB          F", "B          BGGGGGB          B", "BBFFFBBFFFBB     BBFFFBBFFFBB",
-                " E   BB   E       E   BB   E " },
-            { " E   BB   E       E   BB   E ", "BBBBBBBBBBBB     BBBBBBBBBBBB", "BBBBBBBBBBBBGG~GGBBBBBBBBBBBB",
-                "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB",
-                "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB",
-                "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBBGGGGGBBBBBBBBBBBB", "BBBBBBBBBBBB     BBBBBBBBBBBB",
-                " E   BB   E       E   BB   E " } };
+        // spotless:off
+        return new String[][]{
+            {"                             ","                             ","                             ","            FFFFF            ","            FFFFF            ","            FFFFF            ","            FFFFF            ","            FFFFF            ","            FFFFF            ","            FFFFF            ","                             ","                             ","                             "},
+            {"                             ","                             ","             FFF             ","            F A F            ","           F     F           ","           F     F           ","           F     F           ","           F     F           ","           F     F           ","            F A F            ","             FFF             ","                             ","                             "},
+            {"                             ","                             ","            FEEEF            ","    C    C F     F C    C    ","  AAAAAAAAAF  A  FAAAAAAAAA  ","    C    C F  A  F C    C    ","           F AAA F           ","    C    C F  A  F C    C    ","  AAAAAAAAAF  A  FAAAAAAAAA  ","    C    C F     F C    C    ","            FEEEF            ","                             ","                             "},
+            {"                             ","                             ","            FEEEF            ","    C    C F     F C    C    ","  A C    C F  B  F C    C A  ","    C    C F  B  F C    C    ","    C    C FA B AF C    C    ","    C    C F  B  F C    C    ","  A C    C F  B  F C    C A  ","    C    C F     F C    C    ","            FEEEF            ","                             ","                             "},
+            {"                             ","                             ","             FEF             ","    C    C  F   F  C    C    ","  A         F A F         A  ","           F  A  F           ","            F A F            ","           F  A  F           ","  A         F A F         A  ","    C    C  F   F  C    C    ","             FEF             ","                             ","                             "},
+            {"                             ","                             ","             FEF             ","    C    C  F   F  C    C    ","  A         F D F         A  ","           F  D  F           ","            F D F            ","           F  D  F           ","  A         F D F         A  ","    C    C  F   F  C    C    ","             FEF             ","                             ","                             "},
+            {"                             "," D        D       D        D "," D        D  FEF  D        D "," D  C    CD F   F DC    C  D "," DA       D F A F D       AD "," D        DF  A  FD        D "," D        D F A F D        D "," D        DF  A  FD        D "," DA       D F A F D       AD "," D  C    CD F   F DC    C  D "," D        D  FEF  D        D "," D        D       D        D ","                             "},
+            {" D   AA   D       D   AA   D ","FFFFFFFFFFFF     FFFFFFFFFFFF","FFFFFFFFFFFFFFFFFFFFFFFFFFFFF","FFFFFFFFFFFFF   FFFFFFFFFFFFF","FFFFFFFFFFFFF B FFFFFFFFFFFFF","FFFFFFFFFFFFF B FFFFFFFFFFFFF","FFFFFFFFFFFFF B FFFFFFFFFFFFF","FFFFFFFFFFFFF B FFFFFFFFFFFFF","FFFFFFFFFFFFF B FFFFFFFFFFFFF","FFFFFFFFFFFFF   FFFFFFFFFFFFF","FFFFFFFFFFFFFFFFFFFFFFFFFFFFF","FFFFFFFFFFFF     FFFFFFFFFFFF"," D   AA   D       D   AA   D "},
+            {" D   AA   D       D   AA   D ","AAEEEAAEEEAA     AAEEEAAEEEAA","A          AFFFFFA          A","E          AF A FA          E","EBBBBBBBBBAAF A FAABBBBBBBBBE","E          AF A FA          E","AAAAAAAAAAAAFAAAFAAAAAAAAAAAA","E          AF A FA          E","EBBBBBBBBBAAF A FAABBBBBBBBBE","E          AF A FA          E","A          AFFFFFA          A","AAEEEAAEEEAA     AAEEEAAEEEAA"," D   AA   D       D   AA   D "},
+            {" D   AA   D       D   AA   D ","AAAAAAAAAAAA     AAAAAAAAAAAA","AAAAAAAAAAAAFF~FFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAAFFFFFAAAAAAAAAAAA","AAAAAAAAAAAA     AAAAAAAAAAAA"," D   AA   D       D   AA   D "}
+        };
+        //spotless:on
     }
 
     @Override
@@ -146,13 +107,13 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
         return IStructureDefinition.<GTN_UltimatePrecise>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-            .addElement('F', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 0))
-            .addElement('C', ofFrame(Materials.Gadolinium))
-            .addElement('D', ofFrame(Materials.Shadow))
-            .addElement('E', ofFrame(Materials.Infinity))
+            .addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
+            .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
+            .addElement('B', ofFrame(Materials.Gadolinium))
+            .addElement('C', ofFrame(Materials.Shadow))
+            .addElement('D', ofFrame(Materials.Infinity))
             .addElement(
-                'G',
+                'F',
                 buildHatchAdder(GTN_UltimatePrecise.class)
                     .atLeast(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
                     .casingIndex(getMainCasings().textureId)

@@ -94,10 +94,16 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "     ", "  A  ", " ABA ", "  A  ", "     " },
-            { " AAA ", "ADDDA", "ADDDA", "ADDDA", " AAA " }, { "ADDDA", "D   D", "D F D", "D   D", "ADDDA" },
-            { "ADDDA", "D F D", "DFGFD", "D F D", "ADDDA" }, { "BDDDB", "D   D", "D G D", "D   D", "BDDDB" },
-            { "BB~BB", "BEEEB", "BEEEB", "BEEEB", "BBBBB" } };
+        // spotless:off
+        return new String[][]{
+            {"     ","  A  "," ABA ","  A  ","     "},
+            {" AAA ","ADDDA","ADDDA","ADDDA"," AAA "},
+            {"ADDDA","D   D","D E D","D   D","ADDDA"},
+            {"ADDDA","D E D","DEFED","D E D","ADDDA"},
+            {"BDDDB","D   D","D F D","D   D","BDDDB"},
+            {"BB~BB","BCCCB","BCCCB","BCCCB","BBBBB"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -119,9 +125,9 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
             .addShape(getStructurePieceMain(), transpose(getShape()))
             .addElement('A', ofFrame(Materials.Wood))
             .addElement('D', ofBlock(Blocks.glass, 0))
-            .addElement('F', ofBlock(Blocks.leaves, 0))
-            .addElement('E', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
-            .addElement('G', ofBlock(Blocks.log, 0))
+            .addElement('E', ofBlock(Blocks.leaves, 0))
+            .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
+            .addElement('F', ofBlock(Blocks.log, 0))
             .addElement(
                 'B',
                 buildHatchAdder(GTN_TreeSprouter.class).atLeast(OutputBus, Maintenance, InputHatch)

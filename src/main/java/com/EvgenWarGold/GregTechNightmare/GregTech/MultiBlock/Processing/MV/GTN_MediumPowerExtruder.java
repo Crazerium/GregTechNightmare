@@ -73,10 +73,16 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " AAA ", "AAAAA", "AAAAA", "AAAAA", " AAA " },
-            { "     ", "     ", "A C A", "     ", "     " }, { "     ", " CCC ", "BCCCB", " CCC ", "     " },
-            { "     ", "     ", "B   B", "     ", "     " }, { " A~A ", "A   A", "B   B", "A   A", " AAA " },
-            { " AAA ", "ACCCA", "ACCCA", "ACCCA", " AAA " } };
+        // spotless:off
+        return new String[][]{
+            {" AAA ","AAAAA","AAAAA","AAAAA"," AAA "},
+            {"     ","     ","A C A","     ","     "},
+            {"     "," CCC ","BCCCB"," CCC ","     "},
+            {"     ","     ","B   B","     ","     "},
+            {" A~A ","A   A","B   B","A   A"," AAA "},
+            {" AAA ","ACCCA","ACCCA","ACCCA"," AAA "}
+        };
+        //spotless:on
     }
 
     @Override

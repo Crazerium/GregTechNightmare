@@ -87,8 +87,17 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { "   ", " C ", "   " }, { "   ", " C ", "   " }, { "   ", " C ", "   " },
-            { " C ", "CAC", " C " }, { " C ", "CAC", " C " }, { " C ", "CAC", " C " }, { "B~B", "BBB", "BBB" } };
+        // spotless:off
+        return new String[][]{
+            {"   "," C ","   "},
+            {"   "," C ","   "},
+            {"   "," C ","   "},
+            {" C ","CAC"," C "},
+            {" C ","CAC"," C "},
+            {" C ","CAC"," C "},
+            {"B~B","BBB","BBB"}
+        };
+        //spotless:on
     }
 
     @Override

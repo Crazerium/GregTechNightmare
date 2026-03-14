@@ -1,7 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
@@ -18,7 +17,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import gregtech.api.GregTechAPI;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
@@ -72,8 +70,13 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public String[][] getShape() {
-        return new String[][] { { " ABBA", " ABBA", " ABBA" }, { " ~BBA", " ABBA", "AABBA" },
-            { " AAAA", "AAAAA", "AAAAA" } };
+        // spotless:off
+        return new String[][]{
+            {" ABBA"," ABBA"," ABBA"},
+            {" ~BBA"," ABBA","AABBA"},
+            {" AAAA","AAAAA","AAAAA"}
+        };
+        //spotless:on
     }
 
     @Override
@@ -92,7 +95,7 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
     public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
         return IStructureDefinition.<GTN_MediumPowerEngraver>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', ofBlockAnyMeta(GregTechAPI.sBlockTintedGlass, 3))
+            .addElement('B', GTN_Casings.TintedGlassBlack.asElement())
             .addElement(
                 'A',
                 buildHatchAdder(GTN_MediumPowerEngraver.class).atLeast(InputBus, OutputBus, Energy, Maintenance)

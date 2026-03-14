@@ -28,6 +28,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
@@ -36,12 +38,10 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.tiles.TileInfusionProvider;
 
@@ -123,27 +123,20 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     @Override
     public String[][] getShape() {
-        return new String[][] {
-            { "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA",
-                "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA" },
-            { "ABBBBBBBBBA", "B         B", "B         B", "B         B", "B   C C   B", "B         B", "B   C C   B",
-                "B         B", "B         B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B         B", "B  C   C  B", "B         B", "B         B", "B         B",
-                "B  C   C  B", "B         B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B C C C C B", "B         B", "B C     C B", "B         B", "B C     C B",
-                "B         B", "B C C C C B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B CC   CC B", "B C     C B", "B         B", "B         B", "B         B",
-                "B C     C B", "B CC   CC B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B C     C B", "B         B", "B         B", "B         B", "B         B",
-                "B         B", "B C     C B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B C  D  C B", "B         B", "B         B", "B D  G  D B", "B         B",
-                "B         B", "B C  D  C B", "B         B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B    C    B", "B C CCC C B", "B    C    B", "B C     C B", "BCCC E CCCB", "B C     C B",
-                "B    C    B", "B C CCC C B", "B    C    B", "ABBBBBBBBBA" },
-            { "ABBBBBBBBBA", "B         B", "B C     C B", "B         B", "B         B", "B         B", "B         B",
-                "B         B", "B C     C B", "B         B", "ABBBBBBBBBA" },
-            { "AAAAA~AAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA",
-                "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA", "AAAAAAAAAAA" } };
+        // spotless:off
+        return new String[][]{
+            {"BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"},
+            {"BAAAAAAAAAB","A         A","A         A","A         A","A   C C   A","A         A","A   C C   A","A         A","A         A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A         A","A  C   C  A","A         A","A         A","A         A","A  C   C  A","A         A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A C C C C A","A         A","A C     C A","A         A","A C     C A","A         A","A C C C C A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A CC   CC A","A C     C A","A         A","A         A","A         A","A C     C A","A CC   CC A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A C  D  C A","A         A","A         A","A D  F  D A","A         A","A         A","A C  D  C A","A         A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A    C    A","A C CCC C A","A    C    A","A C     C A","ACCC E CCCA","A C     C A","A    C    A","A C CCC C A","A    C    A","BAAAAAAAAAB"},
+            {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
+            {"BBBBB~BBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"}
+        };
+        //spotless:on
     }
 
     public void createGtnTooltip(MultiblockTooltipBuilder builder) {
@@ -172,13 +165,13 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
         return IStructureDefinition.<GTN_BloodEnchanter>builder()
             .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', chainAllGlasses())
+            .addElement('A', chainAllGlasses())
             .addElement('C', ofBlock(ritualStone, 0))
             .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
             .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))
-            .addElement('G', ofBlock(ModBlocks.blockAltar, 0))
+            .addElement('F', ofBlock(ModBlocks.blockAltar, 0))
             .addElement(
-                'A',
+                'B',
                 ofChain(
                     buildHatchAdder(GTN_BloodEnchanter.class).atLeast(InputBus, InputHatch, Muffler, OutputBus)
                         .casingIndex(getMainCasings().textureId)
