@@ -48,6 +48,18 @@ public enum GTN_Casings implements ICasing {
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 1, gt(117, 0, 1)),
     AborealCasing
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 2, gt(117, 0, 2)),
+
+    TintedGlassWhite
+        (() -> GregTechAPI.sBlockTintedGlass, 0, gt(16, 0, 0)),
+
+    TintedGlassLightGray
+        (() -> GregTechAPI.sBlockTintedGlass, 1, gt(16, 0, 1)),
+
+    TintedGlassGray
+        (() -> GregTechAPI.sBlockTintedGlass, 2, gt(16, 0, 2)),
+
+    TintedGlassBlack
+        (() -> GregTechAPI.sBlockTintedGlass, 3, gt(16, 0, 3)),
     // I know this indenting looks weird, but I think it makes it easier to read because everything is aligned
     // ------------------ Gregtech Casings -----------------
 
