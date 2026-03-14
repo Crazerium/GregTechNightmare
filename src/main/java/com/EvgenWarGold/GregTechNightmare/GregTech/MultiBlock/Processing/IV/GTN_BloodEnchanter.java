@@ -95,7 +95,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     @Override
     public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
+        return OverclockType.NONE;
     }
 
     @Override
