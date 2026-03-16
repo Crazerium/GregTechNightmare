@@ -579,7 +579,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         String[] ret = new String[origin.length + 2];
         System.arraycopy(origin, 0, ret, 0, origin.length);
         ret[origin.length] = EnumChatFormatting.AQUA + "Mode: " + EnumChatFormatting.GOLD + modeName;
-        ret[origin.length + 1] = EnumChatFormatting.AQUA + "LP Required: " + EnumChatFormatting.GOLD + mLastNeedLP;
+        ret[origin.length + 1] = EnumChatFormatting.AQUA + "Blood Required: " + EnumChatFormatting.GOLD + mLastNeedLP;
         return ret;
     }
 
