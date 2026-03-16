@@ -6,8 +6,6 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.fluidL
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.itemListToArray;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeItems;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.Energy;
@@ -16,17 +14,17 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.Muffler;
-import static gregtech.api.enums.HatchElement.MultiAmpEnergy;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -80,7 +78,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public GTN_Casings getMainCasings() {
-        return GTN_Casings.SolidSteelMachineCasing;
+        return mainCasing.getCasing();
     }
 
     @Override
@@ -117,11 +115,17 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     }
 
     @Override
+    public int getMainCasingAmount() {
+        return mainCasing.getCountCasing();
+    }
+
+    @Override
     protected int getMainCasingMax() {
         return 10;
     }
 
     private final GTN_StructureUtility.TierData preciseAssemblerData = new GTN_StructureUtility.TierData();
+    private final GTN_StructureUtility.TierData mainCasing = new GTN_StructureUtility.TierData();
 
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
@@ -136,26 +140,79 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                     GTN_Casings.AborealCasing,
                     GTN_Casings.MagicCasing,
                     GTN_Casings.AdvancedAirFilterTurbineCasing))
+            // .addElement('A',
+            // TieredElement.<GTN_TestMultiBlock>build(mainCasing)
+            // .withCasings(
+            // GTN_Casings.FrostProofMachineCasing,
+            // GTN_Casings.SolidSteelMachineCasing
+            // )
+            // .withHatches(1,
+            // InputHatch,
+            // OutputHatch,
+            // InputBus,
+            // OutputBus,
+            // Energy,
+            // ExoticEnergy,
+            // Maintenance,
+            // Muffler,
+            // Dynamo
+            // )
+            // )
             .addElement(
                 'A',
-                buildHatchAdder(GTN_TestMultiBlock.class)
-                    .atLeast(
-                        InputHatch,
-                        OutputHatch,
-                        InputBus,
-                        OutputBus,
-                        Energy,
-                        MultiAmpEnergy,
-                        ExoticEnergy,
-                        Maintenance,
-                        Muffler,
-                        Dynamo)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_TestMultiBlock::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
+                GTN_StructureUtility.createTierBlocksWithHatches(
+                    mainCasing,
+                    Arrays.asList(GTN_Casings.FrostProofMachineCasing, GTN_Casings.SolidSteelMachineCasing),
+                    1,
+                    InputHatch,
+                    OutputHatch,
+                    InputBus,
+                    OutputBus,
+                    Energy,
+                    ExoticEnergy,
+                    Maintenance,
+                    Muffler,
+                    Dynamo))
+            // .addElement('A',
+            // ofChain(
+            // GTN_StructureUtility.createTierBlocks(mainCasing,
+            // GTN_Casings.FrostProofMachineCasing,
+            // GTN_Casings.SolidSteelMachineCasing
+            // ),
+            // buildHatchAdder(GTN_TestMultiBlock.class)
+            // .atLeast(
+            // InputHatch,
+            // OutputHatch,
+            // InputBus,
+            // OutputBus,
+            // Energy,
+            // ExoticEnergy,
+            // Maintenance,
+            // Muffler,
+            // Dynamo)
+            // .casingIndex(mainCasing.getCasingTextureId())
+            // .dot(1)
+            // .buildAndChain()))
+            // .addElement(
+            // 'A',
+            // buildHatchAdder(GTN_TestMultiBlock.class)
+            // .atLeast(
+            // InputHatch,
+            // OutputHatch,
+            // InputBus,
+            // OutputBus,
+            // Energy,
+            // MultiAmpEnergy,
+            // ExoticEnergy,
+            // Maintenance,
+            // Muffler,
+            // Dynamo)
+            // .casingIndex(getMainCasings().textureId)
+            // .dot(1)
+            // .buildAndChain(
+            // onElementPass(
+            // GTN_TestMultiBlock::mainCasingAdd,
+            // ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
             .build();
     }
 
@@ -167,6 +224,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     @Override
     public void clearHatches() {
         super.clearHatches();
+        mainCasing.reset();
         preciseAssemblerData.reset();
     }
 
@@ -222,5 +280,25 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             }
 
         }.setMaxParallelSupplier(this::getMaxParallelRecipes);
+    }
+
+    @Override
+    public String[] getInfoData() {
+        String[] origin = super.getInfoData();
+        String[] ret = new String[origin.length + 2];
+        System.arraycopy(origin, 0, ret, 0, origin.length);
+        ret[origin.length] = EnumChatFormatting.AQUA + "Casing: "
+            + EnumChatFormatting.GOLD
+            + mainCasing.getCasing()
+                .getLocalizedName()
+            + "Tier: "
+            + mainCasing.getCasingTier();
+        ret[origin.length + 1] = EnumChatFormatting.AQUA + "Precise: "
+            + EnumChatFormatting.GOLD
+            + preciseAssemblerData.getCasing()
+                .getLocalizedName()
+            + "Tier: "
+            + preciseAssemblerData.getCasingTier();
+        return ret;
     }
 }

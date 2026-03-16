@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static gregtech.api.enums.Textures.BlockIcons.ERROR_TEXTURE_INDEX;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +17,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
+import gregtech.api.interfaces.IHatchElement;
+import gregtech.api.util.HatchElementBuilder;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
@@ -25,6 +29,8 @@ public class GTN_StructureUtility {
 
         private int casingTier = -1;
         private int countCasing = 0;
+        private int casingTextureId = ERROR_TEXTURE_INDEX;
+        private GTN_Casings casing = GTN_Casings.SolidSteelMachineCasing;
 
         public int getCasingTier() {
             return casingTier;
@@ -36,6 +42,22 @@ public class GTN_StructureUtility {
 
         public void setCasingTier(int casingTier) {
             this.casingTier = casingTier;
+        }
+
+        public void setCasingTextureId(int casingTextureId) {
+            this.casingTextureId = casingTextureId;
+        }
+
+        public int getCasingTextureId() {
+            return casingTextureId;
+        }
+
+        public void setCasing(GTN_Casings casing) {
+            this.casing = casing;
+        }
+
+        public GTN_Casings getCasing() {
+            return casing;
         }
 
         public void reset() {
@@ -60,6 +82,15 @@ public class GTN_StructureUtility {
                 ItemStack itemStack = itemStacks[i];
                 if (itemStack != null && itemStack.getItem() instanceof ItemBlock itemBlock) {
                     if (block == itemBlock.field_150939_a && meta == itemStack.getItemDamage()) {
+                        for (GTN_Casings casing : GTN_Casings.values()) {
+                            if (casing.getItemStack()
+                                .isItemEqual(itemStack)) {
+                                tierData.setCasing(casing);
+                                tierData.setCasingTextureId(casing.textureId);
+                                return i + 1;
+                            }
+                        }
+
                         return i + 1;
                     }
                 }
@@ -78,6 +109,18 @@ public class GTN_StructureUtility {
             .map(GTN_Casings::getItemStack)
             .toArray(ItemStack[]::new);
         return createTierBlocks(tierData, itemStacks);
+    }
+
+    @SafeVarargs
+    public static <T> IStructureElement<T> createTierBlocksWithHatches(TierData tierData, List<GTN_Casings> casings,
+        int dot, IHatchElement<? super T>... hatches) {
+        return StructureUtility.ofChain(
+            createTierBlocks(tierData, casings.toArray(new GTN_Casings[0])),
+            HatchElementBuilder.<T>builder()
+                .atLeast(hatches)
+                .dot(dot)
+                .casingIndex(tierData.getCasingTextureId())
+                .buildAndChain());
     }
 
     public static <T> IStructureElement<T> ofFrame(Material material) {

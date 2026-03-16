@@ -42,6 +42,7 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.render.TextureFactory;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.VoidProtectionHelper;
+import gregtech.common.tileentities.machines.IDualInputHatch;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
@@ -105,6 +106,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return 0;
     }
 
+    public int getMainCasingAmount() {
+        return mainCasingAmount;
+    }
+
     public String getStructurePieceMain() {
         return this.mName;
     }
@@ -140,6 +145,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             built = true;
 
             if (getMainCasingMax() > 0) {
+                mainCasingAmount = getMainCasingAmount();
                 hasEnoughCasing = mainCasingAmount >= getMainCasingMax();
             }
         }
@@ -147,6 +153,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         if (isNoMaintenanceIssue()) {
             repairMachine();
         }
+
+        updateHatchTexture();
         return built && hasEnoughCasing && GTN_checkMachine(aBaseMetaTileEntity, aStack);
     }
 
@@ -220,6 +228,18 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                     .build() };
         }
         return new ITexture[] { Textures.BlockIcons.getCasingTextureForId(getMainCasings().textureId) };
+    }
+
+    public void updateHatchTexture() {
+        for (IDualInputHatch h : mDualInputHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mInputBusses) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mMaintenanceHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mEnergyHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mOutputBusses) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mInputHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mOutputHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mMufflerHatches) h.updateTexture(getMainCasings().getTextureId());
+        for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(getMainCasings().getTextureId());
     }
     // endregion
 
