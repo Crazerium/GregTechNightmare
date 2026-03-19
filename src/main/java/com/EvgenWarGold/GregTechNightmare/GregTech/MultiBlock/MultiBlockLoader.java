@@ -1,7 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_NewTestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
@@ -26,7 +26,7 @@ public final class MultiBlockLoader {
 
     public static void init() {
         // spotless:off
-        GTN_ItemList.TestMultiBlock.set(new GTN_TestMultiBlock(21_000, "Test"));
+        GTN_ItemList.TestMultiBlock.set(new GTN_NewTestMultiBlock(21_000, "Test"));
         GTN_ItemList.AdvancedBBF.set(new GTN_AdvancedBBF(21_001, "AdvancedBBF"));
         GTN_ItemList.BronzeVoidMiner.set(new GTN_BronzeVoidMiner(21_002, "BronzeVoidMiner"));
         GTN_ItemList.LowPowerVoidMiner.set(new GTN_LowPowerVoidMiner(21_003, "LowPowerVoidMiner"));
@@ -46,6 +46,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.GasCollector.set(new GTN_GasCollector(21_017, "GasCollector"));
         GTN_ItemList.LaserMeteorMiner.set(new GTN_LaserMeteorMiner(21_018, "LaserMeteorMiner"));
         GTN_ItemList.BloodEnchanter.set(new GTN_BloodEnchanter(21_019, "BloodEnchanter"));
+
         //spotless:on
     }
 }
