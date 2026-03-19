@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare;
 
 import net.minecraftforge.common.MinecraftForge;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Items.ItemStructuresLinkTool;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -19,5 +20,6 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
 
         MinecraftForge.EVENT_BUS.register(new BlockHighlighter.EventHandler());
+        MinecraftForge.EVENT_BUS.register(new ItemStructuresLinkTool());
     }
 }
