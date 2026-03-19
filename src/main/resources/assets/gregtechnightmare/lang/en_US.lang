@@ -232,3 +232,7 @@ Crazer=§aCrazer
 Author_Totto=Author: §bTotto
 Totto=§bTotto
 Author_Structure=Structure author: §6%s
+
+#Others
+GTN.TooltipBuilder.ExoticHatches=Multi-Amp | Laser Hatches
+GTN.TooltipBuilder.ExoticOrEnergyHatches=Multi-Amp | Laser | Energy Hatches

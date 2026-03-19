@@ -29,6 +29,16 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String TT_steaminputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamInputBus");
     private static final String TT_steamoutputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamOutputBus");
     private static final String TT_steamhatch = StatCollector.translateToLocal("GTPP.MBTT.SteamHatch");
+    private static final String TT_maintenancehatch = StatCollector.translateToLocal("GT5U.MBTT.MaintenanceHatch");
+    private static final String TT_energyhatch = StatCollector.translateToLocal("GT5U.MBTT.EnergyHatch");
+    private static final String TT_dynamohatch = StatCollector.translateToLocal("GT5U.MBTT.DynamoHatch");
+    private static final String TT_mufflerhatch = StatCollector.translateToLocal("GT5U.MBTT.MufflerHatch");
+    private static final String TT_inputbus = StatCollector.translateToLocal("GT5U.MBTT.InputBus");
+    private static final String TT_inputhatch = StatCollector.translateToLocal("GT5U.MBTT.InputHatch");
+    private static final String TT_outputbus = StatCollector.translateToLocal("GT5U.MBTT.OutputBus");
+    private static final String TT_outputhatch = StatCollector.translateToLocal("GT5U.MBTT.OutputHatch");
+    private static final String TT_tectechhatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticHatches");
+    private static final String TT_EnergyOrTecTech = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticOrEnergyHatches");
     private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
     private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
@@ -84,12 +94,12 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public GTN_MultiBlockTooltipBuilder addSteamInputBus(int count, int dot) {
+    private GTN_MultiBlockTooltipBuilder addHatch(String key, int count, int dot) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
         sLines.add(
             EnumChatFormatting.AQUA + TAB
-                + TT_steaminputbus
+                + key
                 + EnumChatFormatting.YELLOW
                 + " - at least "
                 + EnumChatFormatting.RED
@@ -100,46 +110,74 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 + dot
                 + EnumChatFormatting.YELLOW
                 + " block");
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addSteamInputBus(int count, int dot) {
+        addHatch(TT_steaminputbus, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addSteamHatch(int count, int dot) {
-        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
-        List<String> sLines = accessor.getSLines();
-        sLines.add(
-            EnumChatFormatting.AQUA + TAB
-                + TT_steamhatch
-                + EnumChatFormatting.YELLOW
-                + " - at least "
-                + EnumChatFormatting.RED
-                + count
-                + EnumChatFormatting.YELLOW
-                + " in any hint dot "
-                + EnumChatFormatting.RED
-                + dot
-                + EnumChatFormatting.YELLOW
-                + " block");
+        addHatch(TT_steamhatch, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addSteamOutputBus(int count, int dot) {
-        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
-        List<String> sLines = accessor.getSLines();
-        sLines.add(
-            EnumChatFormatting.AQUA + TAB
-                + TT_steamoutputbus
-                + EnumChatFormatting.YELLOW
-                + " - at least "
-                + EnumChatFormatting.RED
-                + count
-                + EnumChatFormatting.YELLOW
-                + " in any hint dot "
-                + EnumChatFormatting.RED
-                + dot
-                + EnumChatFormatting.YELLOW
-                + " block");
+        addHatch(TT_steamoutputbus, count, dot);
         return this;
     }
+
+    public GTN_MultiBlockTooltipBuilder addEnergyHatch(int count, int dot) {
+        addHatch(TT_energyhatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addDynamoHatch(int count, int dot) {
+        addHatch(TT_dynamohatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMaintenanceHatch(int count, int dot) {
+        addHatch(TT_maintenancehatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMufflerHatch(int count, int dot) {
+        addHatch(TT_mufflerhatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addInputBus(int count, int dot) {
+        addHatch(TT_inputbus, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addInputHatch(int count, int dot) {
+        addHatch(TT_inputhatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addOutputBus(int count, int dot) {
+        addHatch(TT_outputbus, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addOutputHatch(int count, int dot) {
+        addHatch(TT_outputhatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addExoticEnergyHatch(int count, int dot) {
+        addHatch(TT_tectechhatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addExoticOrEnergyHatch(int count, int dot) {
+        addHatch(TT_EnergyOrTecTech, count, dot);
+        return this;
+    }
+
 
     public GTN_MultiBlockTooltipBuilder addSteamHatch() {
         addSteamHatch(1, 1);
@@ -153,6 +191,56 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
 
     public GTN_MultiBlockTooltipBuilder addSteamOutputBus() {
         addSteamOutputBus(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addEnergyHatch() {
+        addEnergyHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addDynamoHatch() {
+        addDynamoHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMaintenanceHatch() {
+        addMaintenanceHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMufflerHatch() {
+        addMufflerHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addInputBus() {
+        addInputBus(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addInputHatch() {
+        addInputHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addOutputBus() {
+        addOutputBus(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addOutputHatch() {
+        addOutputHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addExoticEnergyHatch() {
+        addExoticEnergyHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addExoticOrEnergyHatch() {
+        addExoticOrEnergyHatch(1, 1);
         return this;
     }
 

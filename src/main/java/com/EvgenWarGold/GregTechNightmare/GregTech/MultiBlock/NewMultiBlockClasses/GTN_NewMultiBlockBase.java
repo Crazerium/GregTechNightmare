@@ -452,7 +452,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
                     currentTip.add(GTN_Utils.tr("multiblock.waila.overclock", timeReduction, powerIncrease));
                 }
 
-                if (multiblockTier > 0) {
+                if (multiblockTier > 0 && getStructureVariants().size() > 1) {
                     currentTip.add(GTN_Utils.tr("multiblock.waila.tier", multiblockTier));
                 }
             }

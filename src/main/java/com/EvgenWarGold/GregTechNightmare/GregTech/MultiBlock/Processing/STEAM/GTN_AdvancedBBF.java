@@ -37,7 +37,7 @@ public class GTN_AdvancedBBF extends GTN_NewMultiBlockBase<GTN_AdvancedBBF> {
     public List<StructureVariant<GTN_AdvancedBBF>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "BBF",
+                "AdvancedBBF",
                 // spotless:off
                 new String[][]{
                     {"     "," AAA "," A A "," AAA ","     "},
