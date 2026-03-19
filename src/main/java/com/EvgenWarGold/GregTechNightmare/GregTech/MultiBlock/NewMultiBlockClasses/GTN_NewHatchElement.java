@@ -12,6 +12,7 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteam
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 
+@SuppressWarnings("unchecked")
 public enum GTN_NewHatchElement implements IHatchElement<GTN_NewMultiBlockBase<?>> {
 
     SteamInputHatch("SteamInputHatch", GTN_NewMultiBlockBase::addSteamInputHatchToMachineList,
@@ -45,7 +46,6 @@ public enum GTN_NewHatchElement implements IHatchElement<GTN_NewMultiBlockBase<?
     private final List<Class<? extends IMetaTileEntity>> mteClasses;
     private final IGTHatchAdder<? super GTN_NewMultiBlockBase<?>> adder;
 
-    @SafeVarargs
     GTN_NewHatchElement(String name, IGTHatchAdder<? super GTN_NewMultiBlockBase<?>> adder,
         Class<? extends IMetaTileEntity>... mteClasses) {
         this.name = name;

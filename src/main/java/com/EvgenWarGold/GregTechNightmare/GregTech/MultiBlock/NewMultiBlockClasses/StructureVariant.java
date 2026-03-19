@@ -1,30 +1,25 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 
 public class StructureVariant<T extends GTN_NewMultiBlockBase<T>> {
 
     public final String piece;
     public final String[][] shape;
-    public final int offsetHorizontal;
-    public final int offsetVertical;
-    public final int offsetDepth;
+    public final MultiblockOffsets multiblockOffsets;
     public final int tier;
     public final GTN_Casings casing;
 
     // spotless:off
     public StructureVariant(String piece,
                             String[][] shape,
-                            int offsetHorizontal,
-                            int offsetVertical,
-                            int offsetDepth,
+                            MultiblockOffsets multiblockOffsets,
                             int tier,
                             GTN_Casings casing) {
         this.piece = piece;
         this.shape = shape;
-        this.offsetHorizontal = offsetHorizontal;
-        this.offsetVertical = offsetVertical;
-        this.offsetDepth = offsetDepth;
+        this.multiblockOffsets = multiblockOffsets;
         this.tier = tier;
         this.casing = casing;
     }
@@ -32,7 +27,11 @@ public class StructureVariant<T extends GTN_NewMultiBlockBase<T>> {
 
     public boolean check(T multiblock) {
         multiblock.clearHatches();
-        boolean valid = multiblock.checkPieceProxy(piece, offsetHorizontal, offsetVertical, offsetDepth);
+        boolean valid = multiblock.checkPieceProxy(
+            piece,
+            multiblockOffsets.offsetHorizontal,
+            multiblockOffsets.offsetVertical,
+            multiblockOffsets.offsetDepth);
 
         if (valid) {
             multiblock.setMultiBlockTier(tier);

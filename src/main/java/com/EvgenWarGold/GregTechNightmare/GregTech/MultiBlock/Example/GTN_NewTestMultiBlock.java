@@ -13,10 +13,11 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.TieredElementBuilder;
@@ -39,17 +40,13 @@ public class GTN_NewTestMultiBlock extends GTN_NewMultiBlockBase<GTN_NewTestMult
             new StructureVariant<>(
                 "Gas",
                 new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
-                1,
-                1,
-                0,
+                new MultiblockOffsets(1, 1, 0),
                 1,
                 GTN_Casings.FrostProofMachineCasing),
             new StructureVariant<>(
                 "Fuel",
                 new String[][] { { "BBB", "BBB", "BBB" }, { "B~B", "B B", "BBB" }, { "BBB", "BBB", "BBB" } },
-                1,
-                1,
-                0,
+                new MultiblockOffsets(1, 1, 0),
                 2,
                 GTN_Casings.TitaniumGearBoxCasing));
     }

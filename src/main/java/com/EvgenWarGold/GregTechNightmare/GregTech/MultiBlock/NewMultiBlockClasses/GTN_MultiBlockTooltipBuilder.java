@@ -21,6 +21,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String TT_hold = StatCollector.translateToLocal("GT5U.MBTT.Hold");
     private static final String TT_todisplay = StatCollector.translateToLocal("GT5U.MBTT.Display");
     private static final String TT_addedBy = StatCollector.translateToLocal("GT5U.MBTT.Mod");
+    private static final String TT_machineType = StatCollector.translateToLocal("GT5U.MBTT.MachineType");
     private static final String TAB = "   ";
     private static final String COLON = ": ";
     private static final String SEPARATOR = ", ";
@@ -44,6 +45,25 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         }
     }
 
+    public MultiblockTooltipBuilder addMachineType(String machine) {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> iLines = accessor.getILines();
+        iLines.add(
+            EnumChatFormatting.GRAY + TT_machineType
+                + COLON
+                + EnumChatFormatting.YELLOW
+                + machine
+                + EnumChatFormatting.RESET);
+        return this;
+    }
+
+    public MultiblockTooltipBuilder addInfo(String info) {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> iLines = accessor.getILines();
+        iLines.add(EnumChatFormatting.GRAY + info);
+        return this;
+    }
+
     public GTN_MultiBlockTooltipBuilder addAuthor(String author) {
         addInfo("Author: " + author);
         return this;
@@ -59,7 +79,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     public GTN_MultiBlockTooltipBuilder addExtraInfoWithSpace(String info) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
-        sLines.add(EnumChatFormatting.WHITE + TAB + info);
+        sLines.add(EnumChatFormatting.GRAY + TAB + info);
         return this;
     }
 
@@ -111,15 +131,13 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-
-
     public MultiblockTooltipBuilder beginStructureBlock(int w, int h, int l) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
 
         List<String> sLines = accessor.getSLines();
 
         sLines.add(
-            EnumChatFormatting.WHITE + TT_dimensions
+            EnumChatFormatting.GRAY + TT_dimensions
                 + COLON
                 + EnumChatFormatting.GOLD
                 + w
@@ -145,7 +163,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 + "L"
                 + EnumChatFormatting.GRAY
                 + ")");
-        sLines.add(EnumChatFormatting.WHITE + TT_structure + COLON);
+        sLines.add(EnumChatFormatting.GRAY + TT_structure + COLON);
         return this;
     }
 
@@ -185,6 +203,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         if (authors != null && authors.length > 0) {
             final String authorTag = "Author: ";
             final StringBuilder sb = new StringBuilder();
+            sb.append(EnumChatFormatting.GRAY);
             sb.append(TT_addedBy);
             sb.append(COLON);
             for (int i = 0; i < authors.length; i++) {

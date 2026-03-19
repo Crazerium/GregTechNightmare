@@ -26,6 +26,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
@@ -175,9 +176,9 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
             variant.piece,
             itemStack,
             hintsOnly,
-            variant.offsetHorizontal,
-            variant.offsetVertical,
-            variant.offsetDepth);
+            variant.multiblockOffsets.offsetHorizontal,
+            variant.multiblockOffsets.offsetVertical,
+            variant.multiblockOffsets.offsetDepth);
     }
 
     @Override
@@ -191,9 +192,9 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
         return this.survivalBuildPiece(
             variant.piece,
             stackSize,
-            variant.offsetHorizontal,
-            variant.offsetVertical,
-            variant.offsetDepth,
+            variant.multiblockOffsets.offsetHorizontal,
+            variant.multiblockOffsets.offsetVertical,
+            variant.multiblockOffsets.offsetDepth,
             elementBudget,
             env,
             false,
