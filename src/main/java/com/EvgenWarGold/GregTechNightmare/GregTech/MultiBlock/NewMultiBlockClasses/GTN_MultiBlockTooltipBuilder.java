@@ -25,6 +25,8 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String COLON = ": ";
     private static final String SEPARATOR = ", ";
     private static final String TT_structurehint = StatCollector.translateToLocal("GT5U.MBTT.StructureHint");
+    private static final String TT_steaminputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamInputBus");
+    private static final String TT_steamoutputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamOutputBus");
     private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
     private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
@@ -54,12 +56,62 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public MultiblockTooltipBuilder addExtraInfoWithSpace(String info) {
+    public GTN_MultiBlockTooltipBuilder addExtraInfoWithSpace(String info) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
         sLines.add(EnumChatFormatting.WHITE + TAB + info);
         return this;
     }
+
+    public GTN_MultiBlockTooltipBuilder addSteamInputBus(int count, int dot) {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> sLines = accessor.getSLines();
+        sLines.add(
+            EnumChatFormatting.AQUA + TAB
+                + TT_steaminputbus
+                + EnumChatFormatting.YELLOW
+                + " - at least "
+                + EnumChatFormatting.RED
+                + count
+                + EnumChatFormatting.YELLOW
+                + " in any hint dot "
+                + EnumChatFormatting.RED
+                + dot
+                + EnumChatFormatting.YELLOW
+                + " block");
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addSteamOutputBus(int count, int dot) {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> sLines = accessor.getSLines();
+        sLines.add(
+            EnumChatFormatting.AQUA + TAB
+                + TT_steamoutputbus
+                + EnumChatFormatting.YELLOW
+                + " - at least "
+                + EnumChatFormatting.RED
+                + count
+                + EnumChatFormatting.YELLOW
+                + " in any hint dot "
+                + EnumChatFormatting.RED
+                + dot
+                + EnumChatFormatting.YELLOW
+                + " block");
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addSteamInputBus() {
+        addSteamInputBus(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addSteamOutputBus() {
+        addSteamOutputBus(1, 1);
+        return this;
+    }
+
+
 
     public MultiblockTooltipBuilder beginStructureBlock(int w, int h, int l) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;

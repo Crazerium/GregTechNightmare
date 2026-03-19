@@ -1,19 +1,19 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import net.minecraft.util.EnumChatFormatting;
+import java.util.Arrays;
+import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewHatchElement;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import cpw.mods.fml.relauncher.Side;
@@ -21,9 +21,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.api.util.MultiblockTooltipBuilder;
 
-public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
+public class GTN_AdvancedBBF extends GTN_NewMultiBlockBase<GTN_AdvancedBBF> {
 
     public GTN_AdvancedBBF(int id, String name) {
         super(id, name);
@@ -34,23 +33,25 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 2;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 4;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.Firebricks;
+    public List<StructureVariant<GTN_AdvancedBBF>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "BBF",
+                // spotless:off
+                new String[][]{
+                    {"     "," AAA "," A A "," AAA ","     "},
+                    {" AAA ","A   A","A A A","A   A"," AAA "},
+                    {" AAA ","A   A","A A A","A   A"," AAA "},
+                    {"AAAAA","A   A","A A A","A   A","AAAAA"},
+                    {"BA~AB","AAAAA","AAAAA","AAAAA","BAAAB"},
+                    {"B   B","     ","     ","     ","B   B"}
+                },
+                //spotless:on
+                2,
+                4,
+                0,
+                1,
+                GTN_Casings.Firebricks));
     }
 
     @Override
@@ -59,8 +60,37 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NONE;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder
+            .addSteamInputBus()
+            .addSteamOutputBus();
+    }
+
+    @Override
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
+    }
+
+    @Override
+    public MultiblockArea getMultiblockArea() {
+        return new MultiblockArea(5, 6, 5);
+    }
+
+    @Override
+    public IStructureDefinition<GTN_AdvancedBBF> getStructureDefinition() {
+        return buildStructureDefinition(
+            builder -> builder.addElement(
+                'A',
+                ElementBuilder.create(GTN_AdvancedBBF.class, this)
+                    .casing(GTN_Casings.Firebricks)
+                    .hatches(GTN_NewHatchElement.SteamInputBus, GTN_NewHatchElement.SteamOutputBus)
+                    .build())
+                .addElement('B', ofFrame(Materials.Steel)));
+    }
+
+    @Override
+    public boolean isEnergyMultiBlock() {
+        return false;
     }
 
     @Override
@@ -69,60 +99,8 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     }
 
     @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"     "," AAA "," A A "," AAA ","     "},
-            {" AAA ","A   A","A A A","A   A"," AAA "},
-            {" AAA ","A   A","A A A","A   A"," AAA "},
-            {"AAAAA","A   A","A A A","A   A","AAAAA"},
-            {"BA~AB","AAAAA","AAAAA","AAAAA","BAAAB"},
-            {"B   B","     ","     ","     ","B   B"}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(5, 6, 5, true)
-            .addSteamInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addSteamOutputBus(EnumChatFormatting.GOLD + "1", 1);
-    }
-
-    @Override
-    public IStructureDefinition<GTN_AdvancedBBF> getStructureDefinition() {
-        return IStructureDefinition.<GTN_AdvancedBBF>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', ofFrame(Materials.Steel))
-            .addElement(
-                'A',
-                buildHatchAdder(GTN_AdvancedBBF.class)
-                    .atLeast(GTN_HatchElement.SteamInputBus, GTN_HatchElement.SteamOutputBus)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_AdvancedBBF::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
-    }
-
-    @Override
-    protected int getMainCasingMax() {
-        return 69;
-    }
-
-    @Override
     public RecipeMap<?> getRecipeMap() {
         return GTN_Recipe.AdvancedBBFRecipes;
-    }
-
-    @Override
-    public boolean isEnergyMultiBlock() {
-        return false;
     }
 
     @SideOnly(Side.CLIENT)

@@ -92,6 +92,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
     public final Map<CoordMultiBlock, IGregTechTileEntity> multiBlocks = new HashMap<>();
     protected int multiBlockTier = 0;
     protected GTN_Casings mainCasing;
+    protected int mainCasingCount = 0;
     protected int mainCasingTextureId = 0;
     protected final List<TierData> registeredTierData = new ArrayList<>();
     // endregion
@@ -124,6 +125,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
         this.mSteamInputFluids.clear();
         this.mSteamInputBusses.clear();
         this.mSteamOutputBusses.clear();
+        mainCasingCount = 0;
 
         for (TierData tierData : registeredTierData) {
             tierData.reset();
@@ -450,7 +452,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
                 }
 
                 if (multiblockTier > 0) {
-                    currentTip.add("Tier: " + multiblockTier);
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.tier", multiblockTier));
                 }
             }
             super.getWailaBody(itemStack, currentTip, accessor, config);
@@ -677,6 +679,14 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
     // endregion
 
     // region Other methods
+    public void setMainCasingCount(int mainCasingCount) {
+        this.mainCasingCount = mainCasingCount;
+    }
+
+    public int getMainCasingCount() {
+        return mainCasingCount;
+    }
+
     protected void updateCasingTextureFromTierData() {
         for (TierData casing : registeredTierData) {
             if (casing.getCasingTier() > 0) {

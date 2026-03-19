@@ -15,6 +15,7 @@ multiblock.waila.max_parallel=§aMax Parallel: §6%s
 multiblock.waila.eu_modifier=§aEu Modifier: §6%s
 multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s
 multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
+multiblock.waila.tier=§aTier: §6%s
 
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
