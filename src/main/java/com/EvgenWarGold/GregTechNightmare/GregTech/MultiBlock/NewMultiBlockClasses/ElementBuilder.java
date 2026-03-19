@@ -7,6 +7,11 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
+
 @SuppressWarnings("unchecked")
 public class ElementBuilder<T> {
 
@@ -16,6 +21,7 @@ public class ElementBuilder<T> {
     private IHatchElement<? super T>[] hatches;
     private int dot = 1;
     private final GTN_NewMultiBlockBase<?> multiblock;
+    private boolean hasSteamHatch;
 
     public ElementBuilder(Class<T> tileClass, GTN_NewMultiBlockBase<?> multiblock) {
         this.multiblock = multiblock;
@@ -45,15 +51,22 @@ public class ElementBuilder<T> {
         return this;
     }
 
-    @SafeVarargs
     public final ElementBuilder<T> hatches(GTN_NewHatchElement... hatches) {
-        this.hatches = (IHatchElement<? super T>[]) hatches;
+        List<IHatchElement<? super T>> filtered = new ArrayList<>();
+
+        for (GTN_NewHatchElement hatchElement : hatches) {
+            if (hatchElement != GTN_NewHatchElement.SteamInputHatch) {
+                filtered.add((IHatchElement<? super T>) hatchElement);
+            } else hasSteamHatch = true;
+        }
+
+        this.hatches = filtered.toArray(new IHatchElement[0]);
         this.dot = 1;
         return this;
     }
 
     public IStructureElement<T> build() {
-        return GTStructureUtility.buildHatchAdder(tileClass)
+        IStructureElement<T> element = GTStructureUtility.buildHatchAdder(tileClass)
             .atLeast(hatches)
             .casingIndex(casing.textureId)
             .dot(dot)
@@ -61,5 +74,17 @@ public class ElementBuilder<T> {
                 StructureUtility.onElementPass(
                     x -> multiblock.mainCasingCount++,
                     StructureUtility.ofBlock(casing.getBlock(), casing.meta)));
+
+        if (hasSteamHatch) {
+            return StructureUtility.ofChain(
+                GTStructureUtility.buildHatchAdder(tileClass)
+                    .atLeast((IHatchElement<? super T>) GTN_NewHatchElement.SteamInputHatch)
+                    .casingIndex(casing.textureId)
+                    .hatchIds(31_040)
+                    .dot(dot)
+                    .build(),
+                element);
+        }
+        return element;
     }
 }

@@ -98,7 +98,7 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
                 'A',
                 ElementBuilder.create(GTN_AdvancedCokeOven.class, this)
                     .hatches(GTN_NewHatchElement.SteamInputBus, GTN_NewHatchElement.SteamOutputBus, OutputHatch)
-                    .casing(GTN_Casings.CokeOvenCasing)
+                    .casing(mainCasing)
                     .build()));
     }
 

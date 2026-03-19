@@ -80,7 +80,7 @@ public class GTN_AdvancedBBF extends GTN_NewMultiBlockBase<GTN_AdvancedBBF> {
             builder -> builder.addElement(
                 'A',
                 ElementBuilder.create(GTN_AdvancedBBF.class, this)
-                    .casing(GTN_Casings.Firebricks)
+                    .casing(mainCasing)
                     .hatches(GTN_NewHatchElement.SteamInputBus, GTN_NewHatchElement.SteamOutputBus)
                     .build())
                 .addElement('B', ofFrame(Materials.Steel)));

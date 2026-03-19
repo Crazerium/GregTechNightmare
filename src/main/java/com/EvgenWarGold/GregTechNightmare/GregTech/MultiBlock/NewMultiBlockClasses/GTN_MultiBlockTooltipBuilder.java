@@ -28,6 +28,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String TT_structurehint = StatCollector.translateToLocal("GT5U.MBTT.StructureHint");
     private static final String TT_steaminputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamInputBus");
     private static final String TT_steamoutputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamOutputBus");
+    private static final String TT_steamhatch = StatCollector.translateToLocal("GTPP.MBTT.SteamHatch");
     private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
     private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
@@ -102,6 +103,25 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
+    public GTN_MultiBlockTooltipBuilder addSteamHatch(int count, int dot) {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> sLines = accessor.getSLines();
+        sLines.add(
+            EnumChatFormatting.AQUA + TAB
+                + TT_steamhatch
+                + EnumChatFormatting.YELLOW
+                + " - at least "
+                + EnumChatFormatting.RED
+                + count
+                + EnumChatFormatting.YELLOW
+                + " in any hint dot "
+                + EnumChatFormatting.RED
+                + dot
+                + EnumChatFormatting.YELLOW
+                + " block");
+        return this;
+    }
+
     public GTN_MultiBlockTooltipBuilder addSteamOutputBus(int count, int dot) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
@@ -118,6 +138,11 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 + dot
                 + EnumChatFormatting.YELLOW
                 + " block");
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addSteamHatch() {
+        addSteamHatch(1, 1);
         return this;
     }
 

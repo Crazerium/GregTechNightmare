@@ -22,7 +22,6 @@ public enum GTN_NewHatchElement implements IHatchElement<GTN_NewMultiBlockBase<?
         public long count(GTN_NewMultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.mSteamInputFluids.size();
         }
-
     },
 
     SteamInputBus("SteamInputBus", GTN_NewMultiBlockBase::addSteamInputBusToMachineList, MTEHatchSteamBusInput.class) {
