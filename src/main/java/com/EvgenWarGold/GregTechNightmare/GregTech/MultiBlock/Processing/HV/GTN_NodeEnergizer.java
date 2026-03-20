@@ -1,35 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
-
-import org.jetbrains.annotations.NotNull;
-
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
-
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
@@ -37,12 +19,26 @@ import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.util.MultiblockTooltipBuilder;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileNode;
 
-public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+public class GTN_NodeEnergizer extends GTN_NewMultiBlockBase<GTN_NodeEnergizer> {
 
     protected ArrayList<TileNode> mNode = new ArrayList<>();
 
@@ -55,23 +51,24 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 3;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 5;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.MagicCasing;
+    public List<StructureVariant<GTN_NodeEnergizer>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "NodeEnergizer",
+                // spotless:off
+                new String[][]{
+                    {"       ","       ","   C   ","       ","       ","       "},
+                    {"  AAA  "," A C A "," ACCCA "," A C A ","  AAA  ","       "},
+                    {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
+                    {"       ","  C C  ","A BDB A","  CBC  ","       ","   A   "},
+                    {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
+                    {"  C~C  "," CCCCC ","ACCCCCA"," CCCCC ","  CCC  ","   A   "}
+                },
+                //spotless:on
+                new MultiblockOffsets(3, 5, 0),
+                new MultiblockArea(7, 6, 6),
+                1,
+                GTN_Casings.MagicCasing));
     }
 
     @Override
@@ -80,64 +77,37 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NONE;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"       ","       ","   C   ","       ","       ","       "},
-            {"  AAA  "," A C A "," ACCCA "," A C A ","  AAA  ","       "},
-            {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
-            {"       ","  C C  ","A BDB A","  CBC  ","       ","   A   "},
-            {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
-            {"  C~C  "," CCCCC ","ACCCCCA"," CCCCC ","  CCC  ","   A   "}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(tr("tooltip.03"))
-            .addInfo(tr("tooltip.04"))
-            .addInfo(tr("tooltip.05"))
-            .addInfo(GTN_Utils.tr("Author_Structure", "Magma_Block"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(7, 6, 6, true)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addMaintenanceHatch(EnumChatFormatting.GOLD + "1", 1);
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
     public IStructureDefinition<GTN_NodeEnergizer> getStructureDefinition() {
-        return IStructureDefinition.<GTN_NodeEnergizer>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', GTN_Casings.TintedGlassWhite.asElement())
-            .addElement(
-                'D',
-                ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))
-            .addElement('A', ofFrame(Materials.Silver))
-            .addElement(
-                'C',
-                buildHatchAdder(GTN_NodeEnergizer.class).atLeast(InputBus, Energy, Maintenance)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_NodeEnergizer::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+        return buildStructureDefinition(
+            builder -> builder
+                .addElement(
+                    'C',
+                    ElementBuilder.create(GTN_NodeEnergizer.class, this)
+                        .casing(mainCasing)
+                        .hatches(InputBus, Energy, Maintenance)
+                        .build())
+                .addElement('B', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement(
+                    'D',
+                    ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))
+                .addElement('A', ofFrame(Materials.Silver)));
+    }
+
+    @Override
+    public OverclockType getOverclockType() {
+        return OverclockType.NONE;
     }
 
     public final boolean addNodeEnergized(TileEntity aTileEntity) {
