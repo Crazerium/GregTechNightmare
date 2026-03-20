@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
@@ -76,8 +77,8 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public GTN_MultiBlockTooltipBuilder addAuthor(String author) {
-        addInfo("Author: " + author);
+    public GTN_MultiBlockTooltipBuilder addAuthor(Authors author) {
+        addInfo("Author: " + author.name);
         return this;
     }
 

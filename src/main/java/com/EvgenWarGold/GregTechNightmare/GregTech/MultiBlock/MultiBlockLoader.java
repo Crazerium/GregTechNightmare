@@ -5,8 +5,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_BloodEnchanter;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;

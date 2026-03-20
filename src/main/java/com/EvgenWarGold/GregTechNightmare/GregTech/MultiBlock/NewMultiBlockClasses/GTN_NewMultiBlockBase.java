@@ -409,7 +409,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
         final GTN_MultiBlockTooltipBuilder tt = new GTN_MultiBlockTooltipBuilder();
         tt.addMachineType(getMachineType());
         tt.addInfoMultiLineTranslated(tr("tooltip"));
-        tt.addAuthor(getAuthor().name);
+        tt.addAuthor(getAuthor());
         addMultiBlockAreaInfo(tt);
         tt.beginStructureBlock();
         createGtnTooltip(tt);

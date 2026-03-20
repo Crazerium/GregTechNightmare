@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.Utils;
 
 import java.util.HashMap;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockHighlighter {
 
-    private static final HashMap<GTN_MultiBlockBase<?>, BlockHighlighter> highlighters = new HashMap<>();
+    private static final HashMap<GTN_NewMultiBlockBase<?>, BlockHighlighter> highlighters = new HashMap<>();
 
     private int x, y, z;
     private int dim;
@@ -178,11 +179,11 @@ public class BlockHighlighter {
         }
     }
 
-    public static void registerHighlighter(GTN_MultiBlockBase<?> machine, BlockHighlighter highlighter) {
+    public static void registerHighlighter(GTN_NewMultiBlockBase<?> machine, BlockHighlighter highlighter) {
         highlighters.put(machine, highlighter);
     }
 
-    public static void removeHighlighter(GTN_MultiBlockBase<?> machine) {
+    public static void removeHighlighter(GTN_NewMultiBlockBase<?> machine) {
         highlighters.remove(machine);
     }
 }
