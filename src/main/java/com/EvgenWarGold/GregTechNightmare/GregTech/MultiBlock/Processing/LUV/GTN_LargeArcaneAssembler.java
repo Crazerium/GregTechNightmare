@@ -1,5 +1,24 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV;
 
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
+import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.ArcaneAssemblerCraftingFX;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
@@ -16,6 +35,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -26,12 +46,6 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTRecipe;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
@@ -39,17 +53,6 @@ import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.research.ResearchManager;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
-import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
 
 public class GTN_LargeArcaneAssembler extends GTN_NewMultiBlockBase<GTN_LargeArcaneAssembler> {
 
@@ -68,7 +71,7 @@ public class GTN_LargeArcaneAssembler extends GTN_NewMultiBlockBase<GTN_LargeArc
     public List<StructureVariant<GTN_LargeArcaneAssembler>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "AdvancedBBF",
+                "LargeArcaneAssembler",
                 // spotless:off
                 new String[][]{
                     {"BBBBB","BAAAB","BAAAB","BAAAB","BBBBB"},

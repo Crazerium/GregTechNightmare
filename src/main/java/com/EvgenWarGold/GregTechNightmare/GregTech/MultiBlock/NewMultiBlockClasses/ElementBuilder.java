@@ -7,6 +7,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
+import com.gtnewhorizon.structurelib.structure.adders.ITileAdder;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
 
@@ -19,6 +20,8 @@ public class ElementBuilder<T> {
     private IHatchElement<? super T>[] hatches;
     private int dot = 1;
     private final GTN_NewMultiBlockBase<?> multiblock;
+    private ITileAdder<T> tileAdder;
+    private boolean hasTileAdder = false;
     private boolean hasSteamHatch;
 
     public ElementBuilder(Class<T> tileClass, GTN_NewMultiBlockBase<?> multiblock) {
@@ -46,6 +49,12 @@ public class ElementBuilder<T> {
     public final ElementBuilder<T> hatches(int dot, IHatchElement<? super T>... hatches) {
         this.hatches = hatches;
         this.dot = dot;
+        return this;
+    }
+
+    public ElementBuilder<T> tileAdder(ITileAdder<T> tileAdder) {
+        this.tileAdder = tileAdder;
+        this.hasTileAdder = true;
         return this;
     }
 
@@ -83,6 +92,14 @@ public class ElementBuilder<T> {
                     .build(),
                 element);
         }
+
+        if (hasTileAdder) {
+            return StructureUtility.ofChain(
+                element,
+                StructureUtility.ofTileAdder(tileAdder, casing.getBlock(), casing.meta)
+            );
+        }
+
         return element;
     }
 }
