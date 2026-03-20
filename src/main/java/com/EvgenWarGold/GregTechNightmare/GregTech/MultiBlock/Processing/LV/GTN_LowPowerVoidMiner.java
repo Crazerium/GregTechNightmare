@@ -1,36 +1,31 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
-
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-
-import org.jetbrains.annotations.NotNull;
-
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.VoidMinerUtils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.util.MultiblockTooltipBuilder;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMiner> {
+import java.util.Arrays;
+import java.util.List;
+
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+public class GTN_LowPowerVoidMiner extends GTN_NewMultiBlockBase<GTN_LowPowerVoidMiner> {
 
     private static VoidMinerUtils voidMiner = null;
     private static final List<Integer> ALLOW_DIMENSION = Arrays.asList(-1, 7, 0);
@@ -45,23 +40,25 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 1;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 6;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.SolidSteelMachineCasing;
+    public List<StructureVariant<GTN_LowPowerVoidMiner>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "LowPowerVoidMiner",
+                // spotless:off
+                new String[][]{
+                    {"   "," B ","   "},
+                    {"   "," B ","   "},
+                    {"   "," B ","   "},
+                    {" B ","BCB"," B "},
+                    {" B ","BCB"," B "},
+                    {" B ","BCB"," B "},
+                    {"A~A","AAA","AAA"}
+                },
+                //spotless:on
+                new MultiblockOffsets(1, 6, 0),
+                new MultiblockArea(3, 7, 3),
+                1,
+                GTN_Casings.SolidSteelMachineCasing));
     }
 
     @Override
@@ -70,57 +67,30 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NONE;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder
+            .addOutputBus()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"   "," B ","   "},
-            {"   "," B ","   "},
-            {"   "," B ","   "},
-            {" B ","BCB"," B "},
-            {" B ","BCB"," B "},
-            {" B ","BCB"," B "},
-            {"A~A","AAA","AAA"}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 7, 3, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
     public IStructureDefinition<GTN_LowPowerVoidMiner> getStructureDefinition() {
-        return IStructureDefinition.<GTN_LowPowerVoidMiner>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', ofFrame(Materials.Cobalt))
-            .addElement('C', GTN_Casings.BoltedCobaltCasing.asElement())
-            .addElement(
-                'A',
-                buildHatchAdder(GTN_LowPowerVoidMiner.class).atLeast(OutputBus, Energy, Maintenance)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_LowPowerVoidMiner::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+        return buildStructureDefinition(
+            builder -> builder
+                .addElement('B', ofFrame(Materials.Cobalt))
+                .addElement('C', GTN_Casings.BoltedCobaltCasing.asElement())
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_LowPowerVoidMiner.class, this)
+                        .casing(mainCasing)
+                        .hatches(OutputBus, Energy, Maintenance)
+                        .build()));
     }
 
     @Override
