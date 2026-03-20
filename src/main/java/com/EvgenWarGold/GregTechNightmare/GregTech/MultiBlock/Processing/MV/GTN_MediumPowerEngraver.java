@@ -1,5 +1,13 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+
+import java.util.Arrays;
+import java.util.List;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -9,18 +17,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
 
 public class GTN_MediumPowerEngraver extends GTN_NewMultiBlockBase<GTN_MediumPowerEngraver> {
 
@@ -57,8 +58,7 @@ public class GTN_MediumPowerEngraver extends GTN_NewMultiBlockBase<GTN_MediumPow
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addEnergyHatch()
             .addMaintenanceHatch();
@@ -71,14 +71,14 @@ public class GTN_MediumPowerEngraver extends GTN_NewMultiBlockBase<GTN_MediumPow
 
     @Override
     public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('B', GTN_Casings.TintedGlassBlack.asElement())
-            .addElement(
-                'A',
-                ElementBuilder.create(GTN_MediumPowerEngraver.class, this)
-                    .hatches(InputBus, OutputBus, Energy, Maintenance)
-                    .casing(mainCasing)
-                    .build()));
+        return buildStructureDefinition(
+            builder -> builder.addElement('B', GTN_Casings.TintedGlassBlack.asElement())
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_MediumPowerEngraver.class, this)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override
