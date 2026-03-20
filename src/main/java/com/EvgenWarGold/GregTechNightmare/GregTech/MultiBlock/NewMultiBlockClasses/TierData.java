@@ -6,14 +6,23 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 
 public class TierData {
 
-    public int casingTier = -1;
+    private int casingTier = -1;
     public int countCasing = 0;
-    public int casingTextureId = ERROR_TEXTURE_INDEX;
-    public GTN_Casings casing = GTN_Casings.SolidSteelMachineCasing;
-    public String channelName = "";
+    private int casingTextureId = ERROR_TEXTURE_INDEX;
+    private GTN_Casings casing = GTN_Casings.SolidSteelMachineCasing;
+    private String channelName = "";
+    private boolean isMainCasing = false;
 
     public int getCasingTier() {
         return casingTier;
+    }
+
+    public boolean getIsMainCasing() {
+        return isMainCasing;
+    }
+
+    public void setIsMainCasing(boolean mainCasing) {
+        this.isMainCasing = mainCasing;
     }
 
     public int getCountCasing() {

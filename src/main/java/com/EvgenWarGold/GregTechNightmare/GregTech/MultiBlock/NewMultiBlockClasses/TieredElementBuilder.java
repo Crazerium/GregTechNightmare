@@ -13,6 +13,8 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
 
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+
 public class TieredElementBuilder<T> {
 
     private final TierData tierData;
@@ -50,14 +52,6 @@ public class TieredElementBuilder<T> {
         return this;
     }
 
-    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, GTN_Casings... casings) {
-        ItemStack[] itemStacks = Arrays.stream(casings)
-            .filter(Objects::nonNull)
-            .map(GTN_Casings::getItemStack)
-            .toArray(ItemStack[]::new);
-        return GTN_StructureUtility.createTierBlocks(tierData, itemStacks);
-    }
-
     public IStructureElement<T> build() {
         return StructureUtility.withChannel(
             tierData.getChannelName(),
@@ -66,6 +60,6 @@ public class TieredElementBuilder<T> {
                     .atLeast(hatches)
                     .casingIndex(tierData.getCasingTextureId())
                     .dot(dot)
-                    .buildAndChain(createTierBlocks(tierData, casings))));
+                    .buildAndChain(GTN_StructureUtility.createTierBlocks(tierData, casings))));
     }
 }

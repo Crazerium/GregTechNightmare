@@ -709,18 +709,24 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
 
     protected void updateCasingTextureFromTierData() {
         for (TierData casing : registeredTierData) {
-            if (casing.getCasingTier() > 0) {
+            if (casing.getCasingTier() > 0 && casing.getIsMainCasing()) {
                 setMainCasingTextureId(casing.getCasingTextureId());
             }
         }
     }
 
-    protected TierData createTierData(String channelName) {
+    protected TierData createTierData(String channelName, boolean isMainCasing) {
         TierData data = new TierData();
         data.setChannelName(channelName);
+        data.setIsMainCasing(isMainCasing);
         registeredTierData.add(data);
         return data;
     }
+
+    protected TierData createTierData(String channelName) {
+        return createTierData(channelName, false);
+    }
+
 
     public OverclockType getOverclockType() {
         return OverclockType.NormalOverclock;

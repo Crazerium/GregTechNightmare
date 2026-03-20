@@ -69,8 +69,8 @@ public class GTN_TestMultiBlock extends GTN_NewMultiBlockBase<GTN_TestMultiBlock
         return Authors.EVGEN_WAR_GOLD;
     }
 
-    private final TierData casing = createTierData("casing");
-    private final TierData casing1 = createTierData("casing1");
+    private final TierData casing = createTierData("casing", true);
+    private final TierData casing1 = createTierData("casing1", true);
 
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {

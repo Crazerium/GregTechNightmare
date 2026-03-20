@@ -1,7 +1,9 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import net.minecraft.block.Block;
@@ -17,6 +19,8 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
+
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 public class GTN_StructureUtility {
 
@@ -58,6 +62,23 @@ public class GTN_StructureUtility {
             if (tierIndex != null) {
                 tierData.setCasingTier(tierIndex);
             }
-        }, t -> tierData.casingTier));
+        }, t -> tierData.getCasingTier()));
+    }
+
+    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, GTN_Casings... casings) {
+        ItemStack[] itemStacks = Arrays.stream(casings)
+            .filter(Objects::nonNull)
+            .map(GTN_Casings::getItemStack)
+            .toArray(ItemStack[]::new);
+        return GTN_StructureUtility.createTierBlocks(tierData, itemStacks);
+    }
+
+    public static <T> IStructureElement<T> createAllTieredGlass(TierData tierData) {
+        return StructureUtility.withChannel(
+            tierData.getChannelName(),
+            chainAllGlasses(
+                -1,
+                (te, t) -> tierData.setCasingTier(t),
+                te -> tierData.getCasingTier()));
     }
 }
