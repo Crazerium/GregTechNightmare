@@ -9,7 +9,7 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockHighlighter {
 
-    private static final HashMap<GTN_NewMultiBlockBase<?>, BlockHighlighter> highlighters = new HashMap<>();
+    private static final HashMap<GTN_MultiBlockBase<?>, BlockHighlighter> highlighters = new HashMap<>();
 
     private int x, y, z;
     private int dim;
@@ -178,11 +178,11 @@ public class BlockHighlighter {
         }
     }
 
-    public static void registerHighlighter(GTN_NewMultiBlockBase<?> machine, BlockHighlighter highlighter) {
+    public static void registerHighlighter(GTN_MultiBlockBase<?> machine, BlockHighlighter highlighter) {
         highlighters.put(machine, highlighter);
     }
 
-    public static void removeHighlighter(GTN_NewMultiBlockBase<?> machine) {
+    public static void removeHighlighter(GTN_MultiBlockBase<?> machine) {
         highlighters.remove(machine);
     }
 }

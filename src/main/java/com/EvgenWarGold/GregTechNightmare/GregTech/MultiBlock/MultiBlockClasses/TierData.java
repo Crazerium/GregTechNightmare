@@ -1,8 +1,6 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import static gregtech.api.enums.Textures.BlockIcons.ERROR_TEXTURE_INDEX;
-
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 
 public class TierData {
 

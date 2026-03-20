@@ -12,8 +12,8 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.CoordMultiBlock;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CoordMultiBlock;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -130,7 +130,7 @@ public class ItemStructuresLinkTool extends Item {
 
         if (!(te instanceof IGregTechTileEntity gte)) return Status.FAIL;
 
-        if (!(gte.getMetaTileEntity() instanceof GTN_NewMultiBlockBase<?>gtn)) return Status.FAIL;
+        if (!(gte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>gtn)) return Status.FAIL;
 
         if (gtn.tryLink(coordMultiBlock)) {
             return Status.SUCCESS;
