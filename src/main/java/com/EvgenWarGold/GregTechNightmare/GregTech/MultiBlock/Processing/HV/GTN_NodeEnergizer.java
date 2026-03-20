@@ -1,5 +1,22 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV;
 
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -12,6 +29,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
@@ -19,24 +37,9 @@ import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import org.jetbrains.annotations.NotNull;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileNode;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_NodeEnergizer extends GTN_NewMultiBlockBase<GTN_NodeEnergizer> {
 
@@ -91,13 +94,12 @@ public class GTN_NodeEnergizer extends GTN_NewMultiBlockBase<GTN_NodeEnergizer> 
     @Override
     public IStructureDefinition<GTN_NodeEnergizer> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addElement(
-                    'C',
-                    ElementBuilder.create(GTN_NodeEnergizer.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, Energy, Maintenance)
-                        .build())
+            builder -> builder.addElement(
+                'C',
+                ElementBuilder.create(GTN_NodeEnergizer.class, this)
+                    .casing(mainCasing)
+                    .hatches(InputBus, Energy, Maintenance)
+                    .build())
                 .addElement('B', GTN_Casings.TintedGlassWhite.asElement())
                 .addElement(
                     'D',

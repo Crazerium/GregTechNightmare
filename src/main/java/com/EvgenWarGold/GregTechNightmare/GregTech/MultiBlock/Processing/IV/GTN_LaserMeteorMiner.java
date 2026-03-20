@@ -1,5 +1,34 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.enums.TierEU.RECIPE_LuV;
+import static gregtech.api.enums.TierEU.RECIPE_ZPM;
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
@@ -20,6 +49,7 @@ import com.gtnewhorizons.modularui.api.math.Pos2d;
 import com.gtnewhorizons.modularui.api.screen.ModularWindow;
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext;
 import com.gtnewhorizons.modularui.common.widget.ButtonWidget;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.VoltageIndex;
@@ -38,36 +68,7 @@ import gregtech.api.util.OverclockCalculator;
 import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import net.minecraftforge.common.util.ForgeDirection;
-import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.enums.TierEU.RECIPE_LuV;
-import static gregtech.api.enums.TierEU.RECIPE_ZPM;
-import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 public class GTN_LaserMeteorMiner extends GTN_NewMultiBlockBase<GTN_LaserMeteorMiner> {
 
@@ -153,8 +154,7 @@ public class GTN_LaserMeteorMiner extends GTN_NewMultiBlockBase<GTN_LaserMeteorM
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addElement('A', chainAllGlasses())
+            builder -> builder.addElement('A', chainAllGlasses())
                 .addElement('C', GTN_Casings.NaquadahCoilBlock.asElement())
                 .addElement('B', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
                 .addElement('E', GTN_Casings.ThermallyInsulatedCasing.asElement())
@@ -179,7 +179,7 @@ public class GTN_LaserMeteorMiner extends GTN_NewMultiBlockBase<GTN_LaserMeteorM
 
     @Override
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-                                int z) {
+        int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
         tag.setInteger("fortune", this.fortuneTier);
         tag.setInteger("tier", this.multiTier);
@@ -187,7 +187,7 @@ public class GTN_LaserMeteorMiner extends GTN_NewMultiBlockBase<GTN_LaserMeteorM
 
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
+        IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currentTip, accessor, config);
         final NBTTagCompound tag = accessor.getNBTData();
         currentTip.add(tr("tier." + tag.getInteger("tier")) + EnumChatFormatting.RESET);
@@ -199,12 +199,12 @@ public class GTN_LaserMeteorMiner extends GTN_NewMultiBlockBase<GTN_LaserMeteorM
         super.addUIWidgets(builder, buildContext);
 
         builder.widget(new ButtonWidget().setOnClick((clickData, widget) -> {
-                showBlockHighlight = !showBlockHighlight;
+            showBlockHighlight = !showBlockHighlight;
 
-                if (getBaseMetaTileEntity() == null) return;
+            if (getBaseMetaTileEntity() == null) return;
 
-                getBaseMetaTileEntity().issueClientUpdate();
-            })
+            getBaseMetaTileEntity().issueClientUpdate();
+        })
             .setPlayClickSound(true)
             .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_SHUFFLE })
             .setPos(new Pos2d(174, 112))

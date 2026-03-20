@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import com.EvgenWarGold.GregTechNightmare.Mixins.Late.MultiblockTooltipBuilderAccessor;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.google.common.collect.SetMultimap;
 
 import gregtech.GTMod;

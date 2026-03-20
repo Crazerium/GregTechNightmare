@@ -100,8 +100,7 @@ public class GTN_BloodEnchanter extends GTN_NewMultiBlockBase<GTN_BloodEnchanter
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addInputHatch()
             .addMufflerHatch();

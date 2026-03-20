@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
@@ -30,7 +30,7 @@ public abstract class MTEMultiblockBaseMixins {
             TileEntity te = accessor.getTileEntity();
 
             if (te instanceof IGregTechTileEntity gte) {
-                if (gte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>) {
+                if (gte.getMetaTileEntity() instanceof GTN_NewMultiBlockBase<?>) {
                     return 1;
                 }
             }

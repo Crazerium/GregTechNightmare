@@ -6,8 +6,8 @@ import java.util.List;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
-
 import com.gtnewhorizon.structurelib.structure.adders.ITileAdder;
+
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
 
@@ -94,10 +94,8 @@ public class ElementBuilder<T> {
         }
 
         if (hasTileAdder) {
-            return StructureUtility.ofChain(
-                element,
-                StructureUtility.ofTileAdder(tileAdder, casing.getBlock(), casing.meta)
-            );
+            return StructureUtility
+                .ofChain(element, StructureUtility.ofTileAdder(tileAdder, casing.getBlock(), casing.meta));
         }
 
         return element;
