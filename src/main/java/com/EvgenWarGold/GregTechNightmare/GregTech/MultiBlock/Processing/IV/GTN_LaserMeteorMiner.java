@@ -15,6 +15,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -679,5 +682,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return Pair.of(VoltageIndex.IV, VoltageIndex.LuV);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_MINER;
     }
 }

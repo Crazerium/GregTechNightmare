@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -194,5 +197,11 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     @Override
     public IIconContainer getMainOverlayGlow() {
         return Textures.BlockIcons.VOID;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_OP_SAW;
     }
 }
