@@ -46,7 +46,7 @@ public enum GTN_Casings implements ICasing {
     // spotless:off
     CokeOvenCasing
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 1, gt(117, 0, 1)),
-    AborealCasing
+    ArborealCasing
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 2, gt(117, 0, 2)),
 
     TintedGlassWhite

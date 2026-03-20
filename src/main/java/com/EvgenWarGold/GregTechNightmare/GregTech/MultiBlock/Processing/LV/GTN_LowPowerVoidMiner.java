@@ -1,5 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -10,20 +22,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.VoidMinerUtils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_LowPowerVoidMiner extends GTN_NewMultiBlockBase<GTN_LowPowerVoidMiner> {
 
@@ -68,8 +71,7 @@ public class GTN_LowPowerVoidMiner extends GTN_NewMultiBlockBase<GTN_LowPowerVoi
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addOutputBus()
+        builder.addOutputBus()
             .addEnergyHatch()
             .addMaintenanceHatch();
     }
@@ -82,8 +84,7 @@ public class GTN_LowPowerVoidMiner extends GTN_NewMultiBlockBase<GTN_LowPowerVoi
     @Override
     public IStructureDefinition<GTN_LowPowerVoidMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addElement('B', ofFrame(Materials.Cobalt))
+            builder -> builder.addElement('B', ofFrame(Materials.Cobalt))
                 .addElement('C', GTN_Casings.BoltedCobaltCasing.asElement())
                 .addElement(
                     'A',
