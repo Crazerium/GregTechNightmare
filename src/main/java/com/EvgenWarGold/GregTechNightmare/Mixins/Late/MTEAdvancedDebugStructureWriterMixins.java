@@ -366,21 +366,16 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
             .append(sizeC)
             .append('\n');
 
-        // Новый формат вывода
         builder.append("\nScan:\n\n")
-            .append("        return Arrays.asList(\n")
-            .append("            new StructureVariant<>(\n")
-            .append("                \"\",\n")
-            .append("                // spotless:off\n")
-            .append("                new String[][]{\n");
+            .append("return Arrays.asList(\n")
+            .append("    new StructureVariant<>(\n")
+            .append("        \"\",\n")
+            .append("        // spotless:off\n")
+            .append("        new String[][]{\n");
 
-// Сборка всех строк в правильном порядке
         List<String> allRows = new ArrayList<>();
         StringBuilder currentRow = new StringBuilder();
 
-// Важно: порядок итерации должен соответствовать формату вывода
-// У нас sizeA = ширина (X), sizeB = высота (Y), sizeC = длина (Z)
-// В выводе каждый слой - это Y (высота), внутри слоя строки - это Z (длина)
         iterate(
             world,
             extendedFacing,
@@ -438,23 +433,17 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                 }
             },
             () -> {
-                // Конец строки по оси Z - сохраняем строку
                 allRows.add(currentRow.toString());
                 currentRow.setLength(0);
             },
             () -> {
-                // Конец слоя по оси Y - здесь ничего не делаем
-                // Строки уже сохранены, слой формируется позже
             });
 
-// Формируем строки массива по слоям (ось Y)
-// Количество слоёв = sizeB (высота)
-// Количество строк в каждом слое = sizeC (длина)
         int rowsPerLayer = sizeC;
         int layersCount = sizeB;
 
         for (int layer = 0; layer < layersCount; layer++) {
-            builder.append("                    {");
+            builder.append("        {");
 
             for (int row = 0; row < rowsPerLayer; row++) {
                 int index = layer * rowsPerLayer + row;
@@ -473,24 +462,24 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
             }
         }
 
-        builder.append("                },\n")
-            .append("                //spotless:on\n")
-            .append("                new MultiblockOffsets(")
+        builder.append("        },\n")
+            .append("        //spotless:on\n")
+            .append("        new MultiblockOffsets(")
             .append(basePositionA)
             .append(", ")
             .append(basePositionB)
             .append(", ")
             .append(basePositionC)
             .append("),\n")
-            .append("                new MultiblockArea(")
+            .append("        new MultiblockArea(")
             .append(sizeA)
             .append(", ")
             .append(sizeB)
             .append(", ")
             .append(sizeC)
             .append("),\n")
-            .append("                1,\n")
-            .append("                GTN_Casings.));\n");
+            .append("        1,\n")
+            .append("        GTN_Casings.));\n");
 
         return builder.toString();
     }
