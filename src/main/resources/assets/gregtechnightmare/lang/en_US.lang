@@ -234,5 +234,6 @@ Totto=§bTotto
 Author_Structure=Structure author: §6%s
 
 #Others
-GTN.TooltipBuilder.ExoticHatches=Multi-Amp | Laser Hatches
-GTN.TooltipBuilder.ExoticOrEnergyHatches=Multi-Amp | Laser | Energy Hatches
+GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
+GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
+GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch

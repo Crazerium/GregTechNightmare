@@ -77,7 +77,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
         builder.addInputHatch()
-            .addDynamoHatch()
+            .addDynamoOrBufferedHatch()
             .addMaintenanceHatch();
     }
 
