@@ -63,6 +63,7 @@ public class GTN_BronzeVoidMiner extends GTN_NewMultiBlockBase<GTN_BronzeVoidMin
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 6, 0),
+                new MultiblockArea(3, 7, 3),
                 1,
                 GTN_Casings.BronzeFireboxCasing));
     }
@@ -82,11 +83,6 @@ public class GTN_BronzeVoidMiner extends GTN_NewMultiBlockBase<GTN_BronzeVoidMin
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(3, 7, 3);
     }
 
     @Override

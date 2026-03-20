@@ -41,12 +41,14 @@ public class GTN_TestMultiBlock extends GTN_NewMultiBlockBase<GTN_TestMultiBlock
                 "Gas",
                 new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
                 new MultiblockOffsets(1, 1, 0),
+                new MultiblockArea(4, 5, 10),
                 1,
                 GTN_Casings.FrostProofMachineCasing),
             new StructureVariant<>(
                 "Fuel",
                 new String[][] { { "BBB", "BBB", "BBB" }, { "B~B", "B B", "BBB" }, { "BBB", "BBB", "BBB" } },
                 new MultiblockOffsets(1, 1, 0),
+                new MultiblockArea(3, 3, 3),
                 2,
                 GTN_Casings.TitaniumGearBoxCasing));
     }
@@ -65,11 +67,6 @@ public class GTN_TestMultiBlock extends GTN_NewMultiBlockBase<GTN_TestMultiBlock
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(4, 5, 10);
     }
 
     private final TierData casing = createTierData("casing");

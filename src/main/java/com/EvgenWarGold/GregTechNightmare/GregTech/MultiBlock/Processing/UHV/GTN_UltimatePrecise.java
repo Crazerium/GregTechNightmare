@@ -56,6 +56,7 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
                 },
                 //spotless:on
                 new MultiblockOffsets(14, 9, 2),
+                new MultiblockArea(29, 10, 13),
                 1,
                 GTN_Casings.PreciseCasingMk4));
     }
@@ -78,11 +79,6 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(29, 10, 13);
     }
 
     @Override

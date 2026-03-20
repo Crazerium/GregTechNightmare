@@ -49,6 +49,7 @@ public class GTN_AdvancedBBF extends GTN_NewMultiBlockBase<GTN_AdvancedBBF> {
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 4, 0),
+                new MultiblockArea(5, 6, 5),
                 1,
                 GTN_Casings.Firebricks));
     }
@@ -67,11 +68,6 @@ public class GTN_AdvancedBBF extends GTN_NewMultiBlockBase<GTN_AdvancedBBF> {
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(5, 6, 5);
     }
 
     @Override

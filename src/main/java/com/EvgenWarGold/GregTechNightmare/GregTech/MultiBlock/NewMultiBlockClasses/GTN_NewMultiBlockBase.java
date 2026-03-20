@@ -73,8 +73,6 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
     public abstract void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder);
 
     public abstract Authors getAuthor();
-
-    public abstract MultiblockArea getMultiblockArea();
     // endregion
 
     // region Variables
@@ -412,7 +410,8 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
         tt.addMachineType(getMachineType());
         tt.addInfoMultiLineTranslated(tr("tooltip"));
         tt.addAuthor(getAuthor().name);
-        tt.beginStructureBlock(getMultiblockArea().width, getMultiblockArea().height, getMultiblockArea().length);
+        addMultiBlockAreaInfo(tt);
+        tt.beginStructureBlock();
         createGtnTooltip(tt);
         tt.toolTipFinisher(Constants.MOD_NAME);
         return tt;
@@ -680,6 +679,31 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
     // endregion
 
     // region Other methods
+    private void addMultiBlockAreaInfo(GTN_MultiBlockTooltipBuilder tt) {
+        List<StructureVariant<T>> variants = getStructureVariants();
+
+        if (variants.isEmpty()) {
+            return;
+        }
+
+        if (variants.size() == 1) {
+            StructureVariant<T> variant = variants.get(0);
+            MultiblockArea area = variant.multiblockArea;
+            tt.addMultiBlockAreaInfo(area.width, area.height, area.length);
+            return;
+        }
+
+        for (StructureVariant<T> variant : variants) {
+            MultiblockArea area = variant.multiblockArea;
+            tt.addMultiBlockAreaInfoWithName(
+                variant.piece,
+                area.width,
+                area.height,
+                area.length
+            );
+        }
+    }
+
     public void setMainCasingCount(int mainCasingCount) {
         this.mainCasingCount = mainCasingCount;
     }

@@ -244,13 +244,14 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public MultiblockTooltipBuilder beginStructureBlock(int w, int h, int l) {
+    public MultiblockTooltipBuilder addMultiBlockAreaInfoWithName(String name, int w, int h, int l) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
 
         List<String> sLines = accessor.getSLines();
 
         sLines.add(
             EnumChatFormatting.GRAY + TT_dimensions
+                + (name.isEmpty() ? "" : EnumChatFormatting.AQUA + " " + name + EnumChatFormatting.GRAY)
                 + COLON
                 + EnumChatFormatting.GOLD
                 + w
@@ -276,6 +277,17 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 + "L"
                 + EnumChatFormatting.GRAY
                 + ")");
+        return this;
+    }
+
+    public MultiblockTooltipBuilder addMultiBlockAreaInfo(int w, int h, int l) {
+        addMultiBlockAreaInfoWithName("", w, h, l);
+        return this;
+    }
+
+    public MultiblockTooltipBuilder beginStructureBlock() {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> sLines = accessor.getSLines();
         sLines.add(EnumChatFormatting.GRAY + TT_structure + COLON);
         return this;
     }

@@ -66,6 +66,7 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 1, 0),
+                new MultiblockArea(3, 3, 3),
                 1,
                 GTN_Casings.CokeOvenCasing));
     }
@@ -84,11 +85,6 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(3, 3, 3);
     }
 
     @Override

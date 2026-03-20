@@ -50,6 +50,7 @@ public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPo
                 },
                 //spotless:on
                 new MultiblockOffsets(3, 4, 0),
+                new MultiblockArea(7, 5, 5),
                 1,
                 GTN_Casings.FrostProofMachineCasing));
     }
@@ -72,11 +73,6 @@ public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPo
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(7, 5, 5);
     }
 
     @Override
