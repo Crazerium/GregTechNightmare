@@ -40,7 +40,7 @@ public class GTN_MediumPowerCircuitAssembler extends GTN_NewMultiBlockBase<GTN_M
     public List<StructureVariant<GTN_MediumPowerCircuitAssembler>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "MediumPowerAssembler",
+                "MediumPowerCircuitAssembler",
                 // spotless:off
                 new String[][]{
                     {" B   AAA ","AA   AAAA"," B   AAA "},

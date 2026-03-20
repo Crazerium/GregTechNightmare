@@ -39,7 +39,7 @@ public class GTN_MediumPowerBender extends GTN_NewMultiBlockBase<GTN_MediumPower
     public List<StructureVariant<GTN_MediumPowerBender>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "MediumPowerAssembler",
+                "MediumPowerBender",
                 // spotless:off
                 new String[][]{
                     {"BB   B","AAAAAA","BB   B"},

@@ -36,7 +36,7 @@ public class GTN_MediumPowerEngraver extends GTN_NewMultiBlockBase<GTN_MediumPow
     public List<StructureVariant<GTN_MediumPowerEngraver>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "MediumPowerAssembler",
+                "MediumPowerEngraver",
                 // spotless:off
                 new String[][]{
                     {" ABBA"," ABBA"," ABBA"},
