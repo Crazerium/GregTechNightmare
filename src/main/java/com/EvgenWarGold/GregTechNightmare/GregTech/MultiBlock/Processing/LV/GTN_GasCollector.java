@@ -1,5 +1,15 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.OutputHatch;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -12,19 +22,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
-import net.minecraft.item.ItemStack;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_GasCollector extends GTN_NewMultiBlockBase<GTN_GasCollector> {
 
@@ -67,8 +69,7 @@ public class GTN_GasCollector extends GTN_NewMultiBlockBase<GTN_GasCollector> {
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputHatch()
             .addEnergyHatch();
     }
@@ -80,16 +81,15 @@ public class GTN_GasCollector extends GTN_NewMultiBlockBase<GTN_GasCollector> {
 
     @Override
     public IStructureDefinition<GTN_GasCollector> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('C', ofFrame(Materials.Steel))
-            .addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
-            .addElement(
-                'B',
-                ElementBuilder.create(GTN_GasCollector.class, this)
-                    .casing(mainCasing)
-                    .hatches(InputBus, OutputHatch, Energy)
-                    .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement('C', ofFrame(Materials.Steel))
+                .addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+                .addElement(
+                    'B',
+                    ElementBuilder.create(GTN_GasCollector.class, this)
+                        .casing(mainCasing)
+                        .hatches(InputBus, OutputHatch, Energy)
+                        .build()));
     }
 
     @Override

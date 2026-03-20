@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,8 +21,6 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
-
-import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 public class GTN_StructureUtility {
 
@@ -76,9 +76,6 @@ public class GTN_StructureUtility {
     public static <T> IStructureElement<T> createAllTieredGlass(TierData tierData) {
         return StructureUtility.withChannel(
             tierData.getChannelName(),
-            chainAllGlasses(
-                -1,
-                (te, t) -> tierData.setCasingTier(t),
-                te -> tierData.getCasingTier()));
+            chainAllGlasses(-1, (te, t) -> tierData.setCasingTier(t), te -> tierData.getCasingTier()));
     }
 }

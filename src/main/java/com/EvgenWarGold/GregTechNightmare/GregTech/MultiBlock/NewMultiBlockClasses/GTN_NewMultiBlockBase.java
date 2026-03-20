@@ -727,7 +727,6 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
         return createTierData(channelName, false);
     }
 
-
     public OverclockType getOverclockType() {
         return OverclockType.NormalOverclock;
     }

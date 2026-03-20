@@ -1,10 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
 
-import java.util.Arrays;
-import java.util.Objects;
-
-import net.minecraft.item.ItemStack;
-
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
@@ -12,8 +7,6 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
-
-import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 public class TieredElementBuilder<T> {
 
