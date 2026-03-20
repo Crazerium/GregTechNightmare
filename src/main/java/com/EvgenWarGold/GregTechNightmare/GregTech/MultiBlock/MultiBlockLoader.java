@@ -1,7 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_NewTestMultiBlock;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
@@ -11,12 +11,12 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerEngraver;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerExtruder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerWireMill;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedBBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedCokeOven;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
@@ -26,7 +26,7 @@ public final class MultiBlockLoader {
 
     public static void init() {
         // spotless:off
-        GTN_ItemList.TestMultiBlock.set(new GTN_NewTestMultiBlock(21_000, "Test"));
+        GTN_ItemList.TestMultiBlock.set(new GTN_TestMultiBlock(21_000, "Test"));
         GTN_ItemList.AdvancedBBF.set(new GTN_AdvancedBBF(21_001, "AdvancedBBF"));
         GTN_ItemList.BronzeVoidMiner.set(new GTN_BronzeVoidMiner(21_002, "BronzeVoidMiner"));
         GTN_ItemList.LowPowerVoidMiner.set(new GTN_LowPowerVoidMiner(21_003, "LowPowerVoidMiner"));

@@ -1,32 +1,31 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import it.unimi.dsi.fastutil.Pair;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import net.minecraft.util.EnumChatFormatting;
-
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.VoltageIndex;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
-import it.unimi.dsi.fastutil.Pair;
-
-public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPowerAssembler> {
+public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPowerAssembler> {
 
     public GTN_MediumPowerAssembler(int id, String name) {
         super(id, name);
@@ -37,23 +36,22 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 3;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 4;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.FrostProofMachineCasing;
+    public List<StructureVariant<GTN_MediumPowerAssembler>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "MediumPowerAssembler",
+                // spotless:off
+                new String[][]{
+                    {" C   C "," C   C "," C   C "," CCCCC "," C   C "},
+                    {" C   C ","       ","       ","  B    "," C   C "},
+                    {" C   C ","       ","       ","       "," C   C "},
+                    {" C   C "," AAAAA "," AAAAA "," AAAAA "," C   C "},
+                    {" AA~AA ","AAAAAAA","AAAAAAA","AAAAAAA"," AAAAA "}
+                },
+                //spotless:on
+                new MultiblockOffsets(3, 4, 0),
+                1,
+                GTN_Casings.FrostProofMachineCasing));
     }
 
     @Override
@@ -62,58 +60,35 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder
+            .addInputBus()
+            .addOutputBus()
+            .addInputHatch()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {" C   C "," C   C "," C   C "," CCCCC "," C   C "},
-            {" C   C ","       ","       ","  B    "," C   C "},
-            {" C   C ","       ","       ","       "," C   C "},
-            {" C   C "," AAAAA "," AAAAA "," AAAAA "," C   C "},
-            {" AA~AA ","AAAAAAA","AAAAAAA","AAAAAAA"," AAAAA "}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(7, 5, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addInputHatch(EnumChatFormatting.GOLD + "1", 1);
+    public MultiblockArea getMultiblockArea() {
+        return new MultiblockArea(7, 5, 5);
     }
 
     @Override
     public IStructureDefinition<GTN_MediumPowerAssembler> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerAssembler>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
+        return buildStructureDefinition(builder -> builder
             .addElement('C', ofFrame(Materials.Steel))
             .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-            .addElement(
-                'A',
-                buildHatchAdder(GTN_MediumPowerAssembler.class)
-                    .atLeast(InputBus, OutputBus, Energy, Maintenance, InputHatch)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_MediumPowerAssembler::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+            .addElement('A', ElementBuilder.create(GTN_MediumPowerAssembler.class, this)
+                .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
+                .casing(mainCasing)
+                .build())
+        );
     }
 
     @Override

@@ -24,18 +24,18 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-public class GTN_NewTestMultiBlock extends GTN_NewMultiBlockBase<GTN_NewTestMultiBlock> {
+public class GTN_TestMultiBlock extends GTN_NewMultiBlockBase<GTN_TestMultiBlock> {
 
-    public GTN_NewTestMultiBlock(int id, String name) {
+    public GTN_TestMultiBlock(int id, String name) {
         super(id, name);
     }
 
-    public GTN_NewTestMultiBlock(String name) {
+    public GTN_TestMultiBlock(String name) {
         super(name);
     }
 
     @Override
-    public List<StructureVariant<GTN_NewTestMultiBlock>> getStructureVariants() {
+    public List<StructureVariant<GTN_TestMultiBlock>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
                 "Gas",
@@ -52,8 +52,8 @@ public class GTN_NewTestMultiBlock extends GTN_NewMultiBlockBase<GTN_NewTestMult
     }
 
     @Override
-    public GTN_NewTestMultiBlock createNewMetaEntity() {
-        return new GTN_NewTestMultiBlock(this.mName);
+    public GTN_TestMultiBlock createNewMetaEntity() {
+        return new GTN_TestMultiBlock(this.mName);
     }
 
     @Override
@@ -76,11 +76,11 @@ public class GTN_NewTestMultiBlock extends GTN_NewMultiBlockBase<GTN_NewTestMult
     private final TierData casing1 = createTierData("casing1");
 
     @Override
-    public IStructureDefinition<GTN_NewTestMultiBlock> getStructureDefinition() {
+    public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement(
                 'B',
-                TieredElementBuilder.create(casing1, GTN_NewTestMultiBlock.class)
+                TieredElementBuilder.create(casing1, GTN_TestMultiBlock.class)
                     .casings(GTN_Casings.TitaniumGearBoxCasing, GTN_Casings.SolidifierCasing)
                     .hatches(
                         InputHatch,
@@ -95,7 +95,7 @@ public class GTN_NewTestMultiBlock extends GTN_NewMultiBlockBase<GTN_NewTestMult
                     .build())
                 .addElement(
                     'A',
-                    TieredElementBuilder.create(casing, GTN_NewTestMultiBlock.class)
+                    TieredElementBuilder.create(casing, GTN_TestMultiBlock.class)
                         .casings(GTN_Casings.FrostProofMachineCasing, GTN_Casings.Firebricks)
                         .hatches(
                             InputHatch,
