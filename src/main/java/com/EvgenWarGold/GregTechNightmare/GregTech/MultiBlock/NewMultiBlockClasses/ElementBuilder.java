@@ -1,16 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 @SuppressWarnings("unchecked")
 public class ElementBuilder<T> {

@@ -1,5 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -9,20 +18,12 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_MediumPowerBender extends GTN_NewMultiBlockBase<GTN_MediumPowerBender> {
 
@@ -59,8 +60,7 @@ public class GTN_MediumPowerBender extends GTN_NewMultiBlockBase<GTN_MediumPower
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addEnergyHatch()
             .addMaintenanceHatch();
@@ -73,13 +73,14 @@ public class GTN_MediumPowerBender extends GTN_NewMultiBlockBase<GTN_MediumPower
 
     @Override
     public IStructureDefinition<GTN_MediumPowerBender> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('B', ofFrame(Materials.Steel))
-            .addElement('A', ElementBuilder.create(GTN_MediumPowerBender.class, this)
-                .hatches(InputBus, OutputBus, Energy, Maintenance)
-                .casing(mainCasing)
-                .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement('B', ofFrame(Materials.Steel))
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_MediumPowerBender.class, this)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override

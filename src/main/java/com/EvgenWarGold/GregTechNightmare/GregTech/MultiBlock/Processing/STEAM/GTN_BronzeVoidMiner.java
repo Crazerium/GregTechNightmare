@@ -1,5 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -12,20 +23,12 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.VoidMinerUtils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_BronzeVoidMiner extends GTN_NewMultiBlockBase<GTN_BronzeVoidMiner> {
 
@@ -75,8 +78,7 @@ public class GTN_BronzeVoidMiner extends GTN_NewMultiBlockBase<GTN_BronzeVoidMin
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addSteamHatch()
+        builder.addSteamHatch()
             .addSteamOutputBus();
     }
 
@@ -87,14 +89,15 @@ public class GTN_BronzeVoidMiner extends GTN_NewMultiBlockBase<GTN_BronzeVoidMin
 
     @Override
     public IStructureDefinition<GTN_BronzeVoidMiner> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-                .addElement('C', ofFrame(Materials.Bronze))
+        return buildStructureDefinition(
+            builder -> builder.addElement('C', ofFrame(Materials.Bronze))
                 .addElement('A', GTN_Casings.BronzePlatedBricks.asElement())
-                .addElement('B', ElementBuilder.create(GTN_BronzeVoidMiner.class, this)
-                    .casing(mainCasing)
-                    .hatches(GTN_NewHatchElement.SteamInputHatch, GTN_NewHatchElement.SteamOutputBus)
-                    .build())
-            );
+                .addElement(
+                    'B',
+                    ElementBuilder.create(GTN_BronzeVoidMiner.class, this)
+                        .casing(mainCasing)
+                        .hatches(GTN_NewHatchElement.SteamInputHatch, GTN_NewHatchElement.SteamOutputBus)
+                        .build()));
     }
 
     @Override

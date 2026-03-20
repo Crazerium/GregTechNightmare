@@ -1,5 +1,15 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -9,21 +19,12 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPowerAssembler> {
 
@@ -62,8 +63,7 @@ public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPo
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addInputHatch()
             .addEnergyHatch()
@@ -77,14 +77,15 @@ public class GTN_MediumPowerAssembler extends GTN_NewMultiBlockBase<GTN_MediumPo
 
     @Override
     public IStructureDefinition<GTN_MediumPowerAssembler> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('C', ofFrame(Materials.Steel))
-            .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-            .addElement('A', ElementBuilder.create(GTN_MediumPowerAssembler.class, this)
-                .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
-                .casing(mainCasing)
-                .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement('C', ofFrame(Materials.Steel))
+                .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_MediumPowerAssembler.class, this)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override

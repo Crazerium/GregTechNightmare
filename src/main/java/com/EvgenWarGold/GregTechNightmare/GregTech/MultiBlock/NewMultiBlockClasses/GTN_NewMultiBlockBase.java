@@ -695,12 +695,7 @@ public abstract class GTN_NewMultiBlockBase<T extends GTN_NewMultiBlockBase<T>>
 
         for (StructureVariant<T> variant : variants) {
             MultiblockArea area = variant.multiblockArea;
-            tt.addMultiBlockAreaInfoWithName(
-                variant.piece,
-                area.width,
-                area.height,
-                area.length
-            );
+            tt.addMultiBlockAreaInfoWithName(variant.piece, area.width, area.height, area.length);
         }
     }
 

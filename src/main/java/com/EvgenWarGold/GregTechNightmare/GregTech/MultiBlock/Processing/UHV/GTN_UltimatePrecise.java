@@ -1,5 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.ExoticEnergy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -9,22 +20,12 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClass
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.ExoticEnergy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePrecise> {
 
@@ -68,8 +69,7 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addInputHatch()
             .addExoticOrEnergyHatch()
@@ -83,17 +83,18 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
 
     @Override
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-            .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
-            .addElement('B', ofFrame(Materials.Gadolinium))
-            .addElement('C', ofFrame(Materials.Shadow))
-            .addElement('D', ofFrame(Materials.Infinity))
-            .addElement('F', ElementBuilder.create(GTN_UltimatePrecise.class, this)
-                .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
-                .casing(mainCasing)
-                .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
+                .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement('B', ofFrame(Materials.Gadolinium))
+                .addElement('C', ofFrame(Materials.Shadow))
+                .addElement('D', ofFrame(Materials.Infinity))
+                .addElement(
+                    'F',
+                    ElementBuilder.create(GTN_UltimatePrecise.class, this)
+                        .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override
