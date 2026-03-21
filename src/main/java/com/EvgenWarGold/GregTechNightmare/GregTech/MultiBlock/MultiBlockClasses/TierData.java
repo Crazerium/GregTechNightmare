@@ -1,8 +1,8 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
-import gregtech.api.enums.HeatingCoilLevel;
-
 import static gregtech.api.enums.Textures.BlockIcons.ERROR_TEXTURE_INDEX;
+
+import gregtech.api.enums.HeatingCoilLevel;
 
 public class TierData {
 

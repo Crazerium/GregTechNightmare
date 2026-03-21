@@ -47,9 +47,7 @@ public class TieredElementBuilder<T> {
         IStructureElement<T> blocks = GTN_StructureUtility.createTierBlocks(tierData, casings);
 
         if (hatches == null) {
-            return StructureUtility.withChannel(
-                tierData.getChannelName(),
-                blocks);
+            return StructureUtility.withChannel(tierData.getChannelName(), blocks);
         }
 
         return StructureUtility.withChannel(

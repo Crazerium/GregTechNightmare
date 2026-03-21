@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.createItem;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.setStackSize;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getBlock;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFrameGt;
@@ -11,6 +13,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
+import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
@@ -328,6 +331,21 @@ public class GTN_MultiBlockRecipes {
             .duration(120 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Improved Algae Farm
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.SterileFarmCasing.getItemStack(8),
+                GTN_Casings.ArborealCasing.getItemStack(8),
+                getCircuits(Materials.HV, 4),
+                setStackSize(createItem(Blocks.log, 0), 32)
+            )
+            .fluidInputs(
+                getFluid(Materials.Water, 64000)
+            )
+            .itemOutputs(GTN_ItemList.ImprovedAlgaeFarm.get(1))
+            .eut(RECIPE_HV)
+            .duration(1200)
+            .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }
 }

@@ -22,6 +22,7 @@ gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 gtn.recipe.GasCollectorRecipes=Gas Collector
+gtn.recipe.ImprovedAlgaeFarmRecipes=Improved Algae Farm
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -39,6 +40,7 @@ GT5U.gui.text.no_mode_selected=No mode selected
 GT5U.gui.text.not_enough_lp=§cNot enough LP
 GT5U.gui.text.not_enough_xp=§cNot enough Liquid XP 
 GT5U.gui.text.not_enough_praecantatio=§cNot enough Praecantatio
+GT5U.gui.text.not_enough_water=Not enough §bWater
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -208,6 +210,19 @@ multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 #VacuumNuke
 multiblock.VacuumNuke=Vacuum Nuke
 multiblock.VacuumNuke.machine_type=Nuke
+
+#ImprovedAlgaeFarm
+multiblock.ImprovedAlgaeFarm=Improved Algae Farm 
+multiblock.ImprovedAlgaeFarm.machine_type=Algae Farm
+multiblock.ImprovedAlgaeFarm.tooltip.00=Improved version of Algae Farm
+multiblock.ImprovedAlgaeFarm.tooltip.01=Each parallel requires 1000L of §bWater
+multiblock.ImprovedAlgaeFarm.tooltip.02=You can insert a valid circuit in input bus for choose what algae is have to be producing
+multiblock.ImprovedAlgaeFarm.tooltip.03=You can insert a §afertilizer§7 from IC2 to increase a output for algae by x2
+multiblock.ImprovedAlgaeFarm.tooltip.04=Cost of §afertilizer§7 depends on parallel
+multiblock.ImprovedAlgaeFarm.tooltip.05=LV machine casing have 16 parallels and doubles every tier above
+multiblock.ImprovedAlgaeFarm.tooltip.06=§9UV§7 machine casing remove requirements for §bWater
+multiblock.ImprovedAlgaeFarm.tooltip.07=Support Reservoir Hatch and Stocking Hatches
+multiblock.ImprovedAlgaeFarm.tooltip.08=Does not require power!
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
