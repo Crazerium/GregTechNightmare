@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.SoundResource;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -31,7 +28,10 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.SoundResource;
 import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.RecipeMap;

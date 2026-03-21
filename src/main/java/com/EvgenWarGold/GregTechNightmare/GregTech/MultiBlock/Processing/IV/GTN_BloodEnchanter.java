@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.SoundResource;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Items;
@@ -42,6 +39,9 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;

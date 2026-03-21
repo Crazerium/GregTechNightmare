@@ -100,7 +100,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
 
     @Override
     public float getSpeedBonus() {
-        return 0.74F;
+        return 1.35F;
     }
 
     @Override

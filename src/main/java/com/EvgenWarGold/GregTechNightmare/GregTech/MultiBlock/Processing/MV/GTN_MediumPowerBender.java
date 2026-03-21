@@ -93,7 +93,7 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     public float getSpeedBonus() {
-        return 0.80F;
+        return 1.20F;
     }
 
     @Override

@@ -92,7 +92,7 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
 
     @Override
     public float getSpeedBonus() {
-        return 0.80F;
+        return 1.20F;
     }
 
     @Override

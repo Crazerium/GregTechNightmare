@@ -8,9 +8,6 @@ import static gregtech.api.util.GTStructureUtility.ofFrame;
 import java.util.Arrays;
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.SoundResource;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +23,10 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.VoidMinerUtils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;

@@ -107,7 +107,7 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
 
     @Override
     public float getSpeedBonus() {
-        return 0.70F;
+        return 2F;
     }
 
     @Override
