@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
-import gregtech.api.enums.HeatingCoilLevel;
-import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -23,6 +20,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
+import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
@@ -90,9 +89,6 @@ public class GTN_StructureUtility {
             activeCoils(
                 ofCoil(
                     (BiConsumer<T, HeatingCoilLevel>) (te, level) -> tierData.setCoilLevel(level),
-                    te -> tierData.getCoilLevel()
-                )
-            )
-        );
+                    te -> tierData.getCoilLevel())));
     }
 }

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
+
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.util.GTUtility;
@@ -13,7 +15,7 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteam
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
 
 @SuppressWarnings("unchecked")
-public enum GTN_NewHatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
+public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
     SteamInputHatch("SteamInputHatch", GTN_MultiBlockBase::addSteamInputHatchToMachineList,
         MTEHatchCustomFluidBase.class) {
@@ -38,13 +40,21 @@ public enum GTN_NewHatchElement implements IHatchElement<GTN_MultiBlockBase<?>> 
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.mSteamOutputBusses.size();
         }
+    },
+
+    SensorHatch("SensorHatch", GTN_MultiBlockBase::addSensorHatchToMachineList, GTN_SensorHatch.class) {
+
+        @Override
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
+            return gtnMultiBlockBase.mSensorHatch.size();
+        }
     };
 
     private final String name;
     private final List<Class<? extends IMetaTileEntity>> mteClasses;
     private final IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder;
 
-    GTN_NewHatchElement(String name, IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder,
+    GTN_HatchElement(String name, IGTHatchAdder<? super GTN_MultiBlockBase<?>> adder,
         Class<? extends IMetaTileEntity>... mteClasses) {
         this.name = name;
         this.mteClasses = Collections.unmodifiableList(Arrays.asList(mteClasses));

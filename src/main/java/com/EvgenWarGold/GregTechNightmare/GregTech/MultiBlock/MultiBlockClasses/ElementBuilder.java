@@ -57,11 +57,11 @@ public class ElementBuilder<T> {
         return this;
     }
 
-    public final ElementBuilder<T> hatches(GTN_NewHatchElement... hatches) {
+    public final ElementBuilder<T> hatches(GTN_HatchElement... hatches) {
         List<IHatchElement<? super T>> filtered = new ArrayList<>();
 
-        for (GTN_NewHatchElement hatchElement : hatches) {
-            if (hatchElement != GTN_NewHatchElement.SteamInputHatch) {
+        for (GTN_HatchElement hatchElement : hatches) {
+            if (hatchElement != GTN_HatchElement.SteamInputHatch) {
                 filtered.add((IHatchElement<? super T>) hatchElement);
             } else hasSteamHatch = true;
         }
@@ -84,7 +84,7 @@ public class ElementBuilder<T> {
         if (hasSteamHatch) {
             return StructureUtility.ofChain(
                 GTStructureUtility.buildHatchAdder(tileClass)
-                    .atLeast((IHatchElement<? super T>) GTN_NewHatchElement.SteamInputHatch)
+                    .atLeast((IHatchElement<? super T>) GTN_HatchElement.SteamInputHatch)
                     .casingIndex(casing.textureId)
                     .hatchIds(31_040)
                     .dot(dot)

@@ -22,9 +22,15 @@ gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 gtn.recipe.GasCollectorRecipes=Gas Collector
+gtn.recipe.VacuumNukeRecipes=Vacuum Nuke
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
+gtn.recipe.utils.multiblock_tier.1=Casing: Frost Proof
+gtn.recipe.utils.multiblock_tier.2=Casing: Stable Titanium
+gtn.recipe.utils.multiblock_tier.3=Casing: Robust Tungstensteel
+gtn.recipe.utils.generating_eu=Generating: %s EU/t
+
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
 GT5U.gui.text.sapling_enough=Sapling is empty
@@ -39,6 +45,7 @@ GT5U.gui.text.no_mode_selected=No mode selected
 GT5U.gui.text.not_enough_lp=§cNot enough LP
 GT5U.gui.text.not_enough_xp=§cNot enough Liquid XP 
 GT5U.gui.text.not_enough_praecantatio=§cNot enough Praecantatio
+GT5U.gui.text.invalid_casing=§cInvalid Casing
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
@@ -221,6 +228,9 @@ Crazer=§aCrazer
 Author_Totto=Author: §bTotto
 Totto=§bTotto
 Author_Structure=Structure author: §6%s
+
+#Hatch
+GTN.gui.text.sensor=Detection Threshold
 
 #Others
 GTN.TooltipBuilder.basic_info=Basic Info:

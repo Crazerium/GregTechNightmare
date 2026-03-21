@@ -1,5 +1,17 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SensorHatch;
+import static gregtech.api.enums.HatchElement.Dynamo;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.util.GTStructureUtility.ofFrame;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -9,17 +21,18 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.enums.Materials;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Dynamo;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
+import gregtech.api.logic.ProcessingLogic;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.recipe.check.SimpleCheckRecipeResult;
+import gregtech.api.util.GTRecipe;
 
 public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
@@ -69,7 +82,8 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
         builder.addInputBus()
             .addInputHatch()
-            .addDynamoOrBufferedHatch();
+            .addDynamoOrBufferedHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
@@ -79,31 +93,33 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
     @Override
     public IStructureDefinition<GTN_VacuumNuke> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('A', TieredElementBuilder.create(itemPipe, GTN_VacuumNuke.class)
-                .casings(
-                    GTN_Casings.TinItemPipeCasing,
-                    GTN_Casings.BrassItemPipeCasing,
-                    GTN_Casings.ElectrumItemPipeCasing,
-                    GTN_Casings.PlatinumItemPipeCasing,
-                    GTN_Casings.OsmiumItemPipeCasing,
-                    GTN_Casings.QuantiumItemPipeCasing,
-                    GTN_Casings.FluxedElectrumItemPipeCasing,
-                    GTN_Casings.BlackPlutoniumItemPipeCasing)
-                .build())
-            .addElement('B', GTN_Casings.SolidSteelMachineCasing.asElement())
-            .addElement('D', GTN_StructureUtility.createAllTierCoilBlock(coilBlock))
-            .addElement('E', ofFrame(Materials.Steel))
-            .addElement('F', GTN_StructureUtility.createAllTieredGlass(glass))
-            .addElement('C', TieredElementBuilder.create(globalCasing, GTN_VacuumNuke.class)
-                .casings(
-                    GTN_Casings.FrostProofMachineCasing,
-                    GTN_Casings.StableTitaniumMachineCasing,
-                    GTN_Casings.RobustTungstenSteelMachineCasing
-                )
-                .hatches(InputBus, Dynamo, InputHatch)
-                .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement(
+                'A',
+                TieredElementBuilder.create(itemPipe, GTN_VacuumNuke.class)
+                    .casings(
+                        GTN_Casings.TinItemPipeCasing,
+                        GTN_Casings.BrassItemPipeCasing,
+                        GTN_Casings.ElectrumItemPipeCasing,
+                        GTN_Casings.PlatinumItemPipeCasing,
+                        GTN_Casings.OsmiumItemPipeCasing,
+                        GTN_Casings.QuantiumItemPipeCasing,
+                        GTN_Casings.FluxedElectrumItemPipeCasing,
+                        GTN_Casings.BlackPlutoniumItemPipeCasing)
+                    .build())
+                .addElement('B', GTN_Casings.SolidSteelMachineCasing.asElement())
+                .addElement('D', GTN_StructureUtility.createAllTierCoilBlock(coilBlock))
+                .addElement('E', ofFrame(Materials.Steel))
+                .addElement('F', GTN_StructureUtility.createAllTieredGlass(glass))
+                .addElement(
+                    'C',
+                    TieredElementBuilder.create(globalCasing, GTN_VacuumNuke.class)
+                        .casings(
+                            GTN_Casings.FrostProofMachineCasing,
+                            GTN_Casings.StableTitaniumMachineCasing,
+                            GTN_Casings.RobustTungstenSteelMachineCasing)
+                        .hatches(InputBus, Dynamo, InputHatch, Maintenance, SensorHatch)
+                        .build()));
     }
 
     @Override
@@ -112,7 +128,21 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return true;
+    public RecipeMap<?> getRecipeMap() {
+        return GTN_Recipe.VacuumNukeRecipes;
+    }
+
+    @Override
+    protected ProcessingLogic createProcessingLogic() {
+        return new ProcessingLogic() {
+
+            @Override
+            protected @Nonnull CheckRecipeResult validateRecipe(@Nonnull GTRecipe recipe) {
+                int tier = recipe.getMetadataOrDefault(SimpleMetaData.MULTIBLOCK_TIER, 0);
+
+                return globalCasing.getCasingTier() >= tier ? CheckRecipeResultRegistry.SUCCESSFUL
+                    : SimpleCheckRecipeResult.ofFailure("invalid_casing");
+            }
+        }.setMaxParallelSupplier(this::getTrueParallel);
     }
 }

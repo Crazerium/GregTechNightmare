@@ -52,6 +52,10 @@ public enum GTN_ItemList {
     VacuumNuke,
     // endregion
 
+    // region Hatch
+    SensorHatch,
+    // endregion
+
     ;
     // endregion
     // spotless:on

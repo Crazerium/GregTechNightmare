@@ -27,6 +27,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
@@ -80,6 +81,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<MTEHatchSteamBusInput> mSteamInputBusses = new ArrayList<>();
     public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
+    public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
     private float euModifier = 1;
@@ -121,6 +123,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamInputFluids.clear();
         this.mSteamInputBusses.clear();
         this.mSteamOutputBusses.clear();
+        this.mSensorHatch.clear();
         mainCasingCount = 0;
 
         for (TierData tierData : registeredTierData) {
@@ -546,6 +549,17 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
         return false;
     }
+
+    public final boolean addSensorHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+
+        if (tileEntity.getMetaTileEntity() instanceof GTN_SensorHatch sensorHatch) {
+            sensorHatch.updateTexture(baseCasingIndex);
+            sensorHatch.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mSensorHatch.add(sensorHatch);
+        }
+        return false;
+    }
     // endregion
 
     // region Energy
@@ -858,6 +872,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mOutputHatches) h.updateTexture(textureId);
         for (MTEHatch h : mMufflerHatches) h.updateTexture(textureId);
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
+        for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
     }
 
     public CoordMultiBlock getCoord() {

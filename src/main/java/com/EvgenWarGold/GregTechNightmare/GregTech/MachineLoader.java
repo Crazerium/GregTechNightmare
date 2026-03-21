@@ -1,6 +1,6 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock;
+package com.EvgenWarGold.GregTechNightmare.GregTech;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
@@ -23,7 +23,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.G
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
 
-public final class MultiBlockLoader {
+public final class MachineLoader {
 
     public static void init() {
         // spotless:off
@@ -48,6 +48,7 @@ public final class MultiBlockLoader {
         GTN_ItemList.LaserMeteorMiner.set(new GTN_LaserMeteorMiner(21_018, "LaserMeteorMiner"));
         GTN_ItemList.BloodEnchanter.set(new GTN_BloodEnchanter(21_019, "BloodEnchanter"));
         GTN_ItemList.VacuumNuke.set(new GTN_VacuumNuke(21_020, "VacuumNuke"));
+        GTN_ItemList.SensorHatch.set(new GTN_SensorHatch(21_021, "Sensor Hatch"));
         //spotless:on
     }
 }

@@ -2,7 +2,7 @@ package com.EvgenWarGold.GregTechNightmare;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockLoader;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.RecipeResultRegisters;
 
@@ -26,7 +26,7 @@ public class CommonProxy {
 
     // load "Do your mod setup. Build whatever data structures you care about. Register recipes." (Remove if not needed)
     public void init(FMLInitializationEvent event) {
-        MultiBlockLoader.init();
+        MachineLoader.init();
         RecipeResultRegisters.init();
     }
 
