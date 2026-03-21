@@ -408,7 +408,9 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tt.addInfoMultiLineTranslated(tr("tooltip"));
         tt.addAuthor(getAuthor());
         addMultiBlockAreaInfo(tt);
-        addMultiBlockBasicInfo(tt);
+        if (isEnergyMultiBlock()) {
+            addMultiBlockBasicInfo(tt);
+        }
         tt.beginStructureBlock();
         createGtnTooltip(tt);
         tt.toolTipFinisher(Constants.MOD_NAME);

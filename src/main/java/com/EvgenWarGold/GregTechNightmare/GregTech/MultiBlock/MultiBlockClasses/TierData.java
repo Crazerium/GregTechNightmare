@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import gregtech.api.enums.HeatingCoilLevel;
+
 import static gregtech.api.enums.Textures.BlockIcons.ERROR_TEXTURE_INDEX;
 
 public class TierData {
@@ -10,6 +12,15 @@ public class TierData {
     private GTN_Casings casing = GTN_Casings.SolidSteelMachineCasing;
     private String channelName = "";
     private boolean isMainCasing = false;
+    private HeatingCoilLevel coilLevel;
+
+    public HeatingCoilLevel getCoilLevel() {
+        return coilLevel;
+    }
+
+    public void setCoilLevel(HeatingCoilLevel aCoilLevel) {
+        coilLevel = aCoilLevel;
+    }
 
     public int getCasingTier() {
         return casingTier;
