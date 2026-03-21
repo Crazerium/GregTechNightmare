@@ -1,13 +1,14 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 
-public class StructureVariant<T extends GTN_NewMultiBlockBase<T>> {
+public class StructureVariant<T extends GTN_MultiBlockBase<T>> {
 
     public final String piece;
     public final String[][] shape;
     public final MultiblockOffsets multiblockOffsets;
+    public final MultiblockArea multiblockArea;
     public final int tier;
     public final GTN_Casings casing;
 
@@ -15,11 +16,13 @@ public class StructureVariant<T extends GTN_NewMultiBlockBase<T>> {
     public StructureVariant(String piece,
                             String[][] shape,
                             MultiblockOffsets multiblockOffsets,
+                            MultiblockArea multiblockArea,
                             int tier,
                             GTN_Casings casing) {
         this.piece = piece;
         this.shape = shape;
         this.multiblockOffsets = multiblockOffsets;
+        this.multiblockArea = multiblockArea;
         this.tier = tier;
         this.casing = casing;
     }

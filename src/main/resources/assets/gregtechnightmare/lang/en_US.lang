@@ -12,8 +12,8 @@ tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
-multiblock.waila.eu_modifier=§aEu Modifier: §6%s
-multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s
+multiblock.waila.eu_modifier=§aEu Usage: §6%s
+multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s%%
 multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 multiblock.waila.tier=§aTier: §6%s
 
@@ -133,7 +133,7 @@ multiblock.TreeSprouter.tooltip.03=§aNo EU required
 multiblock.CreosoteEngine=Creosote Engine
 multiblock.CreosoteEngine.machine_type=Generator
 multiblock.CreosoteEngine.tooltip.00=Only one Dynamo tier allowed per structure §cLV §7or §cMV
-multiblock.CreosoteEngine.tooltip.01=accepts buffered dynamo
+multiblock.CreosoteEngine.tooltip.01=Accepts buffered dynamo
 multiblock.CreosoteEngine.tooltip.02=Fuel consumption: §eCreosote
 multiblock.CreosoteEngine.tooltip.03=LV: §a25L/s §7per amp
 multiblock.CreosoteEngine.tooltip.04=MV: §a100L/s §7per amp
@@ -234,5 +234,6 @@ Totto=§bTotto
 Author_Structure=Structure author: §6%s
 
 #Others
-GTN.TooltipBuilder.ExoticHatches=Multi-Amp | Laser Hatches
-GTN.TooltipBuilder.ExoticOrEnergyHatches=Multi-Amp | Laser | Energy Hatches
+GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
+GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
+GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch

@@ -1,23 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
-import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.VoltageIndex;
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
-import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
@@ -26,7 +8,29 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePrecise> {
+import java.util.Arrays;
+import java.util.List;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
+import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.SoundResource;
+import gregtech.api.enums.VoltageIndex;
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMaps;
+import it.unimi.dsi.fastutil.Pair;
+
+public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise> {
 
     public GTN_UltimatePrecise(int id, String name) {
         super(id, name);
@@ -56,6 +60,7 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
                 },
                 //spotless:on
                 new MultiblockOffsets(14, 9, 2),
+                new MultiblockArea(29, 10, 13),
                 1,
                 GTN_Casings.PreciseCasingMk4));
     }
@@ -67,8 +72,7 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        builder
-            .addInputBus()
+        builder.addInputBus()
             .addOutputBus()
             .addInputHatch()
             .addExoticOrEnergyHatch()
@@ -81,23 +85,19 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
     }
 
     @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(29, 10, 13);
-    }
-
-    @Override
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-            .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
-            .addElement('B', ofFrame(Materials.Gadolinium))
-            .addElement('C', ofFrame(Materials.Shadow))
-            .addElement('D', ofFrame(Materials.Infinity))
-            .addElement('F', ElementBuilder.create(GTN_UltimatePrecise.class, this)
-                .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
-                .casing(mainCasing)
-                .build())
-        );
+        return buildStructureDefinition(
+            builder -> builder.addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
+                .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement('B', ofFrame(Materials.Gadolinium))
+                .addElement('C', ofFrame(Materials.Shadow))
+                .addElement('D', ofFrame(Materials.Infinity))
+                .addElement(
+                    'F',
+                    ElementBuilder.create(GTN_UltimatePrecise.class, this)
+                        .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override
@@ -118,5 +118,11 @@ public class GTN_UltimatePrecise extends GTN_NewMultiBlockBase<GTN_UltimatePreci
     @Override
     public int getMaxParallelRecipes() {
         return 4096;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GT_MACHINES_MULTI_PRECISE_LOOP;
     }
 }

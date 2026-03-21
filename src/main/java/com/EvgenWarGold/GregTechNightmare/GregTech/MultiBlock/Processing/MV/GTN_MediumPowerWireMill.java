@@ -1,26 +1,29 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
-import net.minecraft.util.EnumChatFormatting;
+import java.util.Arrays;
+import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerWireMill> {
@@ -34,23 +37,21 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 0;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 1;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.FrostProofMachineCasing;
+    public List<StructureVariant<GTN_MediumPowerWireMill>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "MediumPowerWireMill",
+                // spotless:off
+                new String[][]{
+                    {"A  A    ","A  A    ","A  A    "},
+                    {"~  A   A","ACCCCCCA","A  A   A"},
+                    {"AAAAAAAA","ABBBBBBA","AAAAAAAA"}
+                },
+                //spotless:on
+                new MultiblockOffsets(0, 1, 0),
+                new MultiblockArea(8, 3, 3),
+                1,
+                GTN_Casings.FrostProofMachineCasing));
     }
 
     @Override
@@ -59,54 +60,29 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus()
+            .addOutputBus()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"A  A    ","A  A    ","A  A    "},
-            {"~  A   A","ACCCCCCA","A  A   A"},
-            {"AAAAAAAA","ABBBBBBA","AAAAAAAA"}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(8, 3, 3, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
     public IStructureDefinition<GTN_MediumPowerWireMill> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerWireMill>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-            .addElement('C', GTN_Casings.TintedGlassBlack.asElement())
-            .addElement(
-                'A',
-                buildHatchAdder(GTN_MediumPowerWireMill.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_MediumPowerWireMill::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+        return buildStructureDefinition(
+            builder -> builder.addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
+                .addElement('C', GTN_Casings.TintedGlassBlack.asElement())
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_MediumPowerWireMill.class, this)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override
@@ -127,5 +103,11 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     @Override
     public int getMaxParallelRecipes() {
         return 10;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_MOTOR;
     }
 }

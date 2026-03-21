@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -16,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_NewHatchElement;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewHatchElement;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
@@ -35,7 +38,7 @@ import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 
-public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCokeOven> {
+public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOven> {
 
     private static final List<ItemStack> addItems = new ArrayList<>();
     private static final List<FluidStack> addFluids = new ArrayList<>();
@@ -66,6 +69,7 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 1, 0),
+                new MultiblockArea(3, 3, 3),
                 1,
                 GTN_Casings.CokeOvenCasing));
     }
@@ -84,11 +88,6 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
     @Override
     public Authors getAuthor() {
         return Authors.EVGEN_WAR_GOLD;
-    }
-
-    @Override
-    public MultiblockArea getMultiblockArea() {
-        return new MultiblockArea(3, 3, 3);
     }
 
     @Override
@@ -166,5 +165,11 @@ public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCoke
                 return CheckRecipeResultRegistry.NO_RECIPE;
             }
         }.setMaxParallelSupplier(this::getMaxParallelRecipes);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_FIRE;
     }
 }

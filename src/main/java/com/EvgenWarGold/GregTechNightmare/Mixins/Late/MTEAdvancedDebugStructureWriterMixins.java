@@ -4,9 +4,11 @@ import static com.gtnewhorizon.structurelib.structure.StructureUtility.iterate;
 import static gregtech.GTMod.GT_FML_LOGGER;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -94,8 +96,8 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
     }
 
     private static String getPseudoJavaCode(World world, ExtendedFacing extendedFacing, int basePositionX,
-        int basePositionY, int basePositionZ, int basePositionA, int basePositionB, int basePositionC,
-        Function<? super TileEntity, String> tileEntityClassifier, int sizeA, int sizeB, int sizeC, boolean transpose)
+                                            int basePositionY, int basePositionZ, int basePositionA, int basePositionB, int basePositionC,
+                                            Function<? super TileEntity, String> tileEntityClassifier, int sizeA, int sizeB, int sizeC, boolean transpose)
         throws IllegalAccessException {
 
         Map<Block, Set<Integer>> blocks = new TreeMap<>(Comparator.comparing(Block::getUnlocalizedName));
@@ -213,7 +215,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
         char c;
 
         builder.append("\n")
-            .append("\nBlocks:\n");
+            .append("Blocks:\n");
 
         for (Map.Entry<Block, Set<Integer>> entry : blocks.entrySet()) {
 
@@ -364,156 +366,122 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
             .append(sizeC)
             .append('\n');
 
-        if (transpose) {
+        builder.append("\nScan:\n\n")
+            .append("return Arrays.asList(\n")
+            .append("    new StructureVariant<>(\n")
+            .append("        \"\",\n")
+            .append("        // spotless:off\n")
+            .append("        new String[][]{\n");
 
-            builder.append("\nTransposed Scan:\n")
-                .append("    //spotless:off\n")
-                .append("return new String[][]{\n")
-                .append("    {\"");
+        List<String> allRows = new ArrayList<>();
+        StringBuilder currentRow = new StringBuilder();
 
-            iterate(
-                world,
-                extendedFacing,
-                basePositionX,
-                basePositionY,
-                basePositionZ,
-                basePositionA,
-                basePositionB,
-                basePositionC,
-                true,
-                sizeA,
-                sizeB,
-                sizeC,
-                (w, x, y, z) -> {
+        iterate(
+            world,
+            extendedFacing,
+            basePositionX,
+            basePositionY,
+            basePositionZ,
+            basePositionA,
+            basePositionB,
+            basePositionC,
+            true,
+            sizeA,
+            sizeB,
+            sizeC,
+            (w, x, y, z) -> {
 
-                    TileEntity tileEntity = w.getTileEntity(x, y, z);
+                TileEntity tileEntity = w.getTileEntity(x, y, z);
 
-                    if (tileEntity != null) {
+                if (tileEntity != null) {
 
-                        String classification = wrappedClassifier.apply(tileEntity);
+                    String classification = wrappedClassifier.apply(tileEntity);
 
-                        if ("CONTROLLER".equals(classification)) {
-                            builder.append('~');
-                            return;
-                        }
+                    if ("CONTROLLER".equals(classification)) {
+                        currentRow.append('~');
+                        return;
                     }
+                }
 
-                    if (tileEntity == null) {
+                if (tileEntity == null) {
 
-                        Block block = w.getBlock(x, y, z);
+                    Block block = w.getBlock(x, y, z);
 
-                        if (block != null && block != Blocks.air) {
+                    if (block != null && block != Blocks.air) {
 
-                            String key = block.getUnlocalizedName() + '\0' + block.getDamageValue(world, x, y, z);
+                        String key = block.getUnlocalizedName() + '\0' + block.getDamageValue(world, x, y, z);
 
-                            Character ch = map.get(key);
+                        Character ch = map.get(key);
 
-                            builder.append(ch != null ? ch : '?');
-
-                        } else {
-                            builder.append(' ');
-                        }
+                        currentRow.append(ch != null ? ch : '?');
 
                     } else {
-
-                        String classification = wrappedClassifier.apply(tileEntity);
-
-                        if (classification == null) {
-                            classification = tileEntity.getClass()
-                                .getCanonicalName();
-                        }
-
-                        Character ch = map.get(classification);
-                        builder.append(ch != null ? ch : '?');
-                    }
-                },
-                () -> builder.append("\",\""),
-                () -> {
-                    builder.setLength(builder.length() - 2);
-                    builder.append("},\n    {\"");
-                });
-
-            builder.setLength(builder.length() - 8);
-            builder.append("\n};\n");
-            builder.append("    //spotless:on");
-            builder.append("\n\n");
-
-        } else {
-
-            builder.append("\nNormal Scan:\n")
-                .append("new String[][]{{\n")
-                .append("    \"");
-
-            iterate(
-                world,
-                extendedFacing,
-                basePositionX,
-                basePositionY,
-                basePositionZ,
-                basePositionA,
-                basePositionB,
-                basePositionC,
-                false,
-                sizeA,
-                sizeB,
-                sizeC,
-                (w, x, y, z) -> {
-
-                    TileEntity tileEntity = w.getTileEntity(x, y, z);
-
-                    if (tileEntity != null) {
-
-                        String classification = wrappedClassifier.apply(tileEntity);
-
-                        if ("CONTROLLER".equals(classification)) {
-                            builder.append('~');
-                            return;
-                        }
+                        currentRow.append(' ');
                     }
 
-                    if (tileEntity == null) {
+                } else {
 
-                        Block block = w.getBlock(x, y, z);
+                    String classification = wrappedClassifier.apply(tileEntity);
 
-                        if (block != null && block != Blocks.air) {
-
-                            String key = block.getUnlocalizedName() + '\0' + block.getDamageValue(world, x, y, z);
-
-                            Character ch = map.get(key);
-
-                            builder.append(ch != null ? ch : '?');
-
-                        } else {
-                            builder.append(' ');
-                        }
-
-                    } else {
-
-                        String classification = wrappedClassifier.apply(tileEntity);
-
-                        if (classification == null) {
-                            classification = tileEntity.getClass()
-                                .getCanonicalName();
-                        }
-
-                        Character ch = map.get(classification);
-                        builder.append(ch != null ? ch : '?');
+                    if (classification == null) {
+                        classification = tileEntity.getClass()
+                            .getCanonicalName();
                     }
-                },
-                () -> builder.append("\",\n")
-                    .append("    \""),
-                () -> {
-                    builder.setLength(builder.length() - 7);
-                    builder.append("\n},{\n")
-                        .append("    \"");
-                });
 
-            builder.setLength(builder.length() - 8);
-            builder.append("}\n\n");
+                    Character ch = map.get(classification);
+                    currentRow.append(ch != null ? ch : '?');
+                }
+            },
+            () -> {
+                allRows.add(currentRow.toString());
+                currentRow.setLength(0);
+            },
+            () -> {
+            });
+
+        int rowsPerLayer = sizeC;
+        int layersCount = sizeB;
+
+        for (int layer = 0; layer < layersCount; layer++) {
+            builder.append("        {");
+
+            for (int row = 0; row < rowsPerLayer; row++) {
+                int index = layer * rowsPerLayer + row;
+                if (index < allRows.size()) {
+                    builder.append("\"").append(allRows.get(index)).append("\"");
+                    if (row < rowsPerLayer - 1) {
+                        builder.append(",");
+                    }
+                }
+            }
+
+            if (layer < layersCount - 1) {
+                builder.append("},\n");
+            } else {
+                builder.append("}\n");
+            }
         }
 
-        return builder.toString()
-            .replaceAll("\"\"", "E");
+        builder.append("        },\n")
+            .append("        //spotless:on\n")
+            .append("        new MultiblockOffsets(")
+            .append(basePositionA)
+            .append(", ")
+            .append(basePositionB)
+            .append(", ")
+            .append(basePositionC)
+            .append("),\n")
+            .append("        new MultiblockArea(")
+            .append(sizeA)
+            .append(", ")
+            .append(sizeB)
+            .append(", ")
+            .append(sizeC)
+            .append("),\n")
+            .append("        1,\n")
+            .append("        GTN_Casings.));\n");
+
+        return builder.toString();
     }
 
 }

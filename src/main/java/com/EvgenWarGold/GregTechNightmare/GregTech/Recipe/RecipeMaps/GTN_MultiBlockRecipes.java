@@ -174,7 +174,7 @@ public class GTN_MultiBlockRecipes {
                 getCircuits(Materials.LV, 4),
                 ItemList.Robot_Arm_LV.get(1),
                 ItemList.Conveyor_Module_LV.get(2),
-                GTN_Casings.AborealCasing.getItemStack(4),
+                GTN_Casings.ArborealCasing.getItemStack(4),
                 ItemList.Hull_LV.get(1)
             )
             .fluidInputs(

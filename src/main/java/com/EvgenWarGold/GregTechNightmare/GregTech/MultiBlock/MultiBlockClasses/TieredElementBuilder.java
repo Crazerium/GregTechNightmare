@@ -1,12 +1,5 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
-import java.util.Arrays;
-import java.util.Objects;
-
-import net.minecraft.item.ItemStack;
-
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
@@ -50,14 +43,6 @@ public class TieredElementBuilder<T> {
         return this;
     }
 
-    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, GTN_Casings... casings) {
-        ItemStack[] itemStacks = Arrays.stream(casings)
-            .filter(Objects::nonNull)
-            .map(GTN_Casings::getItemStack)
-            .toArray(ItemStack[]::new);
-        return GTN_StructureUtility.createTierBlocks(tierData, itemStacks);
-    }
-
     public IStructureElement<T> build() {
         return StructureUtility.withChannel(
             tierData.getChannelName(),
@@ -66,6 +51,6 @@ public class TieredElementBuilder<T> {
                     .atLeast(hatches)
                     .casingIndex(tierData.getCasingTextureId())
                     .dot(dot)
-                    .buildAndChain(createTierBlocks(tierData, casings))));
+                    .buildAndChain(GTN_StructureUtility.createTierBlocks(tierData, casings))));
     }
 }

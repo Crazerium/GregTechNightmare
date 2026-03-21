@@ -1,22 +1,23 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_ZPM;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -31,12 +32,17 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.alignment.IAlignmentLimits;
@@ -61,7 +67,6 @@ import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
-import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.OverclockCalculator;
 import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -97,23 +102,37 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 9;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 13;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 7;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.StructuralSolarCasing;
+    public List<StructureVariant<GTN_LaserMeteorMiner>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "LaserMeteorMiner",
+                // spotless:off
+                new String[][]{
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        B B        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        B B        ","       B   B       ","        B B        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","         B         ","       B   B       ","                   ","      B     B      ","                   ","       B   B       ","         B         ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","         B         ","      B     B      ","                   ","                   ","     B   B   B     ","                   ","                   ","      B     B      ","         B         ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","         B         ","     B       B     ","                   ","                   ","    B              ","    B    C    B    ","                   ","                   ","                   ","     B       B     ","         B         ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","         B         ","    B         B    ","                   ","                   ","                   ","         C         ","   B    CCC    B   ","         C         ","                   ","                   ","                   ","    B         B    ","         B         ","                   ","                   ","                   "},
+                    {"                   ","                   ","    BBBBBBBBBBB    ","   BBEEEEEEEEEBB   ","  BBEE       EEBB  ","  BEE         EEB  ","  BE           EB  ","  BE           EB  ","  BE     C     EB  ","  BE    CCC    EB  ","  BE     C     EB  ","  BE           EB  ","  BE           EB  ","  BEE         EEB  ","  BBEE       EEBB  ","   BBEEEEEEEEEBB   ","    BBBBBBBBBBB    ","                   ","                   "},
+                    {"                   ","                   ","                   ","         B         ","      EEEEEEE      ","     EE     EE     ","    EE       EE    ","    E         E    ","    E    C    E    ","   BE   CCC   EB   ","    E    C    E    ","    E         E    ","    EE       EE    ","     EE     EE     ","      EEEEEEE      ","         B         ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","         B         ","       EEEEE       ","      EE   EE      ","     EE  C  EE     ","     E  CCC  E     ","    BE CCCCC EB    ","     E  CCC  E     ","     EE  C  EE     ","      EE   EE      ","       EEEEE       ","         B         ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","         B         ","        EEE        ","       EEEEE       ","      EEEEEEE      ","     BEEECEEEB     ","      EEEEEEE      ","       EEEEE       ","        EEE        ","         B         ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        BBB        ","       BDADB       ","      BBACABB      ","       BDADB       ","        BBB        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","        DAD        ","        ACA        ","        DAD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","        DAD        ","        ACA        ","        DAD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","        D~D        ","       DDDDD       ","       DDCDD       ","       DDDDD       ","        DDD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","                   ","                   ","        DDD        ","       DDDDD       ","      DDCCCDD      ","      DDCCCDD      ","      DDCCCDD      ","       DDDDD       ","        DDD        ","                   ","                   ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","                   ","        D D        ","       D   D       ","      A     A      ","     D       D     ","    D         D    ","                   ","    D         D    ","     D       D     ","      A     A      ","       D   D       ","        D D        ","                   ","                   ","                   ","                   "},
+                    {"                   ","                   ","                   ","        D D        ","                   ","       D   D       ","      A     A      ","     D       D     ","   D           D   ","                   ","   D           D   ","     D       D     ","      A     A      ","       D   D       ","                   ","        D D        ","                   ","                   ","                   "},
+                    {"                   ","                   ","        D D        ","                   ","                   ","       D   D       ","      A     A      ","     D       D     ","  D             D  ","                   ","  D             D  ","     D       D     ","      A     A      ","       D   D       ","                   ","                   ","        D D        ","                   ","                   "},
+                    {"         D         ","        D D        ","       D   D       ","       D   D       ","       D   D       ","      D     D      ","     DD     DD     ","  DDD         DDD  "," D               D ","D                 D"," D               D ","  DDD         DDD  ","     DD     DD     ","      D     D      ","       D   D       ","       D   D       ","       D   D       ","        D D        ","         D         "}
+                },
+                //spotless:on
+                new MultiblockOffsets(9, 13, 7),
+                new MultiblockArea(19, 19, 19),
+                1,
+                GTN_Casings.StructuralSolarCasing));
     }
 
     @Override
@@ -122,82 +141,37 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NONE;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addAuthor(Authors.EVGEN_WAR_GOLD)
+            .addInputBus()
+            .addOutputBus()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        B B        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        B B        ","       B   B       ","        B B        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","         B         ","       B   B       ","                   ","      B     B      ","                   ","       B   B       ","         B         ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","         B         ","      B     B      ","                   ","                   ","     B   B   B     ","                   ","                   ","      B     B      ","         B         ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","         B         ","     B       B     ","                   ","                   ","    B              ","    B    C    B    ","                   ","                   ","                   ","     B       B     ","         B         ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","         B         ","    B         B    ","                   ","                   ","                   ","         C         ","   B    CCC    B   ","         C         ","                   ","                   ","                   ","    B         B    ","         B         ","                   ","                   ","                   "},
-            {"                   ","                   ","    BBBBBBBBBBB    ","   BBEEEEEEEEEBB   ","  BBEE       EEBB  ","  BEE         EEB  ","  BE           EB  ","  BE           EB  ","  BE     C     EB  ","  BE    CCC    EB  ","  BE     C     EB  ","  BE           EB  ","  BE           EB  ","  BEE         EEB  ","  BBEE       EEBB  ","   BBEEEEEEEEEBB   ","    BBBBBBBBBBB    ","                   ","                   "},
-            {"                   ","                   ","                   ","         B         ","      EEEEEEE      ","     EE     EE     ","    EE       EE    ","    E         E    ","    E    C    E    ","   BE   CCC   EB   ","    E    C    E    ","    E         E    ","    EE       EE    ","     EE     EE     ","      EEEEEEE      ","         B         ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","         B         ","       EEEEE       ","      EE   EE      ","     EE  C  EE     ","     E  CCC  E     ","    BE CCCCC EB    ","     E  CCC  E     ","     EE  C  EE     ","      EE   EE      ","       EEEEE       ","         B         ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","         B         ","        EEE        ","       EEEEE       ","      EEEEEEE      ","     BEEECEEEB     ","      EEEEEEE      ","       EEEEE       ","        EEE        ","         B         ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","         B         ","        BBB        ","       BDADB       ","      BBACABB      ","       BDADB       ","        BBB        ","         B         ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","        DAD        ","        ACA        ","        DAD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","        DAD        ","        ACA        ","        DAD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","                   ","        D~D        ","       DDDDD       ","       DDCDD       ","       DDDDD       ","        DDD        ","                   ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","                   ","                   ","        DDD        ","       DDDDD       ","      DDCCCDD      ","      DDCCCDD      ","      DDCCCDD      ","       DDDDD       ","        DDD        ","                   ","                   ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","                   ","        D D        ","       D   D       ","      A     A      ","     D       D     ","    D         D    ","                   ","    D         D    ","     D       D     ","      A     A      ","       D   D       ","        D D        ","                   ","                   ","                   ","                   "},
-            {"                   ","                   ","                   ","        D D        ","                   ","       D   D       ","      A     A      ","     D       D     ","   D           D   ","                   ","   D           D   ","     D       D     ","      A     A      ","       D   D       ","                   ","        D D        ","                   ","                   ","                   "},
-            {"                   ","                   ","        D D        ","                   ","                   ","       D   D       ","      A     A      ","     D       D     ","  D             D  ","                   ","  D             D  ","     D       D     ","      A     A      ","       D   D       ","                   ","                   ","        D D        ","                   ","                   "},
-            {"         D         ","        D D        ","       D   D       ","       D   D       ","       D   D       ","      D     D      ","     DD     DD     ","  DDD         DDD  "," D               D ","D                 D"," D               D ","  DDD         DDD  ","     DD     DD     ","      D     D      ","       D   D       ","       D   D       ","       D   D       ","        D D        ","         D         "}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(tr("tooltip.03"))
-            .addInfo(tr("tooltip.04"))
-            .addInfo(tr("tooltip.05"))
-            .addInfo(tr("tooltip.06"))
-            .addInfo(tr("tooltip.07"))
-            .addInfo(tr("tooltip.08"))
-            .addInfo(tr("tooltip.09"))
-            .addInfo(tr("tooltip.10"))
-            .addInfo(tr("tooltip.11"))
-            .addInfo(tr("tooltip.12"))
-            .addInfo(tr("tooltip.13"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .addInfo(Constants.AUTHOR_TOTTO)
-            .beginStructureBlock(19, 19, 19, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addInputHatch(EnumChatFormatting.GOLD + "1", 1);
+    public Authors getAuthor() {
+        return Authors.TOTTO;
     }
 
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
-        return IStructureDefinition.<GTN_LaserMeteorMiner>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('A', chainAllGlasses())
-            .addElement('C', GTN_Casings.NaquadahCoilBlock.asElement())
-            .addElement('B', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
-            .addElement('E', GTN_Casings.ThermallyInsulatedCasing.asElement())
-            .addElement(
-                'D',
-                buildHatchAdder(GTN_LaserMeteorMiner.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(onElementPass(GTN_LaserMeteorMiner::mainCasingAdd, getMainCasings().asElement())))
-            .build();
+        return buildStructureDefinition(
+            builder -> builder.addElement('A', chainAllGlasses())
+                .addElement('C', GTN_Casings.NaquadahCoilBlock.asElement())
+                .addElement('B', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
+                .addElement('E', GTN_Casings.ThermallyInsulatedCasing.asElement())
+                .addElement(
+                    'D',
+                    ElementBuilder.create(GTN_LaserMeteorMiner.class, this)
+                        .casing(mainCasing)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance)
+                        .build()));
+    }
+
+    @Override
+    public OverclockType getOverclockType() {
+        return OverclockType.NONE;
     }
 
     @Override
@@ -708,5 +682,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return Pair.of(VoltageIndex.IV, VoltageIndex.LuV);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_MINER;
     }
 }

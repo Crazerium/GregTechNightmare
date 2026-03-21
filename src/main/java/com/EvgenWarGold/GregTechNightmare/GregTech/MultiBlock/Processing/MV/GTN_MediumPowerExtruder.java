@@ -1,29 +1,33 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV;
 
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import net.minecraft.util.EnumChatFormatting;
+import java.util.Arrays;
+import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTechAPI;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.RecipeMaps;
-import gregtech.api.util.MultiblockTooltipBuilder;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerExtruder> {
@@ -37,23 +41,24 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 2;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 4;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.FrostProofMachineCasing;
+    public List<StructureVariant<GTN_MediumPowerExtruder>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "MediumPowerExtruder",
+                // spotless:off
+                new String[][]{
+                    {" AAA ","AAAAA","AAAAA","AAAAA"," AAA "},
+                    {"     ","     ","A C A","     ","     "},
+                    {"     "," CCC ","BCCCB"," CCC ","     "},
+                    {"     ","     ","B   B","     ","     "},
+                    {" A~A ","A   A","B   B","A   A"," AAA "},
+                    {" AAA ","ACCCA","ACCCA","ACCCA"," AAA "}
+                },
+                //spotless:on
+                new MultiblockOffsets(2, 4, 0),
+                new MultiblockArea(5, 6, 5),
+                1,
+                GTN_Casings.FrostProofMachineCasing));
     }
 
     @Override
@@ -62,57 +67,29 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus()
+            .addOutputBus()
+            .addEnergyHatch()
+            .addMaintenanceHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {" AAA ","AAAAA","AAAAA","AAAAA"," AAA "},
-            {"     ","     ","A C A","     ","     "},
-            {"     "," CCC ","BCCCB"," CCC ","     "},
-            {"     ","     ","B   B","     ","     "},
-            {" A~A ","A   A","B   B","A   A"," AAA "},
-            {" AAA ","ACCCA","ACCCA","ACCCA"," AAA "}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(5, 6, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1);
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
     public IStructureDefinition<GTN_MediumPowerExtruder> getStructureDefinition() {
-        return IStructureDefinition.<GTN_MediumPowerExtruder>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('B', ofFrame(Materials.Steel))
-            .addElement('C', ofBlock(GregTechAPI.sBlockMetal6, 13))
-            .addElement(
-                'A',
-                buildHatchAdder(GTN_MediumPowerExtruder.class).atLeast(InputBus, OutputBus, Energy, Maintenance)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_MediumPowerExtruder::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+        return buildStructureDefinition(
+            builder -> builder.addElement('B', ofFrame(Materials.Steel))
+                .addElement('C', ofBlock(GregTechAPI.sBlockMetal6, 13))
+                .addElement(
+                    'A',
+                    ElementBuilder.create(GTN_MediumPowerExtruder.class, this)
+                        .hatches(InputBus, OutputBus, Energy, Maintenance)
+                        .casing(mainCasing)
+                        .build()));
     }
 
     @Override
@@ -133,5 +110,11 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public int getMaxParallelRecipes() {
         return 10;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_FORGE_HAMMER;
     }
 }

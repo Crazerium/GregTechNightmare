@@ -2,20 +2,19 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV;
 
 import static WayofTime.alchemicalWizardry.ModBlocks.ritualStone;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofTileAdder;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Items;
@@ -30,10 +29,15 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
@@ -41,7 +45,6 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
-import gregtech.api.util.MultiblockTooltipBuilder;
 import thaumcraft.api.aspects.Aspect;
 import thaumicenergistics.common.tiles.TileInfusionProvider;
 
@@ -54,11 +57,11 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     private static final String XP_FLUID_NAME = "xpjuice";
     // 30 player lvl
     private static final int FIXED_XP_COST_MB = 16500;
-    protected final ArrayList<TileInfusionProvider> mTileInfusionProviders = new ArrayList<>();
-    private int mLastMode = 0;
-    private int mLastNeedLP = 0;
-    private int mLastNeedXP = 0;
-    private int mLastNeedPraecantatio = 0;
+    protected final ArrayList<TileInfusionProvider> tileInfusionProviders = new ArrayList<>();
+    private int lastMode = 0;
+    private int lastNeedLP = 0;
+    private int lastNeedXP = 0;
+    private int lastNeedPraecantatio = 0;
 
     public GTN_BloodEnchanter(int id, String name) {
         super(id, name);
@@ -69,28 +72,63 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 5;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 9;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.RobustTungstenSteelMachineCasing;
+    public List<StructureVariant<GTN_BloodEnchanter>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "BloodEnchanter",
+                // spotless:off
+                new String[][]{
+                    {"BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"},
+                    {"BAAAAAAAAAB","A         A","A         A","A         A","A   C C   A","A         A","A   C C   A","A         A","A         A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A         A","A  C   C  A","A         A","A         A","A         A","A  C   C  A","A         A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A C C C C A","A         A","A C     C A","A         A","A C     C A","A         A","A C C C C A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A CC   CC A","A C     C A","A         A","A         A","A         A","A C     C A","A CC   CC A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A C  D  C A","A         A","A         A","A D  F  D A","A         A","A         A","A C  D  C A","A         A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A    C    A","A C CCC C A","A    C    A","A C     C A","ACCC E CCCA","A C     C A","A    C    A","A C CCC C A","A    C    A","BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
+                    {"BBBBB~BBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"}
+                },
+                //spotless:on
+                new MultiblockOffsets(5, 9, 0),
+                new MultiblockArea(11, 10, 11),
+                1,
+                GTN_Casings.RobustTungstenSteelMachineCasing));
     }
 
     @Override
     public GTN_BloodEnchanter createNewMetaEntity() {
         return new GTN_BloodEnchanter(this.mName);
+    }
+
+    @Override
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus()
+            .addOutputBus()
+            .addInputHatch()
+            .addMufflerHatch();
+    }
+
+    @Override
+    public Authors getAuthor() {
+        return Authors.CRAZER;
+    }
+
+    @Override
+    public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
+        return buildStructureDefinition(
+            builder -> builder.addElement('A', chainAllGlasses())
+                .addElement('C', ofBlock(ritualStone, 0))
+                .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
+                .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))
+                .addElement('F', ofBlock(ModBlocks.blockAltar, 0))
+                .addElement(
+                    'B',
+                    ElementBuilder.create(GTN_BloodEnchanter.class, this)
+                        .casing(mainCasing)
+                        .hatches(InputBus, InputHatch, Muffler, OutputBus)
+                        .tileAdder(GTN_BloodEnchanter::addInfusionProvider)
+                        .build()));
     }
 
     @Override
@@ -106,85 +144,19 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
-        aNBT.setInteger("mLastMode", mLastMode);
-        aNBT.setInteger("mLastNeedLP", mLastNeedLP);
-        aNBT.setInteger("mLastNeedXP", mLastNeedXP);
-        aNBT.setInteger("mLastNeedPraecantatio", mLastNeedPraecantatio);
+        aNBT.setInteger("mLastMode", lastMode);
+        aNBT.setInteger("mLastNeedLP", lastNeedLP);
+        aNBT.setInteger("mLastNeedXP", lastNeedXP);
+        aNBT.setInteger("mLastNeedPraecantatio", lastNeedPraecantatio);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
-        mLastMode = aNBT.getInteger("mLastMode");
-        mLastNeedLP = aNBT.getInteger("mLastNeedLP");
-        mLastNeedXP = aNBT.getInteger("mLastNeedXP");
-        mLastNeedPraecantatio = aNBT.getInteger("mLastNeedPraecantatio");
-    }
-
-    @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"},
-            {"BAAAAAAAAAB","A         A","A         A","A         A","A   C C   A","A         A","A   C C   A","A         A","A         A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A         A","A  C   C  A","A         A","A         A","A         A","A  C   C  A","A         A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A C C C C A","A         A","A C     C A","A         A","A C     C A","A         A","A C C C C A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A CC   CC A","A C     C A","A         A","A         A","A         A","A C     C A","A CC   CC A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A C  D  C A","A         A","A         A","A D  F  D A","A         A","A         A","A C  D  C A","A         A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A    C    A","A C CCC C A","A    C    A","A C     C A","ACCC E CCCA","A C     C A","A    C    A","A C CCC C A","A    C    A","BAAAAAAAAAB"},
-            {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
-            {"BBBBB~BBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"}
-        };
-        //spotless:on
-    }
-
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(tr("tooltip.01"))
-            .addInfo(tr("tooltip.02"))
-            .addInfo(tr("tooltip.03"))
-            .addInfo(tr("tooltip.04"))
-            .addInfo(tr("tooltip.05"))
-            .addInfo(tr("tooltip.06"))
-            .addInfo(tr("tooltip.07"))
-            .addInfo(tr("tooltip.08"))
-            .addInfo(tr("tooltip.09"))
-            .addInfo(tr("tooltip.10"))
-            .addInfo(tr("tooltip.11"))
-            .addInfo(tr("tooltip.12"))
-            .addInfo(Constants.AUTHOR_CRAZER)
-            .beginStructureBlock(11, 10, 11, true)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addInputHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addMufflerHatch(EnumChatFormatting.GOLD + "1", 1);
-    }
-
-    @Override
-    public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
-        return IStructureDefinition.<GTN_BloodEnchanter>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement('A', chainAllGlasses())
-            .addElement('C', ofBlock(ritualStone, 0))
-            .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
-            .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))
-            .addElement('F', ofBlock(ModBlocks.blockAltar, 0))
-            .addElement(
-                'B',
-                ofChain(
-                    buildHatchAdder(GTN_BloodEnchanter.class).atLeast(InputBus, InputHatch, Muffler, OutputBus)
-                        .casingIndex(getMainCasings().textureId)
-                        .dot(1)
-                        .build(),
-                    onElementPass(
-                        GTN_BloodEnchanter::mainCasingAdd,
-                        ofBlock(getMainCasings().getBlock(), getMainCasings().meta)),
-                    ofTileAdder(
-                        GTN_BloodEnchanter::addInfusionProvider,
-                        getMainCasings().getBlock(),
-                        getMainCasings().meta)))
-            .build();
+        lastMode = aNBT.getInteger("mLastMode");
+        lastNeedLP = aNBT.getInteger("mLastNeedLP");
+        lastNeedXP = aNBT.getInteger("mLastNeedXP");
+        lastNeedPraecantatio = aNBT.getInteger("mLastNeedPraecantatio");
     }
 
     @Override
@@ -194,8 +166,8 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     public boolean addInfusionProvider(TileEntity aTileEntity) {
         if (aTileEntity instanceof TileInfusionProvider provider) {
-            if (!this.mTileInfusionProviders.contains(provider)) {
-                this.mTileInfusionProviders.add(provider);
+            if (!this.tileInfusionProviders.contains(provider)) {
+                this.tileInfusionProviders.add(provider);
             }
             return true;
         }
@@ -482,7 +454,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
             return 0L;
         }
         long total = 0L;
-        for (TileInfusionProvider provider : mTileInfusionProviders) {
+        for (TileInfusionProvider provider : tileInfusionProviders) {
             if (provider == null) continue;
             total += provider.getAspectAmountInNetwork(praecantatio);
         }
@@ -495,7 +467,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
             return false;
         }
         long remaining = amount;
-        for (TileInfusionProvider provider : mTileInfusionProviders) {
+        for (TileInfusionProvider provider : tileInfusionProviders) {
             if (provider == null) continue;
             long available = provider.getAspectAmountInNetwork(praecantatio);
             if (available <= 0L) continue;
@@ -512,12 +484,12 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        mLastMode = 0;
-        mLastNeedLP = 0;
-        mLastNeedXP = 0;
-        mLastNeedPraecantatio = 0;
+        lastMode = 0;
+        lastNeedLP = 0;
+        lastNeedXP = 0;
+        lastNeedPraecantatio = 0;
         int mode = getModeFromCircuit();
-        mLastMode = mode;
+        lastMode = mode;
         if (mode == 0) {
             return SimpleCheckRecipeResult.ofFailure("no_mode_selected");
         }
@@ -532,9 +504,9 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         if (recipe == null) {
             return CheckRecipeResultRegistry.NO_RECIPE;
         }
-        mLastNeedLP = recipe.lpCost;
-        mLastNeedXP = recipe.xpCost;
-        mLastNeedPraecantatio = recipe.praecantatioCost;
+        lastNeedLP = recipe.lpCost;
+        lastNeedXP = recipe.xpCost;
+        lastNeedPraecantatio = recipe.praecantatioCost;
         String owner = getBaseMetaTileEntity() == null ? null : getBaseMetaTileEntity().getOwnerName();
         int currentLP = SoulNetworkHandler.getCurrentEssence(owner);
         if (currentLP < recipe.lpCost) {
@@ -544,7 +516,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
             return SimpleCheckRecipeResult.ofFailure("not_enough_xp");
         }
         if (recipe.praecantatioCost > 0) {
-            if (mTileInfusionProviders.isEmpty()) {
+            if (tileInfusionProviders.isEmpty()) {
                 return SimpleCheckRecipeResult.ofFailure("not_enough_praecantatio");
             }
             if (getPraecantatioAmount() < (long) recipe.praecantatioCost) {
@@ -569,9 +541,9 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     public String[] getInfoData() {
         String[] origin = super.getInfoData();
         String modeName;
-        if (mLastMode == MODE_APPLY_BOOKS) {
+        if (lastMode == MODE_APPLY_BOOKS) {
             modeName = "Apply Books";
-        } else if (mLastMode == MODE_UPGRADE_BOOK) {
+        } else if (lastMode == MODE_UPGRADE_BOOK) {
             modeName = "Upgrade Book";
         } else {
             modeName = "None";
@@ -579,12 +551,18 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         String[] ret = new String[origin.length + 2];
         System.arraycopy(origin, 0, ret, 0, origin.length);
         ret[origin.length] = EnumChatFormatting.AQUA + "Mode: " + EnumChatFormatting.GOLD + modeName;
-        ret[origin.length + 1] = EnumChatFormatting.AQUA + "Blood Required: " + EnumChatFormatting.GOLD + mLastNeedLP;
+        ret[origin.length + 1] = EnumChatFormatting.AQUA + "Blood Required: " + EnumChatFormatting.GOLD + lastNeedLP;
         return ret;
     }
 
     @Override
     public boolean isEnergyMultiBlock() {
         return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.RANDOM_ANVIL_USE;
     }
 }

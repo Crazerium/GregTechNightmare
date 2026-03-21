@@ -1,36 +1,39 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.withChannel;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
+import java.util.Arrays;
+import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.enums.SoundResource;
+import net.minecraft.item.ItemStack;
+
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
-import bartworks.API.BorosilicateGlass;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.api.util.MultiblockTooltipBuilder;
 
 public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
-    private byte glassTier;
+    TierData glass = createTierData("glass");
 
     public GTN_GasCollector(int id, String name) {
         super(id, name);
@@ -41,23 +44,25 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 2;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 6;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.HeatProofMachineCasing;
+    public List<StructureVariant<GTN_GasCollector>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "GasCollector",
+                // spotless:off
+                new String[][]{
+                    {"BBBBB","BBBBB","BBBBB","BBBBB","BBBBB"},
+                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
+                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
+                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
+                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
+                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
+                    {"BB~BB","BBBBB","BBBBB","BBBBB","BBBBB"}
+                },
+                //spotless:on
+                new MultiblockOffsets(2, 6, 0),
+                new MultiblockArea(5, 7, 5),
+                1,
+                GTN_Casings.HeatProofMachineCasing));
     }
 
     @Override
@@ -66,31 +71,39 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus()
+            .addOutputHatch()
+            .addEnergyHatch();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return true;
+    public Authors getAuthor() {
+        return Authors.CRAZER;
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setByte("glassTier", glassTier);
+    public IStructureDefinition<GTN_GasCollector> getStructureDefinition() {
+        return buildStructureDefinition(
+            builder -> builder.addElement('C', ofFrame(Materials.Steel))
+                .addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+                .addElement(
+                    'B',
+                    ElementBuilder.create(GTN_GasCollector.class, this)
+                        .casing(mainCasing)
+                        .hatches(InputBus, OutputHatch, Energy)
+                        .build()));
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        glassTier = aNBT.getByte("glassTier");
+    public RecipeMap<?> getRecipeMap() {
+        return GTN_Recipe.GasCollectorRecipes;
     }
 
     @Override
     public boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         for (MTEHatchEnergy hatch : mEnergyHatches) {
-            if (hatch.mTier > glassTier) {
+            if (hatch.mTier > glass.getCasingTier()) {
                 return false;
             }
         }
@@ -98,60 +111,13 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"BBBBB","BBBBB","BBBBB","BBBBB","BBBBB"},
-            {"CAAAC","A   A","A   A","A   A","CAAAC"},
-            {"CAAAC","A   A","A   A","A   A","CAAAC"},
-            {"CAAAC","A   A","A   A","A   A","CAAAC"},
-            {"CAAAC","A   A","A   A","A   A","CAAAC"},
-            {"CAAAC","A   A","A   A","A   A","CAAAC"},
-            {"BB~BB","BBBBB","BBBBB","BBBBB","BBBBB"}
-        };
-        //spotless:on
+    public boolean isNoMaintenanceIssue() {
+        return true;
     }
 
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(this.tr("tooltip.00"))
-            .addInfo(this.tr("tooltip.01"))
-            .addInfo(this.tr("tooltip.02"))
-            .addInfo(Constants.AUTHOR_CRAZER)
-            .beginStructureBlock(5, 7, 5, false)
-            .addEnergyHatch(EnumChatFormatting.GOLD + "1", 1)
-            .addInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addOutputHatch(EnumChatFormatting.GOLD + "1", 1);
-    }
-
+    @SideOnly(Side.CLIENT)
     @Override
-    public IStructureDefinition<GTN_GasCollector> getStructureDefinition() {
-        return IStructureDefinition.<GTN_GasCollector>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement(
-                'A',
-                withChannel(
-                    "glass",
-                    BorosilicateGlass.ofBoroGlass(
-                        (byte) 0,
-                        (byte) 1,
-                        Byte.MAX_VALUE,
-                        (te, t) -> te.glassTier = t,
-                        te -> te.glassTier)))
-            .addElement('C', ofFrame(Materials.Steel))
-            .addElement(
-                'B',
-                buildHatchAdder(GTN_GasCollector.class).atLeast(InputBus, OutputHatch, Energy)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_GasCollector::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
-    }
-
-    @Override
-    public RecipeMap<?> getRecipeMap() {
-        return GTN_Recipe.GasCollectorRecipes;
+    protected SoundResource getActivitySoundLoop() {
+        return SoundResource.GTCEU_LOOP_CHEMICAL;
     }
 }

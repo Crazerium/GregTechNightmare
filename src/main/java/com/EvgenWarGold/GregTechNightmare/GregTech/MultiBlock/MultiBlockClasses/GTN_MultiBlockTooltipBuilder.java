@@ -1,4 +1,4 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -10,6 +10,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
 import com.EvgenWarGold.GregTechNightmare.Mixins.Late.MultiblockTooltipBuilderAccessor;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.google.common.collect.SetMultimap;
 
 import gregtech.GTMod;
@@ -37,8 +38,11 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String TT_inputhatch = StatCollector.translateToLocal("GT5U.MBTT.InputHatch");
     private static final String TT_outputbus = StatCollector.translateToLocal("GT5U.MBTT.OutputBus");
     private static final String TT_outputhatch = StatCollector.translateToLocal("GT5U.MBTT.OutputHatch");
-    private static final String TT_tectechhatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticHatches");
-    private static final String TT_EnergyOrTecTech = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticOrEnergyHatches");
+    private static final String TT_tectechhatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticHatch");
+    private static final String TT_EnergyOrTecTechHatch = StatCollector
+        .translateToLocal("GTN.TooltipBuilder.ExoticOrEnergyHatch");
+    private static final String TT_DynamoOrBufferedHatch = StatCollector
+        .translateToLocal("GTN.TooltipBuilder.DynamoOrBufferedHatch");
     private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
     private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
@@ -75,8 +79,8 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public GTN_MultiBlockTooltipBuilder addAuthor(String author) {
-        addInfo("Author: " + author);
+    public GTN_MultiBlockTooltipBuilder addAuthor(Authors author) {
+        addInfo("Author: " + author.name);
         return this;
     }
 
@@ -174,10 +178,14 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     }
 
     public GTN_MultiBlockTooltipBuilder addExoticOrEnergyHatch(int count, int dot) {
-        addHatch(TT_EnergyOrTecTech, count, dot);
+        addHatch(TT_EnergyOrTecTechHatch, count, dot);
         return this;
     }
 
+    public GTN_MultiBlockTooltipBuilder addDynamoOrBufferedHatch(int count, int dot) {
+        addHatch(TT_DynamoOrBufferedHatch, count, dot);
+        return this;
+    }
 
     public GTN_MultiBlockTooltipBuilder addSteamHatch() {
         addSteamHatch(1, 1);
@@ -244,13 +252,19 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public MultiblockTooltipBuilder beginStructureBlock(int w, int h, int l) {
+    public GTN_MultiBlockTooltipBuilder addDynamoOrBufferedHatch() {
+        addDynamoOrBufferedHatch(1, 1);
+        return this;
+    }
+
+    public MultiblockTooltipBuilder addMultiBlockAreaInfoWithName(String name, int w, int h, int l) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
 
         List<String> sLines = accessor.getSLines();
 
         sLines.add(
             EnumChatFormatting.GRAY + TT_dimensions
+                + (name.isEmpty() ? "" : EnumChatFormatting.AQUA + " " + name + EnumChatFormatting.GRAY)
                 + COLON
                 + EnumChatFormatting.GOLD
                 + w
@@ -276,6 +290,17 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 + "L"
                 + EnumChatFormatting.GRAY
                 + ")");
+        return this;
+    }
+
+    public MultiblockTooltipBuilder addMultiBlockAreaInfo(int w, int h, int l) {
+        addMultiBlockAreaInfoWithName("", w, h, l);
+        return this;
+    }
+
+    public MultiblockTooltipBuilder beginStructureBlock() {
+        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
+        List<String> sLines = accessor.getSLines();
         sLines.add(EnumChatFormatting.GRAY + TT_structure + COLON);
         return this;
     }
