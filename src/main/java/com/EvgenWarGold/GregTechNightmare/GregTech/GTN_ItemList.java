@@ -49,6 +49,7 @@ public enum GTN_ItemList {
     GasCollector,
     LaserMeteorMiner,
     BloodEnchanter,
+    VacuumNuke,
     // endregion
 
     ;

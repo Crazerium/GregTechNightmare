@@ -1,13 +1,19 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static gregtech.api.util.GTStructureUtility.activeCoils;
 import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
+import static gregtech.api.util.GTStructureUtility.ofCoil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
+import gregtech.api.enums.HeatingCoilLevel;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -76,5 +82,17 @@ public class GTN_StructureUtility {
         return StructureUtility.withChannel(
             tierData.getChannelName(),
             chainAllGlasses(-1, (te, t) -> tierData.setCasingTier(t), te -> tierData.getCasingTier()));
+    }
+
+    public static <T extends MTEMultiBlockBase> IStructureElement<T> createAllTierCoilBlock(TierData tierData) {
+        return StructureUtility.withChannel(
+            tierData.getChannelName(),
+            activeCoils(
+                ofCoil(
+                    (BiConsumer<T, HeatingCoilLevel>) (te, level) -> tierData.setCoilLevel(level),
+                    te -> tierData.getCoilLevel()
+                )
+            )
+        );
     }
 }

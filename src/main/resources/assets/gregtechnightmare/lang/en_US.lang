@@ -205,6 +205,10 @@ multiblock.BloodEnchanter.tooltip.10=Use portable scanner on machine to know how
 multiblock.BloodEnchanter.tooltip.11=Does not require power!
 multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 
+#VacuumNuke
+multiblock.VacuumNuke=Vacuum Nuke
+multiblock.VacuumNuke.machine_type=Nuke
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
