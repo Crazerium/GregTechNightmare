@@ -91,7 +91,7 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public float getSpeedBonus() {
-        return 0.80F;
+        return 1.20F;
     }
 
     @Override

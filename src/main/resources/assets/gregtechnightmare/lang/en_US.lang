@@ -12,8 +12,8 @@ tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
-multiblock.waila.eu_modifier=§aEu Usage: §6%s
-multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s%%
+multiblock.waila.eu_modifier=§aEu Usage: §6%s%%
+multiblock.waila.speed_bonus=§aSpeed: §6%s%%
 multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
 multiblock.waila.tier=§aTier: §6%s
 
@@ -73,29 +73,21 @@ multiblock.LowPowerVoidMiner.tooltip.02=§cWorks only in the Overworld, Twilight
 multiblock.MediumPowerBender=Medium Power Bender
 multiblock.MediumPowerBender.machine_type=Bending Machine
 multiblock.MediumPowerBender.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerBender.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerBender.tooltip.02=Max parallel: §910
 
 #MediumPowerExtruder
 multiblock.MediumPowerExtruder=Medium Power Extruder
 multiblock.MediumPowerExtruder.machine_type=Extruder
 multiblock.MediumPowerExtruder.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerExtruder.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerExtruder.tooltip.02=Max parallel: §910
 
 #MediumPowerAssembler
 multiblock.MediumPowerAssembler=Medium Power Assembler
 multiblock.MediumPowerAssembler.machine_type=Assembler
 multiblock.MediumPowerAssembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerAssembler.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerAssembler.tooltip.02=Max parallel: §910
 
 #MediumPowerCircuitAssembler
 multiblock.MediumPowerCircuitAssembler=Medium Power Circuit Assembler
 multiblock.MediumPowerCircuitAssembler.machine_type=Circuit Assembler
 multiblock.MediumPowerCircuitAssembler.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerCircuitAssembler.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerCircuitAssembler.tooltip.02=Max parallel: §910
 
 #CokeOven
 multiblock.AdvancedCokeOven=Advanced Coke Oven
@@ -142,29 +134,22 @@ multiblock.CreosoteEngine.tooltip.04=MV: §a100L/s §7per amp
 multiblock.MediumPowerWireMill=Medium Power Wiremill
 multiblock.MediumPowerWireMill.machine_type=Wiremill
 multiblock.MediumPowerWireMill.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerWireMill.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerWireMill.tooltip.02=Max parallel: §910
 
 #MediumPowerEngraver
 multiblock.MediumPowerEngraver=Medium Power Engraver
 multiblock.MediumPowerEngraver.machine_type=Laser Engraver
 multiblock.MediumPowerEngraver.tooltip.00=Can only use §aMV§7-§aHV§7 energy hatch
-multiblock.MediumPowerEngraver.tooltip.01=§a25%§7 faster than singleblocks
-multiblock.MediumPowerEngraver.tooltip.02=Max parallel: §910
 
 #ExtremePowerCircuitAssembler
 multiblock.ExtremePowerCircuitAssembler=Extreme Power Circuit Assembler
 multiblock.ExtremePowerCircuitAssembler.machine_type=Circuit Assembler
 multiblock.ExtremePowerCircuitAssembler.tooltip.00=Can only use §aEV§7-§aIV§7 energy hatch
-multiblock.ExtremePowerCircuitAssembler.tooltip.01=§a35%§7 faster than singleblocks
-multiblock.ExtremePowerCircuitAssembler.tooltip.02=Max parallel: §920
 
 #UltimatePrecise
 multiblock.UltimatePrecise=Ultimate Precise
 multiblock.UltimatePrecise.machine_type=Assembler
-multiblock.UltimatePrecise.tooltip.00=Up to §94096§7 parallels
-multiblock.UltimatePrecise.tooltip.01=Recipe tier up to §cUIV
-multiblock.UltimatePrecise.tooltip.02=§aTier skipping allowed
+multiblock.UltimatePrecise.tooltip.00=Recipe tier up to §cUIV
+multiblock.UltimatePrecise.tooltip.01=§aTier skipping allowed
 
 #LaserMeteorMiner
 multiblock.LaserMeteorMiner=Laser Meteor Miner
@@ -234,6 +219,7 @@ Totto=§bTotto
 Author_Structure=Structure author: §6%s
 
 #Others
+GTN.TooltipBuilder.basic_info=Basic Info:
 GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
 GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
 GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch

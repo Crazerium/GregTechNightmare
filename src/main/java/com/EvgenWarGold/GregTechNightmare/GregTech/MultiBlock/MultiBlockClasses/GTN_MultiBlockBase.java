@@ -94,7 +94,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected int mainCasingCount = 0;
     protected int mainCasingTextureId = 0;
     protected final List<TierData> registeredTierData = new ArrayList<>();
-    private static final DecimalFormat percentageFormat = new DecimalFormat("0.##%");
     // endregion
 
     // region Class Construct
@@ -282,7 +281,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             public CheckRecipeResult process() {
 
                 setEuModifier(isEnergyMultiBlock() ? getEuModifier() : 0);
-                setSpeedBonus(isEnergyMultiBlock() ? getSpeedBonus() : 1);
+                setSpeedBonus(isEnergyMultiBlock() ? 1F / getSpeedBonus() : 1);
                 setOverclockType(getOverclockType());
                 return super.process();
             }
@@ -346,7 +345,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         super.saveNBTData(aNBT);
         aNBT.setInteger("maxParallel", getMaxParallelRecipes());
         aNBT.setFloat("euModifier", getEuModifier());
-        aNBT.setFloat("speedBonus", getSpeedBonus());
+        aNBT.setFloat("speedBonus", 1F / getSpeedBonus());
         aNBT.setInteger("multiblockTier", multiBlockTier);
         aNBT.setInteger("mainCasingTextureId", mainCasingTextureId);
 
@@ -412,6 +411,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tt.addInfoMultiLineTranslated(tr("tooltip"));
         tt.addAuthor(getAuthor());
         addMultiBlockAreaInfo(tt);
+        addMultiBlockBasicInfo(tt);
         tt.beginStructureBlock();
         createGtnTooltip(tt);
         tt.toolTipFinisher(Constants.MOD_NAME);
@@ -441,7 +441,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 }
 
                 if (euModifier > 0) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.eu_modifier", percentageFormat.format(euModifier)));
+                    currentTip.add(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(euModifier * 100)));
                 }
 
                 if (speedBonus > 0) {
@@ -467,7 +467,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         tag.setInteger("trueParallel", getMaxParallelRecipes());
         tag.setFloat("euModifier", getEuModifier());
-        tag.setFloat("speedBonus", getSpeedBonus());
+        tag.setFloat("speedBonus", 1F/ getSpeedBonus());
         tag.setInteger("timeReduction", getOverclockType().timeReduction);
         tag.setInteger("powerIncrease", getOverclockType().powerIncrease);
         tag.setInteger("multiblockTier", multiBlockTier);
@@ -680,6 +680,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Other methods
+    private void addMultiBlockBasicInfo(GTN_MultiBlockTooltipBuilder tt) {
+        tt.addExtraInfo(GTN_Utils.tr("GTN.TooltipBuilder.basic_info"));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.max_parallel", getTrueParallel()));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(getEuModifier() * 100)));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / (1F / getSpeedBonus()))));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.overclock", getOverclockType().timeReduction, getOverclockType().powerIncrease));
+    }
+
     private void addMultiBlockAreaInfo(GTN_MultiBlockTooltipBuilder tt) {
         List<StructureVariant<T>> variants = getStructureVariants();
 

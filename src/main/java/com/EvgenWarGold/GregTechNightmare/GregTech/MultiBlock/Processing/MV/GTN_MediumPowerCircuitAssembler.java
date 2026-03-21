@@ -95,7 +95,7 @@ public class GTN_MediumPowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Medi
 
     @Override
     public float getSpeedBonus() {
-        return 0.80F;
+        return 1.20F;
     }
 
     @Override
