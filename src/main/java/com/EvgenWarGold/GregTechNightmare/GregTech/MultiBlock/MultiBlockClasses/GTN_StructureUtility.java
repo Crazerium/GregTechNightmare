@@ -1,9 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 import net.minecraft.block.Block;
@@ -12,6 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.TierData;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 
@@ -21,27 +20,8 @@ import gtPlusPlus.core.material.Material;
 
 public class GTN_StructureUtility {
 
-    public static class TierData {
-
-        private int casingTier = -1;
-        private int countCasing = 0;
-
-        public int getCasingTier() {
-            return casingTier;
-        }
-
-        public int getCountCasing() {
-            return countCasing;
-        }
-
-        public void setCasingTier(int casingTier) {
-            this.casingTier = casingTier;
-        }
-
-        public void reset() {
-            casingTier = -1;
-            countCasing = 0;
-        }
+    public static <T> IStructureElement<T> ofFrame(Material material) {
+        return StructureUtility.ofBlock(BlockBaseModular.getMaterialBlock(material, BasicBlock.BlockTypes.FRAME), 0);
     }
 
     public static <T> IStructureElement<T> createTierBlocks(TierData tierData, ItemStack... itemStacks) {
@@ -60,6 +40,15 @@ public class GTN_StructureUtility {
                 ItemStack itemStack = itemStacks[i];
                 if (itemStack != null && itemStack.getItem() instanceof ItemBlock itemBlock) {
                     if (block == itemBlock.field_150939_a && meta == itemStack.getItemDamage()) {
+                        for (GTN_Casings casing : GTN_Casings.values()) {
+                            if (casing.getItemStack()
+                                .isItemEqual(itemStack)) {
+                                tierData.setCasing(casing);
+                                tierData.setCasingTextureId(casing.textureId);
+                                return i + 1;
+                            }
+                        }
+
                         return i + 1;
                     }
                 }
@@ -69,18 +58,6 @@ public class GTN_StructureUtility {
             if (tierIndex != null) {
                 tierData.setCasingTier(tierIndex);
             }
-        }, t -> tierData.getCasingTier()));
-    }
-
-    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, GTN_Casings... casings) {
-        ItemStack[] itemStacks = Arrays.stream(casings)
-            .filter(Objects::nonNull)
-            .map(GTN_Casings::getItemStack)
-            .toArray(ItemStack[]::new);
-        return createTierBlocks(tierData, itemStacks);
-    }
-
-    public static <T> IStructureElement<T> ofFrame(Material material) {
-        return StructureUtility.ofBlock(BlockBaseModular.getMaterialBlock(material, BasicBlock.BlockTypes.FRAME), 0);
+        }, t -> tierData.casingTier));
     }
 }

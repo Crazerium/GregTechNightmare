@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.LINK_TOOL;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.META_ITEM_01;
 
 import net.minecraft.item.Item;
@@ -16,7 +17,7 @@ public class GTN_ItemsRegister {
     }
 
     private static void registryItems() {
-        Item[] itemsToReg = { META_ITEM_01 };
+        Item[] itemsToReg = { META_ITEM_01, LINK_TOOL };
 
         for (Item item : itemsToReg) {
             GameRegistry.registerItem(item, item.unlocalizedName);

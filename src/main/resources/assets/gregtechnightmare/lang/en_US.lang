@@ -1,4 +1,5 @@
 #Items
+item.StructuresLinkTool.name=Structures Link Tool
 item.GTN_MetaItem01.0.name=§cTest Item
 item.GTN_MetaItem01.1.name=Advanced Clay
 item.GTN_MetaItem01.2.name=Meteor Miner Schematic Tier I
@@ -14,6 +15,7 @@ multiblock.waila.max_parallel=§aMax Parallel: §6%s
 multiblock.waila.eu_modifier=§aEu Modifier: §6%s
 multiblock.waila.speed_bonus=§aSpeed Bonus: §6%s
 multiblock.waila.overclock=§aOverclock: §f(§6%s §f/ §6%s§f)
+multiblock.waila.tier=§aTier: §6%s
 
 #Recipe Maps
 gtn.recipe.AdvancedBBFRecipes=Advanced BBF
@@ -40,6 +42,12 @@ GT5U.gui.text.not_enough_praecantatio=§cNot enough Praecantatio
 
 #TestMultiBlock
 multiblock.Test=§cTest MultiBlock
+multiblock.Test.machine_type=Test
+multiblock.Test.tooltip.00=Test 0
+multiblock.Test.tooltip.01=Test 1
+multiblock.Test.tooltip.02=Test 2
+multiblock.Test.tooltip.03=Test 3
+multiblock.Test.tooltip.04=Test 4
 
 #AdvancedBBF
 multiblock.AdvancedBBF=Advanced BBF
@@ -218,6 +226,13 @@ multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
 
 #Authors
 Author_EvgenWarGold=Author: §cEvgen§9War§6Gold
+EvgenWarGold=§cEvgen§9War§6Gold
 Author_Crazer=Author: §aCrazer
+Crazer=§aCrazer
 Author_Totto=Author: §bTotto
+Totto=§bTotto
 Author_Structure=Structure author: §6%s
+
+#Others
+GTN.TooltipBuilder.ExoticHatches=Multi-Amp | Laser Hatches
+GTN.TooltipBuilder.ExoticOrEnergyHatches=Multi-Amp | Laser | Energy Hatches

@@ -2,29 +2,29 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.fluidListToArray;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.itemListToArray;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.onElementPass;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.transpose;
 import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.buildHatchAdder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewHatchElement;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.GTN_NewMultiBlockBase;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.NewMultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -34,9 +34,8 @@ import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import gregtech.api.util.MultiblockTooltipBuilder;
 
-public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOven> {
+public class GTN_AdvancedCokeOven extends GTN_NewMultiBlockBase<GTN_AdvancedCokeOven> {
 
     private static final List<ItemStack> addItems = new ArrayList<>();
     private static final List<FluidStack> addFluids = new ArrayList<>();
@@ -55,23 +54,20 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     }
 
     @Override
-    public int getOffsetHorizontal() {
-        return 1;
-    }
-
-    @Override
-    public int getOffsetVertical() {
-        return 1;
-    }
-
-    @Override
-    public int getOffsetDepth() {
-        return 0;
-    }
-
-    @Override
-    public GTN_Casings getMainCasings() {
-        return GTN_Casings.CokeOvenCasing;
+    public List<StructureVariant<GTN_AdvancedCokeOven>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "CokeOven",
+                // spotless:off
+                new String[][]{
+                    {"AAA","AAA","AAA"},
+                    {"A~A","AAA","AAA"},
+                    {"AAA","AAA","AAA"}
+                },
+                //spotless:on
+                new MultiblockOffsets(1, 1, 0),
+                1,
+                GTN_Casings.CokeOvenCasing));
     }
 
     @Override
@@ -80,55 +76,40 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     }
 
     @Override
-    public OverclockType getOverclockType() {
-        return OverclockType.NONE;
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addSteamInputBus()
+            .addSteamOutputBus();
     }
 
     @Override
-    public boolean isNoMaintenanceIssue() {
-        return true;
+    public Authors getAuthor() {
+        return Authors.EVGEN_WAR_GOLD;
     }
 
     @Override
-    public String[][] getShape() {
-        // spotless:off
-        return new String[][]{
-            {"AAA","AAA","AAA"},
-            {"A~A","AAA","AAA"},
-            {"AAA","AAA","AAA"}
-        };
-        //spotless:on
-    }
-
-    @Override
-    public void createGtnTooltip(MultiblockTooltipBuilder builder) {
-        builder.addInfo(tr("tooltip.00"))
-            .addInfo(Constants.AUTHOR_EVGEN_WAR_GOLD)
-            .beginStructureBlock(3, 3, 3, false)
-            .addSteamInputBus(EnumChatFormatting.GOLD + "1", 1)
-            .addSteamOutputBus(EnumChatFormatting.GOLD + "1", 1);
+    public MultiblockArea getMultiblockArea() {
+        return new MultiblockArea(3, 3, 3);
     }
 
     @Override
     public IStructureDefinition<GTN_AdvancedCokeOven> getStructureDefinition() {
-        return IStructureDefinition.<GTN_AdvancedCokeOven>builder()
-            .addShape(getStructurePieceMain(), transpose(getShape()))
-            .addElement(
+        return buildStructureDefinition(
+            builder -> builder.addElement(
                 'A',
-                buildHatchAdder(GTN_AdvancedCokeOven.class)
-                    .atLeast(GTN_HatchElement.SteamInputBus, GTN_HatchElement.SteamOutputBus, OutputHatch)
-                    .casingIndex(getMainCasings().textureId)
-                    .dot(1)
-                    .buildAndChain(
-                        onElementPass(
-                            GTN_AdvancedCokeOven::mainCasingAdd,
-                            ofBlock(getMainCasings().getBlock(), getMainCasings().meta))))
-            .build();
+                ElementBuilder.create(GTN_AdvancedCokeOven.class, this)
+                    .hatches(GTN_NewHatchElement.SteamInputBus, GTN_NewHatchElement.SteamOutputBus, OutputHatch)
+                    .casing(mainCasing)
+                    .build()));
     }
 
     @Override
     public boolean isEnergyMultiBlock() {
         return false;
+    }
+
+    @Override
+    public boolean isNoMaintenanceIssue() {
+        return true;
     }
 
     @Override
