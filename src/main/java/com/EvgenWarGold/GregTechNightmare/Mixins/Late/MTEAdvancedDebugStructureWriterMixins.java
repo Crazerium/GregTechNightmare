@@ -96,8 +96,8 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
     }
 
     private static String getPseudoJavaCode(World world, ExtendedFacing extendedFacing, int basePositionX,
-                                            int basePositionY, int basePositionZ, int basePositionA, int basePositionB, int basePositionC,
-                                            Function<? super TileEntity, String> tileEntityClassifier, int sizeA, int sizeB, int sizeC, boolean transpose)
+        int basePositionY, int basePositionZ, int basePositionA, int basePositionB, int basePositionC,
+        Function<? super TileEntity, String> tileEntityClassifier, int sizeA, int sizeB, int sizeC, boolean transpose)
         throws IllegalAccessException {
 
         Map<Block, Set<Integer>> blocks = new TreeMap<>(Comparator.comparing(Block::getUnlocalizedName));

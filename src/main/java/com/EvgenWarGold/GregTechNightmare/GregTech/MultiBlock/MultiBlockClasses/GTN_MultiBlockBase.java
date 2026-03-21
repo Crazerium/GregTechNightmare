@@ -10,20 +10,17 @@ import static mcp.mobius.waila.api.SpecialChars.RED;
 import static mcp.mobius.waila.api.SpecialChars.RESET;
 import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import gregtech.api.util.tooltip.TooltipHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -467,7 +464,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         tag.setInteger("trueParallel", getMaxParallelRecipes());
         tag.setFloat("euModifier", getEuModifier());
-        tag.setFloat("speedBonus", 1F/ getSpeedBonus());
+        tag.setFloat("speedBonus", 1F / getSpeedBonus());
         tag.setInteger("timeReduction", getOverclockType().timeReduction);
         tag.setInteger("powerIncrease", getOverclockType().powerIncrease);
         tag.setInteger("multiblockTier", multiBlockTier);
@@ -684,8 +681,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tt.addExtraInfo(GTN_Utils.tr("GTN.TooltipBuilder.basic_info"));
         tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.max_parallel", getTrueParallel()));
         tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(getEuModifier() * 100)));
-        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / (1F / getSpeedBonus()))));
-        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.overclock", getOverclockType().timeReduction, getOverclockType().powerIncrease));
+        tt.addExtraInfoWithSpace(
+            GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / (1F / getSpeedBonus()))));
+        tt.addExtraInfoWithSpace(
+            GTN_Utils
+                .tr("multiblock.waila.overclock", getOverclockType().timeReduction, getOverclockType().powerIncrease));
     }
 
     private void addMultiBlockAreaInfo(GTN_MultiBlockTooltipBuilder tt) {
