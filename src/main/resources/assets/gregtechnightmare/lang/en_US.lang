@@ -30,6 +30,7 @@ gtn.recipe.utils.multiblock_tier.1=Casing: Frost Proof
 gtn.recipe.utils.multiblock_tier.2=Casing: Stable Titanium
 gtn.recipe.utils.multiblock_tier.3=Casing: Robust Tungstensteel
 gtn.recipe.utils.generating_eu=Generating: %s EU/t
+gtn.recipe.utils.temperature_increase=Temperature increase: %s
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
@@ -175,7 +176,6 @@ multiblock.LaserMeteorMiner.tooltip.10=Mines one row every cycle (§91§7 tick)
 multiblock.LaserMeteorMiner.tooltip.11=§4TIER II
 multiblock.LaserMeteorMiner.tooltip.12=Consumption: §aZPM§7 1x Amp
 multiblock.LaserMeteorMiner.tooltip.13=Mines one layer every cycle (§910§7 tick)
-
 multiblock.LaserMeteorMiner.fortune.0=Augment: §fNo Augment Applied
 multiblock.LaserMeteorMiner.fortune.1=Augment: §fFortune I
 multiblock.LaserMeteorMiner.fortune.2=Augment: §fFortune II
@@ -215,6 +215,18 @@ multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 #VacuumNuke
 multiblock.VacuumNuke=Vacuum Nuke
 multiblock.VacuumNuke.machine_type=Nuke
+multiblock.VacuumNuke.waila.heat=§bHeat: §6%s%%
+multiblock.VacuumNuke.tooltip.00=Heats up every second while working shown in NEI
+multiblock.VacuumNuke.tooltip.01=Energy output scales from §60% §7to §670% heat §7(§a100%§7). At §699%§7 heat §ax3 §7power
+multiblock.VacuumNuke.tooltip.02=Consumes coolant to reduce temperature:
+multiblock.VacuumNuke.tooltip.03=IC2 Coolant: §c10,000L§7 per heat
+multiblock.VacuumNuke.tooltip.04=Super Coolant: §c1,000L§7 per heat
+multiblock.VacuumNuke.tooltip.05=Gelid Cryotheum: §c1L§7 per heat (non-recyclable)
+multiblock.VacuumNuke.tooltip.06=Each coil tier adds §a+10%§7 power
+multiblock.VacuumNuke.tooltip.07=Each item pipe casing tier adds §a+10%§7 coolant efficiency 
+multiblock.VacuumNuke.tooltip.08=Recipes only run on the main casing tier
+multiblock.VacuumNuke.tooltip.09=For each main casing tier above treshold §adoubles §7energy output
+multiblock.VacuumNuke.tooltip.10=Sensor hatch can monitor temperature
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s

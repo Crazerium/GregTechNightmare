@@ -102,7 +102,7 @@ public class GTN_SensorHatch extends MTEHatch {
         super.saveNBTData(aNBT);
     }
 
-    public void updateRedstoneOutput(float heat) {
+    public void updateRedstoneOutput(double heat) {
         isOn = (heat > threshold) ^ inverted;
     }
 
