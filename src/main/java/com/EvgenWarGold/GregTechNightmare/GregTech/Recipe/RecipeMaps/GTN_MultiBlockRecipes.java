@@ -314,6 +314,7 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_IV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
+
         // Blood Enchanter
         GTValues.RA.stdBuilder()
             .itemInputs(
