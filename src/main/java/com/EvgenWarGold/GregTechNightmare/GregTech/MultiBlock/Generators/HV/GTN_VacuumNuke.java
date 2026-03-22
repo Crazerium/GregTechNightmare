@@ -15,18 +15,14 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import gregtech.api.enums.HeatingCoilLevel;
-import gregtech.api.metatileentity.implementations.MTEHatch;
-import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
-import gtnhlanth.common.register.WerkstoffMaterialPool;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -45,6 +41,7 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import gregtech.api.enums.HeatingCoilLevel;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
@@ -53,7 +50,10 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTRecipe;
+import gregtech.api.util.OverclockCalculator;
+import gregtech.api.util.ParallelHelper;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
+import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 
@@ -176,6 +176,16 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
         return new ProcessingLogic() {
 
             @Override
+            protected @NotNull CheckRecipeResult applyRecipe(@NotNull GTRecipe recipe, @NotNull ParallelHelper helper,
+                @NotNull OverclockCalculator calculator, @NotNull CheckRecipeResult result) {
+                CheckRecipeResult res = super.applyRecipe(recipe, helper, calculator, result);
+
+                this.duration = (int) (this.duration * (1 + 0.1 * itemPipe.getCasingTier()));
+
+                return res;
+            }
+
+            @Override
             protected @NotNull CheckRecipeResult onRecipeStart(@NotNull GTRecipe recipe) {
                 generating = recipe.getMetadataOrDefault(SimpleMetaData.GENERATING_EU, 0);
                 heatIncrease = recipe.getMetadataOrDefault(SimpleMetaData.TEMPERATURE_INCREASE, 0.0);
@@ -219,11 +229,6 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
         super.runMachine(aBaseMetaTileEntity, aTick);
         if (mMaxProgresstime > 0 && aTick % 20 == 0) {
             heat += heatIncrease;
-            HeatingCoilLevel level = coilBlock.getCoilLevel();
-
-            long eu = (long) (generating * Math.pow(1 - 0.1, level.getTier()));
-
-            setEnergyGenerate(checkEnergy(eu, heat));
 
             ArrayList<FluidStack> inputFluids = getStoredFluids();
             long fluidAmount = 0;
@@ -239,10 +244,11 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
             if (fluidAmount > 0) {
                 if (inputFluid.isFluidEqual(IC2_COOLANT)) {
                     long decreaseTemp = fluidAmount / 10_000;
-                    inputFluid.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(inputFluid, true) && decreaseTemp > 0) {
+                    FluidStack drain = inputFluid.copy();
+                    drain.amount = Math.toIntExact(fluidAmount);
+                    if (depleteInput(drain, true) && decreaseTemp > 0) {
                         heat -= decreaseTemp;
-                        depleteInput(inputFluid);
+                        depleteInput(drain);
                         outputFluid.amount = Math.toIntExact(10_000 * decreaseTemp);
                         addOutput(outputFluid);
                     }
@@ -250,20 +256,22 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
                 if (inputFluid.isFluidEqual(SUPER_COOLANT)) {
                     long decreaseTemp = fluidAmount / 1_000;
-                    inputFluid.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(inputFluid, true) && decreaseTemp > 0) {
+                    FluidStack drain = inputFluid.copy();
+                    drain.amount = Math.toIntExact(fluidAmount);
+                    if (depleteInput(drain, true) && decreaseTemp > 0) {
                         heat -= decreaseTemp;
-                        depleteInput(inputFluid);
+                        depleteInput(drain);
                         outputFluid.amount = Math.toIntExact(10_000 * decreaseTemp);
                         addOutput(outputFluid);
                     }
                 }
 
                 if (inputFluid.isFluidEqual(GELID_CRYOTHEUM)) {
-                    inputFluid.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(inputFluid, true)) {
+                    FluidStack drain = inputFluid.copy();
+                    drain.amount = Math.toIntExact(fluidAmount);
+                    if (depleteInput(drain, true)) {
                         heat -= fluidAmount;
-                        depleteInput(inputFluid);
+                        depleteInput(drain);
                     }
                 }
             }
@@ -277,6 +285,12 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
             if (heat < 0) {
                 heat = 0;
             }
+
+            HeatingCoilLevel level = coilBlock.getCoilLevel();
+
+            long eu = (long) (generating * (1 + 0.1 * level.getTier()));
+
+            setEnergyGenerate(checkEnergy(eu, heat));
 
             for (GTN_SensorHatch hatch : mSensorHatch) {
                 hatch.updateRedstoneOutput(heat);
@@ -302,6 +316,17 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
         aNBT.setLong("generating", generating);
         aNBT.setDouble("heat", heat);
         aNBT.setDouble("heat_increase", heatIncrease);
+        if (inputFluid != null) {
+            NBTTagCompound fluidInput = new NBTTagCompound();
+            inputFluid.writeToNBT(fluidInput);
+            aNBT.setTag("fluidInput", fluidInput);
+        }
+
+        if (outputFluid != null) {
+            NBTTagCompound fluidOutput = new NBTTagCompound();
+            outputFluid.writeToNBT(fluidOutput);
+            aNBT.setTag("fluidOutput", fluidOutput);
+        }
     }
 
     @Override
@@ -310,5 +335,13 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
         generating = aNBT.getLong("generating");
         heat = aNBT.getDouble("heat");
         heatIncrease = aNBT.getDouble("heat_increase");
+        if (aNBT.hasKey("fluidInput")) {
+            inputFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("fluidInput"));
+        }
+
+        if (aNBT.hasKey("fluidOutput")) {
+            outputFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("fluidOutput"));
+        }
+
     }
 }

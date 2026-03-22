@@ -218,13 +218,13 @@ multiblock.VacuumNuke.machine_type=Nuke
 multiblock.VacuumNuke.waila.heat=§bHeat: §6%s%%
 multiblock.VacuumNuke.tooltip.00=Heats up every second while working shown in NEI
 multiblock.VacuumNuke.tooltip.01=Energy output scales from §60% §7to §670% heat §7(§a100%§7). At §699%§7 heat §ax3 §7power
-multiblock.VacuumNuke.tooltip.02=Consumes coolant to reduce temperature:
+multiblock.VacuumNuke.tooltip.02=Consumes §9coolant §7to reduce temperature:
 multiblock.VacuumNuke.tooltip.03=IC2 Coolant: §c10,000L§7 per heat
 multiblock.VacuumNuke.tooltip.04=Super Coolant: §c1,000L§7 per heat
 multiblock.VacuumNuke.tooltip.05=Gelid Cryotheum: §c1L§7 per heat (non-recyclable)
-multiblock.VacuumNuke.tooltip.06=Each coil tier adds §a+10%§7 power
-multiblock.VacuumNuke.tooltip.07=Each item pipe casing tier adds §a+10%§7 coolant efficiency 
-multiblock.VacuumNuke.tooltip.08=Recipes only run on the main casing tier
+multiblock.VacuumNuke.tooltip.06=Each Coil tier adds §a+10%§7 power
+multiblock.VacuumNuke.tooltip.07=Each Item Pipe Casing tier adds §a+10%§7 duration boost
+multiblock.VacuumNuke.tooltip.08=Recipes only run on the §eMain Casing §7tier
 multiblock.VacuumNuke.tooltip.09=For each main casing tier above treshold §adoubles §7energy output
 multiblock.VacuumNuke.tooltip.10=Sensor hatch can monitor temperature
 

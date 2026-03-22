@@ -117,4 +117,13 @@ public class GTN_OreDict {
         return getGas(materials, 1L);
     }
 
+    // Dense
+    public static ItemStack getDense(Materials materials, long amount) {
+        return GTOreDictUnificator.get(OrePrefixes.plateDense, materials, amount);
+    }
+
+    public static ItemStack getDense(Materials materials) {
+        return getDense(materials, 1);
+    }
+
 }

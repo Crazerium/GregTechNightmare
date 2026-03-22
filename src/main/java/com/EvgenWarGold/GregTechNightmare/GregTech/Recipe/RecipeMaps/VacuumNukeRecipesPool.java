@@ -2,7 +2,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
 
-import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
+import java.text.DecimalFormat;
+
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -13,9 +14,8 @@ import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.common.register.WerkstoffMaterialPool;
-
-import java.text.DecimalFormat;
 
 public class VacuumNukeRecipesPool {
 
