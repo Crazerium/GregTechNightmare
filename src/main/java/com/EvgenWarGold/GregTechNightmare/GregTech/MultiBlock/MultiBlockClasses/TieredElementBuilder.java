@@ -9,6 +9,7 @@ import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.util.GTStructureUtility;
 
+@SuppressWarnings("unchecked")
 public class TieredElementBuilder<T> {
 
     private final TierData tierData;
