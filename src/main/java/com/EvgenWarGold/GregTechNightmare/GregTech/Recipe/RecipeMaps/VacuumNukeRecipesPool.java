@@ -1,7 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
-import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
-
 import java.text.DecimalFormat;
 
 import net.minecraftforge.fluids.FluidRegistry;
@@ -14,6 +12,7 @@ import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.util.GTUtility;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.common.register.WerkstoffMaterialPool;
 
@@ -159,7 +158,7 @@ public class VacuumNukeRecipesPool {
             .fake()
             .setNEIDesc(
                 GTN_Utils.tr("gtn.recipe.utils.multiblock_tier." + tier),
-                GTN_Utils.tr("gtn.recipe.utils.generating_eu", formatNumber(eu)),
+                GTN_Utils.tr("gtn.recipe.utils.generating_eu", GTUtility.formatNumbers(eu)),
                 GTN_Utils.tr("gtn.recipe.utils.temperature_increase", df.format(temperature)))
             .addTo(GTN_Recipe.VacuumNukeRecipes);
 
