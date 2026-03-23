@@ -12,6 +12,7 @@ import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 import gtPlusPlus.xmod.thermalfoundation.fluid.TFFluids;
 import gtnhlanth.common.register.WerkstoffMaterialPool;
@@ -20,13 +21,13 @@ public class VacuumNukeRecipesPool {
 
     private final static DecimalFormat df = new DecimalFormat("0.#");
     private final static int ROD_COUNT = 40;
-    private final static FluidStack IC2_COOLANT;
-    private final static FluidStack HOT_IC2_COOLANT;
-    private final static FluidStack SUPER_COOLANT;
-    private final static FluidStack HOT_SUPER_COOLANT;
-    private final static FluidStack GELID_CRYOTHEUM;
+    private static FluidStack IC2_COOLANT;
+    private static FluidStack HOT_IC2_COOLANT;
+    private static FluidStack SUPER_COOLANT;
+    private static FluidStack HOT_SUPER_COOLANT;
+    private static FluidStack GELID_CRYOTHEUM;
 
-    static {
+    public static void getFluids() {
         IC2_COOLANT = FluidRegistry.getFluidStack("ic2coolant", 0);
         HOT_IC2_COOLANT = FluidRegistry.getFluidStack("ic2hotcoolant", 0);
         SUPER_COOLANT = Materials.SuperCoolant.getFluid(0);
@@ -35,6 +36,8 @@ public class VacuumNukeRecipesPool {
     }
 
     public static void init() {
+        getFluids();
+
         addVacuumNukeRecipe(
             ItemList.RodThorium4,
             ItemList.DepletedRodThorium4,
@@ -148,19 +151,27 @@ public class VacuumNukeRecipesPool {
 
     private static void addVacuumNukeRecipe(ItemList input, ItemList output, FluidStack fluidInput,
         FluidStack fluidOutput, int duration, int tier, int eu, double temperature) {
-        GTValues.RA.stdBuilder()
-            .itemInputs(input.get(ROD_COUNT))
+        GTRecipeBuilder recipeFake = GTValues.RA.stdBuilder();
+
+        recipeFake.itemInputs(input.get(ROD_COUNT))
             .itemOutputs(output.get(ROD_COUNT))
-            .fluidInputs(fluidInput)
-            .fluidOutputs(fluidOutput)
             .eut(0)
             .duration(duration * 20)
             .fake()
             .setNEIDesc(
                 GTN_Utils.tr("gtn.recipe.utils.multiblock_tier." + tier),
                 GTN_Utils.tr("gtn.recipe.utils.generating_eu", GTUtility.formatNumbers(eu)),
-                GTN_Utils.tr("gtn.recipe.utils.temperature_increase", df.format(temperature)))
-            .addTo(GTN_Recipe.VacuumNukeRecipes);
+                GTN_Utils.tr("gtn.recipe.utils.temperature_increase", df.format(temperature)));
+
+        if (fluidInput != null && fluidInput.getFluid() != null) {
+            recipeFake.fluidInputs(fluidInput);
+        }
+
+        if (fluidOutput != null && fluidOutput.getFluid() != null) {
+            recipeFake.fluidOutputs(fluidOutput);
+        }
+
+        recipeFake.addTo(GTN_Recipe.VacuumNukeRecipes);
 
         GTValues.RA.stdBuilder()
             .itemInputs(input.get(ROD_COUNT))
