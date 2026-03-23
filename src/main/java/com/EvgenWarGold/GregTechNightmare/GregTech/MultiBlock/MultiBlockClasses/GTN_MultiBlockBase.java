@@ -59,6 +59,7 @@ import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatch
 import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
+import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
 
 public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extends MTEExtendedPowerMultiBlockBase<T>
     implements IConstructable, ISurvivalConstructable {
@@ -82,6 +83,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
     public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
+    public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
     private float euModifier = 1;
@@ -124,6 +126,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamInputBusses.clear();
         this.mSteamOutputBusses.clear();
         this.mSensorHatch.clear();
+        this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
         for (TierData tierData : registeredTierData) {
@@ -560,9 +563,94 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
         return false;
     }
+
+    public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+
+        if (tileEntity.getMetaTileEntity() instanceof MTEHatchDynamoMulti dynamoMulti) {
+            dynamoMulti.updateTexture(baseCasingIndex);
+            dynamoMulti.updateCraftingIcon(this.getMachineCraftingIcon());
+            return mDynamoMultiHatches.add(dynamoMulti);
+        }
+        return false;
+    }
     // endregion
 
     // region Energy
+    public boolean addEnergyOutput(long aEU) {
+        if (aEU <= 0) {
+            return true;
+        }
+        if (!mDynamoHatches.isEmpty() || !mDynamoMultiHatches.isEmpty()) {
+            return addEnergyOutputMultipleDynamos(aEU, true);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addEnergyOutputMultipleDynamos(long aEU, boolean aAllowMixedVoltageDynamos) {
+        long injected = 0;
+        long totalOutput = 0;
+        long aFirstVoltageFound = -1;
+        boolean aFoundMixedDynamos = false;
+
+        List<MTEHatch> allDynamos = new ArrayList<>();
+
+        for (MTEHatchDynamoMulti hatch : validMTEList(mDynamoMultiHatches)) {
+            allDynamos.add(hatch);
+        }
+
+        for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
+            allDynamos.add(hatch);
+        }
+
+        for (MTEHatch aDynamo : allDynamos) {
+            long aVoltage = aDynamo.maxEUOutput();
+            long aTotal = aDynamo.maxAmperesOut() * aVoltage;
+
+            if (aFirstVoltageFound == -1) {
+                aFirstVoltageFound = aVoltage;
+            } else if (aFirstVoltageFound != aVoltage) {
+                aFoundMixedDynamos = true;
+            }
+
+            totalOutput += aTotal;
+        }
+
+        if (totalOutput < aEU || (aFoundMixedDynamos && !aAllowMixedVoltageDynamos)) {
+            explodeMultiblock();
+            return false;
+        }
+
+        for (MTEHatch aDynamo : allDynamos) {
+            if (injected >= aEU) break;
+
+            IGregTechTileEntity base = aDynamo.getBaseMetaTileEntity();
+            if (base == null) continue;
+
+            long leftToInject = aEU - injected;
+            long aVoltage = aDynamo.maxEUOutput();
+
+            long aAmpsToInject = leftToInject / aVoltage;
+            long aRemainder = leftToInject - (aAmpsToInject * aVoltage);
+
+            long ampsOnCurrentHatch = Math.min(aDynamo.maxAmperesOut(), aAmpsToInject);
+
+            for (int i = 0; i < ampsOnCurrentHatch; i++) {
+                base.increaseStoredEnergyUnits(aVoltage, false);
+            }
+
+            injected += aVoltage * ampsOnCurrentHatch;
+
+            if (aRemainder > 0 && ampsOnCurrentHatch < aDynamo.maxAmperesOut()) {
+                base.increaseStoredEnergyUnits(aRemainder, false);
+                injected += aRemainder;
+            }
+        }
+
+        return injected > 0;
+    }
+
     protected void setEnergyUsageWithoutLoss(long lEUt) {
         this.lEUt = (long) (-lEUt * 0.95);
     }
@@ -873,6 +961,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mMufflerHatches) h.updateTexture(textureId);
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
+        for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }
 
     public CoordMultiBlock getCoord() {
