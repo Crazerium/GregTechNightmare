@@ -18,7 +18,7 @@ import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
 @SuppressWarnings("unchecked")
 public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
-    SteamInputHatch("SteamInputHatch", GTN_MultiBlockBase::addSteamInputHatchToMachineList,
+    SteamInputHatch("SteamInputHatch", (base, tile, casing) -> base.addSteamInputHatchToMachineList(tile),
         MTEHatchCustomFluidBase.class) {
 
         @Override
@@ -27,7 +27,8 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    SteamInputBus("SteamInputBus", GTN_MultiBlockBase::addSteamInputBusToMachineList, MTEHatchSteamBusInput.class) {
+    SteamInputBus("SteamInputBus", (base, tile, casing) -> base.addSteamInputBusToMachineList(tile),
+        MTEHatchSteamBusInput.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
@@ -35,7 +36,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    SteamOutputBus("SteamOutputBus", GTN_MultiBlockBase::addSteamOutputBusToMachineList, MTEHatchSteamBusOutput.class) {
+    SteamOutputBus("SteamOutputBus", (base, tile, casing) -> base.addSteamOutputBusToMachineList(tile), MTEHatchSteamBusOutput.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
@@ -43,7 +44,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    SensorHatch("SensorHatch", GTN_MultiBlockBase::addSensorHatchToMachineList, GTN_SensorHatch.class) {
+    SensorHatch("SensorHatch", (base, tile, casing) -> base.addSensorHatchToMachineList(tile), GTN_SensorHatch.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
@@ -51,7 +52,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    DynamoMulti("DynamoMulti", GTN_MultiBlockBase::addDynamoMultiHatchToMachineList, MTEHatchDynamoMulti.class) {
+    DynamoMulti("DynamoMulti", (base, tile, casing) -> base.addDynamoMultiHatchToMachineList(tile), MTEHatchDynamoMulti.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {

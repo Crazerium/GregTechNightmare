@@ -509,7 +509,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Hatches
-    private boolean baseCheckHatch(IGregTechTileEntity tileEntity, int baseCasingIndex) {
+    private boolean baseCheckHatch(IGregTechTileEntity tileEntity) {
         if (tileEntity == null) {
             return false;
         }
@@ -518,61 +518,48 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return aMetaTileEntity == null;
     }
 
-    public final boolean addSteamInputBusToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
-        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+    public final boolean addSteamInputBusToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
 
-        if (tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusInput steamBusInput) {
-            steamBusInput.updateTexture(baseCasingIndex);
-            steamBusInput.updateCraftingIcon(this.getMachineCraftingIcon());
-            mInputBusses.add(steamBusInput);
-            return mSteamInputBusses.add(steamBusInput);
-        }
-        return false;
+        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusInput steamBusInput)) return false;
+
+        mInputBusses.add(steamBusInput);
+
+        return mSteamInputBusses.add(steamBusInput);
     }
 
-    public final boolean addSteamInputHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
-        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+    public final boolean addSteamInputHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
 
-        if (tileEntity.getMetaTileEntity() instanceof MTEHatchCustomFluidBase steamHatchInput) {
-            steamHatchInput.updateTexture(baseCasingIndex);
-            steamHatchInput.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mSteamInputFluids.add(steamHatchInput);
-        }
-        return false;
+        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchCustomFluidBase steamHatchInput)) return false;
+
+        return mSteamInputFluids.add(steamHatchInput);
     }
 
-    public final boolean addSteamOutputBusToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
-        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+    public final boolean addSteamOutputBusToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
 
-        if (tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusOutput steamBusOutput) {
-            steamBusOutput.updateTexture(baseCasingIndex);
-            steamBusOutput.updateCraftingIcon(this.getMachineCraftingIcon());
-            mOutputBusses.add(steamBusOutput);
-            return mSteamOutputBusses.add(steamBusOutput);
-        }
-        return false;
+        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusOutput steamBusOutput)) return false;
+
+        mOutputBusses.add(steamBusOutput);
+
+        return mSteamOutputBusses.add(steamBusOutput);
     }
 
-    public final boolean addSensorHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
-        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+    public final boolean addSensorHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
 
-        if (tileEntity.getMetaTileEntity() instanceof GTN_SensorHatch sensorHatch) {
-            sensorHatch.updateTexture(baseCasingIndex);
-            sensorHatch.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mSensorHatch.add(sensorHatch);
-        }
-        return false;
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_SensorHatch sensorHatch)) return false;
+
+        return mSensorHatch.add(sensorHatch);
     }
 
-    public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity, int baseCasingIndex) {
-        if (baseCheckHatch(tileEntity, baseCasingIndex)) return false;
+    public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
 
-        if (tileEntity.getMetaTileEntity() instanceof MTEHatchDynamoMulti dynamoMulti) {
-            dynamoMulti.updateTexture(baseCasingIndex);
-            dynamoMulti.updateCraftingIcon(this.getMachineCraftingIcon());
-            return mDynamoMultiHatches.add(dynamoMulti);
-        }
-        return false;
+        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchDynamoMulti dynamoMulti)) return false;
+
+        return mDynamoMultiHatches.add(dynamoMulti);
     }
     // endregion
 
