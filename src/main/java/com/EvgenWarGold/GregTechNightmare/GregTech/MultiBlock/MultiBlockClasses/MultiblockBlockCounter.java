@@ -2,9 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +14,6 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import blockrenderer6343.client.utils.ConstructableData;
 import blockrenderer6343.integration.nei.StructureHacks;
-import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 
 public class MultiblockBlockCounter {
 
