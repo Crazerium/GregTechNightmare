@@ -22,10 +22,17 @@ gtn.recipe.AdvancedBBFRecipes=Advanced BBF
 gtn.recipe.AdvancedCokeOvenRecipes=Coke Oven
 gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 gtn.recipe.GasCollectorRecipes=Gas Collector
+gtn.recipe.VacuumNukeRecipes=Vacuum Nuke
 gtn.recipe.ImprovedAlgaeFarmRecipes=Improved Algae Farm
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
+gtn.recipe.utils.multiblock_tier.1=Casing: Frost Proof
+gtn.recipe.utils.multiblock_tier.2=Casing: Stable Titanium
+gtn.recipe.utils.multiblock_tier.3=Casing: Robust Tungstensteel
+gtn.recipe.utils.generating_eu=Generating: %s EU/t
+gtn.recipe.utils.temperature_increase=Temperature increase: %s
+
 #SimpleCheckRecipeResult
 GT5U.gui.text.node_enough=Node is empty
 GT5U.gui.text.sapling_enough=Sapling is empty
@@ -40,6 +47,7 @@ GT5U.gui.text.no_mode_selected=No mode selected
 GT5U.gui.text.not_enough_lp=§cNot enough LP
 GT5U.gui.text.not_enough_xp=§cNot enough Liquid XP 
 GT5U.gui.text.not_enough_praecantatio=§cNot enough Praecantatio
+GT5U.gui.text.invalid_casing=§cInvalid Casing
 GT5U.gui.text.not_enough_water=Not enough §bWater
 
 #TestMultiBlock
@@ -170,7 +178,6 @@ multiblock.LaserMeteorMiner.tooltip.10=Mines one row every cycle (§91§7 tick)
 multiblock.LaserMeteorMiner.tooltip.11=§4TIER II
 multiblock.LaserMeteorMiner.tooltip.12=Consumption: §aZPM§7 1x Amp
 multiblock.LaserMeteorMiner.tooltip.13=Mines one layer every cycle (§910§7 tick)
-
 multiblock.LaserMeteorMiner.fortune.0=Augment: §fNo Augment Applied
 multiblock.LaserMeteorMiner.fortune.1=Augment: §fFortune I
 multiblock.LaserMeteorMiner.fortune.2=Augment: §fFortune II
@@ -210,6 +217,18 @@ multiblock.BloodEnchanter.tooltip.12=§5128000§7 Pollution per second
 #VacuumNuke
 multiblock.VacuumNuke=Vacuum Nuke
 multiblock.VacuumNuke.machine_type=Nuke
+multiblock.VacuumNuke.waila.heat=§bHeat: §6%s%%
+multiblock.VacuumNuke.tooltip.00=Heats up every second while working shown in NEI
+multiblock.VacuumNuke.tooltip.01=Energy output scales from §60% §7to §670% heat §7(§a100%§7). At §699%§7 heat §ax3 §7power
+multiblock.VacuumNuke.tooltip.02=Consumes §9coolant §7to reduce temperature:
+multiblock.VacuumNuke.tooltip.03=IC2 Coolant: §c10,000L§7 per heat
+multiblock.VacuumNuke.tooltip.04=Super Coolant: §c1,000L§7 per heat
+multiblock.VacuumNuke.tooltip.05=Gelid Cryotheum: §c1L§7 per heat (non-recyclable)
+multiblock.VacuumNuke.tooltip.06=Each Coil tier adds §a+10%§7 power
+multiblock.VacuumNuke.tooltip.07=Each Item Pipe Casing tier adds §a+10%§7 duration boost
+multiblock.VacuumNuke.tooltip.08=Recipes only run on the §eMain Casing §7tier
+multiblock.VacuumNuke.tooltip.09=For each main casing tier above treshold §adoubles §7energy output
+multiblock.VacuumNuke.tooltip.10=Sensor hatch can monitor temperature
 
 #ImprovedAlgaeFarm
 multiblock.ImprovedAlgaeFarm=Improved Algae Farm 
@@ -236,6 +255,9 @@ Crazer=§aCrazer
 Author_Totto=Author: §bTotto
 Totto=§bTotto
 Author_Structure=Structure author: §6%s
+
+#Hatch
+GTN.gui.text.sensor=Detection Threshold
 
 #Others
 GTN.TooltipBuilder.basic_info=Basic Info:

@@ -53,6 +53,10 @@ public enum GTN_ItemList {
     ImprovedAlgaeFarm,
     // endregion
 
+    // region Hatch
+    SensorHatch,
+    // endregion
+
     ;
     // endregion
     // spotless:on

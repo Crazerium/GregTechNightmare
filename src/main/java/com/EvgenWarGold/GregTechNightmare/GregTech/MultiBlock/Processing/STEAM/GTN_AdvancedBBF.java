@@ -9,9 +9,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_NewHatchElement;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -77,7 +77,7 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
                 'A',
                 ElementBuilder.create(GTN_AdvancedBBF.class, this)
                     .casing(mainCasing)
-                    .hatches(GTN_NewHatchElement.SteamInputBus, GTN_NewHatchElement.SteamOutputBus)
+                    .hatches(GTN_HatchElement.SteamInputBus, GTN_HatchElement.SteamOutputBus)
                     .build())
                 .addElement('B', ofFrame(Materials.Steel)));
     }

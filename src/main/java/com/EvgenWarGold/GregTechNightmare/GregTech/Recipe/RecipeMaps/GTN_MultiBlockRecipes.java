@@ -32,6 +32,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import goodgenerator.util.ItemRefer;
 import gregtech.api.enums.GTValues;
@@ -316,6 +317,7 @@ public class GTN_MultiBlockRecipes {
             .eut(RECIPE_IV)
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
+
         // Blood Enchanter
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -331,6 +333,20 @@ public class GTN_MultiBlockRecipes {
             .duration(120 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Vacuum Nuke
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                new ItemStack(gtPlusPlus.core.block.ModBlocks.blockDecayablesChest),
+                getCircuits(Materials.EV, 4),
+                GTN_OreDict.getDense(Materials.Thorium, 16),
+                ItemList.Robot_Arm_HV.get(4),
+                ItemList.Electric_Pump_HV.get(4),
+                ItemList.Field_Generator_MV.get(2)
+            )
+            .itemOutputs(GTN_ItemList.VacuumNuke.get(1))
+            .eut(RECIPE_EV)
+            .duration(120 * 20)
+            .addTo(RecipeMaps.assemblerRecipes);
         // Improved Algae Farm
         GTValues.RA.stdBuilder()
             .itemInputs(

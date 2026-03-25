@@ -37,6 +37,12 @@ public class GTN_Recipe {
         .frontend(GasCollectorRecipesFrontend::new)
         .build();
 
+    public static final RecipeMap<?> VacuumNukeRecipes = RecipeMapBuilder.of("gtn.recipe.VacuumNukeRecipes")
+        .maxIO(1, 1, 1, 1)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .build();
+
     public static final RecipeMap<?> ImprovedAlgaeFarmRecipes = RecipeMapBuilder
         .of("gtn.recipe.ImprovedAlgaeFarmRecipes")
         .maxIO(1, 5, 0, 0)
