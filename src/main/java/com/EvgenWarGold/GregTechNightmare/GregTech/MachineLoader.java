@@ -50,7 +50,7 @@ public final class MachineLoader {
         GTN_ItemList.BloodEnchanter.set(new GTN_BloodEnchanter(21_019, "BloodEnchanter"));
         GTN_ItemList.VacuumNuke.set(new GTN_VacuumNuke(21_020, "VacuumNuke"));
         GTN_ItemList.SensorHatch.set(new GTN_SensorHatch(21_021, "Sensor Hatch"));
-        GTN_ItemList.ImprovedAlgaeFarm.set(new GTN_ImprovedAlgaeFarm(21_021, "ImprovedAlgaeFarm"));
+        GTN_ItemList.ImprovedAlgaeFarm.set(new GTN_ImprovedAlgaeFarm(21_022, "ImprovedAlgaeFarm"));
         //spotless:on
     }
 }
