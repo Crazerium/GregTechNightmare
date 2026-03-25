@@ -53,6 +53,20 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     }
 
     @Override
+    public List<StructureVariant<GTN_ImprovedAlgaeFarm>> getStructureVariants() {
+        return Arrays.asList(
+            new StructureVariant<>(
+                "ImprovedAlgaeFarm",
+                new String[][] { { "CCCCCCC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CCCCCCC" },
+                    { "CCCCCCC", "C     C", "C     C", "C     C", "C     C", "C     C", "CCCCCCC" },
+                    { "CCC~CCC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CCCCCCC" } },
+                new MultiblockOffsets(3, 2, 0),
+                new MultiblockArea(7, 3, 7),
+                1,
+                GTN_Casings.SterileFarmCasing));
+    }
+
+    @Override
     public GTN_ImprovedAlgaeFarm createNewMetaEntity() {
         return new GTN_ImprovedAlgaeFarm(this.mName);
     }
@@ -60,6 +74,44 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     @Override
     public Authors getAuthor() {
         return Authors.CRAZER;
+    }
+
+    @Override
+    public IStructureDefinition<GTN_ImprovedAlgaeFarm> getStructureDefinition() {
+        return buildStructureDefinition(
+            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+                .addElement(
+                    'B',
+                    TieredElementBuilder.create(machinecasing, GTN_ImprovedAlgaeFarm.class)
+                        .casings(
+                            GTN_Casings.LVMachineCasing,
+                            GTN_Casings.MVMachineCasing,
+                            GTN_Casings.HVMachineCasing,
+                            GTN_Casings.EVMachineCasing,
+                            GTN_Casings.IVMachineCasing,
+                            GTN_Casings.LuVMachineCasing,
+                            GTN_Casings.UVMachineCasing,
+                            GTN_Casings.UHVMachineCasing,
+                            GTN_Casings.UEVMachineCasing,
+                            GTN_Casings.UIVMachineCasing,
+                            GTN_Casings.UMVMachineCasing,
+                            GTN_Casings.UXVMachineCasing)
+                        .build())
+                .addElement(
+                    'C',
+                    ElementBuilder.create(GTN_ImprovedAlgaeFarm.class, this)
+                        .casing(GTN_Casings.SterileFarmCasing)
+                        .hatches(InputBus, InputHatch, OutputBus)
+                        .build()));
+    }
+
+    @Override
+    public RecipeMap<?> getRecipeMap() {
+        return GTN_Recipe.ImprovedAlgaeFarmRecipes;
+    }
+
+    private boolean hasUVCasing() {
+        return machinecasing.getCasingTier() >= 6;
     }
 
     @Override
@@ -106,58 +158,6 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
             return MAX_PARALLELS_BY_TIER[MAX_PARALLELS_BY_TIER.length - 1];
         }
         return MAX_PARALLELS_BY_TIER[tier];
-    }
-
-    @Override
-    public List<StructureVariant<GTN_ImprovedAlgaeFarm>> getStructureVariants() {
-        return Arrays.asList(
-            new StructureVariant<>(
-                "ImprovedAlgaeFarm",
-                new String[][] { { "CCCCCCC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CCCCCCC" },
-                    { "CCCCCCC", "C     C", "C     C", "C     C", "C     C", "C     C", "CCCCCCC" },
-                    { "CCC~CCC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CCCCCCC" } },
-                new MultiblockOffsets(3, 2, 0),
-                new MultiblockArea(7, 3, 7),
-                1,
-                GTN_Casings.SterileFarmCasing));
-    }
-
-    @Override
-    public IStructureDefinition<GTN_ImprovedAlgaeFarm> getStructureDefinition() {
-        return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement(
-                    'B',
-                    TieredElementBuilder.create(machinecasing, GTN_ImprovedAlgaeFarm.class)
-                        .casings(
-                            GTN_Casings.LVMachineCasing,
-                            GTN_Casings.MVMachineCasing,
-                            GTN_Casings.HVMachineCasing,
-                            GTN_Casings.EVMachineCasing,
-                            GTN_Casings.IVMachineCasing,
-                            GTN_Casings.LuVMachineCasing,
-                            GTN_Casings.UVMachineCasing,
-                            GTN_Casings.UHVMachineCasing,
-                            GTN_Casings.UEVMachineCasing,
-                            GTN_Casings.UIVMachineCasing,
-                            GTN_Casings.UMVMachineCasing,
-                            GTN_Casings.UXVMachineCasing)
-                        .build())
-                .addElement(
-                    'C',
-                    ElementBuilder.create(GTN_ImprovedAlgaeFarm.class, this)
-                        .casing(GTN_Casings.SterileFarmCasing)
-                        .hatches(InputBus, InputHatch, OutputBus)
-                        .build()));
-    }
-
-    @Override
-    public RecipeMap<?> getRecipeMap() {
-        return GTN_Recipe.ImprovedAlgaeFarmRecipes;
-    }
-
-    private boolean hasUVCasing() {
-        return machinecasing.getCasingTier() >= 6;
     }
 
     private static final ItemStack FERTILIZER = GTModHandler.getModItem("IC2", "itemFertilizer", 1, 0);
