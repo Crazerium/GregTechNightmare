@@ -1,9 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.gtnewhorizon.structurelib.structure.StructureUtility;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
@@ -18,7 +23,8 @@ import blockrenderer6343.integration.nei.StructureHacks;
 public class MultiblockBlockCounter {
 
     private final Map<String, Integer> blockCounts = new HashMap<>();
-
+    private static final ConstructableData data = new ConstructableData();
+    private final Map<IStructureElement<IConstructable>, Integer> elementCountMap = new HashMap<>();
     public Map<String, Integer> getBlockCounts(IConstructable multiblock) {
         analyzeMultiblock(multiblock);
         return new HashMap<>(blockCounts);
@@ -27,6 +33,7 @@ public class MultiblockBlockCounter {
     @SuppressWarnings("unchecked")
     private void analyzeMultiblock(IConstructable multiblock) {
         blockCounts.clear();
+        elementCountMap.clear();
 
         IStructureDefinition<?> structure = multiblock.getStructureDefinition();
 
@@ -36,23 +43,33 @@ public class MultiblockBlockCounter {
             Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures()
                 .values();
 
-            ConstructableData data = new ConstructableData();
-
             for (IStructureElement<IConstructable>[] elementArray : structures) {
                 if (elementArray == null) continue;
 
                 for (IStructureElement<IConstructable> element : elementArray) {
                     if (element == null) continue;
 
-                    processElement(multiblock, element, data);
+                    elementCountMap.put(element, elementCountMap.getOrDefault(element, 0) + 1);
                 }
+            }
+
+            for (Map.Entry<IStructureElement<IConstructable>, Integer> entry : elementCountMap.entrySet()) {
+                IStructureElement<IConstructable> element = entry.getKey();
+                Integer count = entry.getValue();
+
+                String channel = getChannelFromElement(element);
+
+                if (channel != null && !channel.isEmpty()) {
+                    blockCounts.put(channel, count);
+                    continue;
+                }
+
+                newPrecessElement(multiblock, element, count);
             }
         }
     }
 
-    private void processElement(IConstructable multiblock, IStructureElement<IConstructable> element,
-        ConstructableData data) {
-
+    private void newPrecessElement(IConstructable multiblock, IStructureElement<IConstructable> element, Integer count) {
         String elementName = element.getClass()
             .getName();
 
@@ -66,7 +83,7 @@ public class MultiblockBlockCounter {
 
             if (elements != null) {
                 for (IStructureElement<IConstructable> e : elements) {
-                    processElement(multiblock, e, data);
+                    newPrecessElement(multiblock, e, count);
                 }
             }
             return;
@@ -76,7 +93,7 @@ public class MultiblockBlockCounter {
             IStructureElement<IConstructable> realElement = StructureHacks.getUnderlyingElement(multiblock, element);
 
             if (realElement != null) {
-                processElement(multiblock, realElement, data);
+                newPrecessElement(multiblock, realElement, count);
             }
             return;
         }
@@ -84,15 +101,9 @@ public class MultiblockBlockCounter {
         IStructureElement<IConstructable> realElement = StructureHacks.getUnderlyingElement(multiblock, element);
 
         if (realElement != null && realElement != element) {
-            processElement(multiblock, realElement, data);
+            newPrecessElement(multiblock, realElement, count);
             return;
         }
-
-        processRegularElement(multiblock, element, data);
-    }
-
-    private void processRegularElement(IConstructable multiblock, IStructureElement<IConstructable> element,
-        ConstructableData data) {
 
         Iterable<ItemStack> stacks = StructureHacks.getStacksForElement(multiblock, element, data);
 
@@ -100,9 +111,32 @@ public class MultiblockBlockCounter {
             for (ItemStack stack : stacks) {
                 if (stack != null && stack.getItem() != null) {
                     String blockKey = stack.getDisplayName();
-                    blockCounts.put(blockKey, blockCounts.getOrDefault(blockKey, 0) + stack.stackSize);
+                    blockCounts.put(blockKey, count);
+                    return;
                 }
             }
+        }
+    }
+
+    private String getChannelFromElement(IStructureElement<IConstructable> element) {
+        try {
+            Class<?> elementClass = element.getClass();
+            Field channelField;
+            try {
+                channelField = elementClass.getDeclaredField("val$channel");
+            } catch (NoSuchFieldException e1) {
+                try {
+                    channelField = elementClass.getDeclaredField("channel");
+                } catch (NoSuchFieldException e2) {
+                    return null;
+                }
+            }
+
+            channelField.setAccessible(true);
+            return (String) channelField.get(element);
+
+        } catch (Exception e) {
+            return null;
         }
     }
 }
