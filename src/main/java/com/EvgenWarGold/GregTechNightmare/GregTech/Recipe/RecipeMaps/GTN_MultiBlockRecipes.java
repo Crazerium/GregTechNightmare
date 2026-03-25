@@ -267,7 +267,7 @@ public class GTN_MultiBlockRecipes {
                 GTN_Casings.HollowCasing.getItemStack(64),
                 ItemList.Circuit_Chip_Stemcell.get(64),
                 ItemList.Circuit_Chip_Biocell.get(64),
-                getSuperDense(Materials.RadoxPolymer, 64),
+                getSuperDense(Materials.RadoxPolymer, 24),
                 getFrameGt(Materials.CosmicNeutronium, 64),
                 ModItems.NEW_HORIZONS_CORE_MOD_ITEMS.HighEnergyFlowCircuit.get(64),
                 ItemList.Circuit_Chip_BioCPU.get(64),
