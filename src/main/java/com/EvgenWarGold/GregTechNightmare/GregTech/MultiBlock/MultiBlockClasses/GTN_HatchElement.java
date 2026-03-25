@@ -36,7 +36,8 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    SteamOutputBus("SteamOutputBus", (base, tile, casing) -> base.addSteamOutputBusToMachineList(tile), MTEHatchSteamBusOutput.class) {
+    SteamOutputBus("SteamOutputBus", (base, tile, casing) -> base.addSteamOutputBusToMachineList(tile),
+        MTEHatchSteamBusOutput.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
@@ -52,7 +53,8 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         }
     },
 
-    DynamoMulti("DynamoMulti", (base, tile, casing) -> base.addDynamoMultiHatchToMachineList(tile), MTEHatchDynamoMulti.class) {
+    DynamoMulti("DynamoMulti", (base, tile, casing) -> base.addDynamoMultiHatchToMachineList(tile),
+        MTEHatchDynamoMulti.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
