@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMu
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_ImprovedAlgaeFarm;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_BloodEnchanter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
@@ -49,6 +50,7 @@ public final class MachineLoader {
         GTN_ItemList.BloodEnchanter.set(new GTN_BloodEnchanter(21_019, "BloodEnchanter"));
         GTN_ItemList.VacuumNuke.set(new GTN_VacuumNuke(21_020, "VacuumNuke"));
         GTN_ItemList.SensorHatch.set(new GTN_SensorHatch(21_021, "Sensor Hatch"));
+        GTN_ItemList.ImprovedAlgaeFarm.set(new GTN_ImprovedAlgaeFarm(21_022, "ImprovedAlgaeFarm"));
         //spotless:on
     }
 }

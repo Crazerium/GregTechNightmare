@@ -50,6 +50,7 @@ public enum GTN_ItemList {
     LaserMeteorMiner,
     BloodEnchanter,
     VacuumNuke,
+    ImprovedAlgaeFarm,
     // endregion
 
     // region Hatch
