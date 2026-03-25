@@ -20,100 +20,36 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 
 public class MultiblockBlockCounter {
 
-    private static final int MAX_TIERS = 50;
-
     private final Map<String, Integer> blockCounts = new HashMap<>();
-    private final Set<ItemStack> uniqueBlocks = new HashSet<>();
-    private int totalBlocks = 0;
-
-    public int getTotalBlockCount(IConstructable multiblock) {
-        analyzeMultiblock(multiblock);
-        return totalBlocks;
-    }
 
     public Map<String, Integer> getBlockCounts(IConstructable multiblock) {
         analyzeMultiblock(multiblock);
         return new HashMap<>(blockCounts);
     }
 
-    public Set<ItemStack> getUniqueBlocks(IConstructable multiblock) {
-        analyzeMultiblock(multiblock);
-        return new HashSet<>(uniqueBlocks);
-    }
-
-    public Map<String, ElementBlockInfo> getDetailedInfo(IConstructable multiblock) {
-        Map<String, ElementBlockInfo> result = new HashMap<>();
-        analyzeMultiblockDetailed(multiblock, result);
-        return result;
-    }
-
     @SuppressWarnings("unchecked")
     private void analyzeMultiblock(IConstructable multiblock) {
         blockCounts.clear();
-        uniqueBlocks.clear();
-        totalBlocks = 0;
 
-        try {
-            IStructureDefinition<?> structure = multiblock.getStructureDefinition();
+        IStructureDefinition<?> structure = multiblock.getStructureDefinition();
 
-            if (structure instanceof StructureDefinition) {
-                StructureDefinition<IConstructable> structDef = (StructureDefinition<IConstructable>) structure;
+        if (structure instanceof StructureDefinition) {
+            StructureDefinition<IConstructable> structDef = (StructureDefinition<IConstructable>) structure;
 
-                Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures()
-                    .values();
+            Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures()
+                .values();
 
-                ConstructableData data = new ConstructableData();
+            ConstructableData data = new ConstructableData();
 
-                for (IStructureElement<IConstructable>[] elementArray : structures) {
-                    if (elementArray == null) continue;
+            for (IStructureElement<IConstructable>[] elementArray : structures) {
+                if (elementArray == null) continue;
 
-                    for (IStructureElement<IConstructable> element : elementArray) {
-                        if (element == null) continue;
+                for (IStructureElement<IConstructable> element : elementArray) {
+                    if (element == null) continue;
 
-                        processElement(multiblock, element, data);
-                    }
+                    processElement(multiblock, element, data);
                 }
             }
-
-        } catch (Exception e) {
-            System.err.println("Error analyzing multiblock: " + e.getMessage());
-        }
-    }
-
-    private void analyzeMultiblockDetailed(IConstructable multiblock, Map<String, ElementBlockInfo> result) {
-        try {
-            IStructureDefinition<?> structure = multiblock.getStructureDefinition();
-
-            if (structure instanceof StructureDefinition) {
-                @SuppressWarnings("unchecked")
-                StructureDefinition<IConstructable> structDef = (StructureDefinition<IConstructable>) structure;
-
-                Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures()
-                    .values();
-
-                ConstructableData data = new ConstructableData();
-                int elementIndex = 0;
-
-                for (IStructureElement<IConstructable>[] elementArray : structures) {
-                    if (elementArray == null) continue;
-
-                    for (IStructureElement<IConstructable> element : elementArray) {
-                        if (element == null) continue;
-
-                        String elementName = element.getClass()
-                            .getSimpleName();
-                        ElementBlockInfo info = new ElementBlockInfo();
-                        info.elementType = elementName;
-
-                        processElementWithInfo(multiblock, element, data, info);
-
-                        result.put(elementName + "_" + elementIndex++, info);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error in detailed analysis: " + e.getMessage());
         }
     }
 
@@ -158,50 +94,6 @@ public class MultiblockBlockCounter {
         processRegularElement(multiblock, element, data);
     }
 
-    private void processElementWithInfo(IConstructable multiblock, IStructureElement<IConstructable> element,
-        ConstructableData data, ElementBlockInfo info) {
-
-        String elementName = element.getClass()
-            .getName();
-
-        if (StructureHacks.SKIP_ELEMENTS.contains(elementName)) {
-            info.isSkipped = true;
-            return;
-        }
-
-        if (element instanceof IStructureElementChain) {
-            info.isChain = true;
-            IStructureElement<IConstructable>[] elements = ((IStructureElementChain<IConstructable>) element)
-                .fallbacks();
-
-            if (elements != null) {
-                for (IStructureElement<IConstructable> e : elements) {
-                    processElementWithInfo(multiblock, e, data, info);
-                }
-            }
-            return;
-        }
-
-        if (elementName.equals(StructureHacks.LAZY_ELEMENT)) {
-            info.isLazy = true;
-            IStructureElement<IConstructable> realElement = StructureHacks.getUnderlyingElement(multiblock, element);
-
-            if (realElement != null) {
-                processElementWithInfo(multiblock, realElement, data, info);
-            }
-            return;
-        }
-
-        IStructureElement<IConstructable> realElement = StructureHacks.getUnderlyingElement(multiblock, element);
-
-        if (realElement != null && realElement != element) {
-            processElementWithInfo(multiblock, realElement, data, info);
-            return;
-        }
-
-        processRegularElementWithInfo(multiblock, element, data, info);
-    }
-
     private void processRegularElement(IConstructable multiblock, IStructureElement<IConstructable> element,
         ConstructableData data) {
 
@@ -210,85 +102,10 @@ public class MultiblockBlockCounter {
         if (stacks != null) {
             for (ItemStack stack : stacks) {
                 if (stack != null && stack.getItem() != null) {
-                    totalBlocks += stack.stackSize;
-
-                    uniqueBlocks.add(stack.copy());
-
                     String blockKey = stack.getDisplayName();
                     blockCounts.put(blockKey, blockCounts.getOrDefault(blockKey, 0) + stack.stackSize);
                 }
             }
         }
-    }
-
-    private void processRegularElementWithInfo(IConstructable multiblock, IStructureElement<IConstructable> element,
-        ConstructableData data, ElementBlockInfo info) {
-
-        Iterable<ItemStack> stacks = StructureHacks.getStacksForElement(multiblock, element, data);
-
-        if (stacks != null) {
-            int blockCount = 0;
-
-            for (ItemStack stack : stacks) {
-                if (stack != null && stack.getItem() != null) {
-                    blockCount += stack.stackSize;
-                    info.blocks.add(stack.copy());
-                    info.blockCounts.put(
-                        stack.getDisplayName(),
-                        info.blockCounts.getOrDefault(stack.getDisplayName(), 0) + stack.stackSize);
-                }
-            }
-
-            info.totalBlocks = blockCount;
-            info.processed = true;
-        }
-    }
-
-    public static class ElementBlockInfo {
-
-        public String elementType;
-        public boolean processed = false;
-        public boolean isSkipped = false;
-        public boolean isChain = false;
-        public boolean isLazy = false;
-        public int totalBlocks = 0;
-        public Set<ItemStack> blocks = new HashSet<>();
-        public Map<String, Integer> blockCounts = new HashMap<>();
-
-        @Override
-        public String toString() {
-            return String.format("Element[%s]: %d blocks, %d unique types", elementType, totalBlocks, blocks.size());
-        }
-    }
-
-    public static void printReport(IConstructable multiblock) {
-        MultiblockBlockCounter counter = new MultiblockBlockCounter();
-
-        System.out.println("=== Multiblock Block Analysis ===");
-        System.out.println(
-            "Multiblock: " + multiblock.getClass()
-                .getSimpleName());
-
-        if (multiblock instanceof IMetaTileEntity) {
-            System.out.println("Name: " + ((IMetaTileEntity) multiblock).getMetaName());
-        }
-
-        int total = counter.getTotalBlockCount(multiblock);
-        System.out.println("Total blocks: " + total);
-
-        Map<String, Integer> counts = counter.getBlockCounts(multiblock);
-        System.out.println("\nBlock types:");
-        for (Map.Entry<String, Integer> entry : counts.entrySet()) {
-            System.out.println("  " + entry.getKey() + ": " + entry.getValue());
-        }
-
-        System.out.println(
-            "Unique blocks: " + counter.getUniqueBlocks(multiblock)
-                .size());
-
-        Map<String, ElementBlockInfo> detailed = counter.getDetailedInfo(multiblock);
-        System.out.println("\nElements analyzed: " + detailed.size());
-
-        System.out.println("================================");
     }
 }
