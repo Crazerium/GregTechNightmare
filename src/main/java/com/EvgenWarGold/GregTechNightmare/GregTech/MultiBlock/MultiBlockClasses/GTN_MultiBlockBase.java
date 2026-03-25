@@ -420,14 +420,12 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             addMultiBlockBasicInfo(tt);
         }
         tt.beginStructureBlock();
-        for (Map.Entry<String, Integer> entry : multiblockBlockCounter.getBlockCounts(this).entrySet()) {
+        for (Map.Entry<String, Integer> entry : multiblockBlockCounter.getBlockCounts(this)
+            .entrySet()) {
             String blockName = entry.getKey();
             Integer count = entry.getValue();
-            tt.addExtraInfoWithSpace(EnumChatFormatting.GOLD
-                + count.toString()
-                + "x "
-                + EnumChatFormatting.AQUA
-                + blockName);
+            tt.addExtraInfoWithSpace(
+                EnumChatFormatting.GOLD + count.toString() + "x " + EnumChatFormatting.AQUA + blockName);
         }
         createGtnTooltip(tt);
         tt.toolTipFinisher(Constants.MOD_NAME);
