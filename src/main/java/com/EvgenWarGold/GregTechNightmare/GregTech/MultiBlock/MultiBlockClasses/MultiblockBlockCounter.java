@@ -3,7 +3,12 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 import static blockrenderer6343.client.utils.BRUtil.AUTO_PLACE_ENVIRONMENT;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
