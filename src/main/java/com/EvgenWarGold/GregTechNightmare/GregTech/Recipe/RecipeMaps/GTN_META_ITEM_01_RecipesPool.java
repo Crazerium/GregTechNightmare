@@ -14,7 +14,7 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.recipe.RecipeMaps;
 
-public class GTN_META_ITEM_01_Recipes {
+public class GTN_META_ITEM_01_RecipesPool {
 
     public static void init() {
         // spotless:off
