@@ -13,6 +13,8 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -24,6 +26,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
@@ -107,6 +111,11 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             Dynamo)
                         .build())
                 .build());
+    }
+
+    @Override
+    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+        return super.GTN_checkMachine(aBaseMetaTileEntity, aStack);
     }
 
     @Override

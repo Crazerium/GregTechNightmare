@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -95,6 +96,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected int mainCasingCount = 0;
     protected int mainCasingTextureId = 0;
     protected final List<TierData> registeredTierData = new ArrayList<>();
+    protected final MultiblockBlockCounter multiblockBlockCounter = new MultiblockBlockCounter();
     // endregion
 
     // region Class Construct
@@ -418,6 +420,13 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             addMultiBlockBasicInfo(tt);
         }
         tt.beginStructureBlock();
+        for (Map.Entry<String, Integer> entry : multiblockBlockCounter.getBlockCounts(this)
+            .entrySet()) {
+            String blockName = entry.getKey();
+            Integer count = entry.getValue();
+            tt.addExtraInfoWithSpace(
+                EnumChatFormatting.GOLD + count.toString() + "x " + EnumChatFormatting.AQUA + blockName);
+        }
         createGtnTooltip(tt);
         tt.toolTipFinisher(Constants.MOD_NAME);
         return tt;
