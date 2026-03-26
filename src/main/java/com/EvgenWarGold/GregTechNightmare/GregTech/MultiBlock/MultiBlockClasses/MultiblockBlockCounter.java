@@ -3,6 +3,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 import java.lang.reflect.Field;
 import java.util.*;
 
+import blockrenderer6343.client.utils.BRUtil;
+import com.google.common.collect.Iterables;
 import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
@@ -14,6 +16,7 @@ import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 import blockrenderer6343.client.utils.ConstructableData;
 import blockrenderer6343.client.world.DummyWorld;
 import blockrenderer6343.integration.nei.StructureHacks;
+import net.minecraft.util.EnumChatFormatting;
 
 import static blockrenderer6343.client.utils.BRUtil.AUTO_PLACE_ENVIRONMENT;
 
@@ -27,16 +30,6 @@ public class MultiblockBlockCounter {
 
     private static final String LAZY_ELEMENT = "com.gtnewhorizon.structurelib.structure.LazyStructureElement";
     private static final String ON_ELEMENT_PASS = "com.gtnewhorizon.structurelib.structure.OnElementPass";
-    private static final Set<String> TIERED_ELEMENTS = new HashSet<>();
-
-    static {
-        addTieredElement("com.gtnewhorizon.structurelib.structure.OfBlocksTiered");
-        addTieredElement("com.gtnewhorizon.structurelib.structure.TieredElement");
-    }
-
-    private static void addTieredElement(String className) {
-        TIERED_ELEMENTS.add(className);
-    }
 
     public Map<String, Integer> getBlockCounts(IConstructable multiblock) {
         analyzeMultiblock(multiblock);
@@ -122,6 +115,11 @@ public class MultiblockBlockCounter {
             for (ItemStack stack : stacks) {
                 if (stack != null && stack.getItem() != null) {
                     String blockKey = stack.getDisplayName();
+
+                    if (Iterables.size(stacks) > 1) {
+                        blockKey = blockKey + EnumChatFormatting.RED + " (Tiered)";
+                    }
+
                     blockCounts.put(blockKey, count);
                     return;
                 }
@@ -171,29 +169,7 @@ public class MultiblockBlockCounter {
             return chainStacks;
         }
 
-        if (isTieredElement(element)) {
-            return extractTieredBlocks(multi, element, data, getChannelFromElement((IStructureElement<IConstructable>) element));
-        }
-
-        IStructureElement.BlocksToPlace blocks = element.getBlocksToPlace(
-            multi, DummyWorld.INSTANCE, 0, 0, 0,
-            StructureHacks.HOLO_STACK, AUTO_PLACE_ENVIRONMENT
-        );
-
-        if (blocks == null) return Collections.emptyList();
-        return blocks.getStacks();
-    }
-
-    private <T> boolean isTieredElement(IStructureElement<T> element) {
-        String className = element.getClass().getName();
-
-        for (String tieredClass : TIERED_ELEMENTS) {
-            if (className.contains(tieredClass)) {
-                return true;
-            }
-        }
-
-        return className.contains("Tiered") || className.contains("OfBlocksTiered");
+        return extractTieredBlocks(multi, element, data, getChannelFromElement((IStructureElement<IConstructable>) element));
     }
 
     private <T> LinkedHashSet<ItemStack> extractTieredBlocks(T multi, IStructureElement<T> element,
@@ -204,27 +180,41 @@ public class MultiblockBlockCounter {
         ItemStack lastStack = null;
 
         do {
-            holo.stackSize = tier++ + 1;
+            holo.stackSize = tier + 1;
             IStructureElement.BlocksToPlace toPlace = element.getBlocksToPlace(
                 multi, DummyWorld.INSTANCE, 0, 0, 0, holo, AUTO_PLACE_ENVIRONMENT
             );
+
             if (toPlace == null || toPlace.getStacks() == null) break;
+
             Iterator<ItemStack> iterator = toPlace.getStacks().iterator();
             if (!iterator.hasNext()) break;
+
             ItemStack firstStack = iterator.next();
 
-            if (!data.addItemTier(firstStack, lastStack, channel, tier)) break;
+            if (lastStack != null) {
+                long currentHash = BRUtil.hashStack(firstStack);
+                long lastHash = BRUtil.hashStack(lastStack);
+                if (currentHash == lastHash) {
+                    break;
+                }
+            }
+
+            data.addItemTier(firstStack, lastStack, channel, tier + 1);
             result.add(firstStack);
             lastStack = firstStack.copy();
 
             while (iterator.hasNext()) {
                 ItemStack stack = iterator.next();
-                data.addItemTier(stack, channel, tier);
+                data.addItemTier(stack, channel, tier + 1);
                 result.add(stack);
             }
+
+            tier++;
+
         } while (tier < MAX_TIERS_TO_CHECK);
 
-        data.setMaxTier(tier - 1, channel);
+        data.setMaxTier(tier, channel);
         return result;
     }
 
