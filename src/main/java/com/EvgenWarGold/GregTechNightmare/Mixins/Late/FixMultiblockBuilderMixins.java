@@ -5,6 +5,8 @@ import static com.gtnewhorizon.structurelib.StructureLib.PANIC_MODE;
 
 import java.util.function.Consumer;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -17,8 +19,8 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,8 +31,6 @@ import com.gtnewhorizon.structurelib.structure.IItemSource;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
-
-import javax.annotation.Nullable;
 
 @Mixin(value = StructureUtility.class, remap = false)
 public class FixMultiblockBuilderMixins<T> {
@@ -167,9 +167,9 @@ public class FixMultiblockBuilderMixins<T> {
      * @reason Add custom survivalPlaceBlock implementation to ofBlock elements
      */
     @Overwrite
-    public static IStructureElement.PlaceResult survivalPlaceBlock(ItemStack stack, ItemStackPredicate.NBTMode nbtMode, NBTTagCompound tag,
-                                                                   boolean assumeStackPresent, World world, int x, int y, int z, IItemSource s, EntityPlayer actor,
-                                                                   @Nullable Consumer<IChatComponent> chatter) {
+    public static IStructureElement.PlaceResult survivalPlaceBlock(ItemStack stack, ItemStackPredicate.NBTMode nbtMode,
+        NBTTagCompound tag, boolean assumeStackPresent, World world, int x, int y, int z, IItemSource s,
+        EntityPlayer actor, @Nullable Consumer<IChatComponent> chatter) {
         if (stack == null) throw new NullPointerException();
         if (stack.stackSize != 1) throw new IllegalArgumentException();
         if (!(stack.getItem() instanceof ItemBlock)) throw new IllegalArgumentException();
@@ -183,7 +183,8 @@ public class FixMultiblockBuilderMixins<T> {
                 new ChatComponentTranslation("structurelib.autoplace.error.no_item_stack", stack.func_151000_E()));
             return IStructureElement.PlaceResult.REJECT;
         }
-        if (!stack.copy().tryPlaceItemIntoWorld(actor, world, x, y, z, ForgeDirection.UP.ordinal(), 0.5f, 0.5f, 0.5f)) {
+        if (!stack.copy()
+            .tryPlaceItemIntoWorld(actor, world, x, y, z, ForgeDirection.UP.ordinal(), 0.5f, 0.5f, 0.5f)) {
             if (chatter == null) return IStructureElement.PlaceResult.REJECT;
             chatter.accept(new ChatComponentTranslation("GTN.StructureLib.text.invalid_placement"));
             return IStructureElement.PlaceResult.REJECT;

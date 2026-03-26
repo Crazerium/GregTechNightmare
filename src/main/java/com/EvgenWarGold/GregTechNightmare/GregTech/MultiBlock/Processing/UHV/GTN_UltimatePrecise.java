@@ -17,7 +17,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -31,6 +33,8 @@ import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise> {
+
+    TierData glass = createTierData("glass");
 
     public GTN_UltimatePrecise(int id, String name) {
         super(id, name);
@@ -88,7 +92,7 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-                .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement('E', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('B', ofFrame(Materials.Gadolinium))
                 .addElement('C', ofFrame(Materials.Shadow))
                 .addElement('D', ofFrame(Materials.Infinity))
