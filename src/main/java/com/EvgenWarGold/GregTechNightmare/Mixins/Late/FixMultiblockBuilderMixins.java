@@ -8,7 +8,9 @@ import java.util.function.Consumer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -16,6 +18,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 
+import net.minecraftforge.common.util.ForgeDirection;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,6 +29,8 @@ import com.gtnewhorizon.structurelib.structure.IItemSource;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
+
+import javax.annotation.Nullable;
 
 @Mixin(value = StructureUtility.class, remap = false)
 public class FixMultiblockBuilderMixins<T> {
@@ -49,7 +54,6 @@ public class FixMultiblockBuilderMixins<T> {
             }
         }
 
-        // Используем наш улучшенный класс вместо анонимного
         return new EnhancedStructureElement<>(block, meta, defaultBlock, defaultMeta);
     }
 
@@ -156,5 +160,37 @@ public class FixMultiblockBuilderMixins<T> {
 
             return PlaceResult.REJECT;
         }
+    }
+
+    /**
+     * @author EvgenWarGold
+     * @reason Add custom survivalPlaceBlock implementation to ofBlock elements
+     */
+    @Overwrite
+    public static IStructureElement.PlaceResult survivalPlaceBlock(ItemStack stack, ItemStackPredicate.NBTMode nbtMode, NBTTagCompound tag,
+                                                                   boolean assumeStackPresent, World world, int x, int y, int z, IItemSource s, EntityPlayer actor,
+                                                                   @Nullable Consumer<IChatComponent> chatter) {
+        if (stack == null) throw new NullPointerException();
+        if (stack.stackSize != 1) throw new IllegalArgumentException();
+        if (!(stack.getItem() instanceof ItemBlock)) throw new IllegalArgumentException();
+        if (!StructureLibAPI.isBlockTriviallyReplaceable(world, x, y, z, actor)) {
+            if (chatter == null) return IStructureElement.PlaceResult.REJECT;
+            chatter.accept(new ChatComponentTranslation("GTN.StructureLib.text.invalid_placement"));
+            return IStructureElement.PlaceResult.REJECT;
+        }
+        if (!assumeStackPresent && !s.takeOne(stack, true)) {
+            if (chatter != null) chatter.accept(
+                new ChatComponentTranslation("structurelib.autoplace.error.no_item_stack", stack.func_151000_E()));
+            return IStructureElement.PlaceResult.REJECT;
+        }
+        if (!stack.copy().tryPlaceItemIntoWorld(actor, world, x, y, z, ForgeDirection.UP.ordinal(), 0.5f, 0.5f, 0.5f)) {
+            if (chatter == null) return IStructureElement.PlaceResult.REJECT;
+            chatter.accept(new ChatComponentTranslation("GTN.StructureLib.text.invalid_placement"));
+            return IStructureElement.PlaceResult.REJECT;
+        }
+        if (!s.takeOne(stack, false))
+            // this is bad! probably an exploit somehow. Let's nullify the block we just placed instead
+            world.setBlockToAir(x, y, z);
+        return IStructureElement.PlaceResult.ACCEPT;
     }
 }
