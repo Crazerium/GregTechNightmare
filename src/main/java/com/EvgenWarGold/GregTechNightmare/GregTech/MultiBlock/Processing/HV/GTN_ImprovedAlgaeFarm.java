@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV;
 
+import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.OutputBus;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -36,12 +38,13 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.api.util.GTModHandler;
 import gregtech.api.util.GTUtility;
+import org.jetbrains.annotations.NotNull;
 
 public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeFarm> {
 
     private static final int WATER_PER_RECIPE = 1000;
     private static final int FERTILIZER_MULTIPLIER = 2;
-    private final TierData machinecasing = createTierData("machinecasing");
+    private final TierData machineCasing = createTierData("machinecasing");
     private final TierData glass = createTierData("glass");
 
     public GTN_ImprovedAlgaeFarm(int id, String name) {
@@ -57,11 +60,16 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
         return Arrays.asList(
             new StructureVariant<>(
                 "ImprovedAlgaeFarm",
-                new String[][] { { "CCCCCCC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CCCCCCC" },
-                    { "CCCCCCC", "C     C", "C     C", "C     C", "C     C", "C     C", "CCCCCCC" },
-                    { "CCC~CCC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CBBBBBC", "CCCCCCC" } },
-                new MultiblockOffsets(3, 2, 0),
-                new MultiblockArea(7, 3, 7),
+                // spotless:off
+                new String[][]{
+                    {"           ","           ","           ","           ","    BBB    ","    BBB    ","    BBB    ","           ","           ","           ","           "},
+                    {"    BBB    ","  BB A BB  "," B   A   B "," B   A   B ","B   BBB   B","BAAABBBAAAB","B   BBB   B"," B   A   B "," B   A   B ","  BB A BB  ","    BBB    "},
+                    {"    B~B    ","  BBCACBB  "," BCCCACCCB "," BCCCACCCB ","BCCCBBBCCCB","BAAABBBAAAB","BCCCBBBCCCB"," BCCCACCCB "," BCCCACCCB ","  BBCACBB  ","    BBB    "},
+                    {"    BBB    ","  BBBBBBB  "," BBBBBBBBB "," BBBBBBBBB ","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"," BBBBBBBBB "," BBBBBBBBB ","  BBBBBBB  ","    BBB    "}
+                },
+                //spotless:on
+                new MultiblockOffsets(5, 2, 0),
+                new MultiblockArea(11, 4, 11),
                 1,
                 GTN_Casings.SterileFarmCasing));
     }
@@ -79,10 +87,10 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     @Override
     public IStructureDefinition<GTN_ImprovedAlgaeFarm> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder.addElement('C', ofBlock(Blocks.water, 0))
                 .addElement(
-                    'B',
-                    TieredElementBuilder.create(machinecasing, GTN_ImprovedAlgaeFarm.class)
+                    'A',
+                    TieredElementBuilder.create(machineCasing, GTN_ImprovedAlgaeFarm.class)
                         .casings(
                             GTN_Casings.LVMachineCasing,
                             GTN_Casings.MVMachineCasing,
@@ -98,7 +106,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
                             GTN_Casings.UXVMachineCasing)
                         .build())
                 .addElement(
-                    'C',
+                    'B',
                     ElementBuilder.create(GTN_ImprovedAlgaeFarm.class, this)
                         .casing(GTN_Casings.SterileFarmCasing)
                         .hatches(InputBus, InputHatch, OutputBus)
@@ -111,7 +119,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     }
 
     private boolean hasUVCasing() {
-        return machinecasing.getCasingTier() >= 6;
+        return machineCasing.getCasingTier() >= 6;
     }
 
     @Override
@@ -152,7 +160,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
 
     @Override
     public int getMaxParallelRecipes() {
-        int tier = machinecasing.getCasingTier();
+        int tier = machineCasing.getCasingTier();
         if (tier < 0) return 1;
         if (tier >= MAX_PARALLELS_BY_TIER.length) {
             return MAX_PARALLELS_BY_TIER[MAX_PARALLELS_BY_TIER.length - 1];
@@ -163,7 +171,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     private static final ItemStack FERTILIZER = GTModHandler.getModItem("IC2", "itemFertilizer", 1, 0);
 
     private boolean isFertilizer(ItemStack stack) {
-        return stack != null && FERTILIZER != null && GTUtility.areStacksEqual(stack, FERTILIZER, false);
+        return stack != null && GTUtility.areStacksEqual(stack, FERTILIZER, false);
     }
 
     private boolean consumeFertilizer(int amount) {
@@ -175,7 +183,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
         int available = 0;
 
         for (ItemStack stack : inputs) {
-            if (stack != null && isFertilizer(stack)) {
+            if (isFertilizer(stack)) {
                 available += stack.stackSize;
             }
         }
@@ -187,7 +195,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
         int remaining = amount;
 
         for (ItemStack stack : inputs) {
-            if (stack != null && isFertilizer(stack) && remaining > 0) {
+            if (isFertilizer(stack) && remaining > 0) {
                 int take = Math.min(stack.stackSize, remaining);
                 stack.stackSize -= take;
                 remaining -= take;
@@ -216,7 +224,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
         return new GTN_ProcessingLogic() {
 
             @Override
-            public CheckRecipeResult process() {
+            public @NotNull CheckRecipeResult process() {
                 CheckRecipeResult result = super.process();
                 if (!result.wasSuccessful()) {
                     return result;
