@@ -264,3 +264,4 @@ GTN.TooltipBuilder.basic_info=Basic Info:
 GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
 GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
 GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
+GTN.StructureLib.text.missing_block=§cMissing block: %s
