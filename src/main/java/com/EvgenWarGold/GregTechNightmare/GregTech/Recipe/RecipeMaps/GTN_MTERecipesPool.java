@@ -1,14 +1,12 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
+import static gregtech.api.util.GTModHandler.addCraftingRecipe;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
+
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
-
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
-import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
 public class GTN_MTERecipesPool {
 

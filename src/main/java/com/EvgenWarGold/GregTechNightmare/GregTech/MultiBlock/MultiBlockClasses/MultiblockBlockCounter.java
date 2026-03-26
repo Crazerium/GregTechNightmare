@@ -1,24 +1,24 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static blockrenderer6343.client.utils.BRUtil.AUTO_PLACE_ENVIRONMENT;
+
 import java.lang.reflect.Field;
 import java.util.*;
 
-import blockrenderer6343.client.utils.BRUtil;
-import com.google.common.collect.Iterables;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
 
+import com.google.common.collect.Iterables;
 import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.IStructureElementChain;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
+import blockrenderer6343.client.utils.BRUtil;
 import blockrenderer6343.client.utils.ConstructableData;
 import blockrenderer6343.client.world.DummyWorld;
 import blockrenderer6343.integration.nei.StructureHacks;
-import net.minecraft.util.EnumChatFormatting;
-
-import static blockrenderer6343.client.utils.BRUtil.AUTO_PLACE_ENVIRONMENT;
 
 public class MultiblockBlockCounter {
 
@@ -46,7 +46,8 @@ public class MultiblockBlockCounter {
         if (structure instanceof StructureDefinition) {
             StructureDefinition<IConstructable> structDef = (StructureDefinition<IConstructable>) structure;
 
-            Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures().values();
+            Collection<IStructureElement<IConstructable>[]> structures = structDef.getStructures()
+                .values();
 
             for (IStructureElement<IConstructable>[] elementArray : structures) {
                 if (elementArray == null) continue;
@@ -68,14 +69,16 @@ public class MultiblockBlockCounter {
     }
 
     private void processElement(IConstructable multiblock, IStructureElement<IConstructable> element, Integer count) {
-        String elementName = element.getClass().getName();
+        String elementName = element.getClass()
+            .getName();
 
         if (StructureHacks.SKIP_ELEMENTS.contains(elementName)) {
             return;
         }
 
         if (element instanceof IStructureElementChain) {
-            IStructureElement<IConstructable>[] elements = ((IStructureElementChain<IConstructable>) element).fallbacks();
+            IStructureElement<IConstructable>[] elements = ((IStructureElementChain<IConstructable>) element)
+                .fallbacks();
 
             if (elements != null) {
                 for (IStructureElement<IConstructable> e : elements) {
@@ -130,12 +133,14 @@ public class MultiblockBlockCounter {
     @SuppressWarnings({ "unchecked" })
     private IStructureElement<IConstructable> getOnElementPassInnerElement(IStructureElement<IConstructable> element) {
         try {
-            Field elementField = element.getClass().getDeclaredField("val$element");
+            Field elementField = element.getClass()
+                .getDeclaredField("val$element");
             elementField.setAccessible(true);
             return (IStructureElement<IConstructable>) elementField.get(element);
         } catch (Exception e) {
             try {
-                Field elementField = element.getClass().getDeclaredField("element");
+                Field elementField = element.getClass()
+                    .getDeclaredField("element");
                 elementField.setAccessible(true);
                 return (IStructureElement<IConstructable>) elementField.get(element);
             } catch (Exception ex) {
@@ -146,12 +151,14 @@ public class MultiblockBlockCounter {
 
     @SuppressWarnings({ "unchecked" })
     private <T> Iterable<ItemStack> getStacksForElement(T multi, IStructureElement<T> element, ConstructableData data) {
-        String name = element.getClass().getName();
+        String name = element.getClass()
+            .getName();
 
         if (name.equals(LAZY_ELEMENT) || name.equals(ON_ELEMENT_PASS)) {
             element = StructureHacks.getUnderlyingElement(multi, element);
             if (element == null) return Collections.emptyList();
-            name = element.getClass().getName();
+            name = element.getClass()
+                .getName();
         }
 
         if (StructureHacks.SKIP_ELEMENTS.contains(name)) return Collections.emptyList();
@@ -169,11 +176,15 @@ public class MultiblockBlockCounter {
             return chainStacks;
         }
 
-        return extractTieredBlocks(multi, element, data, getChannelFromElement((IStructureElement<IConstructable>) element));
+        return extractTieredBlocks(
+            multi,
+            element,
+            data,
+            getChannelFromElement((IStructureElement<IConstructable>) element));
     }
 
     private <T> LinkedHashSet<ItemStack> extractTieredBlocks(T multi, IStructureElement<T> element,
-                                                             ConstructableData data, String channel) {
+        ConstructableData data, String channel) {
         LinkedHashSet<ItemStack> result = new LinkedHashSet<>();
         ItemStack holo = StructureHacks.HOLO_STACK.copy();
         int tier = 0;
@@ -181,13 +192,13 @@ public class MultiblockBlockCounter {
 
         do {
             holo.stackSize = tier + 1;
-            IStructureElement.BlocksToPlace toPlace = element.getBlocksToPlace(
-                multi, DummyWorld.INSTANCE, 0, 0, 0, holo, AUTO_PLACE_ENVIRONMENT
-            );
+            IStructureElement.BlocksToPlace toPlace = element
+                .getBlocksToPlace(multi, DummyWorld.INSTANCE, 0, 0, 0, holo, AUTO_PLACE_ENVIRONMENT);
 
             if (toPlace == null || toPlace.getStacks() == null) break;
 
-            Iterator<ItemStack> iterator = toPlace.getStacks().iterator();
+            Iterator<ItemStack> iterator = toPlace.getStacks()
+                .iterator();
             if (!iterator.hasNext()) break;
 
             ItemStack firstStack = iterator.next();
