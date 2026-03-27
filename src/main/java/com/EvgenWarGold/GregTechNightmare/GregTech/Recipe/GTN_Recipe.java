@@ -49,4 +49,11 @@ public class GTN_Recipe {
         .minInputs(0, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .build();
+
+    public static final RecipeMap<?> ImprovedSliceNSpliceRecipes = RecipeMapBuilder
+        .of("gtn.recipe.ImprovedSliceNSpliceRecipes")
+        .maxIO(6, 1, 1, 0)
+        .minInputs(0, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW)
+        .build();
 }

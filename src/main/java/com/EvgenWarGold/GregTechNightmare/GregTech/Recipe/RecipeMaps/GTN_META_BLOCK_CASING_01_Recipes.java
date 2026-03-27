@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.createItem;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.setStackSize;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
+import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addShapelessCraftingRecipe;
 
 import net.minecraft.init.Blocks;
@@ -43,6 +44,19 @@ public class GTN_META_BLOCK_CASING_01_Recipes {
 
             .eut(RECIPE_LV)
             .duration(20 * 5)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Soul Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                Materials.Soularium.getPlates(2),
+                Materials.Soularium.getIngots(4),
+                Materials.Steel.getBlocks(1)
+            )
+            .itemOutputs(GTN_ItemList.SoulCasing.get(1))
+
+            .eut(RECIPE_MV)
+            .duration(20 * 10)
             .addTo(RecipeMaps.assemblerRecipes);
 
         //spotless:on

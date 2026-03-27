@@ -10,6 +10,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getNanite;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getSuperDense;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getplate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
@@ -359,6 +360,22 @@ public class GTN_MultiBlockRecipes {
                 getFluid(Materials.Water, 64000)
             )
             .itemOutputs(GTN_ItemList.ImprovedAlgaeFarm.get(1))
+            .eut(RECIPE_HV)
+            .duration(1200)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Improved Slice'N'Splice
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                getplate(Materials.EnergeticAlloy, 16),
+                GTN_Casings.SoulCasing.getItemStack(16),
+                getCircuits(Materials.HV, 4),
+                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1)
+            )
+            .fluidInputs(
+                getFluid(Materials.Soularium, 144*16)
+            )
+            .itemOutputs(GTN_ItemList.ImprovedSliceNSplice.get(1))
             .eut(RECIPE_HV)
             .duration(1200)
             .addTo(RecipeMaps.assemblerRecipes);

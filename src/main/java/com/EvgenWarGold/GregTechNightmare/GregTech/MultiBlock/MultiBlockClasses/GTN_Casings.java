@@ -49,6 +49,9 @@ public enum GTN_Casings implements ICasing {
     ArborealCasing
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 2, gt(117, 0, 2)),
 
+    SoulCasing
+        (() -> GTN_Blocks.META_BLOCK_CASING_01, 3, gt(117, 0, 3)),
+
     TintedGlassWhite
         (() -> GregTechAPI.sBlockTintedGlass, 0, gt(16, 0, 0)),
 
