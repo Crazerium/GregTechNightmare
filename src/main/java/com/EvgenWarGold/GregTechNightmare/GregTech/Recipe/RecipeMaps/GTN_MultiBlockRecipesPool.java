@@ -46,7 +46,7 @@ import gregtech.api.util.recipe.Scanning;
 import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
-public class GTN_MultiBlockRecipes {
+public class GTN_MultiBlockRecipesPool {
 
     public static void init() {
         // spotless:off

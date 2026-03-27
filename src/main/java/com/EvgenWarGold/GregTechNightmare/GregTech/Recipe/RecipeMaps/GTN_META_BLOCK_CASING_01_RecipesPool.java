@@ -15,7 +15,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.recipe.RecipeMaps;
 import gtPlusPlus.core.material.MaterialsAlloy;
 
-public class GTN_META_BLOCK_CASING_01_Recipes {
+public class GTN_META_BLOCK_CASING_01_RecipesPool {
 
     public static void init() {
         // spotless:off
