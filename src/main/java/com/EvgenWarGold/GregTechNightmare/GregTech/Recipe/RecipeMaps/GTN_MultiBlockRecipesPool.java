@@ -13,6 +13,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getplate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.Materials.Soularium;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_IV;
@@ -369,14 +370,13 @@ public class GTN_MultiBlockRecipesPool {
             .itemInputs(
                 getplate(Materials.EnergeticAlloy, 16),
                 GTN_Casings.SoulCasing.getItemStack(16),
-                getCircuits(Materials.HV, 4),
-                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1)
-            )
-            .fluidInputs(
-                getFluid(Materials.Soularium, 144*16)
+                getCircuits(Materials.IV, 4),
+                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1),
+                ModItems.ENDER_IO.OctadicCapacitor.get(8),
+                ModItems.ENDER_IO.PulsatingCrystal.get(16)
             )
             .itemOutputs(GTN_ItemList.ImprovedSliceNSplice.get(1))
-            .eut(RECIPE_HV)
+            .eut(RECIPE_EV)
             .duration(1200)
             .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
