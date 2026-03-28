@@ -35,12 +35,12 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
 
     static {
         CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.BasicCapacitor.get(1), 4);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.DoubleLayerCapacitor.get(1), 16);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.OctadicCapacitor.get(1), 64);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.CrystallineCapacitor.get(1), 256);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.MelodicCapacitor.get(1), 1024);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.StellarCapacitor.get(1), 4096);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.TotemicCapacitor.get(1), 16384);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.DoubleLayerCapacitor.get(1), 8);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.OctadicCapacitor.get(1), 16);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.CrystallineCapacitor.get(1), 32);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.MelodicCapacitor.get(1), 64);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.StellarCapacitor.get(1), 128);
+        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.TotemicCapacitor.get(1), 512);
     }
 
     public GTN_ImprovedSliceNSplice(int id, String name) {
@@ -111,7 +111,7 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
     private int getParallelFromCapacitor() {
         ItemStack stack = getControllerSlot();
 
-        if (stack == null) return 1;
+        if (stack == null) return 2;
 
         for (Map.Entry<ItemStack, Integer> entry : CAPACITOR_PARALLELS.entrySet()) {
             if (GTUtility.areStacksEqual(stack, entry.getKey(), true)) {
@@ -119,7 +119,7 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
             }
         }
 
-        return 1;
+        return 2;
     }
 
     @Override
