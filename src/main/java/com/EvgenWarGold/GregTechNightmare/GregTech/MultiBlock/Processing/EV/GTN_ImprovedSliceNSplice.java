@@ -5,19 +5,16 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -94,11 +91,9 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
     @Override
     public IStructureDefinition<GTN_ImprovedSliceNSplice> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addAllGlasses('A')
+            builder -> builder.addAllGlasses('A')
                 .addCasing('B', GTN_Casings.SteelGearBoxCasing)
-                .addMainCasing('C', b -> b
-                    .hatches(InputBus, Energy, OutputBus, Maintenance, InputHatch)));
+                .addMainCasing('C', b -> b.hatches(InputBus, Energy, OutputBus, Maintenance, InputHatch)));
     }
 
     @Override
