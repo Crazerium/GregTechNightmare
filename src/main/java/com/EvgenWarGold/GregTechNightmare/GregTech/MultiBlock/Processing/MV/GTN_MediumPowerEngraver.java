@@ -10,10 +10,12 @@ import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -27,6 +29,8 @@ import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerEngraver> {
+
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_MediumPowerEngraver(int id, String name) {
         super(id, name);
@@ -75,7 +79,7 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', GTN_Casings.TintedGlassBlack.asElement())
+            builder -> builder.addElement('B', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement(
                     'A',
                     ElementBuilder.create(GTN_MediumPowerEngraver.class, this)

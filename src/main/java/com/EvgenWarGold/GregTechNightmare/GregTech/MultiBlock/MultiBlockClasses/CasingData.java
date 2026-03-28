@@ -4,7 +4,7 @@ import static gregtech.api.enums.Textures.BlockIcons.ERROR_TEXTURE_INDEX;
 
 import gregtech.api.enums.HeatingCoilLevel;
 
-public class TierData {
+public class CasingData {
 
     private int casingTier = -1;
     public int countCasing = 0;

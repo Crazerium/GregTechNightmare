@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,6 +44,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     private static long DYNAMO_AMP;
     private static final int CREOSOTE_USAGE_PER_SEC = 25;
     private final static FluidStack CREOSOTE;
+    private final CasingData glass = createCasingData("glass");
 
     static {
         CREOSOTE = Materials.Creosote.getFluid(CREOSOTE_USAGE_PER_SEC);
@@ -100,7 +103,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
                     .build())
                 .addElement('D', ofFrame(Materials.Iron))
                 .addElement('E', ofFrame(Materials.Steel))
-                .addElement('F', ofBlock(Blocks.glass, 0))
+                .addElement('F', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('C', GTN_Casings.SteelGearBoxCasing.asElement())
                 .addElement('A', GTN_Casings.ULVMachineCasing.asElement()));
     }

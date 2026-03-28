@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,6 +54,7 @@ import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MT
 public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     private static final MTETreeFarm.Mode LOG = MTETreeFarm.Mode.LOG;
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_TreeSprouter(int id, String name) {
         super(id, name);
@@ -103,7 +106,7 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     public IStructureDefinition<GTN_TreeSprouter> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('A', ofFrame(Materials.Wood))
-                .addElement('D', ofBlock(Blocks.glass, 0))
+                .addElement('D', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))

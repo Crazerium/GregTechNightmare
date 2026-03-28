@@ -10,10 +10,12 @@ import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -27,6 +29,8 @@ import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerWireMill> {
+
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_MediumPowerWireMill(int id, String name) {
         super(id, name);
@@ -76,7 +80,7 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     public IStructureDefinition<GTN_MediumPowerWireMill> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-                .addElement('C', GTN_Casings.TintedGlassBlack.asElement())
+                .addElement('C', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement(
                     'A',
                     ElementBuilder.create(GTN_MediumPowerWireMill.class, this)

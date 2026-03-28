@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -92,6 +94,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private int minY = 0;
     private int maxY = 0;
     private boolean isLayerInitialized = false;
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_LaserMeteorMiner(int id, String name) {
         super(id, name);
@@ -157,7 +160,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', chainAllGlasses())
+            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('C', GTN_Casings.NaquadahCoilBlock.asElement())
                 .addElement('B', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
                 .addElement('E', GTN_Casings.ThermallyInsulatedCasing.asElement())

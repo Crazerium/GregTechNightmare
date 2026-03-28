@@ -32,7 +32,7 @@ public class GTN_StructureUtility {
         return StructureUtility.ofBlock(BlockBaseModular.getMaterialBlock(material, BasicBlock.BlockTypes.FRAME), 0);
     }
 
-    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, ItemStack... itemStacks) {
+    public static <T> IStructureElement<T> createTierBlocks(CasingData casingData, ItemStack... itemStacks) {
 
         List<Pair<Block, Integer>> blocks = new ArrayList<>();
         for (ItemStack stack : itemStacks) {
@@ -41,7 +41,7 @@ public class GTN_StructureUtility {
             }
         }
 
-        Consumer<T> countIncrementer = (t) -> tierData.countCasing++;
+        Consumer<T> countIncrementer = (t) -> casingData.countCasing++;
 
         return StructureUtility.onElementPass(countIncrementer, StructureUtility.ofBlocksTiered((block, meta) -> {
             for (int i = 0; i < itemStacks.length; i++) {
@@ -51,8 +51,8 @@ public class GTN_StructureUtility {
                         for (GTN_Casings casing : GTN_Casings.values()) {
                             if (casing.getItemStack()
                                 .isItemEqual(itemStack)) {
-                                tierData.setCasing(casing);
-                                tierData.setCasingTextureId(casing.textureId);
+                                casingData.setCasing(casing);
+                                casingData.setCasingTextureId(casing.textureId);
                                 return i + 1;
                             }
                         }
@@ -64,31 +64,31 @@ public class GTN_StructureUtility {
             return null;
         }, blocks, -1, (t, tierIndex) -> {
             if (tierIndex != null) {
-                tierData.setCasingTier(tierIndex);
+                casingData.setCasingTier(tierIndex);
             }
-        }, t -> tierData.getCasingTier()));
+        }, t -> casingData.getCasingTier()));
     }
 
-    public static <T> IStructureElement<T> createTierBlocks(TierData tierData, GTN_Casings... casings) {
+    public static <T> IStructureElement<T> createTierBlocks(CasingData casingData, GTN_Casings... casings) {
         ItemStack[] itemStacks = Arrays.stream(casings)
             .filter(Objects::nonNull)
             .map(GTN_Casings::getItemStack)
             .toArray(ItemStack[]::new);
-        return GTN_StructureUtility.createTierBlocks(tierData, itemStacks);
+        return GTN_StructureUtility.createTierBlocks(casingData, itemStacks);
     }
 
-    public static <T> IStructureElement<T> createAllTieredGlass(TierData tierData) {
+    public static <T> IStructureElement<T> createAllTieredGlass(CasingData casingData) {
         return StructureUtility.withChannel(
-            tierData.getChannelName(),
-            chainAllGlasses(-1, (te, t) -> tierData.setCasingTier(t), te -> tierData.getCasingTier()));
+            casingData.getChannelName(),
+            chainAllGlasses(-1, (te, t) -> casingData.setCasingTier(t), te -> casingData.getCasingTier()));
     }
 
-    public static <T extends MTEMultiBlockBase> IStructureElement<T> createAllTierCoilBlock(TierData tierData) {
+    public static <T extends MTEMultiBlockBase> IStructureElement<T> createAllTierCoilBlock(CasingData casingData) {
         return StructureUtility.withChannel(
-            tierData.getChannelName(),
+            casingData.getChannelName(),
             activeCoils(
                 ofCoil(
-                    (BiConsumer<T, HeatingCoilLevel>) (te, level) -> tierData.setCoilLevel(level),
-                    te -> tierData.getCoilLevel())));
+                    (BiConsumer<T, HeatingCoilLevel>) (te, level) -> casingData.setCoilLevel(level),
+                    te -> casingData.getCoilLevel())));
     }
 }

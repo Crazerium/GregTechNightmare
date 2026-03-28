@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -47,6 +49,7 @@ import thaumcraft.common.tiles.TileNode;
 public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
     protected ArrayList<TileNode> mNode = new ArrayList<>();
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_NodeEnergizer(int id, String name) {
         super(id, name);
@@ -103,7 +106,7 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
                     .casing(mainCasing)
                     .hatches(InputBus, Energy, Maintenance)
                     .build())
-                .addElement('B', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement('B', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement(
                     'D',
                     ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))
