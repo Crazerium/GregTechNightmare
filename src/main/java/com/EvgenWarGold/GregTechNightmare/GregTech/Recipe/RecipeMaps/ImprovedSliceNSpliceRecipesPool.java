@@ -1,7 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getplate;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static gregtech.api.enums.Materials.Water;
 
 import net.minecraft.init.Items;
@@ -19,8 +19,8 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.EnergeticAlloy, 2),
-                getplate(Materials.Silicon, 2),
+                getPlate(Materials.EnergeticAlloy, 2),
+                getPlate(Materials.Silicon, 2),
                 ModItems.ENDER_IO.BasicCapacitor.get(1),
                 new ItemStack(Items.skull, 1, 2))
             .itemOutputs(ModItems.ENDER_IO.ZombieElectrode.get(1))
@@ -30,9 +30,9 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.Soularium, 2),
-                getplate(Materials.Silicon, 2),
-                getplate(Materials.RedAlloy, 1),
+                getPlate(Materials.Soularium, 2),
+                getPlate(Materials.Silicon, 2),
+                getPlate(Materials.RedAlloy, 1),
                 new ItemStack(Items.skull, 1, 2))
             .itemOutputs(ModItems.ENDER_IO.ZLogicCapacitor.get(1))
             .eut(500)
@@ -41,7 +41,7 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.Soularium, 2),
+                getPlate(Materials.Soularium, 2),
                 ModItems.ENDER_IO.BasicCapacitor.get(1),
                 ModItems.ENDER_IO.EndermanHead.get(1))
             .fluidInputs(getFluid(Water, 2000))
@@ -52,9 +52,9 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.Soularium, 2),
-                getplate(Materials.Silicon, 2),
-                getplate(Materials.VibrantAlloy, 1),
+                getPlate(Materials.Soularium, 2),
+                getPlate(Materials.Silicon, 2),
+                getPlate(Materials.VibrantAlloy, 1),
                 ModItems.ENDER_IO.EndermanHead.get(1))
             .itemOutputs(ModItems.ENDER_IO.EnderResonator.get(1))
             .eut(500)
@@ -63,8 +63,8 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.Soularium, 2),
-                getplate(Materials.Silicon, 1),
+                getPlate(Materials.Soularium, 2),
+                getPlate(Materials.Silicon, 1),
                 new ItemStack(Items.rotten_flesh, 2),
                 new ItemStack(Items.skull, 1, 2))
             .itemOutputs(ModItems.ENDER_IO.SkeletalContractor.get(1))
@@ -74,8 +74,8 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.EnergeticAlloy, 2),
-                getplate(Materials.Silicon, 1),
+                getPlate(Materials.EnergeticAlloy, 2),
+                getPlate(Materials.Silicon, 1),
                 new ItemStack(Items.diamond, 1),
                 ModItems.ENDER_IO.PulsatingCrystal.get(2))
             .itemOutputs(ModItems.ENDER_IO.GuardianDiode.get(1))
@@ -85,8 +85,8 @@ public class ImprovedSliceNSpliceRecipesPool {
 
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.StellarAlloy, 2),
-                getplate(Materials.MelodicAlloy, 2),
+                getPlate(Materials.StellarAlloy, 2),
+                getPlate(Materials.MelodicAlloy, 2),
                 ModItems.ENDER_IO.StellarCapacitor.get(1),
                 ModItems.ENDER_IO.SkeletalContractor.get(1))
             .itemOutputs(ModItems.ENDER_IO.TotemicCapacitor.get(1))

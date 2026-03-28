@@ -127,12 +127,12 @@ public class GTN_OreDict {
     }
 
     // Plate
-    public static ItemStack getplate(Materials materials, long amount) {
+    public static ItemStack getPlate(Materials materials, long amount) {
         return GTOreDictUnificator.get(OrePrefixes.plate, materials, amount);
     }
 
-    public static ItemStack getplate(Materials materials) {
-        return getplate(materials, 1);
+    public static ItemStack getPlate(Materials materials) {
+        return getPlate(materials, 1);
     }
 
 }

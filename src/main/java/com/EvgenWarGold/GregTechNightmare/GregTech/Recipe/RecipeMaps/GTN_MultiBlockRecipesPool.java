@@ -7,10 +7,10 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFrameGt;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getGearGt;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getNanite;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getSuperDense;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getplate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
@@ -367,7 +367,7 @@ public class GTN_MultiBlockRecipesPool {
         // Improved Slice'N'Splice
         GTValues.RA.stdBuilder()
             .itemInputs(
-                getplate(Materials.EnergeticAlloy, 16),
+                getPlate(Materials.EnergeticAlloy, 16),
                 GTN_Casings.SoulCasing.getItemStack(16),
                 getCircuits(Materials.IV, 4),
                 ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1),
