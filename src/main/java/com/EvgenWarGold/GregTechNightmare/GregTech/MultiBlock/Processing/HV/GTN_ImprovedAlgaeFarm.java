@@ -135,18 +135,19 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
         return false;
     }
 
-    private static final int[] MAX_PARALLELS_BY_TIER = { 16, // LV
-        32, // MV
-        64, // HV
-        128, // EV
-        256, // IV
-        512, // LuV
+    private static final int[] MAX_PARALLELS_BY_TIER = { 4, // LV
+        8, // MV
+        16, // HV
+        32, // EV
+        64, // IV
+        128, // LuV
+        512, // ZPM
         1024, // UV
         2048, // UHV
         4096, // UEV
         8192, // UIV
         16384, // UMV
-        32768 // UXV
+        Integer.MAX_VALUE // UXV
     };
 
     @Override

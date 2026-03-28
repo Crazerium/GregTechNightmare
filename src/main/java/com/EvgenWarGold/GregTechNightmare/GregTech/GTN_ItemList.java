@@ -26,6 +26,7 @@ public enum GTN_ItemList {
     TestCasing,
     CokeOvenCasing,
     ArborealCasing,
+    SoulCasing,
     // endregion
 
     // region MultiBlock
@@ -51,6 +52,7 @@ public enum GTN_ItemList {
     BloodEnchanter,
     VacuumNuke,
     ImprovedAlgaeFarm,
+    ImprovedSliceNSplice,
     // endregion
 
     // region Hatch

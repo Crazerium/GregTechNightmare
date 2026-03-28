@@ -9,4 +9,5 @@ public class ModItems {
     public static final TaintedMagicItems TAINTED_MAGIC_ITEMS = new TaintedMagicItems();
     public static final ThaumicTinkererItems THAUMIC_TINKERER_ITEMS = new ThaumicTinkererItems();
     public static final ThaumicHorizons THAUMIC_HORIZONS = new ThaumicHorizons();
+    public static final EnderIOItems ENDER_IO = new EnderIOItems();
 }

@@ -22,5 +22,6 @@ public class GTN_BlocksRegister {
         GTN_ItemList.TestCasing.set(META_BLOCK_CASING_01.registerVariant(0));
         GTN_ItemList.CokeOvenCasing.set(META_BLOCK_CASING_01.registerVariant(1));
         GTN_ItemList.ArborealCasing.set(META_BLOCK_CASING_01.registerVariant(2));
+        GTN_ItemList.SoulCasing.set(META_BLOCK_CASING_01.registerVariant(3));
     }
 }

@@ -9,6 +9,7 @@ item.GTN_MetaItem01.3.name=Meteor Miner Schematic Tier II
 tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
 tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
 tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
+tile.GTN_MetaBlockCasing01.3.name=Soul Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -24,6 +25,7 @@ gtn.recipe.LargeArcaneAssemblerRecipes=Large Arcane Assembler
 gtn.recipe.GasCollectorRecipes=Gas Collector
 gtn.recipe.VacuumNukeRecipes=Vacuum Nuke
 gtn.recipe.ImprovedAlgaeFarmRecipes=Improved Algae Farm
+gtn.recipe.ImprovedSliceNSpliceRecipes= Improved Slice'N'Splice
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -235,14 +237,28 @@ multiblock.ImprovedAlgaeFarm=Improved Algae Farm
 multiblock.ImprovedAlgaeFarm.machine_type=Algae Farm
 multiblock.ImprovedAlgaeFarm.tooltip.00=Improved version of Algae Farm
 multiblock.ImprovedAlgaeFarm.tooltip.01=Each parallel requires 1000L of §bWater
-multiblock.ImprovedAlgaeFarm.tooltip.02=You can insert a valid circuit in input bus for choose what algae is have to be producing
-multiblock.ImprovedAlgaeFarm.tooltip.03=You can insert a §afertilizer§7 from IC2 to increase a output for algae by x2
+multiblock.ImprovedAlgaeFarm.tooltip.02=Insert a valid circuit in input bus for choose what algae is have to be producing
+multiblock.ImprovedAlgaeFarm.tooltip.03=Insert a §afertilizer§7 from IC2 to increase a output for algae by x2
 multiblock.ImprovedAlgaeFarm.tooltip.04=Cost of §afertilizer§7 depends on parallel
-multiblock.ImprovedAlgaeFarm.tooltip.05=LV machine casing have 16 parallels and doubles every tier above
-multiblock.ImprovedAlgaeFarm.tooltip.06=§9UV§7 machine casing remove requirements for §bWater
-multiblock.ImprovedAlgaeFarm.tooltip.07=Support Reservoir Hatch and Stocking Hatches
-multiblock.ImprovedAlgaeFarm.tooltip.08=Does not require power!
+multiblock.ImprovedAlgaeFarm.tooltip.05=Replace machine casings to have more parallels
+multiblock.ImprovedAlgaeFarm.tooltip.06=LV machine casing have 4 parallels and doubles every tier above
+multiblock.ImprovedAlgaeFarm.tooltip.07=After §dLuV§7 machine casing the number of parallels quadruples every tier above
+multiblock.ImprovedAlgaeFarm.tooltip.08=§9UV§7 machine casing remove requirements for §bWater
+multiblock.ImprovedAlgaeFarm.tooltip.09=§cUXV§7 machine casaing have 2g parallels
+multiblock.ImprovedAlgaeFarm.tooltip.10=Support Reservoir Hatch and Stocking Hatches
+multiblock.ImprovedAlgaeFarm.tooltip.11=Does not require power!
 
+#ImprovedSliceNSplice
+multiblock.ImprovedSliceNSplice=Improved Slice'N'Splice
+multiblock.ImprovedSliceNSplice.machine_type=Slice'N'Splice
+multiblock.ImprovedSliceNSplice.tooltip.00=Improved version of Slice'N'Splice from Ender IO
+multiblock.ImprovedSliceNSplice.tooltip.01=Drain EU instead of RF power
+multiblock.ImprovedSliceNSplice.tooltip.02=Don't require a axe and shears
+multiblock.ImprovedSliceNSplice.tooltip.03=Place a capacitor in controller to unlock more parallels
+multiblock.ImprovedSliceNSplice.tooltip.04=Each capacitor increase parallels by 2 times
+multiblock.ImprovedSliceNSplice.tooltip.05=Base parallel is 2
+multiblock.ImprovedSliceNSplice.tooltip.06=Max parallel is 512
+ 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

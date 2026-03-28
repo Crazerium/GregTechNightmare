@@ -7,6 +7,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFrameGt;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getGearGt;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getNanite;
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getSuperDense;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
@@ -360,6 +361,21 @@ public class GTN_MultiBlockRecipesPool {
             )
             .itemOutputs(GTN_ItemList.ImprovedAlgaeFarm.get(1))
             .eut(RECIPE_HV)
+            .duration(1200)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Improved Slice'N'Splice
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                getPlate(Materials.EnergeticAlloy, 16),
+                GTN_Casings.SoulCasing.getItemStack(16),
+                getCircuits(Materials.IV, 4),
+                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1),
+                ModItems.ENDER_IO.OctadicCapacitor.get(8),
+                ModItems.ENDER_IO.PulsatingCrystal.get(16)
+            )
+            .itemOutputs(GTN_ItemList.ImprovedSliceNSplice.get(1))
+            .eut(RECIPE_EV)
             .duration(1200)
             .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
