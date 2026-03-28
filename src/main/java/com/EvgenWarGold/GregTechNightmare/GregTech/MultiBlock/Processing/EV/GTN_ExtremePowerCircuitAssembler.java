@@ -103,7 +103,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
 
     @Override
     public int getMaxParallelRecipes() {
-        return 20;
+        return 16;
     }
 
     @SideOnly(Side.CLIENT)
