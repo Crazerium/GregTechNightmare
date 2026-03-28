@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,11 +13,9 @@ import java.util.List;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -91,17 +88,14 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
     @Override
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-                .addElement('E', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement('B', ofFrame(Materials.Gadolinium))
-                .addElement('C', ofFrame(Materials.Shadow))
-                .addElement('D', ofFrame(Materials.Infinity))
-                .addElement(
+            builder -> builder.addCasing('A', GTN_Casings.NeutroniumStabilizationCasing)
+                .addAllGlasses('E', glass)
+                .addFrame('B', Materials.Gadolinium)
+                .addFrame('C', Materials.Shadow)
+                .addFrame('D', Materials.Infinity)
+                .addMainCasing(
                     'F',
-                    ElementBuilder.create(GTN_UltimatePrecise.class, this)
-                        .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
-                        .casing(mainCasing)
-                        .build()));
+                    b -> b.hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)));
     }
 
     @Override

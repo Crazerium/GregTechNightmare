@@ -7,7 +7,6 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.Mods.Forestry;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 import static gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm.treeProductsMap;
 
 import java.util.ArrayList;
@@ -26,12 +25,10 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -105,17 +102,12 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     @Override
     public IStructureDefinition<GTN_TreeSprouter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', ofFrame(Materials.Wood))
-                .addElement('D', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder.addFrame('A', Materials.Wood)
+                .addAllGlasses('D', glass)
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_TreeSprouter.class, this)
-                        .casing(mainCasing)
-                        .hatches(OutputBus, Energy, Maintenance)
-                        .build()));
+                .addMainCasing('B', b -> b.hatches(OutputBus, Energy, Maintenance)));
     }
 
     @Override

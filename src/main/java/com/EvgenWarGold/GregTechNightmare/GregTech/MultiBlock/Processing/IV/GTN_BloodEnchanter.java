@@ -28,11 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -119,18 +117,15 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     @Override
     public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder.addAllGlasses('A', glass)
                 .addElement('C', ofBlock(ritualStone, 0))
                 .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
                 .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))
                 .addElement('F', ofBlock(ModBlocks.blockAltar, 0))
-                .addElement(
+                .addMainCasing(
                     'B',
-                    ElementBuilder.create(GTN_BloodEnchanter.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, InputHatch, Muffler, OutputBus)
-                        .tileAdder(GTN_BloodEnchanter::addInfusionProvider)
-                        .build()));
+                    b -> b.hatches(InputBus, InputHatch, Muffler, OutputBus)
+                        .tileAdder(GTN_BloodEnchanter::addInfusionProvider)));
     }
 
     @Override

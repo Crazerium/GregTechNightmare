@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility.createAllTierCoilBlock;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility.createAllTieredGlass;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
@@ -60,9 +61,25 @@ public class GTN_StructureBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public GTN_StructureBuilder<T> addAllCoil(char name, CasingData data) {
+        builder.addElement(name, (IStructureElement<T>) createAllTierCoilBlock(data));
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
     public GTN_StructureBuilder<T> addMainCasing(char name, Consumer<ElementBuilder<T>> consumer) {
         ElementBuilder<T> elementBuilder = (ElementBuilder<T>) ElementBuilder.create(multiblockClass, multiblock);
         elementBuilder.casing(multiblock.mainCasing);
+        consumer.accept(elementBuilder);
+        builder.addElement(name, elementBuilder.build());
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public GTN_StructureBuilder<T> addTierCasing(char name, CasingData data,
+        Consumer<TieredElementBuilder<T>> consumer) {
+        TieredElementBuilder<T> elementBuilder = (TieredElementBuilder<T>) TieredElementBuilder
+            .create(data, multiblockClass);
         consumer.accept(elementBuilder);
         builder.addElement(name, elementBuilder.build());
         return this;

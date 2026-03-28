@@ -5,14 +5,12 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -81,14 +79,9 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
     @Override
     public IStructureDefinition<GTN_MediumPowerAssembler> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('C', ofFrame(Materials.Steel))
-                .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerAssembler.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder.addFrame('C', Materials.Steel)
+                .addCasing('B', GTN_Casings.SteelGearBoxCasing)
+                .addMainCasing('A', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)));
     }
 
     @Override
