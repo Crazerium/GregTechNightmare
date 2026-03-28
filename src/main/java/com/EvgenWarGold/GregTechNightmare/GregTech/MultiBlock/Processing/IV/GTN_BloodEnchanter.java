@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +27,12 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -62,6 +63,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     private int lastNeedLP = 0;
     private int lastNeedXP = 0;
     private int lastNeedPraecantatio = 0;
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_BloodEnchanter(int id, String name) {
         super(id, name);
@@ -117,7 +119,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     @Override
     public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', chainAllGlasses())
+            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('C', ofBlock(ritualStone, 0))
                 .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
                 .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))

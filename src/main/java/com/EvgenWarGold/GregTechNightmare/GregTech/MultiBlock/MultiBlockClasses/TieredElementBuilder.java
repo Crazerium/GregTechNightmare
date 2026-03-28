@@ -12,7 +12,7 @@ import gregtech.api.util.GTStructureUtility;
 @SuppressWarnings("unchecked")
 public class TieredElementBuilder<T> {
 
-    private final TierData tierData;
+    private final CasingData casingData;
     private final Class<T> tileClass;
 
     private GTN_Casings[] casings = new GTN_Casings[0];
@@ -20,13 +20,13 @@ public class TieredElementBuilder<T> {
     private IHatchElement<? super T>[] customHatches;
     private int dot = 1;
 
-    public TieredElementBuilder(TierData tierData, Class<T> tileClass) {
-        this.tierData = tierData;
+    public TieredElementBuilder(CasingData casingData, Class<T> tileClass) {
+        this.casingData = casingData;
         this.tileClass = tileClass;
     }
 
-    public static <T> TieredElementBuilder<T> create(TierData tierData, Class<T> tileClass) {
-        return new TieredElementBuilder<>(tierData, tileClass);
+    public static <T> TieredElementBuilder<T> create(CasingData casingData, Class<T> tileClass) {
+        return new TieredElementBuilder<>(casingData, tileClass);
     }
 
     public TieredElementBuilder<T> casings(GTN_Casings... casings) {
@@ -59,10 +59,10 @@ public class TieredElementBuilder<T> {
     }
 
     public IStructureElement<T> build() {
-        IStructureElement<T> blocks = GTN_StructureUtility.createTierBlocks(tierData, casings);
+        IStructureElement<T> blocks = GTN_StructureUtility.createTierBlocks(casingData, casings);
 
         if (hatches == null && customHatches == null) {
-            return StructureUtility.withChannel(tierData.getChannelName(), blocks);
+            return StructureUtility.withChannel(casingData.getChannelName(), blocks);
         }
 
         IHatchElement<? super T>[] hatchesToUse = safeHatches(this.hatches);
@@ -72,7 +72,7 @@ public class TieredElementBuilder<T> {
         if (customToUse != null) {
             customHatches = GTStructureUtility.buildHatchAdder(tileClass)
                 .atLeast(customToUse)
-                .casingIndex(tierData.getCasingTextureId())
+                .casingIndex(casingData.getCasingTextureId())
                 .dot(dot)
                 .build();
         }
@@ -81,7 +81,7 @@ public class TieredElementBuilder<T> {
         if (hatchesToUse != null) {
             hatches = GTStructureUtility.buildHatchAdder(tileClass)
                 .atLeast(hatchesToUse)
-                .casingIndex(tierData.getCasingTextureId())
+                .casingIndex(casingData.getCasingTextureId())
                 .dot(dot)
                 .build();
         }
@@ -94,6 +94,6 @@ public class TieredElementBuilder<T> {
         @SuppressWarnings("unchecked")
         IStructureElement<T>[] array = chain.toArray(new IStructureElement[0]);
 
-        return StructureUtility.withChannel(tierData.getChannelName(), StructureUtility.ofChain(array));
+        return StructureUtility.withChannel(casingData.getChannelName(), StructureUtility.ofChain(array));
     }
 }

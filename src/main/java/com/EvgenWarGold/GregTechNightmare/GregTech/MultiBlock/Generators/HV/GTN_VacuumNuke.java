@@ -29,12 +29,12 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
@@ -60,10 +60,10 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 
 public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
-    TierData globalCasing = createTierData("casing", true);
-    TierData itemPipe = createTierData("itemPipe");
-    TierData coilBlock = createTierData("coil");
-    TierData glass = createTierData("glass");
+    private final CasingData globalCasing = createCasingData("casing", true);
+    private final CasingData itemPipe = createCasingData("itemPipe");
+    private final CasingData coilBlock = createCasingData("coil");
+    private final CasingData glass = createCasingData("glass");
     private double heat = 0;
     private long generating = 0;
     private double heatIncrease = 0;

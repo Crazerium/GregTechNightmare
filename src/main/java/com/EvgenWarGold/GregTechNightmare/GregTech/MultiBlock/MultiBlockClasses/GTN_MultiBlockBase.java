@@ -37,7 +37,6 @@ import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
-import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
@@ -95,7 +94,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected GTN_Casings mainCasing;
     protected int mainCasingCount = 0;
     protected int mainCasingTextureId = 0;
-    protected final List<TierData> registeredTierData = new ArrayList<>();
+    protected final List<CasingData> registeredCasingData = new ArrayList<>();
     protected final MultiblockBlockCounter multiblockBlockCounter = new MultiblockBlockCounter();
     // endregion
 
@@ -131,8 +130,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
-        for (TierData tierData : registeredTierData) {
-            tierData.reset();
+        for (CasingData casingData : registeredCasingData) {
+            casingData.reset();
         }
     }
 
@@ -772,7 +771,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public void onBlockDestroyed() {
         super.onBlockDestroyed();
         multiBlocks.clear();
-        registeredTierData.clear();
+        registeredCasingData.clear();
     }
     // endregion
 
@@ -817,23 +816,23 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     protected void updateCasingTextureFromTierData() {
-        for (TierData casing : registeredTierData) {
+        for (CasingData casing : registeredCasingData) {
             if (casing.getCasingTier() > 0 && casing.getIsMainCasing()) {
                 setMainCasingTextureId(casing.getCasingTextureId());
             }
         }
     }
 
-    protected TierData createTierData(String channelName, boolean isMainCasing) {
-        TierData data = new TierData();
+    protected CasingData createCasingData(String channelName, boolean isMainCasing) {
+        CasingData data = new CasingData();
         data.setChannelName(channelName);
         data.setIsMainCasing(isMainCasing);
-        registeredTierData.add(data);
+        registeredCasingData.add(data);
         return data;
     }
 
-    protected TierData createTierData(String channelName) {
-        return createTierData(channelName, false);
+    protected CasingData createCasingData(String channelName) {
+        return createCasingData(channelName, false);
     }
 
     public OverclockType getOverclockType() {
@@ -851,9 +850,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
     }
 
-    protected IStructureDefinition<T> buildStructureDefinition(
-        Consumer<StructureDefinition.Builder<T>> elementBuilder) {
-        StructureDefinition.Builder<T> builder = StructureDefinition.builder();
+    protected IStructureDefinition<T> buildStructureDefinition(Consumer<GTN_StructureBuilder<T>> elementBuilder) {
+        GTN_StructureBuilder<T> builder = new GTN_StructureBuilder<>(this);
 
         List<StructureVariant<T>> variants = getStructureVariants();
 

@@ -1,4 +1,4 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.Api;
+package com.EvgenWarGold.GregTechNightmare.Client;
 
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.world.World;

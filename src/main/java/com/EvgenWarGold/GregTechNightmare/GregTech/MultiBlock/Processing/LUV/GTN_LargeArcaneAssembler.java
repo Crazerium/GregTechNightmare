@@ -19,9 +19,10 @@ import net.minecraft.world.World;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Api.ArcaneAssemblerCraftingFX;
+import com.EvgenWarGold.GregTechNightmare.Client.ArcaneAssemblerCraftingFX;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
@@ -30,7 +31,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TierData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -57,7 +57,7 @@ import thaumcraft.common.lib.research.ResearchManager;
 
 public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcaneAssembler> {
 
-    TierData glass = createTierData("glass");
+    private final CasingData glass = createCasingData("glass");
     protected ArrayList<String> research = new ArrayList<>();
 
     public GTN_LargeArcaneAssembler(int id, String name) {

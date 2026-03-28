@@ -1,17 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV;
 
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -19,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -42,6 +39,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     private static long DYNAMO_AMP;
     private static final int CREOSOTE_USAGE_PER_SEC = 25;
     private final static FluidStack CREOSOTE;
+    private final CasingData glass = createCasingData("glass");
 
     static {
         CREOSOTE = Materials.Creosote.getFluid(CREOSOTE_USAGE_PER_SEC);
@@ -92,17 +90,12 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     @Override
     public IStructureDefinition<GTN_CreosoteEngine> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'B',
-                ElementBuilder.create(GTN_CreosoteEngine.class, this)
-                    .casing(mainCasing)
-                    .hatches(InputHatch, Dynamo, Maintenance)
-                    .build())
-                .addElement('D', ofFrame(Materials.Iron))
-                .addElement('E', ofFrame(Materials.Steel))
-                .addElement('F', ofBlock(Blocks.glass, 0))
-                .addElement('C', GTN_Casings.SteelGearBoxCasing.asElement())
-                .addElement('A', GTN_Casings.ULVMachineCasing.asElement()));
+            builder -> builder.addMainCasing('B', b -> b.hatches(InputHatch, Dynamo, Maintenance))
+                .addFrame('D', Materials.Iron)
+                .addFrame('E', Materials.Steel)
+                .addAllGlasses('F', glass)
+                .addCasing('C', GTN_Casings.SteelGearBoxCasing)
+                .addCasing('A', GTN_Casings.ULVMachineCasing));
     }
 
     @Override

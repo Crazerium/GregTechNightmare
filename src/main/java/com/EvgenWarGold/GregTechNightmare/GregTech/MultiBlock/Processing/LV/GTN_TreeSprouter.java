@@ -25,11 +25,13 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -52,6 +54,7 @@ import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MT
 public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     private static final MTETreeFarm.Mode LOG = MTETreeFarm.Mode.LOG;
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_TreeSprouter(int id, String name) {
         super(id, name);
@@ -103,7 +106,7 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     public IStructureDefinition<GTN_TreeSprouter> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('A', ofFrame(Materials.Wood))
-                .addElement('D', ofBlock(Blocks.glass, 0))
+                .addElement('D', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))

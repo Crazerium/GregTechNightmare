@@ -12,10 +12,12 @@ import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -30,6 +32,8 @@ import gregtech.api.recipe.RecipeMaps;
 import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_ExtremePowerCircuitAssembler> {
+
+    private final CasingData glass = createCasingData("glass");
 
     public GTN_ExtremePowerCircuitAssembler(int id, String name) {
         super(id, name);
@@ -88,7 +92,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
                     .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
                     .build())
                 .addElement('D', ofFrame(Materials.Aluminium))
-                .addElement('E', GTN_Casings.TintedGlassWhite.asElement())
+                .addElement('E', GTN_StructureUtility.createAllTieredGlass(glass))
                 .addElement('B', GTN_Casings.TitaniumPipeCasing.asElement())
                 .addElement('A', GTN_Casings.TitaniumGearBoxCasing.asElement()));
     }
