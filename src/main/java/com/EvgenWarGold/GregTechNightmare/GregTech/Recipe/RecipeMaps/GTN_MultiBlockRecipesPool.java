@@ -13,7 +13,6 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt16;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getplate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuit;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
-import static gregtech.api.enums.Materials.Soularium;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_IV;
