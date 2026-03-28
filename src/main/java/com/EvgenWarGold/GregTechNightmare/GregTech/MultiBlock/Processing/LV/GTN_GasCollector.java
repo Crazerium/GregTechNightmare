@@ -3,7 +3,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +12,9 @@ import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -85,11 +82,9 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     @Override
     public IStructureDefinition<GTN_GasCollector> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addFrame('C', Materials.Steel)
+            builder -> builder.addFrame('C', Materials.Steel)
                 .addAllGlasses('A', glass)
-                .addMainCasing('B', b -> b
-                    .hatches(InputBus, OutputHatch, Energy)));
+                .addMainCasing('B', b -> b.hatches(InputBus, OutputHatch, Energy)));
     }
 
     @Override

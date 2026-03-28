@@ -5,14 +5,12 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -82,11 +80,9 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public IStructureDefinition<GTN_MediumPowerExtruder> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addFrame('B', Materials.Steel)
+            builder -> builder.addFrame('B', Materials.Steel)
                 .addElement('C', ofBlock(GregTechAPI.sBlockMetal6, 13))
-                .addMainCasing('A', b -> b
-                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
+                .addMainCasing('A', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

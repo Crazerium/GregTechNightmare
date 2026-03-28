@@ -32,11 +32,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -159,13 +157,11 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addAllGlasses('A', glass)
+            builder -> builder.addAllGlasses('A', glass)
                 .addCasing('C', GTN_Casings.NaquadahCoilBlock)
                 .addCasing('B', GTN_Casings.CleanStainlessSteelMachineCasing)
                 .addCasing('E', GTN_Casings.ThermallyInsulatedCasing)
-                .addMainCasing('D', b -> b
-                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
+                .addMainCasing('D', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

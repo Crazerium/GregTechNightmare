@@ -23,12 +23,10 @@ import com.EvgenWarGold.GregTechNightmare.Client.ArcaneAssemblerCraftingFX;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
@@ -113,8 +111,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                 .addAllGlasses('A', glass)
                 .addElement('D', ofBlock(blockStoneDevice, 10))
                 .addElement('E', ofBlock(blockStoneDevice, 11))
-                .addMainCasing('B', b -> b
-                    .hatches(InputBus, OutputBus, Energy)));
+                .addMainCasing('B', b -> b.hatches(InputBus, OutputBus, Energy)));
     }
 
     public boolean isNoMaintenanceIssue() {

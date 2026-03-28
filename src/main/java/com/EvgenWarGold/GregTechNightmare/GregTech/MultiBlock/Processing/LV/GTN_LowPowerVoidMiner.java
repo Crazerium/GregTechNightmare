@@ -3,7 +3,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -87,11 +85,9 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     @Override
     public IStructureDefinition<GTN_LowPowerVoidMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addFrame('B', Materials.Cobalt)
+            builder -> builder.addFrame('B', Materials.Cobalt)
                 .addCasing('C', GTN_Casings.BoltedCobaltCasing)
-                .addMainCasing('A', b -> b
-                    .hatches(OutputBus, Energy, Maintenance)));
+                .addMainCasing('A', b -> b.hatches(OutputBus, Energy, Maintenance)));
     }
 
     @Override

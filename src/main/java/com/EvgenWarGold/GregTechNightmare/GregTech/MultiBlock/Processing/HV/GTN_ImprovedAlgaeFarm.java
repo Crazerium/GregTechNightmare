@@ -17,14 +17,12 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -87,8 +85,11 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
     public IStructureDefinition<GTN_ImprovedAlgaeFarm> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('C', ofBlock(Blocks.water, 0))
-                .addTierCasing('A', machineCasing, b -> b
-                    .casings(GTN_Casings.LVMachineCasing,
+                .addTierCasing(
+                    'A',
+                    machineCasing,
+                    b -> b.casings(
+                        GTN_Casings.LVMachineCasing,
                         GTN_Casings.MVMachineCasing,
                         GTN_Casings.HVMachineCasing,
                         GTN_Casings.EVMachineCasing,
@@ -100,8 +101,7 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
                         GTN_Casings.UIVMachineCasing,
                         GTN_Casings.UMVMachineCasing,
                         GTN_Casings.UXVMachineCasing))
-                .addMainCasing('B', b -> b
-                    .hatches(InputBus, InputHatch, OutputBus)));
+                .addMainCasing('B', b -> b.hatches(InputBus, InputHatch, OutputBus)));
     }
 
     @Override

@@ -2,16 +2,13 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputBus;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
@@ -75,9 +72,7 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     @Override
     public IStructureDefinition<GTN_AdvancedBBF> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder
-                .addMainCasing('A', b -> b
-                    .hatches(SteamInputBus, SteamOutputBus))
+            builder -> builder.addMainCasing('A', b -> b.hatches(SteamInputBus, SteamOutputBus))
                 .addFrame('B', Materials.Steel));
     }
 
