@@ -91,17 +91,14 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
     @Override
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_Casings.NeutroniumStabilizationCasing.asElement())
-                .addElement('E', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement('B', ofFrame(Materials.Gadolinium))
-                .addElement('C', ofFrame(Materials.Shadow))
-                .addElement('D', ofFrame(Materials.Infinity))
-                .addElement(
-                    'F',
-                    ElementBuilder.create(GTN_UltimatePrecise.class, this)
-                        .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder
+                .addCasing('A', GTN_Casings.NeutroniumStabilizationCasing)
+                .addAllGlasses('E', glass)
+                .addFrame('B', Materials.Gadolinium)
+                .addFrame('C', Materials.Shadow)
+                .addFrame('D', Materials.Infinity)
+                .addMainCasing('F', b -> b
+                    .hatches(InputBus, OutputBus, Energy.or(ExoticEnergy), Maintenance, InputHatch)));
     }
 
     @Override

@@ -82,14 +82,11 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public IStructureDefinition<GTN_MediumPowerExtruder> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', ofFrame(Materials.Steel))
+            builder -> builder
+                .addFrame('B', Materials.Steel)
                 .addElement('C', ofBlock(GregTechAPI.sBlockMetal6, 13))
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerExtruder.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance)
-                        .casing(mainCasing)
-                        .build()));
+                .addMainCasing('A', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputBus;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.fluidListToArray;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.itemListToArray;
 import static gregtech.api.enums.HatchElement.OutputHatch;
@@ -93,12 +95,9 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     @Override
     public IStructureDefinition<GTN_AdvancedCokeOven> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'A',
-                ElementBuilder.create(GTN_AdvancedCokeOven.class, this)
-                    .hatches(GTN_HatchElement.SteamInputBus, GTN_HatchElement.SteamOutputBus, OutputHatch)
-                    .casing(mainCasing)
-                    .build()));
+            builder -> builder
+                .addMainCasing('A', b -> b
+                    .hatches(SteamInputBus, SteamOutputBus, OutputHatch)));
     }
 
     @Override

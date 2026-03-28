@@ -7,7 +7,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputHatch;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -33,9 +32,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -134,10 +131,11 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     @Override
     public IStructureDefinition<GTN_VacuumNuke> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'A',
-                TieredElementBuilder.create(itemPipe, GTN_VacuumNuke.class)
-                    .casings(
+            builder -> builder
+                .addTierCasing(
+                    'A',
+                    itemPipe,
+                    b -> b.casings(
                         GTN_Casings.TinItemPipeCasing,
                         GTN_Casings.BrassItemPipeCasing,
                         GTN_Casings.ElectrumItemPipeCasing,
@@ -145,21 +143,20 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
                         GTN_Casings.OsmiumItemPipeCasing,
                         GTN_Casings.QuantiumItemPipeCasing,
                         GTN_Casings.FluxedElectrumItemPipeCasing,
-                        GTN_Casings.BlackPlutoniumItemPipeCasing)
-                    .build())
-                .addElement('B', GTN_Casings.SolidSteelMachineCasing.asElement())
-                .addElement('D', GTN_StructureUtility.createAllTierCoilBlock(coilBlock))
-                .addElement('E', ofFrame(Materials.Steel))
-                .addElement('F', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement(
+                        GTN_Casings.BlackPlutoniumItemPipeCasing))
+                .addCasing('B', GTN_Casings.SolidSteelMachineCasing)
+                .addAllCoil('D', coilBlock)
+                .addFrame('E', Materials.Steel)
+                .addAllGlasses('F', glass)
+                .addTierCasing(
                     'C',
-                    TieredElementBuilder.create(globalCasing, GTN_VacuumNuke.class)
+                    globalCasing,
+                    b -> b
                         .casings(
                             GTN_Casings.FrostProofMachineCasing,
                             GTN_Casings.StableTitaniumMachineCasing,
                             GTN_Casings.RobustTungstenSteelMachineCasing)
-                        .hatches(InputBus, Dynamo, InputHatch, OutputHatch, Maintenance, SensorHatch, DynamoMulti)
-                        .build()));
+                        .hatches(InputBus, Dynamo, InputHatch, OutputHatch, Maintenance, SensorHatch, DynamoMulti)));
     }
 
     @Override

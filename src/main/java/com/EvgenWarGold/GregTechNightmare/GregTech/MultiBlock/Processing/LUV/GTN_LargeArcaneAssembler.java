@@ -110,15 +110,11 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public IStructureDefinition<GTN_LargeArcaneAssembler> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('C', ofBlock(blockMetalDevice, 9))
-                .addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+                .addAllGlasses('A', glass)
                 .addElement('D', ofBlock(blockStoneDevice, 10))
                 .addElement('E', ofBlock(blockStoneDevice, 11))
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_LargeArcaneAssembler.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, OutputBus, Energy)
-                        .build()));
+                .addMainCasing('B', b -> b
+                    .hatches(InputBus, OutputBus, Energy)));
     }
 
     public boolean isNoMaintenanceIssue() {

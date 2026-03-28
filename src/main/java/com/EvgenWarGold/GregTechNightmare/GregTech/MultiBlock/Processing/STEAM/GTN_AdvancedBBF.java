@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputBus;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
@@ -73,13 +75,10 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
     @Override
     public IStructureDefinition<GTN_AdvancedBBF> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'A',
-                ElementBuilder.create(GTN_AdvancedBBF.class, this)
-                    .casing(mainCasing)
-                    .hatches(GTN_HatchElement.SteamInputBus, GTN_HatchElement.SteamOutputBus)
-                    .build())
-                .addElement('B', ofFrame(Materials.Steel)));
+            builder -> builder
+                .addMainCasing('A', b -> b
+                    .hatches(SteamInputBus, SteamOutputBus))
+                .addFrame('B', Materials.Steel));
     }
 
     @Override

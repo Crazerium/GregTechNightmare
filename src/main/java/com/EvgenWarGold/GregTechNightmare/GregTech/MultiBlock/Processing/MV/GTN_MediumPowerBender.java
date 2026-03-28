@@ -77,13 +77,10 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
     @Override
     public IStructureDefinition<GTN_MediumPowerBender> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', ofFrame(Materials.Steel))
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerBender.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder
+                .addFrame('B', Materials.Steel)
+                .addMainCasing('A', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

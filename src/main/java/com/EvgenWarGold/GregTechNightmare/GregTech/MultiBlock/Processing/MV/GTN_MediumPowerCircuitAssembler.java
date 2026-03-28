@@ -79,13 +79,10 @@ public class GTN_MediumPowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Medi
     @Override
     public IStructureDefinition<GTN_MediumPowerCircuitAssembler> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', ofFrame(Materials.Steel))
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerCircuitAssembler.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder
+                .addFrame('B', Materials.Steel)
+                .addMainCasing('A', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)));
     }
 
     @Override

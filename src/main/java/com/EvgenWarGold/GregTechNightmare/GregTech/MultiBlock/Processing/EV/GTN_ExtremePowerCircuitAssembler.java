@@ -5,7 +5,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
-import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,11 +12,9 @@ import java.util.List;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.ElementBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -85,16 +82,11 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
     @Override
     public IStructureDefinition<GTN_ExtremePowerCircuitAssembler> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'C',
-                ElementBuilder.create(GTN_ExtremePowerCircuitAssembler.class, this)
-                    .casing(mainCasing)
-                    .hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch)
-                    .build())
-                .addElement('D', ofFrame(Materials.Aluminium))
-                .addElement('E', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement('B', GTN_Casings.TitaniumPipeCasing.asElement())
-                .addElement('A', GTN_Casings.TitaniumGearBoxCasing.asElement()));
+            builder -> builder.addMainCasing('C', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch))
+                .addFrame('D', Materials.Aluminium)
+                .addAllGlasses('E', glass)
+                .addCasing('B', GTN_Casings.TitaniumPipeCasing)
+                .addCasing('A', GTN_Casings.TitaniumGearBoxCasing));
     }
 
     @Override

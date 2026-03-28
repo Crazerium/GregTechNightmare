@@ -100,17 +100,14 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     @Override
     public IStructureDefinition<GTN_NodeEnergizer> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'C',
-                ElementBuilder.create(GTN_NodeEnergizer.class, this)
-                    .casing(mainCasing)
-                    .hatches(InputBus, Energy, Maintenance)
-                    .build())
-                .addElement('B', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder
+                .addMainCasing('C', b -> b
+                    .hatches(InputBus, Energy, Maintenance))
+                .addAllGlasses('B', glass)
                 .addElement(
                     'D',
                     ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))
-                .addElement('A', ofFrame(Materials.Silver)));
+                .addFrame('A', Materials.Silver));
     }
 
     @Override

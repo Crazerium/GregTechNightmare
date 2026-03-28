@@ -105,17 +105,14 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     @Override
     public IStructureDefinition<GTN_TreeSprouter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', ofFrame(Materials.Wood))
-                .addElement('D', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder
+                .addFrame('A', Materials.Wood)
+                .addAllGlasses('D', glass)
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_TreeSprouter.class, this)
-                        .casing(mainCasing)
-                        .hatches(OutputBus, Energy, Maintenance)
-                        .build()));
+                .addMainCasing('B', b -> b
+                    .hatches(OutputBus, Energy, Maintenance)));
     }
 
     @Override

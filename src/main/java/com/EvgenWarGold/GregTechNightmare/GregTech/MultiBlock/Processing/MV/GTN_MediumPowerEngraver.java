@@ -79,13 +79,10 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerEngraver.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder
+                .addAllGlasses('B', glass)
+                .addMainCasing('A', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

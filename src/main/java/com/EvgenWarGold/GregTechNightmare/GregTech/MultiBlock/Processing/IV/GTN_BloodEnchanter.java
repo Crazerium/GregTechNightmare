@@ -119,18 +119,15 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     @Override
     public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
+            builder -> builder
+                .addAllGlasses('A', glass)
                 .addElement('C', ofBlock(ritualStone, 0))
                 .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
                 .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))
                 .addElement('F', ofBlock(ModBlocks.blockAltar, 0))
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_BloodEnchanter.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, InputHatch, Muffler, OutputBus)
-                        .tileAdder(GTN_BloodEnchanter::addInfusionProvider)
-                        .build()));
+                .addMainCasing('B', b -> b
+                    .hatches(InputBus, InputHatch, Muffler, OutputBus)
+                    .tileAdder(GTN_BloodEnchanter::addInfusionProvider)));
     }
 
     @Override

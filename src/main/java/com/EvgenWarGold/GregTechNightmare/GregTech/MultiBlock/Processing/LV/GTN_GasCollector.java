@@ -85,14 +85,11 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     @Override
     public IStructureDefinition<GTN_GasCollector> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('C', ofFrame(Materials.Steel))
-                .addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_GasCollector.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, OutputHatch, Energy)
-                        .build()));
+            builder -> builder
+                .addFrame('C', Materials.Steel)
+                .addAllGlasses('A', glass)
+                .addMainCasing('B', b -> b
+                    .hatches(InputBus, OutputHatch, Energy)));
     }
 
     @Override

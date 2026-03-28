@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputHatch;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.Arrays;
@@ -93,14 +95,11 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     @Override
     public IStructureDefinition<GTN_BronzeVoidMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('C', ofFrame(Materials.Bronze))
-                .addElement('A', GTN_Casings.BronzePlatedBricks.asElement())
-                .addElement(
-                    'B',
-                    ElementBuilder.create(GTN_BronzeVoidMiner.class, this)
-                        .casing(mainCasing)
-                        .hatches(GTN_HatchElement.SteamInputHatch, GTN_HatchElement.SteamOutputBus)
-                        .build()));
+            builder -> builder
+                .addFrame('C', Materials.Bronze)
+                .addCasing('A', GTN_Casings.BronzePlatedBricks)
+                .addMainCasing('B', b -> b
+                    .hatches(SteamInputHatch, SteamOutputBus)));
     }
 
     @Override

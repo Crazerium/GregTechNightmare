@@ -159,16 +159,13 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement('C', GTN_Casings.NaquadahCoilBlock.asElement())
-                .addElement('B', GTN_Casings.CleanStainlessSteelMachineCasing.asElement())
-                .addElement('E', GTN_Casings.ThermallyInsulatedCasing.asElement())
-                .addElement(
-                    'D',
-                    ElementBuilder.create(GTN_LaserMeteorMiner.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance)
-                        .build()));
+            builder -> builder
+                .addAllGlasses('A', glass)
+                .addCasing('C', GTN_Casings.NaquadahCoilBlock)
+                .addCasing('B', GTN_Casings.CleanStainlessSteelMachineCasing)
+                .addCasing('E', GTN_Casings.ThermallyInsulatedCasing)
+                .addMainCasing('D', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override

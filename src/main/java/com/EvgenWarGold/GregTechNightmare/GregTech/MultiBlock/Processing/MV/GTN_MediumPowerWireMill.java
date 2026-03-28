@@ -79,14 +79,11 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     @Override
     public IStructureDefinition<GTN_MediumPowerWireMill> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-                .addElement('C', GTN_StructureUtility.createAllTieredGlass(glass))
-                .addElement(
-                    'A',
-                    ElementBuilder.create(GTN_MediumPowerWireMill.class, this)
-                        .hatches(InputBus, OutputBus, Energy, Maintenance)
-                        .casing(mainCasing)
-                        .build()));
+            builder -> builder
+                .addCasing('B', GTN_Casings.SteelGearBoxCasing)
+                .addAllGlasses('C', glass)
+                .addMainCasing('A', b -> b
+                    .hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
     @Override
