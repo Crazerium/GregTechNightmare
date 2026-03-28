@@ -37,7 +37,6 @@ import com.gtnewhorizon.structurelib.alignment.constructable.IConstructable;
 import com.gtnewhorizon.structurelib.alignment.constructable.ISurvivalConstructable;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.ISurvivalBuildEnvironment;
-import com.gtnewhorizon.structurelib.structure.StructureDefinition;
 
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
@@ -851,9 +850,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
     }
 
-    protected IStructureDefinition<T> buildStructureDefinition(
-        Consumer<StructureDefinition.Builder<T>> elementBuilder) {
-        StructureDefinition.Builder<T> builder = StructureDefinition.builder();
+    protected IStructureDefinition<T> buildStructureDefinition(Consumer<GTN_StructureBuilder<T>> elementBuilder) {
+        GTN_StructureBuilder<T> builder = new GTN_StructureBuilder<>(this);
 
         List<StructureVariant<T>> variants = getStructureVariants();
 
