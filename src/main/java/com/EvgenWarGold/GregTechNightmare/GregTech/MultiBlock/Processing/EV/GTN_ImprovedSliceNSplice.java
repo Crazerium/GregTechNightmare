@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -32,6 +33,7 @@ import gregtech.api.util.GTUtility;
 public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSliceNSplice> {
 
     private static final Map<ItemStack, Integer> CAPACITOR_PARALLELS = new HashMap<>();
+    private final CasingData glass = createCasingData("glass");
 
     static {
         CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.BasicCapacitor.get(1), 4);
@@ -93,14 +95,11 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
     @Override
     public IStructureDefinition<GTN_ImprovedSliceNSplice> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement('A', chainAllGlasses())
-                .addElement('B', GTN_Casings.SteelGearBoxCasing.asElement())
-                .addElement(
-                    'C',
-                    ElementBuilder.create(GTN_ImprovedSliceNSplice.class, this)
-                        .casing(mainCasing)
-                        .hatches(InputBus, Energy, OutputBus, Maintenance, InputHatch)
-                        .build()));
+            builder -> builder
+                .addAllGlasses('A', glass)
+                .addCasing('B', GTN_Casings.SteelGearBoxCasing)
+                .addMainCasing('C', b -> b
+                    .hatches(InputBus, Energy, OutputBus, Maintenance, InputHatch)));
     }
 
     @Override
