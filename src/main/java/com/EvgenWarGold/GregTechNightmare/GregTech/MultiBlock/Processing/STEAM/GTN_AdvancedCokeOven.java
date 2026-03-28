@@ -63,13 +63,14 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
                 "CokeOven",
                 // spotless:off
                 new String[][]{
-                    {"AAA","AAA","AAA"},
-                    {"A~A","AAA","AAA"},
-                    {"AAA","AAA","AAA"}
+                    {"  A  "," AAA ","  A  ","     "},
+                    {" AAA "," AAA "," AAA ","     "},
+                    {" A~A ","AAAAA"," AAA ","  A  "},
+                    {" AAA ","AAAAA"," AAA ","  A  "}
                 },
                 //spotless:on
-                new MultiblockOffsets(1, 1, 0),
-                new MultiblockArea(3, 3, 3),
+                new MultiblockOffsets(2, 2, 0),
+                new MultiblockArea(5, 4, 4),
                 1,
                 GTN_Casings.CokeOvenCasing));
     }
