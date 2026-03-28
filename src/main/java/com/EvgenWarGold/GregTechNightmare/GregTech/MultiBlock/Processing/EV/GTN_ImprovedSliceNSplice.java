@@ -33,7 +33,6 @@ import gregtech.api.util.GTUtility;
 public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSliceNSplice> {
 
     private static final Map<ItemStack, Integer> CAPACITOR_PARALLELS = new HashMap<>();
-    private final CasingData glass = createCasingData("glass");
 
     static {
         CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.BasicCapacitor.get(1), 4);
@@ -96,7 +95,7 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
     public IStructureDefinition<GTN_ImprovedSliceNSplice> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder
-                .addAllGlasses('A', glass)
+                .addAllGlasses('A')
                 .addCasing('B', GTN_Casings.SteelGearBoxCasing)
                 .addMainCasing('C', b -> b
                     .hatches(InputBus, Energy, OutputBus, Maintenance, InputHatch)));

@@ -28,8 +28,6 @@ import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerEngraver> {
 
-    private final CasingData glass = createCasingData("glass");
-
     public GTN_MediumPowerEngraver(int id, String name) {
         super(id, name);
     }
@@ -77,7 +75,7 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
     @Override
     public IStructureDefinition<GTN_MediumPowerEngraver> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addAllGlasses('B', glass)
+            builder -> builder.addAllGlasses('B')
                 .addMainCasing('A', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 

@@ -61,7 +61,6 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     private int lastNeedLP = 0;
     private int lastNeedXP = 0;
     private int lastNeedPraecantatio = 0;
-    private final CasingData glass = createCasingData("glass");
 
     public GTN_BloodEnchanter(int id, String name) {
         super(id, name);
@@ -117,7 +116,7 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     @Override
     public IStructureDefinition<GTN_BloodEnchanter> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addAllGlasses('A', glass)
+            builder -> builder.addAllGlasses('A')
                 .addElement('C', ofBlock(ritualStone, 0))
                 .addElement('D', ofBlock(ModBlocks.blockPedestal, 0))
                 .addElement('E', ofBlock(ModBlocks.blockMasterStone, 0))

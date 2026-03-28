@@ -30,8 +30,6 @@ import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_ExtremePowerCircuitAssembler> {
 
-    private final CasingData glass = createCasingData("glass");
-
     public GTN_ExtremePowerCircuitAssembler(int id, String name) {
         super(id, name);
     }
@@ -84,7 +82,7 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
         return buildStructureDefinition(
             builder -> builder.addMainCasing('C', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance, InputHatch))
                 .addFrame('D', Materials.Aluminium)
-                .addAllGlasses('E', glass)
+                .addAllGlasses('E')
                 .addCasing('B', GTN_Casings.TitaniumPipeCasing)
                 .addCasing('A', GTN_Casings.TitaniumGearBoxCasing));
     }

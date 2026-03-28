@@ -91,7 +91,6 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private int minY = 0;
     private int maxY = 0;
     private boolean isLayerInitialized = false;
-    private final CasingData glass = createCasingData("glass");
 
     public GTN_LaserMeteorMiner(int id, String name) {
         super(id, name);
@@ -157,7 +156,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     @Override
     public IStructureDefinition<GTN_LaserMeteorMiner> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addAllGlasses('A', glass)
+            builder -> builder.addAllGlasses('A')
                 .addCasing('C', GTN_Casings.NaquadahCoilBlock)
                 .addCasing('B', GTN_Casings.CleanStainlessSteelMachineCasing)
                 .addCasing('E', GTN_Casings.ThermallyInsulatedCasing)

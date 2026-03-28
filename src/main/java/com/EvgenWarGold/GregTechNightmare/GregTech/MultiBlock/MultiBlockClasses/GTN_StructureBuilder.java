@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility.createAllTierCoilBlock;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_StructureUtility.createAllTieredGlass;
+import static gregtech.api.util.GTStructureUtility.chainAllGlasses;
 import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.function.Consumer;
@@ -57,6 +58,11 @@ public class GTN_StructureBuilder<T> {
 
     public GTN_StructureBuilder<T> addAllGlasses(char name, CasingData data) {
         builder.addElement(name, createAllTieredGlass(data));
+        return this;
+    }
+
+    public GTN_StructureBuilder<T> addAllGlasses(char name) {
+        builder.addElement(name, chainAllGlasses());
         return this;
     }
 

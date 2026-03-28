@@ -51,7 +51,6 @@ import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MT
 public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     private static final MTETreeFarm.Mode LOG = MTETreeFarm.Mode.LOG;
-    private final CasingData glass = createCasingData("glass");
 
     public GTN_TreeSprouter(int id, String name) {
         super(id, name);
@@ -103,7 +102,7 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     public IStructureDefinition<GTN_TreeSprouter> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addFrame('A', Materials.Wood)
-                .addAllGlasses('D', glass)
+                .addAllGlasses('D')
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))

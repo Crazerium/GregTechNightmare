@@ -46,7 +46,6 @@ import thaumcraft.common.tiles.TileNode;
 public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
     protected ArrayList<TileNode> mNode = new ArrayList<>();
-    private final CasingData glass = createCasingData("glass");
 
     public GTN_NodeEnergizer(int id, String name) {
         super(id, name);
@@ -98,7 +97,7 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     public IStructureDefinition<GTN_NodeEnergizer> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addMainCasing('C', b -> b.hatches(InputBus, Energy, Maintenance))
-                .addAllGlasses('B', glass)
+                .addAllGlasses('B')
                 .addElement(
                     'D',
                     ofChain(ofTileAdder(GTN_NodeEnergizer::addNodeEnergized, Blocks.air, 0), StructureUtility.isAir()))

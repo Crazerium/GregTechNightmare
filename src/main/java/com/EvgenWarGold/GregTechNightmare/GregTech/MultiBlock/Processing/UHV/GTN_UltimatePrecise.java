@@ -31,8 +31,6 @@ import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise> {
 
-    private final CasingData glass = createCasingData("glass");
-
     public GTN_UltimatePrecise(int id, String name) {
         super(id, name);
     }
@@ -89,7 +87,7 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
     public IStructureDefinition<GTN_UltimatePrecise> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addCasing('A', GTN_Casings.NeutroniumStabilizationCasing)
-                .addAllGlasses('E', glass)
+                .addAllGlasses('E')
                 .addFrame('B', Materials.Gadolinium)
                 .addFrame('C', Materials.Shadow)
                 .addFrame('D', Materials.Infinity)

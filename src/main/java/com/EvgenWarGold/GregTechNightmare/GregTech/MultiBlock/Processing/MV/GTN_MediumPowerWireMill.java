@@ -28,8 +28,6 @@ import it.unimi.dsi.fastutil.Pair;
 
 public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerWireMill> {
 
-    private final CasingData glass = createCasingData("glass");
-
     public GTN_MediumPowerWireMill(int id, String name) {
         super(id, name);
     }
@@ -78,7 +76,7 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
     public IStructureDefinition<GTN_MediumPowerWireMill> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addCasing('B', GTN_Casings.SteelGearBoxCasing)
-                .addAllGlasses('C', glass)
+                .addAllGlasses('C')
                 .addMainCasing('A', b -> b.hatches(InputBus, OutputBus, Energy, Maintenance)));
     }
 
