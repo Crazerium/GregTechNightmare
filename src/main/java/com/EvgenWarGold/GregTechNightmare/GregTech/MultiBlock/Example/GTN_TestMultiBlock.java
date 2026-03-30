@@ -13,6 +13,7 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -44,7 +45,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         return Arrays.asList(
             new StructureVariant<>(
                 "Gas",
-                new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
+                new String[][] { { "ACA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
                 new MultiblockOffsets(1, 1, 0),
                 new MultiblockArea(4, 5, 10),
                 1,
@@ -76,25 +77,27 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     private final CasingData casing = createCasingData("casing", true);
     private final CasingData casing1 = createCasingData("casing1", true);
+    private final CasingData temp = createCasingData("temp");
 
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addElement(
-                'B',
-                TieredElementBuilder.create(casing1, GTN_TestMultiBlock.class)
-                    .casings(GTN_Casings.TitaniumGearBoxCasing, GTN_Casings.SolidifierCasing)
-                    .hatches(
-                        InputHatch,
-                        OutputHatch,
-                        InputBus,
-                        OutputBus,
-                        Energy,
-                        ExoticEnergy,
-                        Maintenance,
-                        Muffler,
-                        Dynamo)
-                    .build())
+            builder -> builder.addTierBlock('C', temp, Blocks.coal_block, Blocks.tnt)
+                .addElement(
+                    'B',
+                    TieredElementBuilder.create(casing1, GTN_TestMultiBlock.class)
+                        .casings(GTN_Casings.TitaniumGearBoxCasing, GTN_Casings.SolidifierCasing)
+                        .hatches(
+                            InputHatch,
+                            OutputHatch,
+                            InputBus,
+                            OutputBus,
+                            Energy,
+                            ExoticEnergy,
+                            Maintenance,
+                            Muffler,
+                            Dynamo)
+                        .build())
                 .addElement(
                     'A',
                     TieredElementBuilder.create(casing, GTN_TestMultiBlock.class)

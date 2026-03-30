@@ -3,6 +3,8 @@ package com.EvgenWarGold.GregTechNightmare.Mixins.Late;
 import static com.gtnewhorizon.structurelib.StructureLib.LOGGER;
 import static com.gtnewhorizon.structurelib.StructureLib.PANIC_MODE;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
@@ -13,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChatStyle;
@@ -24,8 +27,14 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.gtnewhorizon.structurelib.StructureLib;
 import com.gtnewhorizon.structurelib.StructureLibAPI;
+import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import com.gtnewhorizon.structurelib.structure.AutoPlaceEnvironment;
 import com.gtnewhorizon.structurelib.structure.IItemSource;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
@@ -34,6 +43,43 @@ import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
 
 @Mixin(value = StructureUtility.class, remap = false)
 public class FixMultiblockBuilderMixins<T> {
+
+    private static Method VISIT;
+    private static Method BLOCK_NOT_LOADED;
+
+    static {
+        try {
+            Class<?> walker = Class.forName("com.gtnewhorizon.structurelib.structure.IStructureWalker");
+
+            VISIT = walker.getDeclaredMethod(
+                "visit",
+                IStructureElement.class,
+                World.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class);
+
+            BLOCK_NOT_LOADED = walker.getDeclaredMethod(
+                "blockNotLoaded",
+                IStructureElement.class,
+                World.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class,
+                int.class);
+
+            VISIT.setAccessible(true);
+            BLOCK_NOT_LOADED.setAccessible(true);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to init walker reflection", e);
+        }
+    }
 
     /**
      * @author EvgenWarGold
@@ -193,5 +239,272 @@ public class FixMultiblockBuilderMixins<T> {
             // this is bad! probably an exploit somehow. Let's nullify the block we just placed instead
             world.setBlockToAir(x, y, z);
         return IStructureElement.PlaceResult.ACCEPT;
+    }
+
+    private static String describeElement(IStructureElement<?> element) {
+        // String simpleName = element.getClass().getSimpleName();
+        // return simpleName.isEmpty() ? element.getClass().getName() : simpleName;
+        return element.getClass()
+            .getName();
+    }
+
+    @Inject(method = "iterateV2", at = @At("HEAD"), cancellable = true)
+    private static <T> void iterateV2_redirect(IStructureElement<T>[] elements, World world,
+        ExtendedFacing extendedFacing, int basePositionX, int basePositionY, int basePositionZ, int basePositionA,
+        int basePositionB, int basePositionC, @Coerce Object predicate, String iterateType,
+        CallbackInfoReturnable<Boolean> cir) {
+        boolean result = iterateV2_custom(
+            elements,
+            world,
+            extendedFacing,
+            basePositionX,
+            basePositionY,
+            basePositionZ,
+            basePositionA,
+            basePositionB,
+            basePositionC,
+            predicate,
+            iterateType);
+        cir.setReturnValue(result);
+        cir.cancel();
+    }
+
+    // private static <T> boolean iterateV2_custom(
+    // IStructureElement<T>[] elements,
+    // World world,
+    // ExtendedFacing extendedFacing,
+    // int basePositionX, int basePositionY, int basePositionZ,
+    // int basePositionA, int basePositionB, int basePositionC,
+    // Object predicate,
+    // String iterateType
+    // ) {
+    // // change base position to base offset
+    // basePositionA = -basePositionA;
+    // basePositionB = -basePositionB;
+    // basePositionC = -basePositionC;
+    //
+    // int[] abc = new int[]{basePositionA, basePositionB, basePositionC};
+    // int[] xyz = new int[3];
+    //
+    // for (int elementIndex = 0; elementIndex < elements.length; elementIndex++) {
+    // IStructureElement<T> element = elements[elementIndex];
+    // if (element.isNavigating()) {
+    // abc[0] = (element.resetA() ? basePositionA : abc[0]) + element.getStepA();
+    // abc[1] = (element.resetB() ? basePositionB : abc[1]) + element.getStepB();
+    // abc[2] = (element.resetC() ? basePositionC : abc[2]) + element.getStepC();
+    // StructureLib.LOGGER.info(
+    // "Multi [{}, {}, {}] {} nav #{} {} -> {}",
+    // basePositionX,
+    // basePositionY,
+    // basePositionZ,
+    // iterateType,
+    // elementIndex,
+    // describeElement(element),
+    // Arrays.toString(abc));
+    // } else {
+    // extendedFacing.getWorldOffset(abc, xyz);
+    // xyz[0] += basePositionX;
+    // xyz[1] += basePositionY;
+    // xyz[2] += basePositionZ;
+    //
+    // StructureLib.LOGGER.info(
+    // "Multi [{}, {}, {}] {} step #{} {} @ {} {}",
+    // basePositionX,
+    // basePositionY,
+    // basePositionZ,
+    // iterateType,
+    // elementIndex,
+    // describeElement(element),
+    // Arrays.toString(xyz),
+    // Arrays.toString(abc));
+    //
+    // if (world.blockExists(xyz[0], xyz[1], xyz[2])) {
+    // if (StructureLibAPI.isInstrumentEnabled()) {
+    // StructureEvent.StructureElementVisitedEvent.fireEvent(
+    // world,
+    // xyz[0],
+    // xyz[1],
+    // xyz[2],
+    // abc[0] - basePositionA,
+    // abc[1] - basePositionB,
+    // abc[2] - basePositionC,
+    // element);
+    // }
+    // try {
+    // boolean result = (boolean) VISIT.invoke(predicate, element, world, xyz[0], xyz[1], xyz[2], abc[0], abc[1],
+    // abc[2]);
+    // if (!result) {
+    // StructureLib.LOGGER.info(
+    // "Multi [{}, {}, {}] {} stop #{} {} @ {} {}",
+    // basePositionX,
+    // basePositionY,
+    // basePositionZ,
+    // iterateType,
+    // elementIndex,
+    // describeElement(element),
+    // Arrays.toString(xyz),
+    // Arrays.toString(abc));
+    // return false;
+    // }
+    // } catch (Exception e) {
+    // throw new RuntimeException(e);
+    // }
+    // } else {
+    // StructureLib.LOGGER.info(
+    // "Multi [{}, {}, {}] {} !blockExists #{} {} @ {} {}",
+    // basePositionX,
+    // basePositionY,
+    // basePositionZ,
+    // iterateType,
+    // elementIndex,
+    // describeElement(element),
+    // Arrays.toString(xyz),
+    // Arrays.toString(abc));
+    // try {
+    // boolean result = (boolean) BLOCK_NOT_LOADED.invoke(predicate, element, world, xyz[0], xyz[1], xyz[2], abc[0],
+    // abc[1], abc[2]);
+    // if (!result) {
+    // return false;
+    // }
+    // } catch (Exception e) {
+    // throw new RuntimeException(e);
+    // }
+    // }
+    // abc[0] += 1;
+    // }
+    // }
+    // return true;
+    // }
+
+    private static <T> boolean iterateV2_custom(IStructureElement<T>[] elements, World world,
+        ExtendedFacing extendedFacing, int basePositionX, int basePositionY, int basePositionZ, int basePositionA,
+        int basePositionB, int basePositionC, Object predicate, String iterateType) {
+        StructureLib.LOGGER.info(
+            "=== START iterate={} baseXYZ=[{}, {}, {}] baseABC(orig)=[{}, {}, {}] facing={} ===",
+            iterateType,
+            basePositionX,
+            basePositionY,
+            basePositionZ,
+            basePositionA,
+            basePositionB,
+            basePositionC,
+            extendedFacing);
+
+        basePositionA = -basePositionA;
+        basePositionB = -basePositionB;
+        basePositionC = -basePositionC;
+
+        StructureLib.LOGGER.info("INVERTED baseABC=[{}, {}, {}]", basePositionA, basePositionB, basePositionC);
+
+        int[] abc = new int[] { basePositionA, basePositionB, basePositionC };
+        int[] xyz = new int[3];
+
+        for (int elementIndex = 0; elementIndex < elements.length; elementIndex++) {
+            IStructureElement<T> element = elements[elementIndex];
+
+            StructureLib.LOGGER.info(
+                "ELEMENT #{} {} navigating={}",
+                elementIndex,
+                element.getClass()
+                    .getName(),
+                element.isNavigating());
+
+            if (element.isNavigating()) {
+                int oldA = abc[0], oldB = abc[1], oldC = abc[2];
+
+                abc[0] = (element.resetA() ? basePositionA : abc[0]) + element.getStepA();
+                abc[1] = (element.resetB() ? basePositionB : abc[1]) + element.getStepB();
+                abc[2] = (element.resetC() ? basePositionC : abc[2]) + element.getStepC();
+
+                StructureLib.LOGGER.info(
+                    "NAV step #{} abc {} -> {} (stepA={} stepB={} stepC={} resetA={} resetB={} resetC={})",
+                    elementIndex,
+                    Arrays.toString(new int[] { oldA, oldB, oldC }),
+                    Arrays.toString(abc),
+                    element.getStepA(),
+                    element.getStepB(),
+                    element.getStepC(),
+                    element.resetA(),
+                    element.resetB(),
+                    element.resetC());
+                continue;
+            }
+
+            StructureLib.LOGGER.info("OFFSET input abc={} facing={}", Arrays.toString(abc), extendedFacing);
+            extendedFacing.getWorldOffset(abc, xyz);
+            StructureLib.LOGGER.info("OFFSET raw xyz={}", Arrays.toString(xyz));
+
+            xyz[0] += basePositionX;
+            xyz[1] += basePositionY;
+            xyz[2] += basePositionZ;
+
+            StructureLib.LOGGER
+                .info("STEP #{} worldXYZ={} abc={}", elementIndex, Arrays.toString(xyz), Arrays.toString(abc));
+
+            boolean exists = world.blockExists(xyz[0], xyz[1], xyz[2]);
+            StructureLib.LOGGER.info("blockExists={} at {}", exists, Arrays.toString(xyz));
+
+            if (exists) {
+                Block block = world.getBlock(xyz[0], xyz[1], xyz[2]);
+                int meta = world.getBlockMetadata(xyz[0], xyz[1], xyz[2]);
+                TileEntity te = world.getTileEntity(xyz[0], xyz[1], xyz[2]);
+
+                StructureLib.LOGGER.info(
+                    "WORLD BLOCK at {} -> {} meta={} tile={}",
+                    Arrays.toString(xyz),
+                    block != null ? block.getUnlocalizedName() : "null",
+                    meta,
+                    te != null ? te.getClass()
+                        .getName() : "null");
+
+                try {
+                    boolean result = (boolean) VISIT
+                        .invoke(predicate, element, world, xyz[0], xyz[1], xyz[2], abc[0], abc[1], abc[2]);
+
+                    StructureLib.LOGGER.info(
+                        "VISIT result={} element #{} at xyz={} abc={} relABC={}",
+                        result,
+                        elementIndex,
+                        Arrays.toString(xyz),
+                        Arrays.toString(abc),
+                        Arrays.toString(
+                            new int[] { abc[0] - basePositionA, abc[1] - basePositionB, abc[2] - basePositionC }));
+
+                    if (!result) {
+                        StructureLib.LOGGER.error("STOP (predicate=false) at element #{}", elementIndex);
+                        return false;
+                    }
+
+                } catch (Exception e) {
+                    StructureLib.LOGGER.error("EXCEPTION in VISIT at element #" + elementIndex, e);
+                    throw new RuntimeException(e);
+                }
+
+            } else {
+                StructureLib.LOGGER.warn("BLOCK NOT LOADED at {}", Arrays.toString(xyz));
+
+                try {
+                    boolean result = (boolean) BLOCK_NOT_LOADED
+                        .invoke(predicate, element, world, xyz[0], xyz[1], xyz[2], abc[0], abc[1], abc[2]);
+
+                    if (!result) {
+                        return false;
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            int oldA = abc[0], oldB = abc[1], oldC = abc[2];
+            abc[0] += 1;
+
+            StructureLib.LOGGER.info(
+                "STEP FORWARD abc {} -> {}",
+                Arrays.toString(new int[] { oldA, oldB, oldC }),
+                Arrays.toString(abc));
+        }
+
+        StructureLib.LOGGER.info("=== END iterate={} SUCCESS ===", iterateType);
+        return true;
     }
 }

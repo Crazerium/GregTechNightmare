@@ -69,5 +69,8 @@ public class CasingData {
     public void reset() {
         casingTier = -1;
         countCasing = 0;
+        casingTextureId = ERROR_TEXTURE_INDEX;
+        casing = GTN_Casings.SolidSteelMachineCasing;
+        coilLevel = null;
     }
 }
