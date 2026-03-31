@@ -96,6 +96,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected int mainCasingTextureId = 0;
     protected final List<CasingData> registeredCasingData = new ArrayList<>();
     protected final MultiblockBlockCounter multiblockBlockCounter = new MultiblockBlockCounter();
+    protected StructureVariant<T> neiVariant = null;
     // endregion
 
     // region Class Construct
@@ -144,11 +145,16 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         List<StructureVariant<T>> variants = getStructureVariants();
         boolean built = false;
 
-        for (StructureVariant<T> variant : variants) {
-            if (variant.check(self())) {
-                built = true;
-                break;
+        if (neiVariant == null) {
+            for (StructureVariant<T> variant : variants) {
+                if (variant.check(self())) {
+                    built = true;
+                    break;
+                }
             }
+        } else if (neiVariant.check(self())) {
+            built = true;
+            neiVariant = null;
         }
 
         boolean GTN_checkMachine = GTN_checkMachine(aBaseMetaTileEntity, aStack);
@@ -190,6 +196,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         int index = Math.min(stackSize.stackSize - 1, variants.size() - 1);
         StructureVariant<T> variant = variants.get(index);
+        neiVariant = variant;
 
         return this.survivalBuildPiece(
             variant.piece,

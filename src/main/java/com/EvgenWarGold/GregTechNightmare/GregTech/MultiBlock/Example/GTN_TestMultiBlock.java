@@ -45,14 +45,26 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         return Arrays.asList(
             new StructureVariant<>(
                 "Gas",
-                new String[][] { { "ACA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
+                // spotless:off
+                new String[][]{
+                    {"ACA","AAA","AAA"},
+                    {"A~A","A A","AAA"},
+                    {"AAA","AAA","AAA"}
+                },
+                //spotless:on
                 new MultiblockOffsets(1, 1, 0),
                 new MultiblockArea(4, 5, 10),
                 1,
                 GTN_Casings.FrostProofMachineCasing),
             new StructureVariant<>(
                 "Fuel",
-                new String[][] { { "BBB", "BBB", "BBB" }, { "B~B", "B B", "BBB" }, { "BBB", "BBB", "BBB" } },
+                // spotless:off
+                new String[][]{
+                    {"BDB","BBB","BBB"},
+                    {"B~B","B B","BBB"},
+                    {"BBB","BBB","BBB"}
+                },
+                //spotless:on
                 new MultiblockOffsets(1, 1, 0),
                 new MultiblockArea(3, 3, 3),
                 2,
@@ -78,26 +90,26 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     private final CasingData casing = createCasingData("casing", true);
     private final CasingData casing1 = createCasingData("casing1", true);
     private final CasingData temp = createCasingData("temp");
+    private final CasingData temp1 = createCasingData("temp1");
 
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addTierBlock('C', temp, Blocks.coal_block, Blocks.tnt)
-                .addElement(
-                    'B',
-                    TieredElementBuilder.create(casing1, GTN_TestMultiBlock.class)
-                        .casings(GTN_Casings.TitaniumGearBoxCasing, GTN_Casings.SolidifierCasing)
-                        .hatches(
-                            InputHatch,
-                            OutputHatch,
-                            InputBus,
-                            OutputBus,
-                            Energy,
-                            ExoticEnergy,
-                            Maintenance,
-                            Muffler,
-                            Dynamo)
-                        .build())
+            builder -> builder.addElement(
+                'B',
+                TieredElementBuilder.create(casing1, GTN_TestMultiBlock.class)
+                    .casings(GTN_Casings.TitaniumGearBoxCasing, GTN_Casings.SolidifierCasing)
+                    .hatches(
+                        InputHatch,
+                        OutputHatch,
+                        InputBus,
+                        OutputBus,
+                        Energy,
+                        ExoticEnergy,
+                        Maintenance,
+                        Muffler,
+                        Dynamo)
+                    .build())
                 .addElement(
                     'A',
                     TieredElementBuilder.create(casing, GTN_TestMultiBlock.class)
@@ -113,6 +125,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             Muffler,
                             Dynamo)
                         .build())
+                .addTierBlock('C', temp, Blocks.coal_block, Blocks.tnt)
+                .addTierBlock('D', temp1, Blocks.diamond_block, Blocks.end_stone)
                 .build());
     }
 

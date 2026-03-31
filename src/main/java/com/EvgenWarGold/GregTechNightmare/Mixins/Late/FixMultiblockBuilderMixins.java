@@ -41,6 +41,8 @@ import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
 import com.gtnewhorizon.structurelib.util.ItemStackPredicate;
 
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+
 @Mixin(value = StructureUtility.class, remap = false)
 public class FixMultiblockBuilderMixins<T> {
 
@@ -390,6 +392,14 @@ public class FixMultiblockBuilderMixins<T> {
             basePositionC,
             extendedFacing);
 
+        StructureLib.LOGGER.info("=== CALL STACK TRACE ===");
+        StackTraceElement[] stackTrace = Thread.currentThread()
+            .getStackTrace();
+        for (int i = 2; i < Math.min(stackTrace.length, 15); i++) {
+            StructureLib.LOGGER.info("  at {}", stackTrace[i].toString());
+        }
+        StructureLib.LOGGER.info("=== END STACK TRACE ===");
+
         basePositionA = -basePositionA;
         basePositionB = -basePositionB;
         basePositionC = -basePositionC;
@@ -448,14 +458,22 @@ public class FixMultiblockBuilderMixins<T> {
                 Block block = world.getBlock(xyz[0], xyz[1], xyz[2]);
                 int meta = world.getBlockMetadata(xyz[0], xyz[1], xyz[2]);
                 TileEntity te = world.getTileEntity(xyz[0], xyz[1], xyz[2]);
+                String teName = "null";
+
+                if (te instanceof IGregTechTileEntity gte) {
+                    teName = gte.getMetaTileEntity()
+                        .getLocalName();
+                } else if (te != null) {
+                    teName = te.getClass()
+                        .getName();
+                }
 
                 StructureLib.LOGGER.info(
                     "WORLD BLOCK at {} -> {} meta={} tile={}",
                     Arrays.toString(xyz),
                     block != null ? block.getUnlocalizedName() : "null",
                     meta,
-                    te != null ? te.getClass()
-                        .getName() : "null");
+                    teName);
 
                 try {
                     boolean result = (boolean) VISIT
