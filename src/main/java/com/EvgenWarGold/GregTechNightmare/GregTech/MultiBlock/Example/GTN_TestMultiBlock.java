@@ -13,6 +13,7 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -44,14 +45,26 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         return Arrays.asList(
             new StructureVariant<>(
                 "Gas",
-                new String[][] { { "AAA", "AAA", "AAA" }, { "A~A", "A A", "AAA" }, { "AAA", "AAA", "AAA" } },
+                // spotless:off
+                new String[][]{
+                    {"ACA","AAA","AAA"},
+                    {"A~A","A A","AAA"},
+                    {"AAA","AAA","AAA"}
+                },
+                //spotless:on
                 new MultiblockOffsets(1, 1, 0),
                 new MultiblockArea(4, 5, 10),
                 1,
                 GTN_Casings.FrostProofMachineCasing),
             new StructureVariant<>(
                 "Fuel",
-                new String[][] { { "BBB", "BBB", "BBB" }, { "B~B", "B B", "BBB" }, { "BBB", "BBB", "BBB" } },
+                // spotless:off
+                new String[][]{
+                    {"BDB","BBB","BBB"},
+                    {"B~B","B B","BBB"},
+                    {"BBB","BBB","BBB"}
+                },
+                //spotless:on
                 new MultiblockOffsets(1, 1, 0),
                 new MultiblockArea(3, 3, 3),
                 2,
@@ -76,6 +89,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     private final CasingData casing = createCasingData("casing", true);
     private final CasingData casing1 = createCasingData("casing1", true);
+    private final CasingData temp = createCasingData("temp");
+    private final CasingData temp1 = createCasingData("temp1");
 
     @Override
     public IStructureDefinition<GTN_TestMultiBlock> getStructureDefinition() {
@@ -110,6 +125,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             Muffler,
                             Dynamo)
                         .build())
+                .addTierBlock('C', temp, Blocks.coal_block, Blocks.tnt)
+                .addTierBlock('D', temp1, Blocks.diamond_block, Blocks.end_stone)
                 .build());
     }
 

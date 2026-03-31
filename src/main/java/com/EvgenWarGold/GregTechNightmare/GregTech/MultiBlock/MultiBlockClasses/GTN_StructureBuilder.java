@@ -7,6 +7,8 @@ import static gregtech.api.util.GTStructureUtility.ofFrame;
 
 import java.util.function.Consumer;
 
+import net.minecraft.block.Block;
+
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureDefinition;
@@ -88,6 +90,20 @@ public class GTN_StructureBuilder<T> {
             .create(data, multiblockClass);
         consumer.accept(elementBuilder);
         builder.addElement(name, elementBuilder.build());
+        return this;
+    }
+
+    public GTN_StructureBuilder<T> addTierCasing(char name, CasingData data, GTN_Casings... casings) {
+        builder.addElement(
+            name,
+            StructureUtility.withChannel(data.getChannelName(), GTN_StructureUtility.createTierBlocks(data, casings)));
+        return this;
+    }
+
+    public GTN_StructureBuilder<T> addTierBlock(char name, CasingData data, Block... blocks) {
+        builder.addElement(
+            name,
+            StructureUtility.withChannel(data.getChannelName(), GTN_StructureUtility.createTierBlocks(data, blocks)));
         return this;
     }
 

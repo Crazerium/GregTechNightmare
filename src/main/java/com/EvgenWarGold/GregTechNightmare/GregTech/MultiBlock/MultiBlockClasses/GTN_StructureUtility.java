@@ -77,6 +77,14 @@ public class GTN_StructureUtility {
         return GTN_StructureUtility.createTierBlocks(casingData, itemStacks);
     }
 
+    public static <T> IStructureElement<T> createTierBlocks(CasingData casingData, Block... blocks) {
+        ItemStack[] itemStacks = Arrays.stream(blocks)
+            .filter(Objects::nonNull)
+            .map(ItemStack::new)
+            .toArray(ItemStack[]::new);
+        return GTN_StructureUtility.createTierBlocks(casingData, itemStacks);
+    }
+
     public static <T> IStructureElement<T> createAllTieredGlass(CasingData casingData) {
         return StructureUtility.withChannel(
             casingData.getChannelName(),
