@@ -53,6 +53,7 @@ public enum GTN_ItemList {
     VacuumNuke,
     ImprovedAlgaeFarm,
     ImprovedSliceNSplice,
+    HighPowerComponentAssembler,
     // endregion
 
     // region Hatch

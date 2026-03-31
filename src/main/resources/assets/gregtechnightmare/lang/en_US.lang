@@ -258,6 +258,10 @@ multiblock.ImprovedSliceNSplice.tooltip.03=Place a capacitor in controller to un
 multiblock.ImprovedSliceNSplice.tooltip.04=Each capacitor increase parallels by 2 times
 multiblock.ImprovedSliceNSplice.tooltip.05=Base parallel is 2
 multiblock.ImprovedSliceNSplice.tooltip.06=Max parallel is 512
+
+#HighPowerComponentAssembler
+multiblock.HighPowerComponentAssembler=High Power Component Assembler
+multiblock.HighPowerComponentAssembler.machine_type=Component Assembler
  
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
