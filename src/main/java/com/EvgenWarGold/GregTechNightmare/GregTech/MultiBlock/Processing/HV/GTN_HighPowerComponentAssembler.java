@@ -107,18 +107,13 @@ public class GTN_HighPowerComponentAssembler extends GTN_MultiBlockBase<GTN_High
     }
 
     @Override
-    public float getSpeedBonus() {
-        return 1.20F;
-    }
-
-    @Override
     protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return Pair.of(VoltageIndex.HV, VoltageIndex.EV);
     }
 
     @Override
     public int getMaxParallelRecipes() {
-        return 10;
+        return 16;
     }
 
     @SideOnly(Side.CLIENT)
