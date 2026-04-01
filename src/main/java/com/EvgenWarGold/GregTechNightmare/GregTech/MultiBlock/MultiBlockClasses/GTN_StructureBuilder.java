@@ -8,6 +8,7 @@ import static gregtech.api.util.GTStructureUtility.ofFrame;
 import java.util.function.Consumer;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
@@ -18,7 +19,6 @@ import gregtech.api.enums.Materials;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
-import net.minecraft.item.ItemStack;
 
 public class GTN_StructureBuilder<T> {
 
@@ -111,7 +111,8 @@ public class GTN_StructureBuilder<T> {
     public GTN_StructureBuilder<T> addTierBlock(char name, CasingData data, ItemStack... itemStacks) {
         builder.addElement(
             name,
-            StructureUtility.withChannel(data.getChannelName(), GTN_StructureUtility.createTierBlocks(data, itemStacks)));
+            StructureUtility
+                .withChannel(data.getChannelName(), GTN_StructureUtility.createTierBlocks(data, itemStacks)));
         return this;
     }
 

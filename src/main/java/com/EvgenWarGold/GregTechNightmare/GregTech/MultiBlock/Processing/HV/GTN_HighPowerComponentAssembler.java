@@ -1,5 +1,16 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV;
 
+import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
+import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
@@ -9,6 +20,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import goodgenerator.api.recipe.GoodGeneratorRecipeMaps;
@@ -16,18 +28,12 @@ import goodgenerator.util.ItemRefer;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.VoltageIndex;
+import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMaps;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.util.GTRecipe;
 import it.unimi.dsi.fastutil.Pair;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static gregtech.api.enums.HatchElement.Energy;
-import static gregtech.api.enums.HatchElement.InputBus;
-import static gregtech.api.enums.HatchElement.InputHatch;
-import static gregtech.api.enums.HatchElement.Maintenance;
-import static gregtech.api.enums.HatchElement.OutputBus;
 
 public class GTN_HighPowerComponentAssembler extends GTN_MultiBlockBase<GTN_HighPowerComponentAssembler> {
 
@@ -81,17 +87,18 @@ public class GTN_HighPowerComponentAssembler extends GTN_MultiBlockBase<GTN_High
 
     @Override
     public IStructureDefinition<GTN_HighPowerComponentAssembler> getStructureDefinition() {
-        return buildStructureDefinition(builder -> builder
-            .addAllGlasses('A')
-            .addTierBlock('B', component,
-                ItemRefer.Compassline_Casing_LV.get(1),
-                ItemRefer.Compassline_Casing_MV.get(1),
-                ItemRefer.Compassline_Casing_HV.get(1),
-                ItemRefer.Compassline_Casing_EV.get(1))
-            .addCasing('C', GTN_Casings.SteelGearBoxCasing)
-            .addFrame('E', Materials.StainlessSteel)
-            .addMainCasing('D', b -> b
-                .hatches(InputHatch, InputBus, OutputBus, Maintenance, Energy)));
+        return buildStructureDefinition(
+            builder -> builder.addAllGlasses('A')
+                .addTierBlock(
+                    'B',
+                    component,
+                    ItemRefer.Compassline_Casing_LV.get(1),
+                    ItemRefer.Compassline_Casing_MV.get(1),
+                    ItemRefer.Compassline_Casing_HV.get(1),
+                    ItemRefer.Compassline_Casing_EV.get(1))
+                .addCasing('C', GTN_Casings.SteelGearBoxCasing)
+                .addFrame('E', Materials.StainlessSteel)
+                .addMainCasing('D', b -> b.hatches(InputHatch, InputBus, OutputBus, Maintenance, Energy)));
     }
 
     @Override
@@ -118,5 +125,20 @@ public class GTN_HighPowerComponentAssembler extends GTN_MultiBlockBase<GTN_High
     @Override
     protected SoundResource getActivitySoundLoop() {
         return SoundResource.GT_MACHINES_MULTI_PRECISE_LOOP;
+    }
+
+    @Override
+    protected ProcessingLogic createProcessingLogic() {
+        return new ProcessingLogic() {
+
+            @NotNull
+            @Override
+            protected CheckRecipeResult validateRecipe(@NotNull GTRecipe recipe) {
+                if (recipe.mSpecialValue > component.getCasingTier()) {
+                    return CheckRecipeResultRegistry.insufficientMachineTier(recipe.mSpecialValue);
+                }
+                return CheckRecipeResultRegistry.SUCCESSFUL;
+            }
+        };
     }
 }
