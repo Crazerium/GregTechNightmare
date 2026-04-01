@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 21 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 23 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -377,6 +377,63 @@ Adds 21 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="1115" height="589" alt="image" src="https://github.com/user-attachments/assets/fa6f9d21-3af9-4371-973b-c82d6f820eef" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Improved Algae Farm</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="499" height="433" alt="image" src="https://github.com/user-attachments/assets/3fe9e064-b1cb-4622-866b-087bc817e469" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="390" height="347" alt="image" src="https://github.com/user-attachments/assets/06301dc1-d2b4-4dd3-b815-b8a7332d187d" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="1246" height="620" alt="image" src="https://github.com/user-attachments/assets/24b54616-0190-458d-81c5-276a64e34a23" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Improved Slice'N'Splice</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="490" height="439" alt="image" src="https://github.com/user-attachments/assets/076ace65-0b2a-481b-b397-9d20ef459351" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="399" height="355" alt="image" src="https://github.com/user-attachments/assets/f6e4cef5-9acc-427b-aa1e-c9d4282ce617" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="871" height="467" alt="image" src="https://github.com/user-attachments/assets/8664d032-1390-4c17-8752-ac49c74348ec" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">High Power Component Assembler</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="495" height="442" alt="image" src="https://github.com/user-attachments/assets/530f1f51-3488-46b9-8345-79b4a55bc4a6" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="383" height="349" alt="image" src="https://github.com/user-attachments/assets/e399111e-921c-4fb1-96fd-84dee8439c21" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="1138" height="353" alt="image" src="https://github.com/user-attachments/assets/7ad2d4b2-60d5-4ad0-b66c-ce9758dd57c3" />
     </td>
   </tr>
 </table>
