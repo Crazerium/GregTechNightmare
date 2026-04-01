@@ -378,6 +378,23 @@ public class GTN_MultiBlockRecipesPool {
             .eut(RECIPE_EV)
             .duration(1200)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // High Power Component Assembler
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemRefer.Compassline_Casing_LV.get(8),
+                ItemList.Robot_Arm_HV.get(4),
+                ItemList.Conveyor_Module_HV.get(4),
+                ItemList.Electric_Motor_HV.get(4),
+                ItemList.Electric_Piston_HV.get(4),
+                ItemList.Electric_Motor_HV.get(4),
+                ItemList.Field_Generator_LV.get(4)
+            )
+            .fluidInputs(Materials.Glass.getMolten(8_000))
+            .itemOutputs(GTN_ItemList.HighPowerComponentAssembler.get(1))
+            .eut(RECIPE_HV)
+            .duration(60)
+            .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }
 }
