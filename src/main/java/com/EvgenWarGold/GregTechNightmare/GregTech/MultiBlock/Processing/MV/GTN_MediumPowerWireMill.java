@@ -96,7 +96,7 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
 
     @Override
     public int getMaxParallelRecipes() {
-        return 10;
+        return 8;
     }
 
     @SideOnly(Side.CLIENT)

@@ -95,7 +95,7 @@ public class GTN_MediumPowerEngraver extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public int getMaxParallelRecipes() {
-        return 10;
+        return 8;
     }
 
     @SideOnly(Side.CLIENT)

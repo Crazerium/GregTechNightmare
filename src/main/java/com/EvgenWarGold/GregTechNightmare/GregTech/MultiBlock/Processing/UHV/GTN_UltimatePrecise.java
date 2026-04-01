@@ -112,7 +112,7 @@ public class GTN_UltimatePrecise extends GTN_MultiBlockBase<GTN_UltimatePrecise>
 
     @Override
     public int getMaxParallelRecipes() {
-        return 4096;
+        return 2048;
     }
 
     @SideOnly(Side.CLIENT)

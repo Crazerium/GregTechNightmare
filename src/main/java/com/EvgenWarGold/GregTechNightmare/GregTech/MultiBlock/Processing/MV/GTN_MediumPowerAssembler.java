@@ -101,7 +101,7 @@ public class GTN_MediumPowerAssembler extends GTN_MultiBlockBase<GTN_MediumPower
 
     @Override
     public int getMaxParallelRecipes() {
-        return 10;
+        return 8;
     }
 
     @SideOnly(Side.CLIENT)

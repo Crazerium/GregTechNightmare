@@ -96,7 +96,7 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     public int getMaxParallelRecipes() {
-        return 10;
+        return 8;
     }
 
     @SideOnly(Side.CLIENT)
