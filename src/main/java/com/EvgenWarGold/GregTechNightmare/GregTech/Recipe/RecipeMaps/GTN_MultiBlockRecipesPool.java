@@ -393,7 +393,7 @@ public class GTN_MultiBlockRecipesPool {
             .fluidInputs(Materials.Glass.getMolten(8_000))
             .itemOutputs(GTN_ItemList.HighPowerComponentAssembler.get(1))
             .eut(RECIPE_HV)
-            .duration(60)
+            .duration(60 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }
