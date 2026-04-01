@@ -262,7 +262,10 @@ multiblock.ImprovedSliceNSplice.tooltip.06=Max parallel is 512
 #HighPowerComponentAssembler
 multiblock.HighPowerComponentAssembler=High Power Component Assembler
 multiblock.HighPowerComponentAssembler.machine_type=Component Assembler
- 
+multiblock.HighPowerComponentAssembler.tooltip.00=Improved version of Component Assembly Line
+multiblock.HighPowerComponentAssembler.tooltip.01=Limits the recipes the machine can perform. See the NEI pages for details
+multiblock.HighPowerComponentAssembler.tooltip.02=Capable of processing recipes from §cLV §rto §cEV
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
