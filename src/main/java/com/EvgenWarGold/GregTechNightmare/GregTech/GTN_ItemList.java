@@ -54,6 +54,7 @@ public enum GTN_ItemList {
     ImprovedAlgaeFarm,
     ImprovedSliceNSplice,
     HighPowerComponentAssembler,
+    ZeroPowerWireMill,
     // endregion
 
     // region Hatch

@@ -257,7 +257,6 @@ public class GTN_MultiBlockRecipesPool {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
-
         // UltimatePrecise
         GTValues.RA.stdBuilder()
             .metadata(RESEARCH_ITEM, ItemList.AssemblingMachineUHV.get(1))
@@ -348,6 +347,7 @@ public class GTN_MultiBlockRecipesPool {
             .eut(RECIPE_EV)
             .duration(120 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
+
         // Improved Algae Farm
         GTValues.RA.stdBuilder()
             .itemInputs(
@@ -395,6 +395,39 @@ public class GTN_MultiBlockRecipesPool {
             .eut(RECIPE_HV)
             .duration(60 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // Zero Power WireMill
+        GTValues.RA.stdBuilder()
+            .metadata(RESEARCH_ITEM, GregtechItemList.Industrial_WireFactory.get(1))
+            .metadata(SCANNING, new Scanning(30 * MINUTES, 30))
+            .itemInputs(
+                GregtechItemList.Industrial_WireFactory.get(64),
+                ItemList.Field_Generator_UHV.get(64),
+                ItemList.Conveyor_Module_UHV.get(64),
+                getCircuits(Materials.UEV, 64),
+                ItemRefer.Compassline_Casing_UHV.get(64),
+                GTN_Casings.HollowCasing.getItemStack(64),
+                ItemList.Circuit_Chip_Stemcell.get(64),
+                ItemList.Circuit_Chip_Biocell.get(64),
+                getSuperDense(Materials.RadoxPolymer, 24),
+                getFrameGt(Materials.CosmicNeutronium, 64),
+                ModItems.NEW_HORIZONS_CORE_MOD_ITEMS.HighEnergyFlowCircuit.get(64),
+                ItemList.Circuit_Chip_BioCPU.get(64),
+                getGearGt(Materials.CosmicNeutronium, 64),
+                GregtechItemList.Laser_Lens_Special.get(1),
+                getWireGt01(Materials.SuperconductorUHV, 64),
+                getNanite(Materials.Neutronium, 2)
+            )
+            .fluidInputs(
+                getFluid(Materials.UUMatter, 512_000),
+                getFluid(Materials.SuperCoolant, 512_000),
+                MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(18_000)
+            )
+            .itemOutputs(GTN_ItemList.ZeroPowerWireMill.get(1))
+
+            .eut(RECIPE_UHV)
+            .duration(20 * 60)
+            .addTo(GTRecipeConstants.AssemblyLine);
         //spotless:on
     }
 }

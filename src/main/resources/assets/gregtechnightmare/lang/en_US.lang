@@ -266,6 +266,10 @@ multiblock.HighPowerComponentAssembler.tooltip.00=Improved version of Component 
 multiblock.HighPowerComponentAssembler.tooltip.01=Limits the recipes the machine can perform. See the NEI pages for details
 multiblock.HighPowerComponentAssembler.tooltip.02=Capable of processing recipes from §cLV §7to §cEV
 
+#ZeroPowerWireMill
+multiblock.ZeroPowerWireMill=Zero Power Wiremill
+multiblock.ZeroPowerWireMill.machine_type=Wiremill
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

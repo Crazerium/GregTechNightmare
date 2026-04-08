@@ -25,6 +25,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.G
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_AdvancedCokeOven;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.ZPM.GTN_ZeroPowerWireMill;
 
 public final class MachineLoader {
 
@@ -55,6 +56,7 @@ public final class MachineLoader {
         GTN_ItemList.ImprovedAlgaeFarm.set(new GTN_ImprovedAlgaeFarm(21_022, "ImprovedAlgaeFarm"));
         GTN_ItemList.ImprovedSliceNSplice.set(new GTN_ImprovedSliceNSplice(21_023, "ImprovedSliceNSplice"));
         GTN_ItemList.HighPowerComponentAssembler.set(new GTN_HighPowerComponentAssembler(21_024, "HighPowerComponentAssembler"));
+        GTN_ItemList.ZeroPowerWireMill.set(new GTN_ZeroPowerWireMill(21_025, "ZeroPowerWireMill"));
         //spotless:on
     }
 }
