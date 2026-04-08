@@ -160,7 +160,7 @@ multiblock.ExtremePowerCircuitAssembler.tooltip.00=Can only use §aEV§7-§aIV§
 #UltimatePrecise
 multiblock.UltimatePrecise=Ultimate Precise
 multiblock.UltimatePrecise.machine_type=Assembler
-multiblock.UltimatePrecise.tooltip.00=Recipe tier up to §cUIV
+multiblock.UltimatePrecise.tooltip.00=Max §1UIV§7 energy hatch
 multiblock.UltimatePrecise.tooltip.01=§aTier skipping allowed
 
 #LaserMeteorMiner
