@@ -20,20 +20,18 @@ import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.enums.TierEU.RECIPE_UHV;
-import static gregtech.api.enums.TierEU.RECIPE_ZPM;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
-import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
-import gtPlusPlus.core.material.MaterialsAlloy;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_RecipeBuilder;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
@@ -47,6 +45,7 @@ import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.recipe.Scanning;
 import gtPlusPlus.core.material.MaterialMisc;
+import gtPlusPlus.core.material.MaterialsAlloy;
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList;
 
 public class GTN_MultiBlockRecipesPool {
@@ -400,7 +399,7 @@ public class GTN_MultiBlockRecipesPool {
             .addTo(RecipeMaps.assemblerRecipes);
 
         // Zero Power WireMill
-        GTValues.RA.stdBuilder()
+        GTN_RecipeBuilder.builder()
             .metadata(RESEARCH_ITEM, GregtechItemList.Industrial_WireFactory.get(1))
             .metadata(SCANNING, new Scanning(30 * MINUTES, 30))
             .itemInputs(
@@ -413,8 +412,8 @@ public class GTN_MultiBlockRecipesPool {
             )
             .fluidInputs(MaterialsAlloy.PIKYONIUM.getFluidStack(50_000))
             .itemOutputs(GTN_ItemList.ZeroPowerWireMill.get(1))
-            .eut(RECIPE_ZPM)
-            .duration(20 * 60)
+            .recipeZPM()
+            .durationInMinutes(1)
             .addTo(GTRecipeConstants.AssemblyLine);
         //spotless:on
     }
