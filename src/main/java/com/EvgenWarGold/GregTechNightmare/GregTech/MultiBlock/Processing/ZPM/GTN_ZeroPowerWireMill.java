@@ -94,7 +94,7 @@ public class GTN_ZeroPowerWireMill extends GTN_MultiBlockBase<GTN_ZeroPowerWireM
 
     @Override
     public float getEuModifier() {
-        return 0.8F;
+        return 0.7F;
     }
 
     @Override

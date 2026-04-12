@@ -20,11 +20,14 @@ import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.enums.TierEU.RECIPE_UHV;
+import static gregtech.api.enums.TierEU.RECIPE_ZPM;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
+import static gregtech.api.util.GTRecipeBuilder.INGOTS;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
+import gtPlusPlus.core.material.MaterialsAlloy;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -402,30 +405,15 @@ public class GTN_MultiBlockRecipesPool {
             .metadata(SCANNING, new Scanning(30 * MINUTES, 30))
             .itemInputs(
                 GregtechItemList.Industrial_WireFactory.get(64),
-                ItemList.Field_Generator_UHV.get(64),
-                ItemList.Conveyor_Module_UHV.get(64),
-                getCircuits(Materials.UEV, 64),
-                ItemRefer.Compassline_Casing_UHV.get(64),
-                GTN_Casings.HollowCasing.getItemStack(64),
-                ItemList.Circuit_Chip_Stemcell.get(64),
-                ItemList.Circuit_Chip_Biocell.get(64),
-                getSuperDense(Materials.RadoxPolymer, 24),
-                getFrameGt(Materials.CosmicNeutronium, 64),
-                ModItems.NEW_HORIZONS_CORE_MOD_ITEMS.HighEnergyFlowCircuit.get(64),
-                ItemList.Circuit_Chip_BioCPU.get(64),
-                getGearGt(Materials.CosmicNeutronium, 64),
-                GregtechItemList.Laser_Lens_Special.get(1),
-                getWireGt01(Materials.SuperconductorUHV, 64),
-                getNanite(Materials.Neutronium, 2)
+                ItemList.Field_Generator_ZPM.get(16),
+                ItemList.Conveyor_Module_ZPM.get(32),
+                getSuperDense(Materials.NaquadahAlloy, 64),
+                ItemList.ZPM_Coil.get(16),
+                GregtechItemList.Energy_Core_ZPM.get(8)
             )
-            .fluidInputs(
-                getFluid(Materials.UUMatter, 512_000),
-                getFluid(Materials.SuperCoolant, 512_000),
-                MaterialMisc.MUTATED_LIVING_SOLDER.getFluidStack(18_000)
-            )
+            .fluidInputs(MaterialsAlloy.PIKYONIUM.getFluidStack(50_000))
             .itemOutputs(GTN_ItemList.ZeroPowerWireMill.get(1))
-
-            .eut(RECIPE_UHV)
+            .eut(RECIPE_ZPM)
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
         //spotless:on
