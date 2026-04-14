@@ -55,6 +55,7 @@ public enum GTN_ItemList {
     ImprovedSliceNSplice,
     HighPowerComponentAssembler,
     ZeroPowerWireMill,
+    MagicEBF,
     // endregion
 
     // region Hatch

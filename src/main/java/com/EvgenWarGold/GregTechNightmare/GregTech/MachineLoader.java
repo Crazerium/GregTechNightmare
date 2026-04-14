@@ -16,6 +16,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MagicEBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerCircuitAssembler;
@@ -59,6 +60,7 @@ public final class MachineLoader {
         GTN_ItemList.HighPowerComponentAssembler.set(new GTN_HighPowerComponentAssembler(21_024, "HighPowerComponentAssembler"));
         GTN_ItemList.ZeroPowerWireMill.set(new GTN_ZeroPowerWireMill(21_025, "ZeroPowerWireMill"));
         GTN_ItemList.ManaHatch.set(new GTN_ManaHatch(21_026, "Mana Hatch"));
+        GTN_ItemList.MagicEBF.set(new GTN_MagicEBF(21_027, "MagicEBF"));
         //spotless:on
     }
 }

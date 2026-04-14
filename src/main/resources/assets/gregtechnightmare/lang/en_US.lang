@@ -270,6 +270,13 @@ multiblock.HighPowerComponentAssembler.tooltip.02=Capable of processing recipes 
 multiblock.ZeroPowerWireMill=Zero Power Wiremill
 multiblock.ZeroPowerWireMill.machine_type=Wiremill
 
+#MagicEBF
+multiblock.MagicEBF=Magic EBF
+multiblock.MagicEBF.machine_type=EBF
+multiblock.MagicEBF.tooltip.00=An enhanced magical version of the EBF
+multiblock.MagicEBF.tooltip.01=Consumes §bmana §7at the rate of §c1 §aMana Spreaders
+multiblock.MagicEBF.tooltip.02=§aDoes not generate pollution
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

@@ -415,6 +415,20 @@ public class GTN_MultiBlockRecipesPool {
             .recipeZPM()
             .durationInMinutes(1)
             .addTo(GTRecipeConstants.AssemblyLine);
+
+        // Magic EBF
+        addCraftingRecipe(
+            GTN_ItemList.MagicEBF.get(1),
+            new Object[]{
+                "AAA",
+                "BCB",
+                "DGD",
+                'A', ItemList.Machine_Multi_BlastFurnace.get(1),
+                'B', getPlate(Materials.Void),
+                'C', GTN_Casings.MagicCasing.getItemStack(),
+                'D', getCircuit(Materials.MV),
+                'G', getGearGt(Materials.Void)
+            });
         //spotless:on
     }
 }

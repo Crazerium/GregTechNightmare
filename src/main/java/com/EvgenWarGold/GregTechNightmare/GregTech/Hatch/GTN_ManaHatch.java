@@ -1,12 +1,15 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Hatch;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -23,6 +26,8 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.render.TextureFactory;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandHUD;
@@ -158,6 +163,9 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         try {
             ITexture background;
 
+            if (texturePage == 0) texturePage = getTexturePage();
+            if (textureIndex == 0) textureIndex = getTextureIndex();
+
             if (texturePage > 0 || textureIndex > 0) {
                 background = Textures.BlockIcons.casingTexturePages[texturePage][textureIndex];
             } else {
@@ -263,15 +271,22 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         return false;
     }
 
-    public int extractMana(int amount, boolean simulate) {
+    public boolean extractMana(int amount, boolean simulate) {
+        if (amount <= 0) {
+            return false;
+        }
+
         int extracted = Math.min(amount, mana);
-        if (!simulate && extracted > 0) {
+        boolean canExtract = amount <= mana;
+
+        if (!simulate) {
             mana -= extracted;
         }
-        return extracted;
+
+        return canExtract;
     }
 
-    public int extractMana(int amount) {
+    public boolean extractMana(int amount) {
         return extractMana(amount, false);
     }
 
@@ -286,5 +301,21 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
                 HUDHandler.drawSimpleManaHUD(color, hatch.mana, MAX_MANA, name, res);
             }
         }
+    }
+
+    @Override
+    public void getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+        IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, currenttip, accessor, config);
+        int mana = accessor.getNBTData()
+            .getInteger("mana");
+        currenttip.add(EnumChatFormatting.AQUA + "Mana: " + EnumChatFormatting.GOLD + mana);
+    }
+
+    @Override
+    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        super.getWailaNBTData(player, tile, tag, world, x, y, z);
+        tag.setInteger("mana", mana);
     }
 }
