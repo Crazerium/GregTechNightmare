@@ -269,6 +269,8 @@ multiblock.HighPowerComponentAssembler.tooltip.02=Capable of processing recipes 
 #ZeroPowerWireMill
 multiblock.ZeroPowerWireMill=Zero Power Wiremill
 multiblock.ZeroPowerWireMill.machine_type=Wiremill
+multiblock.ZeroPowerWireMill.tooltip.00=Can only use §aZPM§7-§aUV§7 energy hatch
+multiblock.ZeroPowerWireMill.tooltip.01=§aTier skipping allowed
 
 #MagicEBF
 multiblock.MagicEBF=Magic EBF
