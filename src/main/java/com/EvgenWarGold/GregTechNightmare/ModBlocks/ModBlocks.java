@@ -8,5 +8,5 @@ public class ModBlocks {
     public static final ThaumicBasesBlocks THAUMIC_BASES_BLOCKS = new ThaumicBasesBlocks();
     public static final DraconicEvolutionBlocks DRACONIC_EVOLUTION_BLOCKS = new DraconicEvolutionBlocks();
     public static final EnderIOBlocks ENDER_IO_BLOCKS = new EnderIOBlocks();
-
+    public static final BotaniaBlocks BOTANIA_BLOCKS = new BotaniaBlocks();
 }

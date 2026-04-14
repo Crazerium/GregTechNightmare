@@ -8,10 +8,12 @@ import gregtech.api.enums.Mods;
 public class ThaumcraftBlocks extends ModHandler {
 
     public final ModBlock ArcaneBore;
+    public final ModBlock AlchemicalConstruct;
 
     public ThaumcraftBlocks() {
         super(Mods.Thaumcraft);
 
         ArcaneBore = new ModBlock(mod, "blockWoodenDevice", 5, "Arcane Bore");
+        AlchemicalConstruct = new ModBlock(mod, "blockMetalDevice", 9, "Alchemical Construct");
     }
 }
