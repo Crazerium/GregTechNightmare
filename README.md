@@ -1,5 +1,5 @@
 # Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 23 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+Adds 25 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
 
 <table style="width:100%;">
   <tr>
@@ -434,6 +434,44 @@ Adds 23 new multiblocks. More content and multiblocks are planned. Suggestions a
     </td>
     <td align="center" style="width:33.33%; padding: 15px;">
       <img width="1138" height="353" alt="image" src="https://github.com/user-attachments/assets/7ad2d4b2-60d5-4ad0-b66c-ce9758dd57c3" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Zero Power Wiremill</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="496" height="438" alt="image" src="https://github.com/user-attachments/assets/4130f852-efc2-40e3-b93e-b0c5804289e0" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="503" height="333" alt="image" src="https://github.com/user-attachments/assets/85ff66dc-90bc-439a-a2e4-43021940eb56" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="616" height="314" alt="image" src="https://github.com/user-attachments/assets/88faedf4-0904-4681-8fc0-1f6dd7cd3779" />
+    </td>
+  </tr>
+</table>
+
+<table style="width:100%;">
+  <tr>
+    <td colspan="3" align="center" style="padding: 20px;">
+      <h1 style="margin:0;">Magic EBF</h1>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="503" height="436" alt="image" src="https://github.com/user-attachments/assets/e159a55c-2c14-4a98-8d04-a5c809d6a0cb" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+     <img width="413" height="207" alt="image" src="https://github.com/user-attachments/assets/f3ae7695-a1ae-4480-a801-de1e3bcb7359" />
+    </td>
+    <td align="center" style="width:33.33%; padding: 15px;">
+      <img width="761" height="351" alt="image" src="https://github.com/user-attachments/assets/b4b18023-360e-4fd0-964f-894fda06f118" />
     </td>
   </tr>
 </table>
