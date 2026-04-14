@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.ManaHatch;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
@@ -108,7 +109,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                         ExoticEnergy,
                         Maintenance,
                         Muffler,
-                        Dynamo)
+                        Dynamo,
+                        ManaHatch)
                     .build())
                 .addElement(
                     'A',
@@ -123,7 +125,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             ExoticEnergy,
                             Maintenance,
                             Muffler,
-                            Dynamo)
+                            Dynamo,
+                            ManaHatch)
                         .build())
                 .addTierBlock('C', temp, Blocks.coal_block, Blocks.tnt)
                 .addTierBlock('D', temp1, Blocks.diamond_block, Blocks.end_stone)

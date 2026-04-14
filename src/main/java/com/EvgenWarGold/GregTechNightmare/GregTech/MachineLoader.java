@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
@@ -57,6 +58,7 @@ public final class MachineLoader {
         GTN_ItemList.ImprovedSliceNSplice.set(new GTN_ImprovedSliceNSplice(21_023, "ImprovedSliceNSplice"));
         GTN_ItemList.HighPowerComponentAssembler.set(new GTN_HighPowerComponentAssembler(21_024, "HighPowerComponentAssembler"));
         GTN_ItemList.ZeroPowerWireMill.set(new GTN_ZeroPowerWireMill(21_025, "ZeroPowerWireMill"));
+        GTN_ItemList.ManaHatch.set(new GTN_ManaHatch(21_026, "Mana Hatch"));
         //spotless:on
     }
 }

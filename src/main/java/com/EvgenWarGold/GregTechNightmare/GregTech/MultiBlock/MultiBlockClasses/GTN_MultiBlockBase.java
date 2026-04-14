@@ -28,6 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -83,6 +84,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
     public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
+    public ArrayList<GTN_ManaHatch> mManaHatch = new ArrayList<>();
     public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
@@ -128,6 +130,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamInputBusses.clear();
         this.mSteamOutputBusses.clear();
         this.mSensorHatch.clear();
+        this.mManaHatch.clear();
         this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
@@ -569,6 +572,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return mSensorHatch.add(sensorHatch);
     }
 
+    public final boolean addManaHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_ManaHatch manaHatch)) return false;
+
+        return mManaHatch.add(manaHatch);
+    }
+
     public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
         if (baseCheckHatch(tileEntity)) return false;
 
@@ -962,6 +973,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mMufflerHatches) h.updateTexture(textureId);
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }

@@ -13,7 +13,10 @@ public enum Mixins implements IMixins {
             "MTEMultiblockBaseMixins",
             "MTEAdvancedDebugStructureWriterMixins",
             "FixGalaxySpaceCapeCrushMixins",
-            "MultiblockTooltipBuilderAccessor")
+            "MultiblockTooltipBuilderAccessor",
+            "EntityManaBurstMixin",
+            "TileSpreaderMixin",
+            "HUDHandlerBotaniaMixin")
         // "FixMultiblockBuilderMixins")
         .setPhase(Phase.LATE)),
 
