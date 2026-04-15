@@ -84,7 +84,13 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-
+        builder.addInputBus()
+            .addOutputBus()
+            .addInputHatch()
+            .addOutputHatch()
+            .addManaHatch()
+            .addMaintenanceHatch()
+            .addEnergyHatch();
     }
 
     @Override
