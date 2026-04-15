@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -291,9 +292,12 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         if (tile instanceof BaseMetaTileEntity baseTE) {
             if (baseTE.getMetaTileEntity() instanceof GTN_ManaHatch hatch) {
                 int color = 0x00BFFF;
-                String name = "Mana Hatch";
-
-                HUDHandler.drawSimpleManaHUD(color, hatch.mana, MAX_MANA, name, res);
+                HUDHandler.drawSimpleManaHUD(
+                    color,
+                    hatch.mana,
+                    MAX_MANA,
+                    StatCollector.translateToLocal("GTN.TooltipBuilder.ManaHatch"),
+                    res);
             }
         }
     }
