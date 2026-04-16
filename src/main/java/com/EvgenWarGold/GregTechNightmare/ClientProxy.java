@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare;
 
 import net.minecraftforge.common.MinecraftForge;
 
+import com.EvgenWarGold.GregTechNightmare.Event.TooltipAdditionDisplayEvent;
 import com.EvgenWarGold.GregTechNightmare.Event.WelcomeMessageEvent;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.ItemStructuresLinkTool;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
@@ -34,5 +35,8 @@ public class ClientProxy extends CommonProxy {
         FMLCommonHandler.instance()
             .bus()
             .register(new WelcomeMessageEvent());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new TooltipAdditionDisplayEvent());
     }
 }

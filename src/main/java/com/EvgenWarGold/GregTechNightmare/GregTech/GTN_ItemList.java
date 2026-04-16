@@ -20,6 +20,7 @@ public enum GTN_ItemList {
     AdvancedClay,
     MeteorMinerSchematic1,
     MeteorMinerSchematic2,
+    ManaProspector,
     // endregion
 
     // region Casings

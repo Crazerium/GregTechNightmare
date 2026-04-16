@@ -1,5 +1,6 @@
 #Items
 item.StructuresLinkTool.name=Structures Link Tool
+item.ManaProspector.name=Mana Prospector
 item.GTN_MetaItem01.0.name=§cTest Item
 item.GTN_MetaItem01.1.name=Advanced Clay
 item.GTN_MetaItem01.2.name=Meteor Miner Schematic Tier I
@@ -303,3 +304,18 @@ GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
 GTN.TooltipBuilder.ManaHatch=Mana Hatch
 GTN.StructureLib.text.missing_block=§cMissing block: %s
 GTN.StructureLib.text.invalid_placement=§cInvalid block placement
+GTN.Tooltip.mana_hud.tier.0=§cTier I
+GTN.Tooltip.mana_hud.tier.1=§eTier II
+GTN.Tooltip.mana_hud.tier.2=§bTier III
+GTN.Tooltip.mana_hud.tier.3=§aTier IV
+GTN.Tooltip.mana_hud.tier.4=§dTier V
+GTN.Tooltip.mana_hud.tier.5=§6Tier VI
+
+#Mana Prospector Tooltip
+GTN.Tooltip.item.ManaProspector.0=Tier Bonus: §a+1 §7chunks per tier
+GTN.Tooltip.item.ManaProspector.1=Scan Radius: §a%s §7chunks
+GTN.Tooltip.item.ManaProspector.2=Scan cost: §c1/100 §7Mana Pool
+GTN.Tooltip.item.ManaProspector.3=Drop in Mana Pool to charge
+GTN.Tooltip.item.ManaProspector.4=Right Click: Scan Area
+GTN.Tooltip.item.ManaProspector.5=Shift+Right Click: Change Mode
+GTN.Tooltip.item.ManaProspector.error_scan=§cNot enough mana

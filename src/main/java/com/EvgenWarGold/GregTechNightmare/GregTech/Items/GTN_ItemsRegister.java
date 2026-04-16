@@ -1,6 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.LINK_TOOL;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.MANA_PROSPECTOR;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.META_ITEM_01;
 
 import net.minecraft.item.Item;
@@ -17,7 +18,7 @@ public class GTN_ItemsRegister {
     }
 
     private static void registryItems() {
-        Item[] itemsToReg = { META_ITEM_01, LINK_TOOL };
+        Item[] itemsToReg = { META_ITEM_01, LINK_TOOL, MANA_PROSPECTOR };
 
         for (Item item : itemsToReg) {
             GameRegistry.registerItem(item, item.unlocalizedName);
@@ -26,7 +27,6 @@ public class GTN_ItemsRegister {
 
     private static void registryItemContainers() {
         // spotless:off
-
         // Test Item
         GTN_ItemList.TestItem.set(META_ITEM_01.registerVariantWithTooltips(
             0,
@@ -42,6 +42,8 @@ public class GTN_ItemsRegister {
 
         // MeteorMinerSchematic2
         GTN_ItemList.MeteorMinerSchematic2.set(META_ITEM_01.registerVariant(3));
+
+        GTN_ItemList.ManaProspector.set(MANA_PROSPECTOR);
 
         // spotless:on
     }

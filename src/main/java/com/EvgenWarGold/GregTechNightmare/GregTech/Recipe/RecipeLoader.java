@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedBBFRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedCokeOvenRecipesPool;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_ItemRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_BLOCK_CASING_01_RecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_ITEM_01_RecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_MTERecipesPool;
@@ -26,5 +27,6 @@ public class RecipeLoader {
         ImprovedAlgaeFarmRecipesPool.init();
         GTN_MTERecipesPool.init();
         ImprovedSliceNSpliceRecipesPool.init();
+        GTN_ItemRecipesPool.init();
     }
 }
