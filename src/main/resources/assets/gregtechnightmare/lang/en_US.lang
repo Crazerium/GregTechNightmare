@@ -10,7 +10,7 @@ item.GTN_MetaItem01.3.name=Meteor Miner Schematic Tier II
 tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
 tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
 tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
-tile.GTN_MetaBlockCasing01.3.name=Soul Casin
+tile.GTN_MetaBlockCasing01.3.name=Soul Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
