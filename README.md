@@ -1,9 +1,5 @@
 <div align="center">
   <img src="./src/main/resources/assets/gregtechnightmare/logo.png" width="600" height="600">
-
-  <p align="center">
-    <img src="./src/main/resources/assets/gregtechnightmare/logoText.svg" alt="GregTechNightmare" width="620"/>
-  </p>  
 </div>
 
 ## 📥 Downloads
