@@ -27,8 +27,10 @@ public class GTN_Logger {
 
     public static void printStackTrace(Level level) {
         log(level, "Stack trace:");
-        for (StackTraceElement traceElement : Thread.currentThread()
-            .getStackTrace()) log(level, "\t " + traceElement);
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (int i = 2; i < stackTrace.length; i++) {
+            log(level, "\t " + stackTrace[i]);
+        }
     }
 
     public static boolean isLogEnabled() {
