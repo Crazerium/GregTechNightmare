@@ -6,7 +6,7 @@
 
 | GTNH Version | Mod Version |      Status       | Download                                                                                                                         |
 |:------------:|:-----------:|:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------|
-|  **2.8.4**   |  `0.0.23`   | ✅ **Release** | [![Latest](https://img.shields.io/badge/Download-Latest-success)](https://github.com/evgengoldwar/GregTechNightmare/releases/latest)      |
+|  **2.8.4**   |  `0.0.24`   | ✅ **Release** | [![Latest](https://img.shields.io/badge/Download-Latest-success)](https://github.com/evgengoldwar/GregTechNightmare/releases/latest)      |
 
 ## 🏭 MultiBlocks Showcase ( 25 )
 
