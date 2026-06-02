@@ -1,5 +1,18 @@
-# Greg Tech Nightmare addon for GTNH 2.8.4
-Adds 25 new multiblocks. More content and multiblocks are planned. Suggestions are welcome!
+<div align="center">
+  <img src="./src/main/resources/assets/gregtechnightmare/logo.png" width="600" height="600">
+
+  <p align="center">
+    <img src="./src/main/resources/assets/gregtechnightmare/logoText.svg" alt="GregTechNightmare" width="620"/>
+  </p>  
+</div>
+
+## 📥 Downloads
+
+| GTNH Version | Mod Version |      Status       | Download                                                                                                                         |
+|:------------:|:-----------:|:-----------------:|:---------------------------------------------------------------------------------------------------------------------------------|
+|  **2.8.4**   |  `0.0.23`   | ✅ **Release** | [![Latest](https://img.shields.io/badge/Download-Latest-success)](https://github.com/evgengoldwar/GregTechNightmare/releases/latest)      |
+
+## 🏭 MultiBlocks Showcase ( 25 )
 
 <table style="width:100%;">
   <tr>
