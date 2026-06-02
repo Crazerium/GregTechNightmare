@@ -75,7 +75,7 @@ public class ElementBuilder<T> {
         IStructureElement<T> element = GTStructureUtility.buildHatchAdder(tileClass)
             .atLeast(hatches)
             .casingIndex(casing.textureId)
-            .dot(dot)
+            .hint(dot)
             .buildAndChain(
                 StructureUtility.onElementPass(
                     x -> multiblock.mainCasingCount++,
@@ -87,7 +87,7 @@ public class ElementBuilder<T> {
                     .atLeast((IHatchElement<? super T>) GTN_HatchElement.SteamInputHatch)
                     .casingIndex(casing.textureId)
                     .hatchIds(31_040)
-                    .dot(dot)
+                    .hint(dot)
                     .build(),
                 element);
         }

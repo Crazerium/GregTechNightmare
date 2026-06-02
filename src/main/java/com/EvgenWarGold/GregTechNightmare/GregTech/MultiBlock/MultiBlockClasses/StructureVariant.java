@@ -34,7 +34,8 @@ public class StructureVariant<T extends GTN_MultiBlockBase<T>> {
             piece,
             multiblockOffsets.offsetHorizontal,
             multiblockOffsets.offsetVertical,
-            multiblockOffsets.offsetDepth);
+            multiblockOffsets.offsetDepth,
+            null);
 
         if (valid) {
             multiblock.setMultiBlockTier(tier);

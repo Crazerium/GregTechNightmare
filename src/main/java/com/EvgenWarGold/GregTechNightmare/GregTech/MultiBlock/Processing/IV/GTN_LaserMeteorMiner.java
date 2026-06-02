@@ -620,8 +620,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     private static int getFortuneTier(ItemStack itemStack) {
         if (itemStack == null || itemStack.stackSize < 1) return 0;
 
-        if (itemStack.getItem() instanceof ItemTerraPick) {
-            return ItemTerraPick.getLevel(itemStack) + 1;
+        if (itemStack.getItem() instanceof ItemTerraPick itemTerraPick) {
+            return itemTerraPick.getLevel(itemStack) + 1;
         }
 
         return 0;
