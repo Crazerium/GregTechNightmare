@@ -3,7 +3,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 import java.util.Arrays;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -12,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.AbstractGtnMetaBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasMoreBlockInfo;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasTooltips;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

@@ -76,8 +76,7 @@ public class VoidMinerUtils {
                 if (wp != null && wp.dimensionId == dimensionId) {
                     return wp.getDimensionName();
                 }
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
 
         for (String key : VoidMinerUtility.dropMapsByDimName.keySet()) {
