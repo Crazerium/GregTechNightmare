@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
@@ -51,6 +52,8 @@ import gregtech.api.metatileentity.implementations.MTEHatchDynamo;
 import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.structure.error.StructureError;
+import gregtech.api.structure.error.StructureErrorRegistry;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.VoidProtectionHelper;
 import gregtech.common.tileentities.machines.IDualInputHatch;
@@ -144,7 +147,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     @Override
-    public boolean checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
         List<StructureVariant<T>> variants = getStructureVariants();
         boolean built = false;
 
@@ -160,7 +163,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             neiVariant = null;
         }
 
-        boolean GTN_checkMachine = GTN_checkMachine(aBaseMetaTileEntity, aStack);
+        if (!built || !GTN_checkMachine(aBaseMetaTileEntity, aStack)) {
+            if (errors.isEmpty()) {
+                errors.add(StructureErrorRegistry.UNKNOWN_STRUCTURE_ERROR);
+            }
+        }
 
         if (isNoMaintenanceIssue()) {
             repairMachine();
@@ -172,8 +179,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         if (getBaseMetaTileEntity() != null && mainCasingTextureId > 0) {
             getBaseMetaTileEntity().issueTileUpdate();
         }
-
-        return built && GTN_checkMachine;
     }
 
     @Override
@@ -903,8 +908,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return multiBlockTier;
     }
 
-    public boolean checkPieceProxy(String piece, int h, int v, int d) {
-        return checkPiece(piece, h, v, d);
+    public boolean checkPieceProxy(String piece, int h, int v, int d, @Nullable List<StructureError> errors) {
+        return checkPiece(piece, h, v, d, errors);
     }
 
     protected int getEfficiency() {

@@ -310,6 +310,8 @@ GTN.Tooltip.mana_hud.tier.2=§bTier III
 GTN.Tooltip.mana_hud.tier.3=§aTier IV
 GTN.Tooltip.mana_hud.tier.4=§dTier V
 GTN.Tooltip.mana_hud.tier.5=§6Tier VI
+GTN.MetaBlockItem.mob_spawn=Mobs cannot Spawn on this Block
+GTN.MetaBlockItem.not_tilentity=This is NOT a TileEntity!
 
 #Mana Prospector Tooltip
 GTN.Tooltip.item.ManaProspector.0=Tier Bonus: §a+1 §7chunks per tier

@@ -32,13 +32,13 @@ import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.common.blocks.BlockFrameBox;
-import gregtech.common.tileentities.debug.MTEAdvDebugStructureWriter;
+import gregtech.common.tileentities.debug.MTEDebugStructureWriter;
 import gtPlusPlus.core.block.base.BasicBlock;
 import gtPlusPlus.core.block.base.BlockBaseModular;
 import gtPlusPlus.core.material.Material;
 import gtPlusPlus.core.material.MaterialsAlloy;
 
-@Mixin(value = MTEAdvDebugStructureWriter.class, remap = false)
+@Mixin(value = MTEDebugStructureWriter.class, remap = false)
 public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEntity {
 
     private static final String NICE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz=|!@#$%&()[]{};:<>/?_,.*^'`";
@@ -258,7 +258,7 @@ public abstract class MTEAdvancedDebugStructureWriterMixins extends MetaTileEnti
                         .append(materialName)
                         .append("))\n");
                 } else if (block instanceof BlockBaseModular blockBaseModular) {
-                    if (BasicBlock.BlockTypes.FRAME == blockBaseModular.thisBlock) {
+                    if (BasicBlock.BlockTypes.FRAME == blockBaseModular.blockType) {
                         Field[] fields = MaterialsAlloy.class.getDeclaredFields();
 
                         for (Field field : fields) {

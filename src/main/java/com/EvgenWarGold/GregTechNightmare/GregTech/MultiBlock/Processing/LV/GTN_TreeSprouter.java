@@ -7,7 +7,7 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.Mods.Forestry;
-import static gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm.treeProductsMap;
+import static gregtech.common.tileentities.machines.multi.MTETreeFarm.treeProductsMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,8 +44,8 @@ import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
+import gregtech.common.tileentities.machines.multi.MTETreeFarm;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
-import gtPlusPlus.xmod.gregtech.common.tileentities.machines.multi.production.MTETreeFarm;
 
 public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 

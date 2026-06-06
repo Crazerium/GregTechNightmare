@@ -17,13 +17,9 @@ import net.minecraftforge.fluids.FluidStack;
 
 import detrav.net.DetravNetwork;
 import detrav.net.ProspectingPacket;
-import detrav.utils.BartWorksHelper;
-import detrav.utils.GTppHelper;
-import gregtech.api.util.GTLanguageManager;
-import gregtech.api.util.GTOreDictUnificator;
 import gregtech.common.UndergroundOil;
-import gregtech.common.blocks.BlockOresAbstract;
-import gregtech.common.blocks.TileEntityOres;
+import gregtech.common.ores.OreInfo;
+import gregtech.common.ores.OreManager;
 import gregtech.common.pollution.Pollution;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.IManaItem;
@@ -160,61 +156,20 @@ public class ItemManaProspector extends Item implements IManaUsingItem, IManaIte
     }
 
     private void scanOres(List<Chunk> chunks, ProspectingPacket packet, boolean includeSmallOres) {
-        final String small_ore_keyword = StatCollector.translateToLocal("detrav.scanner.small_ore.keyword");
-
         for (Chunk c : chunks) {
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {
-                    final int ySize = c.getHeightValue(x, z);
-                    for (int y = 1; y < ySize; y++) {
-                        final Block tBlock = c.getBlock(x, y, z);
-                        short tMetaID = (short) c.getBlockMetadata(x, y, z);
+                    final int height = c.getHeightValue(x, z);
 
-                        if (tBlock instanceof BlockOresAbstract) {
-                            TileEntity tTileEntity = c.getTileEntityUnsafe(x, y, z);
-                            if ((tTileEntity instanceof TileEntityOres) && ((TileEntityOres) tTileEntity).mNatural) {
-                                tMetaID = ((TileEntityOres) tTileEntity).getMetaData();
-                                try {
-                                    String name = GTLanguageManager
-                                        .getTranslation(tBlock.getUnlocalizedName() + "." + tMetaID + ".name");
-                                    if (!includeSmallOres && name.startsWith(small_ore_keyword)) continue;
-                                    packet.addBlock(c.xPosition * 16 + x, y, c.zPosition * 16 + z, tMetaID);
-                                } catch (Exception e) {
-                                    String name = tBlock.getUnlocalizedName() + ".";
-                                    if (!includeSmallOres && name.contains(".small.")) continue;
-                                    packet.addBlock(c.xPosition * 16 + x, y, c.zPosition * 16 + z, tMetaID);
-                                }
-                            }
-                        }
+                    for (int y = 1; y < height; y++) {
+                        Block block = c.getBlock(x, y, z);
+                        int meta = c.getBlockMetadata(x, y, z);
 
-                        else if (GTppHelper.isGTppBlock(tBlock)) {
-                            packet.addBlock(
-                                c.xPosition * 16 + x,
-                                y,
-                                c.zPosition * 16 + z,
-                                GTppHelper.getMetaFromBlock(tBlock));
-                        }
+                        OreInfo<?> info = OreManager.getOreInfo(block, meta);
+                        if (info == null || !info.isNatural) continue;
+                        if (!includeSmallOres && info.isSmall) continue;
 
-                        else if (BartWorksHelper.isOre(tBlock)) {
-                            if (!includeSmallOres && BartWorksHelper.isSmallOre(tBlock)) continue;
-                            packet.addBlock(
-                                c.xPosition * 16 + x,
-                                y,
-                                c.zPosition * 16 + z,
-                                BartWorksHelper.getMetaFromBlock(c, x, y, z, tBlock));
-                        }
-
-                        else if (includeSmallOres) {
-                            var tAssociation = GTOreDictUnificator.getAssociation(new ItemStack(tBlock, 1, tMetaID));
-                            if (tAssociation != null && tAssociation.mPrefix.toString()
-                                .startsWith("ore")) {
-                                packet.addBlock(
-                                    c.xPosition * 16 + x,
-                                    y,
-                                    c.zPosition * 16 + z,
-                                    (short) tAssociation.mMaterial.mMaterial.mMetaItemSubID);
-                            }
-                        }
+                        packet.addBlock(c.xPosition * 16 + x, y, c.zPosition * 16 + z, block, meta);
                     }
                 }
             }
@@ -223,34 +178,17 @@ public class ItemManaProspector extends Item implements IManaUsingItem, IManaIte
 
     private void scanOil(World world, List<Chunk> chunks, ProspectingPacket packet) {
         for (Chunk c : chunks) {
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 16; z++) {
-                    FluidStack fStack = UndergroundOil
-                        .undergroundOil(world.getChunkFromBlockCoords(c.xPosition * 16 + x, c.zPosition * 16 + z), -1);
-                    if (fStack != null && fStack.amount > 0) {
-                        packet.addBlock(c.xPosition * 16 + x, 1, c.zPosition * 16 + z, (short) fStack.getFluidID());
-                        packet.addBlock(c.xPosition * 16 + x, 2, c.zPosition * 16 + z, (short) fStack.amount);
-                    }
-                }
+            FluidStack fStack = UndergroundOil.undergroundOil(c, -1);
+            if (fStack != null && fStack.amount > 0) {
+                packet.addFluid(c.xPosition, c.zPosition, fStack);
             }
         }
     }
 
     private void scanPollution(World world, List<Chunk> chunks, ProspectingPacket packet) {
         for (Chunk c : chunks) {
-            for (int x = 0; x < 16; x++) {
-                for (int z = 0; z < 16; z++) {
-                    int pollution = Pollution
-                        .getPollution(world.getChunkFromBlockCoords(c.xPosition * 16 + x, c.zPosition * 16 + z));
-                    float pollutionValue = (float) pollution;
-                    pollutionValue /= 2000000;
-                    pollutionValue *= -0xFF;
-                    if (pollutionValue > 0xFF) pollutionValue = 0xFF;
-                    pollutionValue = 0xFF - pollutionValue;
-
-                    packet.addBlock(c.xPosition * 16 + x, 1, c.zPosition * 16 + z, (short) pollutionValue);
-                }
-            }
+            int pollution = Pollution.getPollution(c);
+            packet.addPollution(c.xPosition, c.zPosition, pollution);
         }
     }
 

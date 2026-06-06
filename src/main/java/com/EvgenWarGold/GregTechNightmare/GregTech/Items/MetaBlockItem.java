@@ -11,10 +11,10 @@ import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.AbstractGtnMetaBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasMoreBlockInfo;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.IHasTooltips;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.util.GTLanguageManager;
 
 public class MetaBlockItem extends ItemBlock {
 
@@ -41,11 +41,6 @@ public class MetaBlockItem extends ItemBlock {
         return (AbstractGtnMetaBlock) this.field_150939_a;
     }
 
-    public final String mNoMobsToolTip = GTLanguageManager
-        .addStringLocalization("gt.nomobspawnsonthisblock", "Mobs cannot Spawn on this Block");
-    public final String mNoTileEntityToolTip = GTLanguageManager
-        .addStringLocalization("gt.notileentityinthisblock", "This is NOT a TileEntity!");
-
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack aItemStack, EntityPlayer p_77624_2_, List<String> theTooltipsList,
@@ -61,10 +56,10 @@ public class MetaBlockItem extends ItemBlock {
         // see IHasMoreBlockInfo
         if (getMetaBlock() instanceof IHasMoreBlockInfo hasMoreBlockInfo) {
             if (hasMoreBlockInfo.isNoMobSpawn()) {
-                theTooltipsList.add(mNoMobsToolTip);
+                theTooltipsList.add(GTN_Utils.tr("GTN.MetaBlockItem.mob_spawn"));
             }
             if (hasMoreBlockInfo.isNotTileEntity()) {
-                theTooltipsList.add(mNoTileEntityToolTip);
+                theTooltipsList.add(GTN_Utils.tr("GTN.MetaBlockItem.not_tilentity"));
             }
         }
     }

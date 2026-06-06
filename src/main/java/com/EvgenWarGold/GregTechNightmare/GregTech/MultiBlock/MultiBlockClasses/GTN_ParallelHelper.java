@@ -459,8 +459,6 @@ public class GTN_ParallelHelper extends ParallelHelper {
             voidProtectionHelper.setMachine(machine)
                 .setItemOutputs(truncatedItemOutputs)
                 .setFluidOutputs(truncatedFluidOutputs)
-                .setChangeGetter(recipe::getOutputChance)
-                .setChanceMultiplier(chanceMultiplier)
                 .setMaxParallel(maxParallel)
                 .build();
             maxParallel = Math.min(voidProtectionHelper.getMaxParallel(), maxParallel);

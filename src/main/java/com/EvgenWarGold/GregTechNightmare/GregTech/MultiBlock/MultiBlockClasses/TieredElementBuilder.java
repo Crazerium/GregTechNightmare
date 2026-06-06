@@ -73,7 +73,7 @@ public class TieredElementBuilder<T> {
             customHatches = GTStructureUtility.buildHatchAdder(tileClass)
                 .atLeast(customToUse)
                 .casingIndex(casingData.getCasingTextureId())
-                .dot(dot)
+                .hint(dot)
                 .build();
         }
 
@@ -82,7 +82,7 @@ public class TieredElementBuilder<T> {
             hatches = GTStructureUtility.buildHatchAdder(tileClass)
                 .atLeast(hatchesToUse)
                 .casingIndex(casingData.getCasingTextureId())
-                .dot(dot)
+                .hint(dot)
                 .build();
         }
 

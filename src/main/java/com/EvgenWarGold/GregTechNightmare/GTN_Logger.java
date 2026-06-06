@@ -27,7 +27,8 @@ public class GTN_Logger {
 
     public static void printStackTrace(Level level) {
         log(level, "Stack trace:");
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement[] stackTrace = Thread.currentThread()
+            .getStackTrace();
         for (int i = 2; i < stackTrace.length; i++) {
             log(level, "\t " + stackTrace[i]);
         }

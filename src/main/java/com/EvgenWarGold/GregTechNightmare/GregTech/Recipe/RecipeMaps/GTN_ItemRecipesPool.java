@@ -8,7 +8,6 @@ import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
-import gregtech.api.enums.MaterialsBotania;
 
 public class GTN_ItemRecipesPool {
 
@@ -19,7 +18,7 @@ public class GTN_ItemRecipesPool {
             GTN_ItemList.ManaProspector.get(1),
             new Object[]{"ABC", "GDG", "FWE",
                 'A', Materials.LightFuel.getCells(1),
-                'B', getDense(MaterialsBotania.Manasteel),
+                'B', getDense(Materials.Manasteel),
                 'C', Materials.Benzene.getCells(1),
                 'G', getDense(Materials.RedstoneAlloy),
                 'D', ModBlocks.BOTANIA_BLOCKS.ManaPool.getItemStack(1),

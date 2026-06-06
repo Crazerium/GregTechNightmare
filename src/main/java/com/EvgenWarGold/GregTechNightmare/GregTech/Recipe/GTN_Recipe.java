@@ -1,6 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.CokeOvenRecipesFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
 
 import gregtech.api.gui.modularui.GTUITextures;
@@ -18,11 +17,8 @@ public class GTN_Recipe {
 
     public static final RecipeMap<RecipeMapBackend> CokeOvenRecipes = RecipeMapBuilder
         .of("gtn.recipe.AdvancedCokeOvenRecipes")
-        .maxIO(0, 1, 0, 1)
+        .maxIO(1, 1, 0, 1)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
-        .frontend(CokeOvenRecipesFrontend::new)
-        .useSpecialSlot()
-        .specialSlotSensitive()
         .build();
 
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder

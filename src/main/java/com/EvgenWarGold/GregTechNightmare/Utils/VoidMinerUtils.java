@@ -7,6 +7,7 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.gen.ChunkProviderServer;
+import net.minecraftforge.common.DimensionManager;
 
 import bwcrossmod.galacticgreg.VoidMinerUtility;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -18,7 +19,7 @@ public class VoidMinerUtils {
     protected VoidMinerUtility.DropMap dropMap = null;
     protected VoidMinerUtility.DropMap extraDropMap = null;
     protected float totalWeight = 0;
-    protected List<Integer> allowDimension = new ArrayList<>();
+    protected List<Integer> allowDimension;
 
     public VoidMinerUtils(List<Integer> allowDimension) {
         this.allowDimension = allowDimension;
@@ -40,23 +41,54 @@ public class VoidMinerUtils {
     }
 
     private void handleModDimDef(int id, IGregTechTileEntity te) {
-        if (VoidMinerUtility.dropMapsByDimId.containsKey(id)) {
-            dropMap = VoidMinerUtility.dropMapsByDimId.get(id);
+        String dimName = getDimName(id);
+
+        if (VoidMinerUtility.dropMapsByDimName.containsKey(dimName)) {
+            dropMap = VoidMinerUtility.dropMapsByDimName.get(dimName);
         } else {
             String chunkProviderName = ((ChunkProviderServer) te.getWorld()
                 .getChunkProvider()).currentChunkProvider.getClass()
                     .getName();
 
-            if (VoidMinerUtility.dropMapsByChunkProviderName.containsKey(chunkProviderName)) {
-                dropMap = VoidMinerUtility.dropMapsByChunkProviderName.get(chunkProviderName);
+            if (VoidMinerUtility.dropMapsByDimName.containsKey(chunkProviderName)) {
+                dropMap = VoidMinerUtility.dropMapsByDimName.get(chunkProviderName);
             }
         }
     }
 
     private void handleExtraDrops(int id) {
-        if (VoidMinerUtility.extraDropsDimMap.containsKey(id)) {
-            extraDropMap = VoidMinerUtility.extraDropsDimMap.get(id);
+        String dimName = getDimName(id);
+        if (VoidMinerUtility.extraDropsByDimName.containsKey(dimName)) {
+            extraDropMap = VoidMinerUtility.extraDropsByDimName.get(dimName);
         }
+    }
+
+    private String getDimName(int dimensionId) {
+        WorldProvider provider = DimensionManager.getProvider(dimensionId);
+        if (provider != null) {
+            return provider.getDimensionName();
+        }
+
+        Integer[] dimIds = DimensionManager.getIDs();
+        for (Integer dimId : dimIds) {
+            try {
+                WorldProvider wp = DimensionManager.getProvider(dimId);
+                if (wp != null && wp.dimensionId == dimensionId) {
+                    return wp.getDimensionName();
+                }
+            } catch (Exception ignored) {}
+        }
+
+        for (String key : VoidMinerUtility.dropMapsByDimName.keySet()) {
+            try {
+                int keyId = Integer.parseInt(key);
+                if (keyId == dimensionId) {
+                    return key;
+                }
+            } catch (NumberFormatException ignored) {}
+        }
+
+        return String.valueOf(dimensionId);
     }
 
     public ItemStack generateOneStackOre() {
