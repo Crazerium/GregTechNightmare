@@ -9,7 +9,8 @@
 |  **2.9.0**   |  `latest`   | 🚧 **Beta**    | [![Latest](https://img.shields.io/badge/Download-Latest-success)](https://github.com/evgengoldwar/GregTechNightmare/releases/latest)      |
 |  **2.8.4**   |  `0.0.24`   | ✅ **Release** | [![Download](https://img.shields.io/badge/Download-v0.0.24-blue)](https://github.com/evgengoldwar/GregTechNightmare/releases/tag/0.0.24) |
 
-## 🏭 MultiBlocks Showcase ( 25 )
+<details>
+<summary><h2 style="display:inline;">🏭 MultiBlocks Showcase ( 25 )</h2></summary>
 
 <table style="width:100%;">
   <tr>
@@ -485,4 +486,6 @@
     </td>
   </tr>
 </table>
+
+</details>
 
