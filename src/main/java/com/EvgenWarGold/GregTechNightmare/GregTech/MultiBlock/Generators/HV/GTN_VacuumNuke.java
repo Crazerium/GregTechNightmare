@@ -6,6 +6,7 @@ import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
+import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 
 import java.text.DecimalFormat;
@@ -117,6 +118,7 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
         builder.addInputBus()
+            .addOutputBus()
             .addInputHatch()
             .addOutputHatch()
             .addDynamoOrBufferedHatch()
@@ -156,7 +158,7 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
                             GTN_Casings.FrostProofMachineCasing,
                             GTN_Casings.StableTitaniumMachineCasing,
                             GTN_Casings.RobustTungstenSteelMachineCasing)
-                        .hatches(InputBus, Dynamo, InputHatch, OutputHatch, Maintenance, SensorHatch, DynamoMulti)));
+                        .hatches(InputBus, OutputBus, Dynamo, InputHatch, OutputHatch, Maintenance, SensorHatch, DynamoMulti)));
     }
 
     @Override
