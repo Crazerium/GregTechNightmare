@@ -18,9 +18,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         GTN_ItemsRegister.init();
         GTN_BlocksRegister.init();
-        if (Mods.BetterQuesting.isModLoaded()) {
-            Quests.init();
-        }
     }
 
     public void init(FMLInitializationEvent event) {
@@ -28,7 +25,11 @@ public class CommonProxy {
         RecipeResultRegisters.init();
     }
 
-    public void postInit(FMLPostInitializationEvent event) {}
+    public void postInit(FMLPostInitializationEvent event) {
+        if (Mods.BetterQuesting.isModLoaded()) {
+            Quests.init();
+        }
+    }
 
     public void serverStarting(FMLServerStartingEvent event) {}
 
