@@ -4,6 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.remove
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.Mods.Forestry;
@@ -88,7 +89,7 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
         builder.addOutputBus()
-            .addEnergyHatch()
+            .addInputHatch()
             .addMaintenanceHatch();
     }
 
@@ -105,7 +106,7 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
                 .addElement('E', ofBlock(Blocks.leaves, 0))
                 .addElement('C', ofChain(ofBlock(Blocks.dirt, 0), ofBlock(Blocks.grass, 0)))
                 .addElement('F', ofBlock(Blocks.log, 0))
-                .addMainCasing('B', b -> b.hatches(OutputBus, Energy, Maintenance)));
+                .addMainCasing('B', b -> b.hatches(OutputBus, InputHatch, Maintenance)));
     }
 
     @Override
