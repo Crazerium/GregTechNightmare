@@ -158,7 +158,15 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
                             GTN_Casings.FrostProofMachineCasing,
                             GTN_Casings.StableTitaniumMachineCasing,
                             GTN_Casings.RobustTungstenSteelMachineCasing)
-                        .hatches(InputBus, OutputBus, Dynamo, InputHatch, OutputHatch, Maintenance, SensorHatch, DynamoMulti)));
+                        .hatches(
+                            InputBus,
+                            OutputBus,
+                            Dynamo,
+                            InputHatch,
+                            OutputHatch,
+                            Maintenance,
+                            SensorHatch,
+                            DynamoMulti)));
     }
 
     @Override

@@ -11,12 +11,16 @@ import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import gregtech.api.enums.Mods;
 
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         GTN_ItemsRegister.init();
         GTN_BlocksRegister.init();
+        if (Mods.BetterQuesting.isModLoaded()) {
+            Quests.init();
+        }
     }
 
     public void init(FMLInitializationEvent event) {

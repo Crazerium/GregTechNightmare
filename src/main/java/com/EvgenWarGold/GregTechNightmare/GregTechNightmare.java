@@ -1,5 +1,8 @@
 package com.EvgenWarGold.GregTechNightmare;
 
+import java.io.File;
+import java.net.URL;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -19,6 +22,8 @@ public class GregTechNightmare {
     public static final String MOD_ID = "GregTechNightmare";
     public static final String MOD_NAME = "GregTechNightmare";
     public static final String RESOURCE_ROOT_ID = "gregtechnightmare";
+    public static File CONFIG_DIR;
+    public static URL RESOURCE_URL;
 
     @SidedProxy(
         clientSide = "com.EvgenWarGold.GregTechNightmare.ClientProxy",
@@ -27,6 +32,8 @@ public class GregTechNightmare {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        RESOURCE_URL = getClass().getResource("/assets/gregtechnightmare/Quests");
+        CONFIG_DIR = event.getModConfigurationDirectory();
         proxy.preInit(event);
     }
 
