@@ -1,13 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.DeleteRecipe;
 
-import gregtech.api.recipe.RecipeMap;
-import gregtech.api.recipe.RecipeMapBackend;
-import gregtech.api.util.GTRecipe;
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import net.minecraft.item.ItemStack;
+
+import gregtech.api.recipe.RecipeMap;
+import gregtech.api.recipe.RecipeMapBackend;
+import gregtech.api.util.GTRecipe;
 
 public class DeleteRecipeUtils {
 
