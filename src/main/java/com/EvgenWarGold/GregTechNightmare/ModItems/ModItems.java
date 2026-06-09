@@ -10,4 +10,6 @@ public class ModItems {
     public static final ThaumicTinkererItems THAUMIC_TINKERER_ITEMS = new ThaumicTinkererItems();
     public static final ThaumicHorizons THAUMIC_HORIZONS = new ThaumicHorizons();
     public static final EnderIOItems ENDER_IO = new EnderIOItems();
+    public static final AE2FluidCraftItems AE_2_FLUID_CRAFT_ITEMS = new AE2FluidCraftItems();
+    public static final AppliedEnergisticsItems APPLIED_ENERGISTICS_ITEMS = new AppliedEnergisticsItems();
 }

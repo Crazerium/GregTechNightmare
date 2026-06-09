@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare;
 
+import com.EvgenWarGold.GregTechNightmare.DeleteRecipe.DeleteRecipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
@@ -29,6 +30,8 @@ public class CommonProxy {
         if (Mods.BetterQuesting.isModLoaded()) {
             Quests.init();
         }
+
+        DeleteRecipe.init();
     }
 
     public void serverStarting(FMLServerStartingEvent event) {}

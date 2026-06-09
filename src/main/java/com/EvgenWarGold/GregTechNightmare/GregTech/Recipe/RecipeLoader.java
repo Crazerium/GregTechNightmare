@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedAssemblyLineRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedBBFRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.AdvancedCokeOvenRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_ItemRecipesPool;
@@ -28,5 +29,6 @@ public class RecipeLoader {
         GTN_MTERecipesPool.init();
         ImprovedSliceNSpliceRecipesPool.init();
         GTN_ItemRecipesPool.init();
+        AdvancedAssemblyLineRecipesPool.init();
     }
 }
