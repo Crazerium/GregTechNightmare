@@ -5,6 +5,7 @@ import net.minecraftforge.common.MinecraftForge;
 import com.EvgenWarGold.GregTechNightmare.Event.TooltipAdditionDisplayEvent;
 import com.EvgenWarGold.GregTechNightmare.Event.WelcomeMessageEvent;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.ItemStructuresLinkTool;
+import com.EvgenWarGold.GregTechNightmare.Tooltips.TooltipsLoader;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -22,6 +23,7 @@ public class ClientProxy extends CommonProxy {
 
         MinecraftForge.EVENT_BUS.register(new BlockHighlighter.EventHandler());
         MinecraftForge.EVENT_BUS.register(new ItemStructuresLinkTool());
+        TooltipsLoader.init();
     }
 
     @SideOnly(Side.CLIENT)
