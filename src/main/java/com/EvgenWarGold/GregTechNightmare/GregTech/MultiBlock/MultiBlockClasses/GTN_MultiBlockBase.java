@@ -1021,5 +1021,44 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         return false;
     }
+
+    @Override
+    public void getExtraInfoData(List<String> info) {
+        super.getExtraInfoData(info);
+
+        List<String> list = new ArrayList<>();
+
+        for (CoordMultiBlock coord : multiBlocks.keySet()) {
+            IGregTechTileEntity gte = multiBlocks.get(coord);
+            list.add(EnumChatFormatting.GOLD
+                + "     "
+                + "Module Name: "
+                + EnumChatFormatting.GREEN
+                + gte.getMetaTileEntity().getLocalName()
+                + EnumChatFormatting.GOLD
+                + " Dim: "
+                + EnumChatFormatting.GREEN
+                + coord.dim
+                + EnumChatFormatting.GOLD
+                + " X: "
+                + EnumChatFormatting.GREEN
+                + coord.x
+                + EnumChatFormatting.GOLD
+                + " Y: "
+                + EnumChatFormatting.GREEN
+                + coord.y
+                + EnumChatFormatting.GOLD
+                + " Z: "
+                + EnumChatFormatting.GREEN
+                + coord.z
+            );
+        }
+
+        if (!list.isEmpty()) {
+            info.add(EnumChatFormatting.RED + "Active Modules");
+            info.addAll(list);
+        }
+    }
+
     // endregion
 }

@@ -57,6 +57,8 @@ public enum GTN_ItemList {
     HighPowerComponentAssembler,
     ZeroPowerWireMill,
     MagicEBF,
+    MagicGenerator,
+    AquaModuleMagicGenerator,
     // endregion
 
     // region Hatch

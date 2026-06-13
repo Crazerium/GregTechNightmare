@@ -3,6 +3,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AquaModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_MagicGenerator;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
@@ -61,6 +63,8 @@ public final class MachineLoader {
         GTN_ItemList.ZeroPowerWireMill.set(new GTN_ZeroPowerWireMill(21_025, "ZeroPowerWireMill"));
         GTN_ItemList.ManaHatch.set(new GTN_ManaHatch(21_026, "Mana Hatch"));
         GTN_ItemList.MagicEBF.set(new GTN_MagicEBF(21_027, "MagicEBF"));
+        GTN_ItemList.MagicGenerator.set(new GTN_MagicGenerator(21_028, "MagicGenerator"));
+        GTN_ItemList.AquaModuleMagicGenerator.set(new GTN_AquaModuleMagicGenerator(21_029, "AquaModuleMagicGenerator"));
         //spotless:on
     }
 }
