@@ -3,8 +3,13 @@ package com.EvgenWarGold.GregTechNightmare.GregTech;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AquaModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AirModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_EarthModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_EntropyModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_FireModuleMagicGenerator;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_MagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_OrderModuleMagicGenerator;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_WaterModuleMagicGenerator;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
@@ -64,7 +69,12 @@ public final class MachineLoader {
         GTN_ItemList.ManaHatch.set(new GTN_ManaHatch(21_026, "Mana Hatch"));
         GTN_ItemList.MagicEBF.set(new GTN_MagicEBF(21_027, "MagicEBF"));
         GTN_ItemList.MagicGenerator.set(new GTN_MagicGenerator(21_028, "MagicGenerator"));
-        GTN_ItemList.AquaModuleMagicGenerator.set(new GTN_AquaModuleMagicGenerator(21_029, "AquaModuleMagicGenerator"));
+        GTN_ItemList.WaterModuleMagicGenerator.set(new GTN_WaterModuleMagicGenerator(21_029, "WaterModuleMagicGenerator"));
+        GTN_ItemList.FireModuleMagicGenerator.set(new GTN_FireModuleMagicGenerator(21_030, "FireModuleMagicGenerator"));
+        GTN_ItemList.AirModuleMagicGenerator.set(new GTN_AirModuleMagicGenerator(21_031, "AirModuleMagicGenerator"));
+        GTN_ItemList.EarthModuleMagicGenerator.set(new GTN_EarthModuleMagicGenerator(21_032, "EarthModuleMagicGenerator"));
+        GTN_ItemList.EntropyModuleMagicGenerator.set(new GTN_EntropyModuleMagicGenerator(21_033, "EntropyModuleMagicGenerator"));
+        GTN_ItemList.OrderModuleMagicGenerator.set(new GTN_OrderModuleMagicGenerator(21_034, "OrderModuleMagicGenerator"));
         //spotless:on
     }
 }

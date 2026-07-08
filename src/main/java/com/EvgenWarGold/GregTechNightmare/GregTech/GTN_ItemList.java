@@ -58,7 +58,12 @@ public enum GTN_ItemList {
     ZeroPowerWireMill,
     MagicEBF,
     MagicGenerator,
-    AquaModuleMagicGenerator,
+    WaterModuleMagicGenerator,
+    FireModuleMagicGenerator,
+    EarthModuleMagicGenerator,
+    EntropyModuleMagicGenerator,
+    AirModuleMagicGenerator,
+    OrderModuleMagicGenerator,
     // endregion
 
     // region Hatch

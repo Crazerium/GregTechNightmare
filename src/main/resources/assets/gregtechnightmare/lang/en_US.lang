@@ -280,6 +280,34 @@ multiblock.MagicEBF.tooltip.00=An enhanced magical version of the EBF
 multiblock.MagicEBF.tooltip.01=Consumes §bmana §7at the rate of §c1 §aMana Spreaders
 multiblock.MagicEBF.tooltip.02=§aDoes not generate pollution
 
+#MagicGenerator
+multiblock.MagicGenerator=Magic Generator
+multiblock.MagicGenerator.machine_type=Generator
+
+#WaterModuleMagicGenerator
+multiblock.WaterModuleMagicGenerator=Water Module Magic Generator
+multiblock.WaterModuleMagicGenerator.machine_type=Magic Generator Module
+
+#FireModuleMagicGenerator
+multiblock.FireModuleMagicGenerator=Fire Module Magic Generator
+multiblock.FireModuleMagicGenerator.machine_type=Magic Generator Module
+
+#AirModuleMagicGenerator
+multiblock.AirModuleMagicGenerator=Air Module Magic Generator
+multiblock.AirModuleMagicGenerator.machine_type=Magic Generator Module
+
+#OrderModuleMagicGenerator
+multiblock.OrderModuleMagicGenerator=Order Module Magic Generator
+multiblock.OrderModuleMagicGenerator.machine_type=Magic Generator Module
+
+#EntropyModuleMagicGenerator
+multiblock.EntropyModuleMagicGenerator=Entropy Module Magic Generator
+multiblock.EntropyModuleMagicGenerator.machine_type=Magic Generator Module
+
+#EarthModuleMagicGenerator
+multiblock.EarthModuleMagicGenerator=Earth Module Magic Generator
+multiblock.EarthModuleMagicGenerator.machine_type=Magic Generator Module
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s

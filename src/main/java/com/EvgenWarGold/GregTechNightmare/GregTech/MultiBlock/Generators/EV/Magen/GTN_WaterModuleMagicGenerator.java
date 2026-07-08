@@ -5,6 +5,8 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -15,18 +17,20 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.GregTechAPI;
+import gregtech.api.recipe.check.CheckRecipeResult;
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 
-public class GTN_AquaModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AquaModuleMagicGenerator>
+public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterModuleMagicGenerator>
     implements IMagicGeneratorModule {
 
     private int generate = 100;
     private int boostLevel = 0;
 
-    public GTN_AquaModuleMagicGenerator(int id, String name) {
+    public GTN_WaterModuleMagicGenerator(int id, String name) {
         super(id, name);
     }
 
-    public GTN_AquaModuleMagicGenerator(String name) {
+    public GTN_WaterModuleMagicGenerator(String name) {
         super(name);
     }
 
@@ -41,7 +45,7 @@ public class GTN_AquaModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AquaMod
     }
 
     @Override
-    public List<StructureVariant<GTN_AquaModuleMagicGenerator>> getStructureVariants() {
+    public List<StructureVariant<GTN_WaterModuleMagicGenerator>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
                 "",
@@ -60,8 +64,8 @@ public class GTN_AquaModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AquaMod
     }
 
     @Override
-    public GTN_AquaModuleMagicGenerator createNewMetaEntity() {
-        return new GTN_AquaModuleMagicGenerator(this.mName);
+    public GTN_WaterModuleMagicGenerator createNewMetaEntity() {
+        return new GTN_WaterModuleMagicGenerator(this.mName);
     }
 
     @Override
@@ -75,9 +79,25 @@ public class GTN_AquaModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AquaMod
     }
 
     @Override
-    public IStructureDefinition<GTN_AquaModuleMagicGenerator> getStructureDefinition() {
+    public IStructureDefinition<GTN_WaterModuleMagicGenerator> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addMainCasing('B', b -> b.hatches(InputHatch))
                 .addBlock('A', GregTechAPI.sBlockGem1, 3));
+    }
+
+    @Override
+    public @NotNull CheckRecipeResult checkProcessing() {
+        setDurationInSeconds(5);
+        return CheckRecipeResultRegistry.SUCCESSFUL;
+    }
+
+    @Override
+    public boolean isNoMaintenanceIssue() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnergyMultiBlock() {
+        return false;
     }
 }

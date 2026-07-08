@@ -1,11 +1,18 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen;
 
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
 import static gregtech.api.enums.HatchElement.InputHatch;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
+
+import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
@@ -16,18 +23,23 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
+
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 
 public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
     private static final List<Class<? extends GTN_MultiBlockBase<?>>> ALLOWED_LINK_MULTIBLOCK = Arrays.asList(
-        GTN_AquaModuleMagicGenerator.class
-    );
+        GTN_WaterModuleMagicGenerator.class,
+        GTN_AirModuleMagicGenerator.class,
+        GTN_FireModuleMagicGenerator.class,
+        GTN_EntropyModuleMagicGenerator.class,
+        GTN_OrderModuleMagicGenerator.class,
+        GTN_EarthModuleMagicGenerator.class);
 
     public GTN_MagicGenerator(int id, String name) {
         super(id, name);
@@ -118,13 +130,16 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     private void removeExistingLinkOfSameType(Class<?> mteClass, CoordMultiBlock exceptCoord) {
-        multiBlocks.entrySet().removeIf(entry -> {
-            if (entry.getKey().equals(exceptCoord)) return false;
-            if (entry.getValue() == null) return false;
+        multiBlocks.entrySet()
+            .removeIf(entry -> {
+                if (entry.getKey()
+                    .equals(exceptCoord)) return false;
+                if (entry.getValue() == null) return false;
 
-            IMetaTileEntity existingMte = entry.getValue().getMetaTileEntity();
-            return mteClass.isInstance(existingMte);
-        });
+                IMetaTileEntity existingMte = entry.getValue()
+                    .getMetaTileEntity();
+                return mteClass.isInstance(existingMte);
+            });
     }
 
     private boolean isClassAllowed(Class<?> clazz) {
@@ -138,6 +153,11 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     @Override
+    public boolean isEnergyMultiBlock() {
+        return false;
+    }
+
+    @Override
     public @NotNull CheckRecipeResult checkProcessing() {
         if (multiBlocks.isEmpty()) return CheckRecipeResultRegistry.NO_RECIPE;
 
@@ -148,41 +168,115 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
             IMetaTileEntity mte = gte.getMetaTileEntity();
 
             if (mte instanceof IMagicGeneratorModule module) {
-                generate += module.generate();
+                if (gte.isActive()) {
+                    generate += module.generate();
+                }
             }
         }
 
         if (generate == 0) return CheckRecipeResultRegistry.NO_RECIPE;
 
-
-
-//        for (FluidStack fluid : fluids) {
-//            if (fluid.isFluidEqual(CREOSOTE)) {
-//                switch (DYNAMO_TIER) {
-//                    case 1 -> {
-//                        CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP);
-//                        setEnergyGenerate(32 * DYNAMO_AMP);
-//                    }
-//                    case 2 -> {
-//                        CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP) * 4;
-//                        setEnergyGenerate(128 * DYNAMO_AMP);
-//                    }
-//                }
-//
-//                if (getAllMaxDynamoBuffer() != getAllDynamoBuffer()) {
-//                    if (removeFluids(fluids, fluidUsage, true)) {
-//                        removeFluids(fluids, fluidUsage);
-//                        mEfficiency = getEfficiency();
-//                        setDurationInSeconds(1);
-//                        return CheckRecipeResultRegistry.GENERATING;
-//                    }
-//                }
-//            }
-//        }
-
         setEnergyGenerate(generate);
         super.mEfficiency = getEfficiency();
         setDurationInSeconds(5);
         return CheckRecipeResultRegistry.GENERATING;
+    }
+
+    @Override
+    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        super.getWailaNBTData(player, tile, tag, world, x, y, z);
+
+        for (CoordMultiBlock coord : multiBlocks.keySet()) {
+            IGregTechTileEntity gte = multiBlocks.get(coord);
+            IMetaTileEntity mte = gte.getMetaTileEntity();
+
+            if (mte instanceof GTN_AirModuleMagicGenerator) {
+                tag.setBoolean("AirModule", true);
+                tag.setBoolean("AirModuleActive", gte.isActive());
+            }
+
+            if (mte instanceof GTN_FireModuleMagicGenerator) {
+                tag.setBoolean("FireModule", true);
+                tag.setBoolean("FireModuleActive", gte.isActive());
+            }
+
+            if (mte instanceof GTN_EarthModuleMagicGenerator) {
+                tag.setBoolean("EarthModule", true);
+                tag.setBoolean("EarthModuleActive", gte.isActive());
+            }
+
+            if (mte instanceof GTN_EntropyModuleMagicGenerator) {
+                tag.setBoolean("EntropyModule", true);
+                tag.setBoolean("EntropyModuleActive", gte.isActive());
+            }
+
+            if (mte instanceof GTN_OrderModuleMagicGenerator) {
+                tag.setBoolean("OrderModule", true);
+                tag.setBoolean("OrderModuleActive", gte.isActive());
+            }
+
+            if (mte instanceof GTN_WaterModuleMagicGenerator) {
+                tag.setBoolean("WaterModule", true);
+                tag.setBoolean("WaterModuleActive", gte.isActive());
+            }
+        }
+    }
+
+    @Override
+    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+        IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, currentTip, accessor, config);
+
+        NBTTagCompound tag = accessor.getNBTData();
+
+        currentTip
+            .add(
+                tag.getBoolean("AirModule")
+                    ? EnumChatFormatting.YELLOW + "Air Module "
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("AirModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
+        currentTip
+            .add(
+                tag.getBoolean("FireModule")
+                    ? EnumChatFormatting.DARK_RED + "Fire Module "
+                    + EnumChatFormatting.RESET
+                    + (tag.getBoolean("FireModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                    : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
+        currentTip
+            .add(
+                tag.getBoolean("EarthModule")
+                    ? EnumChatFormatting.DARK_GREEN + "Earth Module "
+                    + EnumChatFormatting.RESET
+                    + (tag.getBoolean("EarthModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                    : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
+        currentTip
+            .add(
+                tag.getBoolean("EntropyModule")
+                    ? EnumChatFormatting.DARK_GRAY + "Entropy Module "
+                    + EnumChatFormatting.RESET
+                    + (tag.getBoolean("EntropyModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                    : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
+        currentTip
+            .add(
+                tag.getBoolean("OrderModule")
+                    ? EnumChatFormatting.WHITE + "Order Module "
+                    + EnumChatFormatting.RESET
+                    + (tag.getBoolean("OrderModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                    : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
+        currentTip
+            .add(
+                tag.getBoolean("WaterModule")
+                    ? EnumChatFormatting.DARK_BLUE + "Water Module "
+                    + EnumChatFormatting.RESET
+                    + (tag.getBoolean("WaterModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                    : EnumChatFormatting.RED + "INACTIVE")
+                    : "");
     }
 }
