@@ -5,6 +5,9 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import cpw.mods.fml.common.Mod;
+import goodgenerator.loader.Loaders;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -51,19 +54,34 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
     @Override
     public List<StructureVariant<GTN_MagicGenerator>> getStructureVariants() {
-        return List.of(
+        return Arrays.asList(
             new StructureVariant<>(
                 "",
                 // spotless:off
                 new String[][]{
-                    {"A"},
-                    {"B"},
-                    {"B"},
-                    {"~"}
+                    {"               ","               ","               ","               ","               ","      CCC      ","     CAAAC     ","     CAEAC     ","     CAAAC     ","      CCC      ","               ","               ","               ","               ","               "},
+                    {"               ","               ","               ","               ","     CCCCC     ","    CCCCCCC    ","    CC   CC    ","    CC  ECC    ","    CC   CC    ","    CCCCCCC    ","     CCCCC     ","               ","               ","               ","               "},
+                    {"               ","               ","               ","      CDC      ","    DCAAACD    ","    C     C    ","   CA  E  AC   ","   DA     AD   ","   CA     AC   ","    C     C    ","    DCAAACD    ","      CDC      ","               ","               ","               "},
+                    {"     FFFFF     ","   FF     FF   ","  E         E  "," F    CDC    F "," F  DC   CD  F ","F   C     C   F","F  C       C  F","F  D  E    D  F","F  C       C  F","F   C     C   F"," F  DC   CD  F "," F    CDC    F ","  E         E  ","   FF     FF   ","     FFFFF     "},
+                    {"               ","               ","               ","    B CDC B    ","   BDC   CDB   ","    C     C    ","   C       C   ","   D       D   ","   C   E   C   ","    C     C    ","   BDC   CDB   ","    B CDC B    ","               ","               ","               "},
+                    {"               ","               ","      CDC      ","   DC     CD   ","   C       C   ","               ","  C         C  ","  D     E   D  ","  C         C  ","               ","   C       C   ","   DC     CD   ","      CDC      ","               ","               "},
+                    {"               ","  F   FFF   F  "," FF   CDC   FF ","   DC     CD   ","   C       C   ","               "," FC    E    CF "," FD         DF "," FC         CF ","               ","   C       C   ","   DC     CD   "," FF   CDC   FF ","  F   FFF   F  ","               "},
+                    {"               ","   F  FDF  F   ","  DF  FDF  FD  "," FFDC     CDFF ","   C       C   ","               "," FF         FF "," DD    E    DD "," FF         FF ","               ","   C       C   "," FFDC     CDFF ","  DF  FDF  FD  ","   F  FDF  F   ","               "},
+                    {"               ","       D       ","  DF  F F  FD  ","  FDC     CDF  ","   C       C   ","               ","  F   BBB   F  "," D    BEB    D ","  F   BBB   F  ","               ","   C       C   ","  FDC     CDF  ","  DF  F F  FD  ","       D       ","               "},
+                    {"               ","       ~       ","  DF  FDF  FD  ","  FDDDDDDDDDF  ","   D   D   D   ","   D   D   D   ","  FD  BBB  DF  "," DDDDDBEBDDDDD ","  FD  BBB  DF  ","   D   D   D   ","   D   D   D   ","  FDDDDDDDDDF  ","  DF  FDF  FD  ","       D       ","               "},
+                    {"               ","       D       ","  DF  F F  FD  ","  FDC     CDF  ","   C       C   ","               ","  F   BBB   F  "," D    BEB    D ","  F   BBB   F  ","               ","   C       C   ","  FDC     CDF  ","  DF  F F  FD  ","       D       ","               "},
+                    {"               ","   F  FDF  F   ","  DF  FDF  FD  "," FFDC     CDFF ","   C       C   ","               "," FF         FF "," DD    E    DD "," FF         FF ","               ","   C       C   "," FFDC     CDFF ","  DF  FDF  FD  ","   F  FDF  F   ","               "},
+                    {"               ","  F   FFF   F  "," FF   CDC   FF ","   DC     CD   ","   C       C   ","               "," FC    E    CF "," FD         DF "," FC         CF ","               ","   C       C   ","   DC     CD   "," FF   CDC   FF ","  F   FFF   F  ","               "},
+                    {"               ","               ","      CDC      ","   DC     CD   ","   C       C   ","               ","  C         C  ","  D     E   D  ","  C         C  ","               ","   C       C   ","   DC     CD   ","      CDC      ","               ","               "},
+                    {"               ","               ","               ","    B CDC B    ","   BDC   CDB   ","    C     C    ","   C       C   ","   D       D   ","   C   E   C   ","    C     C    ","   BDC   CDB   ","    B CDC B    ","               ","               ","               "},
+                    {"     FFFFF     ","   FF     FF   ","  E         E  "," F    CDC    F "," F  DC   CD  F ","F   C     C   F","F  C       C  F","F  D  E    D  F","F  C       C  F","F   C     C   F"," F  DC   CD  F "," F    CDC    F ","  E         E  ","   FF     FF   ","     FFFFF     "},
+                    {"               ","               ","               ","      CDC      ","    DCAAACD    ","    C     C    ","   CA  E  AC   ","   DA     AD   ","   CA     AC   ","    C     C    ","    DCAAACD    ","      CDC      ","               ","               ","               "},
+                    {"               ","               ","               ","               ","      CCC      ","     CCCCC     ","    CC   CC    ","    CC E CC    ","    CC   CC    ","     CCCCC     ","      CCC      ","               ","               ","               ","               "},
+                    {"               ","               ","               ","               ","               ","      CCC      ","     CAAAC     ","     CAEAC     ","     CAAAC     ","      CCC      ","               ","               ","               ","               ","               "}
                 },
                 //spotless:on
-                new MultiblockOffsets(0, 3, 0),
-                new MultiblockArea(1, 4, 1),
+                new MultiblockOffsets(7, 9, 1),
+                new MultiblockArea(15, 19, 15),
                 1,
                 GTN_Casings.MagicCasing));
     }
@@ -86,8 +104,12 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     @Override
     public IStructureDefinition<GTN_MagicGenerator> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addMainCasing('B', b -> b.hatches(InputHatch))
-                .addCasing('A', GTN_Casings.VacuumCasing));
+            builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch))
+                .addBlock('A', Loaders.essentiaCell, 0)
+                .addBlock('B', Loaders.essentiaFilterCasing, 0)
+                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
+                .addBlock('F', ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getBlock(), 0)
+                .addBlock('E', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
     }
 
     @Override

@@ -9,11 +9,13 @@ public class BotaniaBlocks extends ModHandler {
 
     public final ModBlock LivingRock;
     public final ModBlock ManaPool;
+    public final ModBlock AlfGlass;
 
     public BotaniaBlocks() {
         super(Mods.Botania);
 
         LivingRock = new ModBlock(mod, "livingrock", 0, "Livingrock");
         ManaPool = new ModBlock(mod, "pool", 0, "Mana Pool");
+        AlfGlass = new ModBlock(mod, "elfGlass", 0, "AlfGlass");
     }
 }
