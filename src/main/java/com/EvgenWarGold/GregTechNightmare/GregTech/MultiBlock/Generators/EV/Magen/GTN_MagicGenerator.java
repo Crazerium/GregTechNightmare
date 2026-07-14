@@ -5,9 +5,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import java.util.Arrays;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
-import cpw.mods.fml.common.Mod;
-import goodgenerator.loader.Loaders;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,9 +21,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import goodgenerator.loader.Loaders;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
@@ -113,60 +112,19 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     @Override
-    public boolean tryLink(CoordMultiBlock coord) {
-        if (getCoord().equals(coord)) return false;
-
-        IGregTechTileEntity gte = multiBlocks.get(coord);
-
-        if (gte == null) {
-            IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-            if (newGte != null) {
-                IMetaTileEntity mte = newGte.getMetaTileEntity();
-                if (mte instanceof GTN_MultiBlockBase && isClassAllowed(mte.getClass())) {
-                    removeExistingLinkOfSameType(mte.getClass(), coord);
-
-                    multiBlocks.put(coord, newGte);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        IMetaTileEntity mte = gte.getMetaTileEntity();
-        if (mte != null) return false;
-
-        multiBlocks.remove(coord);
-
-        IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-        if (newGte != null) {
-            IMetaTileEntity newMte = newGte.getMetaTileEntity();
-            if (newMte instanceof GTN_MultiBlockBase && isClassAllowed(newMte.getClass())) {
-                removeExistingLinkOfSameType(newMte.getClass(), coord);
-
-                multiBlocks.put(coord, newGte);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void removeExistingLinkOfSameType(Class<?> mteClass, CoordMultiBlock exceptCoord) {
-        multiBlocks.entrySet()
-            .removeIf(entry -> {
-                if (entry.getKey()
-                    .equals(exceptCoord)) return false;
-                if (entry.getValue() == null) return false;
-
-                IMetaTileEntity existingMte = entry.getValue()
-                    .getMetaTileEntity();
-                return mteClass.isInstance(existingMte);
-            });
-    }
-
-    private boolean isClassAllowed(Class<?> clazz) {
+    public boolean linkClassAllowed(Class<?> clazz) {
         return ALLOWED_LINK_MULTIBLOCK.stream()
             .anyMatch(allowedClass -> allowedClass.isAssignableFrom(clazz));
+    }
+
+    @Override
+    public boolean linkUseSameType() {
+        return true;
+    }
+
+    @Override
+    public boolean linkUseP2P() {
+        return true;
     }
 
     @Override
@@ -264,41 +222,41 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
             .add(
                 tag.getBoolean("FireModule")
                     ? EnumChatFormatting.DARK_RED + "Fire Module "
-                    + EnumChatFormatting.RESET
-                    + (tag.getBoolean("FireModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
-                    : EnumChatFormatting.RED + "INACTIVE")
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("FireModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
                     : "");
         currentTip
             .add(
                 tag.getBoolean("EarthModule")
                     ? EnumChatFormatting.DARK_GREEN + "Earth Module "
-                    + EnumChatFormatting.RESET
-                    + (tag.getBoolean("EarthModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
-                    : EnumChatFormatting.RED + "INACTIVE")
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("EarthModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
                     : "");
         currentTip
             .add(
                 tag.getBoolean("EntropyModule")
                     ? EnumChatFormatting.DARK_GRAY + "Entropy Module "
-                    + EnumChatFormatting.RESET
-                    + (tag.getBoolean("EntropyModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
-                    : EnumChatFormatting.RED + "INACTIVE")
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("EntropyModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
                     : "");
         currentTip
             .add(
                 tag.getBoolean("OrderModule")
                     ? EnumChatFormatting.WHITE + "Order Module "
-                    + EnumChatFormatting.RESET
-                    + (tag.getBoolean("OrderModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
-                    : EnumChatFormatting.RED + "INACTIVE")
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("OrderModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
                     : "");
         currentTip
             .add(
                 tag.getBoolean("WaterModule")
                     ? EnumChatFormatting.DARK_BLUE + "Water Module "
-                    + EnumChatFormatting.RESET
-                    + (tag.getBoolean("WaterModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
-                    : EnumChatFormatting.RED + "INACTIVE")
+                        + EnumChatFormatting.RESET
+                        + (tag.getBoolean("WaterModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
+                            : EnumChatFormatting.RED + "INACTIVE")
                     : "");
     }
 }

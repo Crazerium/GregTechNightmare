@@ -12,6 +12,7 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -782,9 +783,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
         super.onPostTick(aBaseMetaTileEntity, aTimer);
         if (aTimer % 100 == 5) {
-            for (CoordMultiBlock coord : multiBlocks.keySet()) {
-                tryLink(coord);
-            }
+            validateLinks();
         }
     }
     // endregion
@@ -995,30 +994,188 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             gte.getZCoord());
     }
 
-    public boolean tryLink(CoordMultiBlock coord) {
-        if (getCoord().equals(coord)) return false;
+    private void linkTo(CoordMultiBlock coord, IGregTechTileEntity targetTile) {
 
-        IGregTechTileEntity gte = multiBlocks.get(coord);
+        IMetaTileEntity meta = targetTile.getMetaTileEntity();
 
-        if (gte == null) {
-            IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-            if (newGte != null) {
-                multiBlocks.put(coord, newGte);
-                return true;
+        if (!(meta instanceof GTN_MultiBlockBase<?>target)) {
+            return;
+        }
+
+        if (linkUseSameType()) {
+            removeExistingLinkOfSameType(meta.getClass(), coord);
+        }
+
+        if (linkUseP2P()) {
+
+            Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> it = target.multiBlocks.entrySet()
+                .iterator();
+
+            while (it.hasNext()) {
+
+                Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = it.next();
+
+                IGregTechTileEntity oldTile = entry.getValue();
+
+                if (oldTile == null) {
+                    it.remove();
+                    continue;
+                }
+
+                IMetaTileEntity oldMeta = oldTile.getMetaTileEntity();
+
+                if (oldMeta instanceof GTN_MultiBlockBase<?>oldMachine) {
+                    oldMachine.multiBlocks.remove(target.getCoord());
+                }
+
+                it.remove();
             }
-            return false;
         }
 
-        IMetaTileEntity mte = gte.getMetaTileEntity();
-        if (mte != null) return false;
+        multiBlocks.put(coord, targetTile);
 
-        multiBlocks.remove(coord);
-        IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-        if (newGte != null) {
-            multiBlocks.put(coord, newGte);
-            return true;
+        if (linkUseP2P()) {
+            target.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
         }
+    }
 
+    private void validateLinks() {
+
+        Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> it = multiBlocks.entrySet()
+            .iterator();
+
+        while (it.hasNext()) {
+
+            Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = it.next();
+
+            CoordMultiBlock coord = entry.getKey();
+
+            IGregTechTileEntity tile = coord.getMTEMultiBlockBase();
+
+            if (tile == null) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity old = entry.getValue();
+
+                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+                }
+
+                it.remove();
+                continue;
+            }
+
+            IMetaTileEntity meta = tile.getMetaTileEntity();
+
+            if (!(meta instanceof GTN_MultiBlockBase<?>otherMachine)) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity old = entry.getValue();
+
+                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+                }
+
+                it.remove();
+                continue;
+            }
+
+            if (entry.getValue() == null) {
+
+                entry.setValue(tile);
+
+                if (linkUseP2P()) {
+                    otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
+                }
+
+                continue;
+            }
+
+            if (entry.getValue() != tile) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity old = entry.getValue();
+
+                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+
+                    otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
+                }
+
+                entry.setValue(tile);
+            }
+        }
+    }
+
+    private void removeExistingLinkOfSameType(Class<?> mteClass, CoordMultiBlock exceptCoord) {
+
+        Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> iterator = multiBlocks.entrySet()
+            .iterator();
+
+        while (iterator.hasNext()) {
+
+            Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = iterator.next();
+
+            if (entry.getKey()
+                .equals(exceptCoord)) {
+                continue;
+            }
+
+            IGregTechTileEntity tile = entry.getValue();
+
+            if (tile == null) {
+                iterator.remove();
+                continue;
+            }
+
+            IMetaTileEntity meta = tile.getMetaTileEntity();
+
+            if (!mteClass.isInstance(meta)) {
+                continue;
+            }
+
+            if (linkUseP2P() && meta instanceof GTN_MultiBlockBase<?>otherMachine) {
+
+                otherMachine.multiBlocks.remove(getCoord());
+            }
+
+            iterator.remove();
+        }
+    }
+
+    public boolean tryLink(CoordMultiBlock coord) {
+
+        if (coord == null) return false;
+
+        if (coord.equals(getCoord())) return false;
+
+        IGregTechTileEntity tile = coord.getMTEMultiBlockBase();
+
+        if (tile == null) return false;
+
+        IMetaTileEntity meta = tile.getMetaTileEntity();
+
+        if (meta == null) return false;
+
+        if (!linkClassAllowed(meta.getClass())) return false;
+
+        linkTo(coord, tile);
+
+        return true;
+    }
+
+    public boolean linkClassAllowed(Class<?> clazz) {
+        return true;
+    }
+
+    public boolean linkUseSameType() {
+        return false;
+    }
+
+    public boolean linkUseP2P() {
         return false;
     }
 
