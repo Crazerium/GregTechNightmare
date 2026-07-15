@@ -1048,14 +1048,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
             CoordMultiBlock coord = entry.getKey();
 
-            IGregTechTileEntity tile = coord.getMTEMultiBlockBase();
+            IGregTechTileEntity gte = coord.getMTEMultiBlockBase();
 
-            if (tile == null) {
+            if (gte == null) {
 
                 if (linkUseP2P()) {
-                    IGregTechTileEntity old = entry.getValue();
+                    IGregTechTileEntity oldGte = entry.getValue();
 
-                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
                         other.multiBlocks.remove(getCoord());
                     }
                 }
@@ -1064,14 +1064,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 continue;
             }
 
-            IMetaTileEntity meta = tile.getMetaTileEntity();
+            IMetaTileEntity mte = gte.getMetaTileEntity();
 
-            if (!(meta instanceof GTN_MultiBlockBase<?>otherMachine)) {
+            if (!(mte instanceof GTN_MultiBlockBase<?>otherMachine)) {
 
                 if (linkUseP2P()) {
-                    IGregTechTileEntity old = entry.getValue();
+                    IGregTechTileEntity oldGte = entry.getValue();
 
-                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
                         other.multiBlocks.remove(getCoord());
                     }
                 }
@@ -1082,7 +1082,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
             if (entry.getValue() == null) {
 
-                entry.setValue(tile);
+                entry.setValue(gte);
 
                 if (linkUseP2P()) {
                     otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
@@ -1091,19 +1091,19 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 continue;
             }
 
-            if (entry.getValue() != tile) {
+            if (entry.getValue() != gte) {
 
                 if (linkUseP2P()) {
-                    IGregTechTileEntity old = entry.getValue();
+                    IGregTechTileEntity oldGte = entry.getValue();
 
-                    if (old != null && old.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
                         other.multiBlocks.remove(getCoord());
                     }
 
                     otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
                 }
 
-                entry.setValue(tile);
+                entry.setValue(gte);
             }
         }
     }
@@ -1121,20 +1121,20 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 continue;
             }
 
-            IGregTechTileEntity tile = entry.getValue();
+            IGregTechTileEntity gte = entry.getValue();
 
-            if (tile == null) {
+            if (gte == null) {
                 iterator.remove();
                 continue;
             }
 
-            IMetaTileEntity meta = tile.getMetaTileEntity();
+            IMetaTileEntity mte = gte.getMetaTileEntity();
 
-            if (!mteClass.isInstance(meta)) {
+            if (!mteClass.isInstance(mte)) {
                 continue;
             }
 
-            if (linkUseP2P() && meta instanceof GTN_MultiBlockBase<?>otherMachine) {
+            if (linkUseP2P() && mte instanceof GTN_MultiBlockBase<?>otherMachine) {
 
                 otherMachine.multiBlocks.remove(getCoord());
             }
@@ -1148,17 +1148,17 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         if (coord.equals(getCoord())) return false;
 
-        IGregTechTileEntity tile = coord.getMTEMultiBlockBase();
+        IGregTechTileEntity gte = coord.getMTEMultiBlockBase();
 
-        if (tile == null) return false;
+        if (gte == null) return false;
 
-        IMetaTileEntity meta = tile.getMetaTileEntity();
+        IMetaTileEntity mte = gte.getMetaTileEntity();
 
-        if (meta == null) return false;
+        if (mte == null) return false;
 
-        if (!linkClassAllowed(meta.getClass())) return false;
+        if (!linkClassAllowed(mte.getClass())) return false;
 
-        linkTo(coord, tile);
+        linkTo(coord, gte);
 
         return true;
     }
