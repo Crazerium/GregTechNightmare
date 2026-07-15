@@ -995,7 +995,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     private void linkTo(CoordMultiBlock coord, IGregTechTileEntity targetTile) {
-
         IMetaTileEntity meta = targetTile.getMetaTileEntity();
 
         if (!(meta instanceof GTN_MultiBlockBase<?>target)) {
@@ -1040,7 +1039,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     private void validateLinks() {
-
         Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> it = multiBlocks.entrySet()
             .iterator();
 
@@ -1111,7 +1109,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     private void removeExistingLinkOfSameType(Class<?> mteClass, CoordMultiBlock exceptCoord) {
-
         Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> iterator = multiBlocks.entrySet()
             .iterator();
 
@@ -1147,7 +1144,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     public boolean tryLink(CoordMultiBlock coord) {
-
         if (coord == null) return false;
 
         if (coord.equals(getCoord())) return false;
