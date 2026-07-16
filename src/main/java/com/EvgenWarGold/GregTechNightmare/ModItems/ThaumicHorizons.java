@@ -12,6 +12,6 @@ public class ThaumicHorizons extends ModHandler {
     public ThaumicHorizons() {
         super(Mods.ThaumicHorizons);
 
-        WandFocusDisintegration = new ModItem(mod, "focusDisintegration", 0, "Wand Focus: Disintegration");
+        WandFocusDisintegration = createItem("focusDisintegration", "Wand Focus: Disintegration");
     }
 }

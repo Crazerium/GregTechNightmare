@@ -1,7 +1,8 @@
 package com.EvgenWarGold.GregTechNightmare.Api;
 
-import gregtech.api.enums.Mods;
 import org.jetbrains.annotations.NotNull;
+
+import gregtech.api.enums.Mods;
 
 public abstract class ModHandler {
 
@@ -25,5 +26,13 @@ public abstract class ModHandler {
 
     protected ModBlock createBlock(@NotNull String unlocalizedName) {
         return new ModBlock(mod, unlocalizedName, 0, unlocalizedName);
+    }
+
+    protected ModItem createItem(@NotNull String unlocalizedName, @NotNull String localizedName, int meta) {
+        return new ModItem(mod, unlocalizedName, meta, localizedName);
+    }
+
+    protected ModItem createItem(@NotNull String unlocalizedName, @NotNull String localizedName) {
+        return new ModItem(mod, unlocalizedName, 0, unlocalizedName);
     }
 }

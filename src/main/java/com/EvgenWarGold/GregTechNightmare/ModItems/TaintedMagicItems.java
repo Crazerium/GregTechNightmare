@@ -12,6 +12,6 @@ public class TaintedMagicItems extends ModHandler {
     public TaintedMagicItems() {
         super(Mods.TaintedMagic);
 
-        WandFocusTime = new ModItem(mod, "ItemFocusTime", 0, "Wand Focus: Time");
+        WandFocusTime = createItem("ItemFocusTime", "Wand Focus: Time");
     }
 }

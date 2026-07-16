@@ -12,8 +12,8 @@ public class ThaumcraftItems extends ModHandler {
 
     public ThaumcraftItems() {
         super(Mods.Thaumcraft);
-        salisMundus = new ModItem(mod, "ItemResource", 14, "Salis Mundus");
-        PickaxeElemental = new ModItem(mod, "ItemPickaxeElemental", 0, "Pickaxe Elemental");
 
+        salisMundus = createItem("ItemResource", "Salis Mundus", 14);
+        PickaxeElemental = createItem("ItemPickaxeElemental", "Pickaxe Elemental");
     }
 }

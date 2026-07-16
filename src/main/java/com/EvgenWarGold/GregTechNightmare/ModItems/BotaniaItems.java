@@ -13,7 +13,7 @@ public class BotaniaItems extends ModHandler {
     public BotaniaItems() {
         super(Mods.Botania);
 
-        TerraShatterer = new ModItem(mod, "terraPick", 0, "Terra Shatterer");
-        ManaLensBore = new ModItem(mod, "lens", 7, "Mana Lens: Bore");
+        TerraShatterer = createItem("terraPick", "Terra Shatterer");
+        ManaLensBore = createItem("lens", "Mana Lens: Bore", 7);
     }
 }

@@ -12,6 +12,6 @@ public class AE2FluidCraftItems extends ModHandler {
     public AE2FluidCraftItems() {
         super(Mods.AE2FluidCraft);
 
-        SuperStockReplenisher = new ModItem(mod, "super_stock_replenisher", 0, "Super Stock Replenisher");
+        SuperStockReplenisher = createItem("super_stock_replenisher", "Super Stock Replenisher");
     }
 }

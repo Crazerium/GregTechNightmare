@@ -14,8 +14,8 @@ public class BloodMagicItems extends ModHandler {
     public BloodMagicItems() {
         super(Mods.BloodMagic);
 
-        BoundPickaxe = new ModItem(mod, "boundPickaxe", 0, "Bound Pickaxe");
-        LifeShard = new ModItem(mod, "bloodMagicBaseItems", 28, "Life Shard");
-        SoulShard = new ModItem(mod, "bloodMagicBaseItems", 29, "Soul Shard");
+        BoundPickaxe = createItem("boundPickaxe", "Bound Pickaxe");
+        LifeShard = createItem("bloodMagicBaseItems", "Life Shard", 28);
+        SoulShard = createItem("bloodMagicBaseItems", "Soul Shard", 29);
     }
 }

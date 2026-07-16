@@ -11,7 +11,7 @@ public class NewHorizonsCoreModItems extends ModHandler {
 
     public NewHorizonsCoreModItems() {
         super(Mods.NewHorizonsCoreMod);
-        HighEnergyFlowCircuit = new ModItem(mod, "item.HighEnergyFlowCircuit", 0, "High Energy Flow Circuit");
 
+        HighEnergyFlowCircuit = createItem("item.HighEnergyFlowCircuit", "High Energy Flow Circuit");
     }
 }

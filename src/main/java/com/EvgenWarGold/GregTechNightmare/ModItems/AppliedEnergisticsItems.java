@@ -14,8 +14,8 @@ public class AppliedEnergisticsItems extends ModHandler {
     public AppliedEnergisticsItems() {
         super(Mods.AppliedEnergistics2);
 
-        MEController = new ModItem(mod, "tile.BlockController", 0, "ME Controller");
-        AccelerationCard = new ModItem(mod, "item.ItemMultiMaterial", 30, "Acceleration Card");
-        CapacityCard = new ModItem(mod, "item.ItemMultiMaterial", 27, "Capacity Card");
+        MEController = createItem("tile.BlockController", "ME Controller");
+        AccelerationCard = createItem("item.ItemMultiMaterial", "Acceleration Card", 30);
+        CapacityCard = createItem("item.ItemMultiMaterial", "Capacity Card", 27);
     }
 }

@@ -12,6 +12,6 @@ public class ThaumicTinkererItems extends ModHandler {
     public ThaumicTinkererItems() {
         super(Mods.ThaumicTinkerer);
 
-        WandFocusEfreetFlame = new ModItem(mod, "focusSmelt", 0, "Wand Focus: Efreet's Flame");
+        WandFocusEfreetFlame = createItem("focusSmelt", "Wand Focus: Efreet's Flame");
     }
 }

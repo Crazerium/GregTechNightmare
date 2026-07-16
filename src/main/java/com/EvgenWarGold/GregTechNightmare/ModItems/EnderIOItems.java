@@ -29,23 +29,23 @@ public class EnderIOItems extends ModHandler {
     public EnderIOItems() {
         super(Mods.EnderIO);
 
-        ZombieElectrode = new ModItem(mod, "itemFrankenSkull", 0, "Zombie Electrode");
-        ZLogicCapacitor = new ModItem(mod, "itemFrankenSkull", 1, "Z-Logic Capacitor");
-        TormentedEndermanHead = new ModItem(mod, "blockEndermanSkull", 2, "Tormented Enderman Head");
-        EnderResonator = new ModItem(mod, "itemFrankenSkull", 3, "Ender Resonator");
-        SkeletalContractor = new ModItem(mod, "itemFrankenSkull", 5, "Skeletal Contractor");
-        GuardianDiode = new ModItem(mod, "itemFrankenSkull", 6, "Guardian Diode");
-        BasicCapacitor = new ModItem(mod, "itemBasicCapacitor", 0, "Basic Capacitor");
-        DoubleLayerCapacitor = new ModItem(mod, "itemBasicCapacitor", 1, "Double-Layer Capacitor");
-        OctadicCapacitor = new ModItem(mod, "itemBasicCapacitor", 2, "Octadic Capacitor");
-        CrystallineCapacitor = new ModItem(mod, "itemBasicCapacitor", 3, "Crystalline Capacitor");
-        MelodicCapacitor = new ModItem(mod, "itemBasicCapacitor", 4, "Melodic Capacitor");
-        StellarCapacitor = new ModItem(mod, "itemBasicCapacitor", 5, "Stellar Capacitor");
-        TotemicCapacitor = new ModItem(mod, "itemBasicCapacitor", 6, "Totemic Capacitor");
-        SilverCapacitor = new ModItem(mod, "itemBasicCapacitor", 7, "Silver Capacitor");
-        EndergeticCapacitor = new ModItem(mod, "itemBasicCapacitor", 8, "Endergetic Capacitor");
-        EndergisedCapacitor = new ModItem(mod, "itemBasicCapacitor", 9, "Endergised Capacitor");
-        EndermanHead = new ModItem(mod, "blockEndermanSkull", 0, "Enderman Head");
-        PulsatingCrystal = new ModItem(mod, "itemMaterial", 5, "Pulsating Crystal");
+        ZombieElectrode = createItem("itemFrankenSkull", "Zombie Electrode");
+        ZLogicCapacitor = createItem("itemFrankenSkull", "Z-Logic Capacitor", 1);
+        TormentedEndermanHead = createItem("blockEndermanSkull", "Tormented Enderman Head", 2);
+        EnderResonator = createItem("itemFrankenSkull", "Ender Resonator", 3);
+        SkeletalContractor = createItem("itemFrankenSkull", "Skeletal Contractor", 5);
+        GuardianDiode = createItem("itemFrankenSkull", "Guardian Diode", 6);
+        BasicCapacitor = createItem("itemBasicCapacitor", "Basic Capacitor");
+        DoubleLayerCapacitor = createItem("itemBasicCapacitor", "Double-Layer Capacitor", 1);
+        OctadicCapacitor = createItem("itemBasicCapacitor", "Octadic Capacitor", 2);
+        CrystallineCapacitor = createItem("itemBasicCapacitor", "Crystalline Capacitor", 3);
+        MelodicCapacitor = createItem("itemBasicCapacitor", "Melodic Capacitor", 4);
+        StellarCapacitor = createItem("itemBasicCapacitor", "Stellar Capacitor", 5);
+        TotemicCapacitor = createItem("itemBasicCapacitor", "Totemic Capacitor", 6);
+        SilverCapacitor = createItem("itemBasicCapacitor", "Silver Capacitor", 7);
+        EndergeticCapacitor = createItem("itemBasicCapacitor", "Endergetic Capacitor", 8);
+        EndergisedCapacitor = createItem("itemBasicCapacitor", "Endergised Capacitor", 9);
+        EndermanHead = createItem("blockEndermanSkull", "Enderman Head");
+        PulsatingCrystal = createItem("itemMaterial", "Pulsating Crystal", 5);
     }
 }
