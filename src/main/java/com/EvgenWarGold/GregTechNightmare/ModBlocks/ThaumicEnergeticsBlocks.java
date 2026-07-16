@@ -12,6 +12,6 @@ public class ThaumicEnergeticsBlocks extends ModHandler {
     public ThaumicEnergeticsBlocks() {
         super(ThaumicEnergistics);
 
-        ARCANE_ASSEMBLER = new ModBlock(mod, "thaumicenergistics.block.arcane.assembler", 0, "Arcane Assembler");
+        ARCANE_ASSEMBLER = createBlock("thaumicenergistics.block.arcane.assembler");
     }
 }

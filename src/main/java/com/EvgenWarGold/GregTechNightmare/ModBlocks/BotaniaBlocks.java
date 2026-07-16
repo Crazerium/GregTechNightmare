@@ -14,8 +14,8 @@ public class BotaniaBlocks extends ModHandler {
     public BotaniaBlocks() {
         super(Mods.Botania);
 
-        LivingRock = new ModBlock(mod, "livingrock", 0, "Livingrock");
-        ManaPool = new ModBlock(mod, "pool", 0, "Mana Pool");
-        AlfGlass = new ModBlock(mod, "elfGlass", 0, "AlfGlass");
+        LivingRock = createBlock("livingrock");
+        ManaPool = createBlock("pool");
+        AlfGlass = createBlock("elfGlass");
     }
 }

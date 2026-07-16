@@ -12,6 +12,6 @@ public class BloodMagicBlocks extends ModHandler {
     public BloodMagicBlocks() {
         super(Mods.BloodMagic);
 
-        RitualStone = new ModBlock(mod, "ritualStone", 0, "Ritual Stone");
+        RitualStone = createBlock("ritualStone");
     }
 }

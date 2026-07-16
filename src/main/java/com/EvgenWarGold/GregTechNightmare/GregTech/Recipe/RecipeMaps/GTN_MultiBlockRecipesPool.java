@@ -372,7 +372,7 @@ public class GTN_MultiBlockRecipesPool {
                 getPlate(Materials.EnergeticAlloy, 16),
                 GTN_Casings.SoulCasing.getItemStack(16),
                 getCircuits(Materials.IV, 4),
-                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.get(1),
+                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.getItemStack(1),
                 ModItems.ENDER_IO.OctadicCapacitor.get(8),
                 ModItems.ENDER_IO.PulsatingCrystal.get(16)
             )
