@@ -55,7 +55,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     public List<StructureVariant<GTN_MagicGenerator>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "",
+                "MagicGenerator",
                 // spotless:off
                 new String[][]{
                     {"               ","               ","               ","               ","               ","      CCC      ","     CAAAC     ","     CAEAC     ","     CAAAC     ","      CCC      ","               ","               ","               ","               ","               "},

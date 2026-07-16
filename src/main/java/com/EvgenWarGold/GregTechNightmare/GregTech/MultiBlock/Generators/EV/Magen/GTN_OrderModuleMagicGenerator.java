@@ -5,6 +5,8 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import java.util.Arrays;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import gregtech.api.enums.Materials;
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -48,17 +50,28 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     public List<StructureVariant<GTN_OrderModuleMagicGenerator>> getStructureVariants() {
         return Arrays.asList(
             new StructureVariant<>(
-                "",
+                "OrderModuleMagicGenerator",
                 // spotless:off
                 new String[][]{
-                    {"A"},
-                    {"B"},
-                    {"B"},
-                    {"~"}
+                    {"     CCC     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "},
+                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         B ","             ","   B     B   ","      B      "},
+                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B     F      ","      B      ","             "," B         D ","             ","   B     B   ","      B      "},
+                    {"     B       ","   B         ","             "," B           ","             ","             ","B    BFB     ","             ","             "," B           ","             ","   B     D   ","      B      "},
+                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         D ","             ","   B         ","      D      "},
+                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BEB     ","      B      ","             "," B         B ","             ","   D     D   ","             "},
+                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BE      ","      B      ","             "," D         B ","             ","         B   ","      D      "},
+                    {"     B       ","   B         ","             "," B           ","             ","     FEF     ","D    EEE     ","     FEF     ","             ","           B ","             ","   D     B   ","      B      "},
+                    {"     B       ","   B         ","             "," D           ","     FEF     ","    FAAAF    ","    EAAAE    ","    FAAAF    ","     FEF     "," D         B ","             ","   B     B   ","      B      "},
+                    {"     B       ","   D         ","             ","             ","     FEF     ","    FAAAF    ","D   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
+                    {"     D       ","             ","             "," D           ","     FEF     ","    FAAAF    ","B   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
+                    {"             ","   D         ","             "," B           ","             ","     FEF     ","B    EEE     ","     FEF     ","             "," B         B ","             ","   B     B   ","      B      "},
+                    {"     D       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
+                    {"     B       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
+                    {"     C~C     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "}
                 },
                 //spotless:on
-                new MultiblockOffsets(0, 3, 0),
-                new MultiblockArea(1, 4, 1),
+                new MultiblockOffsets(6, 14, 0),
+                new MultiblockArea(13, 15, 13),
                 1,
                 GTN_Casings.MagicCasing));
     }
@@ -81,8 +94,15 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     @Override
     public IStructureDefinition<GTN_OrderModuleMagicGenerator> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addMainCasing('B', b -> b.hatches(InputHatch))
-                .addBlock('A', GregTechAPI.sBlockGem2, 6));
+            builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch))
+                .addCasing('A', GTN_Casings.ElectrumFluxCoilBlock)
+                .addFrame('B', Materials.Neutronium)
+                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
+                .addBlock(
+                    'E',
+                    ModBlocks.THAUMIC_BASES_BLOCKS.OrderCrystalBlock.getBlock(),
+                    ModBlocks.THAUMIC_BASES_BLOCKS.OrderCrystalBlock.meta)
+                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
     }
 
     @Override
