@@ -158,7 +158,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
         setEnergyGenerate(generate);
         super.mEfficiency = getEfficiency();
-        setDurationInSeconds(5);
+        setDurationInSeconds(1);
         return CheckRecipeResultRegistry.GENERATING;
     }
 
