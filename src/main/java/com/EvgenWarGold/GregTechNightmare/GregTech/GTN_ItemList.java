@@ -69,6 +69,7 @@ public enum GTN_ItemList {
     // region Hatch
     SensorHatch,
     ManaHatch,
+    AspectHatch,
     // endregion
 
     ;

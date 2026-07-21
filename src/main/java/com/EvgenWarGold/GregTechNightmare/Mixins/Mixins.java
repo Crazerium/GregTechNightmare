@@ -16,7 +16,11 @@ public enum Mixins implements IMixins {
             "MultiblockTooltipBuilderAccessor",
             "EntityManaBurstMixin",
             "TileSpreaderMixin",
-            "HUDHandlerBotaniaMixin")
+            "HUDHandlerBotaniaMixin",
+            "TileTubeMixin",
+            "ThaumcraftApiHelperMixin",
+            "TileJarFillableMixin",
+            "BlockTubeRendererMixin")
         // "FixMultiblockBuilderMixins")
         .setPhase(Phase.LATE)),
 
