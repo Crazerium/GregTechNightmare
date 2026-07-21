@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 
@@ -59,6 +60,14 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.mManaHatch.size();
+        }
+    },
+
+    AspectHatch("AspectHatch", (base, tile, casing) -> base.addAspectHatchToMachineList(tile), GTN_AspectHatch.class) {
+
+        @Override
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
+            return gtnMultiBlockBase.mAspectHatch.size();
         }
     },
 

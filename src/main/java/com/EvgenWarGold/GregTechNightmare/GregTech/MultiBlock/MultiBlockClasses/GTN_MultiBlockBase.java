@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -89,6 +90,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
     public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
     public ArrayList<GTN_ManaHatch> mManaHatch = new ArrayList<>();
+    public ArrayList<GTN_AspectHatch> mAspectHatch = new ArrayList<>();
     public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
@@ -135,6 +137,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamOutputBusses.clear();
         this.mSensorHatch.clear();
         this.mManaHatch.clear();
+        this.mAspectHatch.clear();
         this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
@@ -586,6 +589,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return mManaHatch.add(manaHatch);
     }
 
+    public final boolean addAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_AspectHatch aspectHatch)) return false;
+
+        return mAspectHatch.add(aspectHatch);
+    }
+
     public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
         if (baseCheckHatch(tileEntity)) return false;
 
@@ -978,6 +989,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
         for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mAspectHatch) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }
