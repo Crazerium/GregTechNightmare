@@ -291,6 +291,21 @@ multiblock.WaterModuleMagicGenerator.machine_type=Magic Generator Module
 #FireModuleMagicGenerator
 multiblock.FireModuleMagicGenerator=Fire Module Magic Generator
 multiblock.FireModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.FireModuleMagicGenerator.tooltip.00=Functions only in the §cNether
+multiblock.FireModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.FireModuleMagicGenerator.tooltip.02=    Lux: §a100,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.03=    Lux + Cognitio: §a250,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.04=    Lux + Cognitio + Fames: §a350,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.05=    Lux + Cognitio + Fames + Terminus: §a500,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.06=Fluid Buffs:
+multiblock.FireModuleMagicGenerator.tooltip.07=    Lava: §a2,000 L/s§r, §6x2§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.08=    Indalloy 140: §a300 L/s§r, §6x3§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.09=    Blood: §a15,000 L/s§r, §6x4§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
+multiblock.FireModuleMagicGenerator.tooltip.11=    Reinforced slate: §6x128§7 reduces fluid consumption by §625%
+multiblock.FireModuleMagicGenerator.tooltip.12=    Incendium: §6x32§7 reduces fluid consumption by §650%
+multiblock.FireModuleMagicGenerator.tooltip.13=    Offensa: §6x8§7 reduces fluid consumption by §675%
+multiblock.FireModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
 
 #AirModuleMagicGenerator
 multiblock.AirModuleMagicGenerator=Air Module Magic Generator
