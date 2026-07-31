@@ -302,14 +302,33 @@ multiblock.FireModuleMagicGenerator.tooltip.07=    Lava: §a2,000 L/s§r, §6x2�
 multiblock.FireModuleMagicGenerator.tooltip.08=    Indalloy 140: §a300 L/s§r, §6x3§7 energy buff
 multiblock.FireModuleMagicGenerator.tooltip.09=    Blood: §a15,000 L/s§r, §6x4§7 energy buff
 multiblock.FireModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
-multiblock.FireModuleMagicGenerator.tooltip.11=    Reinforced slate: §6x128§7 reduces fluid consumption by §625%
-multiblock.FireModuleMagicGenerator.tooltip.12=    Incendium: §6x32§7 reduces fluid consumption by §650%
-multiblock.FireModuleMagicGenerator.tooltip.13=    Offensa: §6x8§7 reduces fluid consumption by §675%
+multiblock.FireModuleMagicGenerator.tooltip.11=    Reinforced slate: §d128x§7 reduces fluid consumption by §625%
+multiblock.FireModuleMagicGenerator.tooltip.12=    Incendium: §d32x§7 reduces fluid consumption by §650%
+multiblock.FireModuleMagicGenerator.tooltip.13=    Offensa: §d8x§7 reduces fluid consumption by §675%
 multiblock.FireModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
 
 #AirModuleMagicGenerator
 multiblock.AirModuleMagicGenerator=Air Module Magic Generator
 multiblock.AirModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.AirModuleMagicGenerator.tooltip.00=Functions only in the §cEnd
+multiblock.AirModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.AirModuleMagicGenerator.tooltip.02=    Arbor: §a1,250,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.03=    Arbor + Sensus: §a3,125,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.04=    Arbor + Sensus + Volatus: §a4,375,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.05=    Arbor + Sensus + Volatus + Auram: §a6,250,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.06=    Arbor consumption: §b100 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.07=    Sensus consumption: §b200 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.08=    Volatus consumption: §b300 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.09=    Auram consumption: §b400 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.AirModuleMagicGenerator.tooltip.11=    Water Grade 1: §a2,000 L/s§r, §6x2§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.12=    Ender Goo: §a300 L/s§r, §6x3§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.13=    Argon: §a1,000 L/s§r, §6x4§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.AirModuleMagicGenerator.tooltip.15=    Salis Mundus Block: §d512x§7 reduces fluid consumption by §625%
+multiblock.AirModuleMagicGenerator.tooltip.16=    Void Metal Block: §d512x§7 reduces fluid consumption by §650%
+multiblock.AirModuleMagicGenerator.tooltip.17=    Ichor: §d32x§7 reduces fluid consumption by §675%
+multiblock.AirModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
 
 #OrderModuleMagicGenerator
 multiblock.OrderModuleMagicGenerator=Order Module Magic Generator
@@ -333,9 +352,9 @@ multiblock.EarthModuleMagicGenerator.tooltip.07=    Lubricant: §a3,000 L/s§r, 
 multiblock.EarthModuleMagicGenerator.tooltip.08=    Radon: §a500 L/s§r, §6x3§7 energy buff
 multiblock.EarthModuleMagicGenerator.tooltip.09=    Mana: §a3,000 L/s§r, §6x4§7 energy buff
 multiblock.EarthModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
-multiblock.EarthModuleMagicGenerator.tooltip.11=    Manasteel: §6x32§7 reduces fluid consumption by §625%
-multiblock.EarthModuleMagicGenerator.tooltip.12=    Earth Rune: §6x8§7 reduces fluid consumption by §650%
-multiblock.EarthModuleMagicGenerator.tooltip.13=    Terrasteel: §6x1§7 reduces fluid consumption by §675%
+multiblock.EarthModuleMagicGenerator.tooltip.11=    Manasteel: §d32x§7 reduces fluid consumption by §625%
+multiblock.EarthModuleMagicGenerator.tooltip.12=    Earth Rune: §d8x§7 reduces fluid consumption by §650%
+multiblock.EarthModuleMagicGenerator.tooltip.13=    Terrasteel: §d1x§7 reduces fluid consumption by §675%
 multiblock.EarthModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
 
 #RecipeResult
@@ -361,6 +380,7 @@ GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
 GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
 GTN.TooltipBuilder.ManaHatch=Mana Hatch
 GTN.TooltipBuilder.AspectHatch=Aspect Hatch
+GTN.TooltipBuilder.MeAspectHatch=ME Aspect Hatch
 GTN.StructureLib.text.missing_block=§cMissing block: %s
 GTN.StructureLib.text.invalid_placement=§cInvalid block placement
 GTN.Tooltip.mana_hud.tier.0=§cTier I

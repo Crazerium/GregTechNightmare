@@ -15,6 +15,7 @@ public class ThaumicBasesBlocks extends ModHandler {
     public final ModBlock WaterCrystalBlock;
     public final ModBlock OrderCrystalBlock;
     public final ModBlock EntropyCrystalBlock;
+    public final ModBlock SalisMundusBlock;
 
     public ThaumicBasesBlocks() {
         super(Mods.ThaumicBases);
@@ -27,5 +28,6 @@ public class ThaumicBasesBlocks extends ModHandler {
         WaterCrystalBlock = createBlock("crystalBlock", 2);
         OrderCrystalBlock = createBlock("crystalBlock", 4);
         EntropyCrystalBlock = createBlock("crystalBlock", 5);
+        SalisMundusBlock = createBlock("blockSalisMundus");
     }
 }

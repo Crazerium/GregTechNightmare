@@ -33,6 +33,6 @@ public abstract class ModHandler {
     }
 
     protected ModItem createItem(@NotNull String unlocalizedName, @NotNull String localizedName) {
-        return new ModItem(mod, unlocalizedName, 0, unlocalizedName);
+        return new ModItem(mod, unlocalizedName, 0, localizedName);
     }
 }

@@ -25,6 +25,7 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
+import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

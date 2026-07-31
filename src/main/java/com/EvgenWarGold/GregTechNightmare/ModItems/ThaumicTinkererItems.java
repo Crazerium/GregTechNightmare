@@ -8,10 +8,12 @@ import gregtech.api.enums.Mods;
 public class ThaumicTinkererItems extends ModHandler {
 
     public final ModItem WandFocusEfreetFlame;
+    public final ModItem Ichor;
 
     public ThaumicTinkererItems() {
         super(Mods.ThaumicTinkerer);
 
         WandFocusEfreetFlame = createItem("focusSmelt", "Wand Focus: Efreet's Flame");
+        Ichor = createItem("kamiResource", "Ichor");
     }
 }
