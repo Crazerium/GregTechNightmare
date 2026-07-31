@@ -56,8 +56,8 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     private static final FluidStack RADON;
 
     private static final int ASPECT_CONSUMPTION = 4;
-    private static final int LUBRICANT_CONSUMPTION = 200;
-    private static final int RADON_CONSUMPTION = 300;
+    private static final int LUBRICANT_CONSUMPTION = 3_000;
+    private static final int RADON_CONSUMPTION = 500;
     private static final int MANA_CONSUMPTION = 3_000;
 
     private static final ItemStack MANASTEEL_INGOT = ModItems.BOTANIA_ITEMS.ManaSteelIngot.get(1);
