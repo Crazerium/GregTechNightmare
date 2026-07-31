@@ -25,7 +25,10 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
+import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.TaintedMagicItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicHorizons;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -34,7 +37,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_RecipeBuilder;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicTinkererItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import goodgenerator.util.ItemRefer;
@@ -275,7 +278,7 @@ public class GTN_MultiBlockRecipesPool {
                 ItemList.Circuit_Chip_Biocell.get(64),
                 getSuperDense(Materials.RadoxPolymer, 24),
                 getFrameGt(Materials.CosmicNeutronium, 64),
-                ModItems.NEW_HORIZONS_CORE_MOD_ITEMS.HighEnergyFlowCircuit.get(64),
+                NewHorizonsCoreModItems.HighEnergyFlowCircuit.get(64),
                 ItemList.Circuit_Chip_BioCPU.get(64),
                 getGearGt(Materials.CosmicNeutronium, 64),
                 GregtechItemList.Laser_Lens_Special.get(1),
@@ -311,9 +314,9 @@ public class GTN_MultiBlockRecipesPool {
                 ItemList.Conveyor_Module_IV.get(4),
                 ItemRefer.HiC_T1.get(8),
                 getWireGt16(Materials.TungstenSteel, 8),
-                ModItems.TAINTED_MAGIC_ITEMS.WandFocusTime.get(1),
-                ModItems.THAUMIC_TINKERER_ITEMS.WandFocusEfreetFlame.get(1),
-                ModItems.THAUMIC_HORIZONS.WandFocusDisintegration.get(1)
+                TaintedMagicItems.WandFocusTime.get(1),
+                ThaumicTinkererItems.WandFocusEfreetFlame.get(1),
+                ThaumicHorizons.WandFocusDisintegration.get(1)
             )
             .itemOutputs(GTN_ItemList.LaserMeteorMiner.get(1))
 
@@ -374,8 +377,8 @@ public class GTN_MultiBlockRecipesPool {
                 GTN_Casings.SoulCasing.getItemStack(16),
                 getCircuits(Materials.IV, 4),
                 ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.getItemStack(1),
-                ModItems.ENDER_IO.OctadicCapacitor.get(8),
-                ModItems.ENDER_IO.PulsatingCrystal.get(16)
+                EnderIOItems.OctadicCapacitor.get(8),
+                EnderIOItems.PulsatingCrystal.get(16)
             )
             .itemOutputs(GTN_ItemList.ImprovedSliceNSplice.get(1))
             .eut(RECIPE_EV)

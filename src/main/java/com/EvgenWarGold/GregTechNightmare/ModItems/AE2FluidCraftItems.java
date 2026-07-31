@@ -1,17 +1,43 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
-
 import gregtech.api.enums.Mods;
+import net.minecraft.item.ItemStack;
 
-public class AE2FluidCraftItems extends ModHandler {
+public enum AE2FluidCraftItems {
 
-    public final ModItem SuperStockReplenisher;
+    // spotless:off
+    SuperStockReplenisher("super_stock_replenisher", "Super Stock Replenisher"),
+    ;
+    //spotless:on
 
-    public AE2FluidCraftItems() {
-        super(Mods.AE2FluidCraft);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-        SuperStockReplenisher = createItem("super_stock_replenisher", "Super Stock Replenisher");
+    AE2FluidCraftItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    AE2FluidCraftItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.AE2FluidCraft, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }
+

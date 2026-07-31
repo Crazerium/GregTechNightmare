@@ -1,21 +1,44 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
-
 import gregtech.api.enums.Mods;
+import net.minecraft.item.ItemStack;
 
-public class AppliedEnergisticsItems extends ModHandler {
+public enum AppliedEnergisticsItems {
 
-    public final ModItem MEController;
-    public final ModItem AccelerationCard;
-    public final ModItem CapacityCard;
+    // spotless:off
+    MEController("tile.BlockController", "ME Controller"),
+    AccelerationCard("item.ItemMultiMaterial", "Acceleration Card", 30),
+    CapacityCard("item.ItemMultiMaterial", "Capacity Card", 27),
+    ;
+    //spotless:on
 
-    public AppliedEnergisticsItems() {
-        super(Mods.AppliedEnergistics2);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-        MEController = createItem("tile.BlockController", "ME Controller");
-        AccelerationCard = createItem("item.ItemMultiMaterial", "Acceleration Card", 30);
-        CapacityCard = createItem("item.ItemMultiMaterial", "Capacity Card", 27);
+    AppliedEnergisticsItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    AppliedEnergisticsItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.AppliedEnergistics2, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }

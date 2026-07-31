@@ -1,27 +1,47 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
-
 import gregtech.api.enums.Mods;
+import net.minecraft.item.ItemStack;
 
-public class BloodMagicItems extends ModHandler {
+public enum BloodMagicItems {
 
-    public final ModItem BoundPickaxe;
-    public final ModItem LifeShard;
-    public final ModItem SoulShard;
-    public final ModItem ReinforcedSlate;
-    public final ModItem Incendium;
-    public final ModItem Offensa;
+    // spotless:off
+    BoundPickaxe("boundPickaxe", "Bound Pickaxe"),
+    LifeShard("bloodMagicBaseItems", "Life Shard", 28),
+    SoulShard("bloodMagicBaseItems", "Soul Shard", 29),
+    ReinforcedSlate("reinforcedSlate", "Reinforced Slate"),
+    Incendium("incendium", "Incendium"),
+    Offensa("bloodMagicBaseAlchemyItems", "Offensa"),
+    ;
+    //spotless:on
 
-    public BloodMagicItems() {
-        super(Mods.BloodMagic);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-        BoundPickaxe = createItem("boundPickaxe", "Bound Pickaxe");
-        LifeShard = createItem("bloodMagicBaseItems", "Life Shard", 28);
-        SoulShard = createItem("bloodMagicBaseItems", "Soul Shard", 29);
-        ReinforcedSlate = createItem("reinforcedSlate", "Reinforced Slate");
-        Incendium = createItem("incendium", "Incendium");
-        Offensa = createItem("bloodMagicBaseAlchemyItems", "Offensa");
+    BloodMagicItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    BloodMagicItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.BloodMagic, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }

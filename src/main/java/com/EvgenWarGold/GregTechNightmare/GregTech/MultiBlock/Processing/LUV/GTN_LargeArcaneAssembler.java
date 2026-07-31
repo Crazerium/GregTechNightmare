@@ -145,8 +145,8 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.GTN_FirstTick(aBaseMetaTileEntity);
 
         if (!aBaseMetaTileEntity.isServerSide()) return;
 

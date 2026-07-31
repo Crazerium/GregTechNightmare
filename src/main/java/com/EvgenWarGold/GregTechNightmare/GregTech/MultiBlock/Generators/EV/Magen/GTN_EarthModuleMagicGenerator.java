@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,7 +28,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -59,9 +59,9 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     private static final int RADON_CONSUMPTION = 500;
     private static final int MANA_CONSUMPTION = 3_000;
 
-    private static final ItemStack MANASTEEL_INGOT = ModItems.BOTANIA_ITEMS.ManaSteelIngot.get(1);
-    private static final ItemStack RUNE_OF_EARTH = ModItems.BOTANIA_ITEMS.RuneOfEarth.get(1);
-    private static final ItemStack TERRASTELL_INGOT = ModItems.BOTANIA_ITEMS.TerrasteelIngot.get(1);
+    private static ItemStack MANASTEEL_INGOT;
+    private static ItemStack RUNE_OF_EARTH;
+    private static ItemStack TERRASTELL_INGOT;
 
     private static final int MANASTEEL_INGOT_CONSUMPTION = 32;
     private static final int RUNE_OF_EARTH_CONSUMPTION = 8;
@@ -308,5 +308,13 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
         catalystData = CatalystData.readFromNBT(aNBT);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        MANASTEEL_INGOT = BotaniaItems.ManaSteelIngot.get();
+        RUNE_OF_EARTH = BotaniaItems.RuneOfEarth.get();
+        TERRASTELL_INGOT = BotaniaItems.TerrasteelIngot.get();
     }
 }

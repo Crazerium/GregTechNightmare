@@ -109,6 +109,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected final List<CasingData> registeredCasingData = new ArrayList<>();
     protected final MultiblockBlockCounter multiblockBlockCounter = new MultiblockBlockCounter();
     protected StructureVariant<T> neiVariant = null;
+    protected boolean initialized = false;
     // endregion
 
     // region Class Construct
@@ -1518,6 +1519,22 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         return true;
     }
+
+    @Override
+    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
+        super.onFirstTick(baseMetaTileEntity);
+
+        GTN_FirstTick(baseMetaTileEntity);
+
+        if (!initialized) {
+            initialize();
+            initialized = true;
+        }
+    }
+
+    protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
+
+    protected void initialize() {}
 
     // endregion
 }

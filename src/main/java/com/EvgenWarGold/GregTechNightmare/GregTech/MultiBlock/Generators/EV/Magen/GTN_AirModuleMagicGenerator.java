@@ -5,16 +5,10 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +17,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -32,12 +27,16 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicTinkererItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 import thaumcraft.api.aspects.Aspect;
 
 public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModuleMagicGenerator>
@@ -64,9 +63,9 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     private static final int ENDER_GOO_CONSUMPTION = 300;
     private static final int ARGON_CONSUMPTION = 1_000;
 
-    private static final ItemStack SALIS_MUNDUS_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.SalisMundusBlock.getItemStack(1);
-    private static final ItemStack VOID_METAL_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getItemStack(1);
-    private static final ItemStack ICHOR = ModItems.THAUMIC_TINKERER_ITEMS.Ichor.get(1);
+    private static ItemStack SALIS_MUNDUS_BLOCK;
+    private static ItemStack VOID_METAL_BLOCK;
+    private static ItemStack ICHOR;
 
     private static final int SALIS_MUNDUS_BLOCK_CONSUMPTION = 512;
     private static final int VOID_METAL_BLOCK_CONSUMPTION = 512;
@@ -121,26 +120,26 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
 
     @Override
     public List<StructureVariant<GTN_AirModuleMagicGenerator>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "AirModuleMagicGenerator",
                 // spotless:off
                 new String[][]{
-                    {"     CCC     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B     F      ","      B      ","             "," B         D ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B    BFB     ","             ","             "," B           ","             ","   B     D   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         D ","             ","   B         ","      D      "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BEB     ","      B      ","             "," B         B ","             ","   D     D   ","             "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BE      ","      B      ","             "," D         B ","             ","         B   ","      D      "},
-                    {"     B       ","   B         ","             "," B           ","             ","     FEF     ","D    EEE     ","     FEF     ","             ","           B ","             ","   D     B   ","      B      "},
-                    {"     B       ","   B         ","             "," D           ","     FEF     ","    FAAAF    ","    EAAAE    ","    FAAAF    ","     FEF     "," D         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   D         ","             ","             ","     FEF     ","    FAAAF    ","D   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
-                    {"     D       ","             ","             "," D           ","     FEF     ","    FAAAF    ","B   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
-                    {"             ","   D         ","             "," B           ","             ","     FEF     ","B    EEE     ","     FEF     ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     D       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     C~C     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "}
+                    {"     CCC     ", "   CCCCCCC   ", "  CCCCCCCCC  ", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "  CCCCCCCCC  ", "   CCCCCCC   ", "     CCC     "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B     B      ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B     F      ", "      B      ", "             ", " B         D ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B    BFB     ", "             ", "             ", " B           ", "             ", "   B     D   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B     B      ", "             ", "             ", " B         D ", "             ", "   B         ", "      D      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B    BEB     ", "      B      ", "             ", " B         B ", "             ", "   D     D   ", "             "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B    BE      ", "      B      ", "             ", " D         B ", "             ", "         B   ", "      D      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "     FEF     ", "D    EEE     ", "     FEF     ", "             ", "           B ", "             ", "   D     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " D           ", "     FEF     ", "    FAAAF    ", "    EAAAE    ", "    FAAAF    ", "     FEF     ", " D         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   D         ", "             ", "             ", "     FEF     ", "    FAAAF    ", "D   EAAAE    ", "    FAAAF    ", "     FEF     ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     D       ", "             ", "             ", " D           ", "     FEF     ", "    FAAAF    ", "B   EAAAE    ", "    FAAAF    ", "     FEF     ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"             ", "   D         ", "             ", " B           ", "             ", "     FEF     ", "B    EEE     ", "     FEF     ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     D       ", "   B         ", "             ", " B           ", "             ", "             ", "B            ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B            ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     C~C     ", "   CCCCCCC   ", "  CCCCCCCCC  ", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "  CCCCCCCCC  ", "   CCCCCCC   ", "     CCC     "}
                 },
                 //spotless:on
                 new MultiblockOffsets(6, 14, 0),
@@ -258,7 +257,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
 
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
+        IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currentTip, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
@@ -275,7 +274,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
 
     @Override
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-                                int z) {
+        int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
 
         tag.setInteger("generate", generate);
@@ -313,5 +312,13 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
         catalystData = CatalystData.readFromNBT(aNBT);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        SALIS_MUNDUS_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.SalisMundusBlock.getItemStack(1);
+        VOID_METAL_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getItemStack(1);
+        ICHOR = ThaumicTinkererItems.Ichor.get();
     }
 }

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.EvgenWarGold.GregTechNightmare.ModItems.BloodMagicItems;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,7 +27,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -62,9 +62,9 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
     private static final int INDALLOY_140_CONSUMPTION = 300;
     private static final int BLOOD_CONSUMPTION = 15_000;
 
-    private static final ItemStack REINFORCED_SLATE = ModItems.BLOOD_MAGIC_ITEMS.ReinforcedSlate.get(1);
-    private static final ItemStack INCENDIUM = ModItems.BLOOD_MAGIC_ITEMS.Incendium.get(1);
-    private static final ItemStack OFFENSA = ModItems.BLOOD_MAGIC_ITEMS.Offensa.get(1);
+    private static ItemStack REINFORCED_SLATE;
+    private static ItemStack INCENDIUM;
+    private static ItemStack OFFENSA;
 
     private static final int REINFORCED_SLATE_CONSUMPTION = 128;
     private static final int INCENDIUM_CONSUMPTION = 32;
@@ -311,5 +311,13 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
     public void loadNBTData(NBTTagCompound aNBT) {
         super.loadNBTData(aNBT);
         catalystData = CatalystData.readFromNBT(aNBT);
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        REINFORCED_SLATE = BloodMagicItems.ReinforcedSlate.get();
+        OFFENSA = BloodMagicItems.Offensa.get();
+        INCENDIUM = BloodMagicItems.Incendium.get();
     }
 }

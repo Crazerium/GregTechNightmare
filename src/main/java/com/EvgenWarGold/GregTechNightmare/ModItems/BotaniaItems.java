@@ -1,25 +1,45 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
-
 import gregtech.api.enums.Mods;
+import net.minecraft.item.ItemStack;
 
-public class BotaniaItems extends ModHandler {
+public enum BotaniaItems {
+    // spotless:off
+    TerraShatterer("terraPick", "Terra Shatterer"),
+    ManaLensBore("lens", "Mana Lens: Bore", 7),
+    ManaSteelIngot("manaResource", "Manasteel ingot"),
+    RuneOfEarth("rune", "Rune Of Earth", 2),
+    TerrasteelIngot("manaResource", "Terrasteel ingot", 4),
+    ;
+    //spotless:on
 
-    public final ModItem TerraShatterer;
-    public final ModItem ManaLensBore;
-    public final ModItem ManaSteelIngot;
-    public final ModItem RuneOfEarth;
-    public final ModItem TerrasteelIngot;
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-    public BotaniaItems() {
-        super(Mods.Botania);
+    BotaniaItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
 
-        TerraShatterer = createItem("terraPick", "Terra Shatterer");
-        ManaLensBore = createItem("lens", "Mana Lens: Bore", 7);
-        ManaSteelIngot = createItem("manaResource", "Manasteel ingot");
-        RuneOfEarth = createItem("rune", "Rune Of Earth", 2);
-        TerrasteelIngot = createItem("manaResource", "Terrasteel ingot", 4);
+    BotaniaItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.Botania, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }
