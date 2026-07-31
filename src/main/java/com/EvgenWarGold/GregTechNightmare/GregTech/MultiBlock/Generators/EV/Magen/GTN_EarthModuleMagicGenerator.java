@@ -299,7 +299,9 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
         super.saveNBTData(aNBT);
-        catalystData.writeToNBT(aNBT);
+        if (catalystData != null) {
+            catalystData.writeToNBT(aNBT);
+        }
     }
 
     @Override
