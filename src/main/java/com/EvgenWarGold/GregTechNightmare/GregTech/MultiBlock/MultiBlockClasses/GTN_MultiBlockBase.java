@@ -33,6 +33,7 @@ import org.jetbrains.annotations.Nullable;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -93,6 +94,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
     public ArrayList<GTN_ManaHatch> mManaHatch = new ArrayList<>();
     public ArrayList<GTN_AspectHatch> mAspectHatch = new ArrayList<>();
+    public ArrayList<GTN_MeAspectHatch> mMeAspectHatch = new ArrayList<>();
     public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
@@ -140,6 +142,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSensorHatch.clear();
         this.mManaHatch.clear();
         this.mAspectHatch.clear();
+        this.mMeAspectHatch.clear();
         this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
@@ -599,6 +602,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return mAspectHatch.add(aspectHatch);
     }
 
+    public final boolean addMeAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_MeAspectHatch aspectHatch)) return false;
+
+        return mMeAspectHatch.add(aspectHatch);
+    }
+
     public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
         if (baseCheckHatch(tileEntity)) return false;
 
@@ -992,6 +1003,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
         for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
         for (MTEHatch h : mAspectHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mMeAspectHatch) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }
@@ -1310,6 +1322,55 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                 remaining -= take;
 
                 if (remaining == 0) {
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeAspectFromMeHatches(Map<Aspect, Integer> aspectMap, boolean simulate) {
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int amount = entry.getValue();
+            long total = 0;
+
+            for (GTN_MeAspectHatch hatch : mMeAspectHatch) {
+                total += hatch.getAspectAmountInNetwork(aspect);
+
+                if (total >= amount) {
+                    break;
+                }
+            }
+
+            if (total < amount) {
+                return false;
+            }
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            long remaining = entry.getValue();
+
+            for (GTN_MeAspectHatch hatch : mMeAspectHatch) {
+                long available = hatch.getAspectAmountInNetwork(aspect);
+
+                if (available <= 0) {
+                    continue;
+                }
+
+                long take = Math.min(available, remaining);
+
+                hatch.extractEssentia(aspect, take, false);
+
+                remaining -= take;
+
+                if (remaining <= 0) {
                     break;
                 }
             }

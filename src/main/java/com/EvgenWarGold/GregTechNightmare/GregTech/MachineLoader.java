@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AirModuleMagicGenerator;
@@ -77,6 +78,7 @@ public final class MachineLoader {
         GTN_ItemList.EntropyModuleMagicGenerator.set(new GTN_EntropyModuleMagicGenerator(21_033, "EntropyModuleMagicGenerator"));
         GTN_ItemList.OrderModuleMagicGenerator.set(new GTN_OrderModuleMagicGenerator(21_034, "OrderModuleMagicGenerator"));
         GTN_ItemList.AspectHatch.set(new GTN_AspectHatch(21_035, "Aspect Hatch"));
+        GTN_ItemList.MeAspectHatch.set(new GTN_MeAspectHatch(21_036, "ME Aspect Hatch"));
         //spotless:on
     }
 }

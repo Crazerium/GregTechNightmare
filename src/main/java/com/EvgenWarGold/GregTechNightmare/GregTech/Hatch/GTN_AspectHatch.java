@@ -293,7 +293,7 @@ public class GTN_AspectHatch extends MTEHatch implements IAspectContainer, IEsse
             if (texturePage > 0 || textureIndex > 0) {
                 background = Textures.BlockIcons.casingTexturePages[texturePage][textureIndex];
             } else {
-                background = getLivingRockTexture();
+                background = getArcaneStoneBlockTexture();
             }
 
             if (side == aFacing) {
@@ -314,7 +314,7 @@ public class GTN_AspectHatch extends MTEHatch implements IAspectContainer, IEsse
         }
     }
 
-    private ITexture getLivingRockTexture() {
+    private ITexture getArcaneStoneBlockTexture() {
         if (cachedArcaneStoneBlockTexture != null) {
             return cachedArcaneStoneBlockTexture;
         }
