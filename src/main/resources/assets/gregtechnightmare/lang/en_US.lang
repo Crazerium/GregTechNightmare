@@ -307,6 +307,21 @@ multiblock.EntropyModuleMagicGenerator.machine_type=Magic Generator Module
 #EarthModuleMagicGenerator
 multiblock.EarthModuleMagicGenerator=Earth Module Magic Generator
 multiblock.EarthModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.EarthModuleMagicGenerator.tooltip.00=Functions only in the §cTwilight Forest
+multiblock.EarthModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.EarthModuleMagicGenerator.tooltip.02=    Metallum: §a10,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.03=    Metallum + Vitreus: §a25,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.04=    Metallum + Vitreus + Herba: §a35,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.05=    Metallum + Vitreus + Herba + Iter: §a50,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.06=Fluid Buffs:
+multiblock.EarthModuleMagicGenerator.tooltip.07=    Lubricant: §a200 L/s§r, §6x2§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.08=    Radon: §a300 L/s§r, §6x3§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.09=    Mana: §a3,000 L/s§r, §6x4§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
+multiblock.EarthModuleMagicGenerator.tooltip.11=    Manasteel: §6x32§7 reduces fluid consumption by §625%
+multiblock.EarthModuleMagicGenerator.tooltip.12=    Earth Rune: §6x8§7 reduces fluid consumption by §650%
+multiblock.EarthModuleMagicGenerator.tooltip.13=    Terrasteel: §6x1§7 reduces fluid consumption by §675%
+multiblock.EarthModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
 
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
@@ -330,6 +345,7 @@ GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
 GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
 GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
 GTN.TooltipBuilder.ManaHatch=Mana Hatch
+GTN.TooltipBuilder.AspectHatch=Aspect Hatch
 GTN.StructureLib.text.missing_block=§cMissing block: %s
 GTN.StructureLib.text.invalid_placement=§cInvalid block placement
 GTN.Tooltip.mana_hud.tier.0=§cTier I

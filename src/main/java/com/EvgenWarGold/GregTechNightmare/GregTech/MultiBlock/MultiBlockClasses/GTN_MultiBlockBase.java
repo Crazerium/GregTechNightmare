@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,11 +25,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
@@ -66,6 +67,7 @@ import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
+import thaumcraft.api.aspects.Aspect;
 
 public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extends MTEExtendedPowerMultiBlockBase<T>
     implements IConstructable, ISurvivalConstructable {
@@ -1223,6 +1225,237 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             info.add(EnumChatFormatting.RED + "Active Modules");
             info.addAll(list);
         }
+    }
+
+    public boolean consumeAspectFromHatches(Aspect aspect, int amount, boolean simulate) {
+        int total = 0;
+
+        for (GTN_AspectHatch hatch : mAspectHatch) {
+            total += hatch.containerContains(aspect);
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (GTN_AspectHatch hatch : mAspectHatch) {
+            int available = hatch.containerContains(aspect);
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            hatch.consumeAspect(aspect, take, false);
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeAspectFromHatches(Map<Aspect, Integer> aspectMap, boolean simulate) {
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int amount = entry.getValue();
+            int total = 0;
+
+            for (GTN_AspectHatch hatch : mAspectHatch) {
+                total += hatch.containerContains(aspect);
+
+                if (total >= amount) {
+                    break;
+                }
+            }
+
+            if (total < amount) {
+                return false;
+            }
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int remaining = entry.getValue();
+
+            for (GTN_AspectHatch hatch : mAspectHatch) {
+                int available = hatch.containerContains(aspect);
+
+                if (available <= 0) {
+                    continue;
+                }
+
+                int take = Math.min(available, remaining);
+
+                hatch.consumeAspect(aspect, take, false);
+
+                remaining -= take;
+
+                if (remaining == 0) {
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeFluidFromHatches(FluidStack fluid, int amount, boolean simulate) {
+        ArrayList<FluidStack> storedFluids = getStoredFluids();
+        int total = 0;
+
+        for (FluidStack stored : storedFluids) {
+            if (stored.isFluidEqual(fluid)) {
+                total += stored.amount;
+            }
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (FluidStack stored : storedFluids) {
+            if (!stored.isFluidEqual(fluid)) {
+                continue;
+            }
+
+            int available = stored.amount;
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            stored.amount -= take;
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeManaFromHatches(int amount, boolean simulate) {
+        int total = 0;
+
+        for (GTN_ManaHatch hatch : mManaHatch) {
+            total += hatch.getCurrentMana();
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (GTN_ManaHatch hatch : mManaHatch) {
+            int available = hatch.getCurrentMana();
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            hatch.extractMana(take, false);
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeItemFromHatches(ItemStack item, int amount, boolean simulate) {
+        ArrayList<ItemStack> storedItems = getAllStoredInputs();
+        int total = 0;
+
+        for (ItemStack stored : storedItems) {
+            if (stored.isItemEqual(item)) {
+                total += stored.stackSize;
+            }
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (ItemStack stored : storedItems) {
+            if (!stored.isItemEqual(item)) {
+                continue;
+            }
+
+            int available = stored.stackSize;
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            stored.stackSize -= take;
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
     }
 
     // endregion

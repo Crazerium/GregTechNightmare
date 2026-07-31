@@ -631,4 +631,28 @@ public class GTN_AspectHatch extends MTEHatch implements IAspectContainer, IEsse
             }
         }
     }
+
+    public boolean consumeAspect(Aspect aspect, int amount, boolean simulate) {
+        if (aspect == null || amount <= 0) {
+            return false;
+        }
+
+        int available = this.mAspects.getAmount(aspect);
+
+        if (available < amount) {
+            return false;
+        }
+
+        if (!simulate) {
+            this.mAspects.remove(aspect, amount);
+
+            if (this.mAspects.getAmount(aspect) <= 0) {
+                this.mAspects.aspects.remove(aspect);
+            }
+
+            this.markDirty();
+        }
+
+        return true;
+    }
 }
