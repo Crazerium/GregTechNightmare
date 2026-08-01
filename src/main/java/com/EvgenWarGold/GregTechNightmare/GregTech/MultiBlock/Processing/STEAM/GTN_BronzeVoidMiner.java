@@ -146,8 +146,8 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.GTN_FirstTick(aBaseMetaTileEntity);
 
         if (aBaseMetaTileEntity.isServerSide()) {
             if (aBaseMetaTileEntity.getWorld().provider.dimensionId != ALLOW_DIMENSION) {

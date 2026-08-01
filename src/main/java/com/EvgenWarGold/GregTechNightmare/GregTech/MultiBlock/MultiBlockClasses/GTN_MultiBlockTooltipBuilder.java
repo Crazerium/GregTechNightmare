@@ -44,6 +44,8 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String TT_DynamoOrBufferedHatch = StatCollector
         .translateToLocal("GTN.TooltipBuilder.DynamoOrBufferedHatch");
     private static final String TT_ManaHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ManaHatch");
+    private static final String TT_AspectHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.AspectHatch");
+    private static final String TT_MeAspectHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.MeAspectHatch");
     private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
     private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
@@ -193,6 +195,16 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
+    public GTN_MultiBlockTooltipBuilder addAspectHatch(int count, int dot) {
+        addHatch(TT_AspectHatch, count, dot);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMeAspectHatch(int count, int dot) {
+        addHatch(TT_MeAspectHatch, count, dot);
+        return this;
+    }
+
     public GTN_MultiBlockTooltipBuilder addSteamHatch() {
         addSteamHatch(1, 1);
         return this;
@@ -265,6 +277,16 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
 
     public GTN_MultiBlockTooltipBuilder addManaHatch() {
         addManaHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addAspectHatch() {
+        addAspectHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMeAspectHatch() {
+        addMeAspectHatch(1, 1);
         return this;
     }
 

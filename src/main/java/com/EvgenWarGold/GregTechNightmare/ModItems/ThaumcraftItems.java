@@ -1,19 +1,43 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
+import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.Mods;
 
-public class ThaumcraftItems extends ModHandler {
+public enum ThaumcraftItems {
 
-    public final ModItem salisMundus;
-    public final ModItem PickaxeElemental;
+    // spotless:off
+    PrimordialPearl("ItemEldritchObject", "Primordial Pearl", 3)
+    ;
+    //spotless:on
 
-    public ThaumcraftItems() {
-        super(Mods.Thaumcraft);
-        salisMundus = new ModItem(mod, "ItemResource", 14, "Salis Mundus");
-        PickaxeElemental = new ModItem(mod, "ItemPickaxeElemental", 0, "Pickaxe Elemental");
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
+    ThaumcraftItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    ThaumcraftItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.Thaumcraft, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }

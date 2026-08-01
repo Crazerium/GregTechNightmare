@@ -12,6 +12,7 @@ import static net.minecraft.util.StatCollector.translateToLocalFormatted;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -24,12 +25,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -64,6 +68,7 @@ import it.unimi.dsi.fastutil.Pair;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
+import thaumcraft.api.aspects.Aspect;
 
 public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extends MTEExtendedPowerMultiBlockBase<T>
     implements IConstructable, ISurvivalConstructable {
@@ -88,6 +93,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
     public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
     public ArrayList<GTN_ManaHatch> mManaHatch = new ArrayList<>();
+    public ArrayList<GTN_AspectHatch> mAspectHatch = new ArrayList<>();
+    public ArrayList<GTN_MeAspectHatch> mMeAspectHatch = new ArrayList<>();
     public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
     // Processing
     private int maxParallel = 1;
@@ -102,6 +109,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     protected final List<CasingData> registeredCasingData = new ArrayList<>();
     protected final MultiblockBlockCounter multiblockBlockCounter = new MultiblockBlockCounter();
     protected StructureVariant<T> neiVariant = null;
+    protected boolean initialized = false;
     // endregion
 
     // region Class Construct
@@ -134,6 +142,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         this.mSteamOutputBusses.clear();
         this.mSensorHatch.clear();
         this.mManaHatch.clear();
+        this.mAspectHatch.clear();
+        this.mMeAspectHatch.clear();
         this.mDynamoMultiHatches.clear();
         mainCasingCount = 0;
 
@@ -585,6 +595,22 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return mManaHatch.add(manaHatch);
     }
 
+    public final boolean addAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_AspectHatch aspectHatch)) return false;
+
+        return mAspectHatch.add(aspectHatch);
+    }
+
+    public final boolean addMeAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_MeAspectHatch aspectHatch)) return false;
+
+        return mMeAspectHatch.add(aspectHatch);
+    }
+
     public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
         if (baseCheckHatch(tileEntity)) return false;
 
@@ -782,9 +808,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
         super.onPostTick(aBaseMetaTileEntity, aTimer);
         if (aTimer % 100 == 5) {
-            for (CoordMultiBlock coord : multiBlocks.keySet()) {
-                tryLink(coord);
-            }
+            validateLinks();
         }
     }
     // endregion
@@ -979,6 +1003,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
         for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mAspectHatch) h.updateTexture(textureId);
+        for (MTEHatch h : mMeAspectHatch) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }
@@ -995,31 +1021,520 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             gte.getZCoord());
     }
 
-    public boolean tryLink(CoordMultiBlock coord) {
-        if (getCoord().equals(coord)) return false;
+    private void linkTo(CoordMultiBlock coord, IGregTechTileEntity targetTile) {
+        IMetaTileEntity meta = targetTile.getMetaTileEntity();
 
-        IGregTechTileEntity gte = multiBlocks.get(coord);
+        if (!(meta instanceof GTN_MultiBlockBase<?>target)) {
+            return;
+        }
 
-        if (gte == null) {
-            IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-            if (newGte != null) {
-                multiBlocks.put(coord, newGte);
-                return true;
+        if (linkUseSameType()) {
+            removeExistingLinkOfSameType(meta.getClass(), coord);
+        }
+
+        if (linkUseP2P()) {
+
+            Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> it = target.multiBlocks.entrySet()
+                .iterator();
+
+            while (it.hasNext()) {
+
+                Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = it.next();
+
+                IGregTechTileEntity oldTile = entry.getValue();
+
+                if (oldTile == null) {
+                    it.remove();
+                    continue;
+                }
+
+                IMetaTileEntity oldMeta = oldTile.getMetaTileEntity();
+
+                if (oldMeta instanceof GTN_MultiBlockBase<?>oldMachine) {
+                    oldMachine.multiBlocks.remove(target.getCoord());
+                }
+
+                it.remove();
             }
+        }
+
+        multiBlocks.put(coord, targetTile);
+
+        if (linkUseP2P()) {
+            target.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
+        }
+    }
+
+    private void validateLinks() {
+        Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> it = multiBlocks.entrySet()
+            .iterator();
+
+        while (it.hasNext()) {
+
+            Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = it.next();
+
+            CoordMultiBlock coord = entry.getKey();
+
+            IGregTechTileEntity gte = coord.getMTEMultiBlockBase();
+
+            if (gte == null) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity oldGte = entry.getValue();
+
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+                }
+
+                it.remove();
+                continue;
+            }
+
+            IMetaTileEntity mte = gte.getMetaTileEntity();
+
+            if (!(mte instanceof GTN_MultiBlockBase<?>otherMachine)) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity oldGte = entry.getValue();
+
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+                }
+
+                it.remove();
+                continue;
+            }
+
+            if (entry.getValue() == null) {
+
+                entry.setValue(gte);
+
+                if (linkUseP2P()) {
+                    otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
+                }
+
+                continue;
+            }
+
+            if (entry.getValue() != gte) {
+
+                if (linkUseP2P()) {
+                    IGregTechTileEntity oldGte = entry.getValue();
+
+                    if (oldGte != null && oldGte.getMetaTileEntity() instanceof GTN_MultiBlockBase<?>other) {
+                        other.multiBlocks.remove(getCoord());
+                    }
+
+                    otherMachine.multiBlocks.put(getCoord(), getBaseMetaTileEntity());
+                }
+
+                entry.setValue(gte);
+            }
+        }
+    }
+
+    private void removeExistingLinkOfSameType(Class<?> mteClass, CoordMultiBlock exceptCoord) {
+        Iterator<Map.Entry<CoordMultiBlock, IGregTechTileEntity>> iterator = multiBlocks.entrySet()
+            .iterator();
+
+        while (iterator.hasNext()) {
+
+            Map.Entry<CoordMultiBlock, IGregTechTileEntity> entry = iterator.next();
+
+            if (entry.getKey()
+                .equals(exceptCoord)) {
+                continue;
+            }
+
+            IGregTechTileEntity gte = entry.getValue();
+
+            if (gte == null) {
+                iterator.remove();
+                continue;
+            }
+
+            IMetaTileEntity mte = gte.getMetaTileEntity();
+
+            if (!mteClass.isInstance(mte)) {
+                continue;
+            }
+
+            if (linkUseP2P() && mte instanceof GTN_MultiBlockBase<?>otherMachine) {
+
+                otherMachine.multiBlocks.remove(getCoord());
+            }
+
+            iterator.remove();
+        }
+    }
+
+    public boolean tryLink(CoordMultiBlock coord) {
+        if (coord == null) return false;
+
+        if (coord.equals(getCoord())) return false;
+
+        IGregTechTileEntity gte = coord.getMTEMultiBlockBase();
+
+        if (gte == null) return false;
+
+        IMetaTileEntity mte = gte.getMetaTileEntity();
+
+        if (mte == null) return false;
+
+        if (!linkClassAllowed(mte.getClass())) return false;
+
+        linkTo(coord, gte);
+
+        return true;
+    }
+
+    public boolean linkClassAllowed(Class<?> clazz) {
+        return true;
+    }
+
+    public boolean linkUseSameType() {
+        return false;
+    }
+
+    public boolean linkUseP2P() {
+        return false;
+    }
+
+    @Override
+    public void getExtraInfoData(List<String> info) {
+        super.getExtraInfoData(info);
+
+        List<String> list = new ArrayList<>();
+
+        for (CoordMultiBlock coord : multiBlocks.keySet()) {
+            IGregTechTileEntity gte = multiBlocks.get(coord);
+            list.add(
+                EnumChatFormatting.GOLD + "     "
+                    + "Module Name: "
+                    + EnumChatFormatting.GREEN
+                    + gte.getMetaTileEntity()
+                        .getLocalName()
+                    + EnumChatFormatting.GOLD
+                    + " Dim: "
+                    + EnumChatFormatting.GREEN
+                    + coord.dim
+                    + EnumChatFormatting.GOLD
+                    + " X: "
+                    + EnumChatFormatting.GREEN
+                    + coord.x
+                    + EnumChatFormatting.GOLD
+                    + " Y: "
+                    + EnumChatFormatting.GREEN
+                    + coord.y
+                    + EnumChatFormatting.GOLD
+                    + " Z: "
+                    + EnumChatFormatting.GREEN
+                    + coord.z);
+        }
+
+        if (!list.isEmpty()) {
+            info.add(EnumChatFormatting.RED + "Active Modules");
+            info.addAll(list);
+        }
+    }
+
+    public boolean consumeAspectFromHatches(Aspect aspect, int amount, boolean simulate) {
+        int total = 0;
+
+        for (GTN_AspectHatch hatch : mAspectHatch) {
+            total += hatch.containerContains(aspect);
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
             return false;
         }
 
-        IMetaTileEntity mte = gte.getMetaTileEntity();
-        if (mte != null) return false;
-
-        multiBlocks.remove(coord);
-        IGregTechTileEntity newGte = coord.getMTEMultiBlockBase();
-        if (newGte != null) {
-            multiBlocks.put(coord, newGte);
+        if (simulate) {
             return true;
         }
 
-        return false;
+        int remaining = amount;
+
+        for (GTN_AspectHatch hatch : mAspectHatch) {
+            int available = hatch.containerContains(aspect);
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            hatch.consumeAspect(aspect, take, false);
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
     }
+
+    public boolean consumeAspectFromHatches(Map<Aspect, Integer> aspectMap, boolean simulate) {
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int amount = entry.getValue();
+            int total = 0;
+
+            for (GTN_AspectHatch hatch : mAspectHatch) {
+                total += hatch.containerContains(aspect);
+
+                if (total >= amount) {
+                    break;
+                }
+            }
+
+            if (total < amount) {
+                return false;
+            }
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int remaining = entry.getValue();
+
+            for (GTN_AspectHatch hatch : mAspectHatch) {
+                int available = hatch.containerContains(aspect);
+
+                if (available <= 0) {
+                    continue;
+                }
+
+                int take = Math.min(available, remaining);
+
+                hatch.consumeAspect(aspect, take, false);
+
+                remaining -= take;
+
+                if (remaining == 0) {
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeAspectFromMeHatches(Map<Aspect, Integer> aspectMap, boolean simulate) {
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            int amount = entry.getValue();
+            long total = 0;
+
+            for (GTN_MeAspectHatch hatch : mMeAspectHatch) {
+                total += hatch.getAspectAmountInNetwork(aspect);
+
+                if (total >= amount) {
+                    break;
+                }
+            }
+
+            if (total < amount) {
+                return false;
+            }
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        for (Map.Entry<Aspect, Integer> entry : aspectMap.entrySet()) {
+            Aspect aspect = entry.getKey();
+            long remaining = entry.getValue();
+
+            for (GTN_MeAspectHatch hatch : mMeAspectHatch) {
+                long available = hatch.getAspectAmountInNetwork(aspect);
+
+                if (available <= 0) {
+                    continue;
+                }
+
+                long take = Math.min(available, remaining);
+
+                hatch.extractEssentia(aspect, take, false);
+
+                remaining -= take;
+
+                if (remaining <= 0) {
+                    break;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeFluidFromHatches(FluidStack fluid, int amount, boolean simulate) {
+        ArrayList<FluidStack> storedFluids = getStoredFluids();
+        int total = 0;
+
+        for (FluidStack stored : storedFluids) {
+            if (stored.isFluidEqual(fluid)) {
+                total += stored.amount;
+            }
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (FluidStack stored : storedFluids) {
+            if (!stored.isFluidEqual(fluid)) {
+                continue;
+            }
+
+            int available = stored.amount;
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            stored.amount -= take;
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeManaFromHatches(int amount, boolean simulate) {
+        int total = 0;
+
+        for (GTN_ManaHatch hatch : mManaHatch) {
+            total += hatch.getCurrentMana();
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (GTN_ManaHatch hatch : mManaHatch) {
+            int available = hatch.getCurrentMana();
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            hatch.extractMana(take, false);
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean consumeItemFromHatches(ItemStack item, int amount, boolean simulate) {
+        ArrayList<ItemStack> storedItems = getAllStoredInputs();
+        int total = 0;
+
+        for (ItemStack stored : storedItems) {
+            if (stored.isItemEqual(item)) {
+                total += stored.stackSize;
+            }
+
+            if (total >= amount) {
+                break;
+            }
+        }
+
+        if (total < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        int remaining = amount;
+
+        for (ItemStack stored : storedItems) {
+            if (!stored.isItemEqual(item)) {
+                continue;
+            }
+
+            int available = stored.stackSize;
+
+            if (available <= 0) {
+                continue;
+            }
+
+            int take = Math.min(available, remaining);
+
+            stored.stackSize -= take;
+
+            remaining -= take;
+
+            if (remaining == 0) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
+        super.onFirstTick(baseMetaTileEntity);
+
+        GTN_FirstTick(baseMetaTileEntity);
+
+        if (!initialized) {
+            initialize();
+            initialized = true;
+        }
+    }
+
+    protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
+
+    protected void initialize() {}
+
     // endregion
 }

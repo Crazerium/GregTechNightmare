@@ -42,6 +42,11 @@ public class GTN_StructureBuilder<T> {
         return this;
     }
 
+    public GTN_StructureBuilder<T> addBlock(char name, Block block, int meta) {
+        builder.addElement(name, StructureUtility.ofBlock(block, meta));
+        return this;
+    }
+
     public GTN_StructureBuilder<T> addCasing(char name, GTN_Casings casings) {
         builder.addElement(name, casings.asElement());
         return this;

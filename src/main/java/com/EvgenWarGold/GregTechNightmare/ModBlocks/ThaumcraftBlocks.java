@@ -9,11 +9,15 @@ public class ThaumcraftBlocks extends ModHandler {
 
     public final ModBlock ArcaneBore;
     public final ModBlock AlchemicalConstruct;
+    public final ModBlock AmberBlock;
+    public final ModBlock ArcaneStoneBlock;
 
     public ThaumcraftBlocks() {
         super(Mods.Thaumcraft);
 
-        ArcaneBore = new ModBlock(mod, "blockWoodenDevice", 5, "Arcane Bore");
-        AlchemicalConstruct = new ModBlock(mod, "blockMetalDevice", 9, "Alchemical Construct");
+        ArcaneBore = createBlock("blockWoodenDevice", 5);
+        AlchemicalConstruct = createBlock("blockMetalDevice", 9);
+        AmberBlock = createBlock("blockCosmeticOpaque");
+        ArcaneStoneBlock = createBlock("blockCosmeticSolid", 6);
     }
 }

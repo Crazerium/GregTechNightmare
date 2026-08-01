@@ -91,8 +91,8 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.GTN_FirstTick(aBaseMetaTileEntity);
 
         if (aBaseMetaTileEntity.isServerSide()) {
             boolean matchFound = ALLOW_DIMENSION.stream()

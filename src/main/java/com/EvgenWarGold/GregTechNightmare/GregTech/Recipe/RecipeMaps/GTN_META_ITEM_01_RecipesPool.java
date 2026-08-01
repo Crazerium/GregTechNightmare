@@ -8,7 +8,8 @@ import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 import net.minecraft.init.Blocks;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BloodMagicItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -34,7 +35,7 @@ public class GTN_META_ITEM_01_RecipesPool {
             .itemInputs(
                 ItemList.Shape_Empty.get(64),
                 ItemList.MiningDroneHV.get(1),
-                ModItems.BOTANIA_ITEMS.ManaLensBore.get(1),
+                BotaniaItems.ManaLensBore.get(1),
                 ItemList.Emitter_IV.get(8),
                 ItemList.Sensor_IV.get(8)
             )
@@ -48,8 +49,8 @@ public class GTN_META_ITEM_01_RecipesPool {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTN_ItemList.MeteorMinerSchematic1.get(1),
-                ModItems.BLOOD_MAGIC_ITEMS.LifeShard.get(16),
-                ModItems.BLOOD_MAGIC_ITEMS.SoulShard.get(16),
+                BloodMagicItems.LifeShard.get(16),
+                BloodMagicItems.SoulShard.get(16),
                 ItemList.Emitter_LuV.get(8),
                 ItemList.Sensor_LuV.get(8)
             )

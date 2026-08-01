@@ -218,9 +218,9 @@ public enum GTN_Casings implements ICasing {
     TriniumCoilBlock
         (() -> GregTechAPI.sBlockCasings5, 10, gt(1, 0, 10)),
     ElectrumFluxCoilBlock
-        (() -> GregTechAPI.sBlockCasings5, 8, gt(1, 0, 8)),
+        (() -> GregTechAPI.sBlockCasings5, 7, gt(1, 0, 7)),
     AwakenedDraconiumCoilBlock
-        (() -> GregTechAPI.sBlockCasings5, 9, gt(1, 0, 9)),
+        (() -> GregTechAPI.sBlockCasings5, 8, gt(1, 0, 8)),
     InfinityCoilBlock
         (() -> GregTechAPI.sBlockCasings5, 11, gt(1, 0, 11)),
     HypogenCoilBlock

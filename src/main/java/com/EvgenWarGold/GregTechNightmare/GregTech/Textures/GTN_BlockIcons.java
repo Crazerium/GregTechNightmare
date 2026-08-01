@@ -9,7 +9,11 @@ import gregtech.api.interfaces.IIconContainer;
 
 public enum GTN_BlockIcons implements IIconContainer, Runnable {
 
-    MANA_HATCH_OVERLAY,;
+    // spotless:off
+    MANA_HATCH_OVERLAY,
+    ASPECT_HATCH_OVERLAY,
+    ;
+    //spotless:on
 
     public static final String RES_PATH = "gregtechnightmare:";
     private IIcon mIcon;

@@ -280,6 +280,145 @@ multiblock.MagicEBF.tooltip.00=An enhanced magical version of the EBF
 multiblock.MagicEBF.tooltip.01=Consumes §bmana §7at the rate of §c1 §aMana Spreaders
 multiblock.MagicEBF.tooltip.02=§aDoes not generate pollution
 
+#MagicGenerator
+multiblock.MagicGenerator=Magic Generator
+multiblock.MagicGenerator.machine_type=Generator
+multiblock.MagicGenerator.tooltip.00=Generates EU from connected modules
+multiblock.MagicGenerator.tooltip.01=Accepts §c1 §7module type: §aEarth §cFire §eAir §bWater §fOrder §8Entropy
+multiblock.MagicGenerator.tooltip.02=Each module: §a+25% §7bonus
+multiblock.MagicGenerator.tooltip.03=Final = §6Base §7× §6(1 + 0.25 × Modules)
+multiblock.MagicGenerator.tooltip.04=Use §6Structures Link Tool §7to connect modules
+
+#WaterModuleMagicGenerator
+multiblock.WaterModuleMagicGenerator=Water Module Magic Generator
+multiblock.WaterModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.WaterModuleMagicGenerator.tooltip.00=Functions only on §cEuropa
+multiblock.WaterModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.WaterModuleMagicGenerator.tooltip.02=    Victus: §a7,500,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.03=    Victus + Limus: §a18,750,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.04=    Victus + Limus + Venenum: §a26,250,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.05=    Victus + Limus + Venenum + Tempestas: §a37,500,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.06=    Victus consumption: §b1,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.07=    Limus consumption: §b2,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.08=    Venenum consumption: §b3,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.09=    Tempestas consumption: §b4,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.WaterModuleMagicGenerator.tooltip.11=    Gelid cryotheum: §a20,000 L/s§r, §6x2§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.12=    Fiery blood: §a10,000 L/s§r, §6x3§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.13=    Liquid DNA: §a50,000 L/s§r, §6x4§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.WaterModuleMagicGenerator.tooltip.15=    Snow queen blood: §d512x§7 reduces fluid consumption by §625%
+multiblock.WaterModuleMagicGenerator.tooltip.16=    Nether star block: §d512x§7 reduces fluid consumption by §650%
+multiblock.WaterModuleMagicGenerator.tooltip.17=    Dragon stone: §d512x§7 reduces fluid consumption by §675%
+multiblock.WaterModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
+
+#FireModuleMagicGenerator
+multiblock.FireModuleMagicGenerator=Fire Module Magic Generator
+multiblock.FireModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.FireModuleMagicGenerator.tooltip.00=Functions only in the §cNether
+multiblock.FireModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.FireModuleMagicGenerator.tooltip.02=    Lux: §a100,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.03=    Lux + Cognitio: §a250,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.04=    Lux + Cognitio + Fames: §a350,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.05=    Lux + Cognitio + Fames + Terminus: §a500,000 EU/t§7, 4 aspects per second
+multiblock.FireModuleMagicGenerator.tooltip.06=Fluid Buffs:
+multiblock.FireModuleMagicGenerator.tooltip.07=    Lava: §a2,000 L/s§r, §6x2§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.08=    Indalloy 140: §a300 L/s§r, §6x3§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.09=    Blood: §a15,000 L/s§r, §6x4§7 energy buff
+multiblock.FireModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
+multiblock.FireModuleMagicGenerator.tooltip.11=    Reinforced slate: §d128x§7 reduces fluid consumption by §625%
+multiblock.FireModuleMagicGenerator.tooltip.12=    Incendium: §d32x§7 reduces fluid consumption by §650%
+multiblock.FireModuleMagicGenerator.tooltip.13=    Offensa: §d8x§7 reduces fluid consumption by §675%
+multiblock.FireModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
+
+#AirModuleMagicGenerator
+multiblock.AirModuleMagicGenerator=Air Module Magic Generator
+multiblock.AirModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.AirModuleMagicGenerator.tooltip.00=Functions only in the §cEnd
+multiblock.AirModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.AirModuleMagicGenerator.tooltip.02=    Arbor: §a1,250,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.03=    Arbor + Sensus: §a3,125,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.04=    Arbor + Sensus + Volatus: §a4,375,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.05=    Arbor + Sensus + Volatus + Auram: §a6,250,000 EU/t
+multiblock.AirModuleMagicGenerator.tooltip.06=    Arbor consumption: §b100 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.07=    Sensus consumption: §b200 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.08=    Volatus consumption: §b300 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.09=    Auram consumption: §b400 §7per second
+multiblock.AirModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.AirModuleMagicGenerator.tooltip.11=    Water Grade 1: §a2,000 L/s§r, §6x2§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.12=    Ender Goo: §a300 L/s§r, §6x3§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.13=    Argon: §a1,000 L/s§r, §6x4§7 energy buff
+multiblock.AirModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.AirModuleMagicGenerator.tooltip.15=    Salis Mundus Block: §d512x§7 reduces fluid consumption by §625%
+multiblock.AirModuleMagicGenerator.tooltip.16=    Void Metal Block: §d512x§7 reduces fluid consumption by §650%
+multiblock.AirModuleMagicGenerator.tooltip.17=    Ichor: §d32x§7 reduces fluid consumption by §675%
+multiblock.AirModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
+
+#OrderModuleMagicGenerator
+multiblock.OrderModuleMagicGenerator=Order Module Magic Generator
+multiblock.OrderModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.OrderModuleMagicGenerator.tooltip.00=Functions only on §cCeres
+multiblock.OrderModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.OrderModuleMagicGenerator.tooltip.02=    Permutation: §a75,000,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.03=    Permutation + Instrumentum: §a187,500,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.04=    Permutation + Instrumentum + Motus: §a262,500,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.05=    Permutation + Instrumentum + Motus + Aequalitas: §a375,000,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.06=    Permutation consumption: §b1,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.07=    Instrumentum consumption: §b2,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.08=    Motus consumption: §b6,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.09=    Aequalitas consumption: §b8,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.OrderModuleMagicGenerator.tooltip.11=    Liquid oxygen: §a100,000 L/s§r, §6x2§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.12=    Molten Praseodium: §a2,000 L/s§r, §6x3§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.13=    Liquid death: §a20,000 L/s§r, §6x4§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.OrderModuleMagicGenerator.tooltip.15=    Super fuel binder: §d512x§7 reduces fluid consumption by §625%
+multiblock.OrderModuleMagicGenerator.tooltip.16=    Magic solid super fuel: §d512x§7 reduces fluid consumption by §650%
+multiblock.OrderModuleMagicGenerator.tooltip.17=    Primordial pearl: §d4x§7 reduces fluid consumption by §675%
+multiblock.OrderModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
+
+#EntropyModuleMagicGenerator
+multiblock.EntropyModuleMagicGenerator=Entropy Module Magic Generator
+multiblock.EntropyModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.EntropyModuleMagicGenerator.tooltip.00=Functions only on §cBarnarda E
+multiblock.EntropyModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.EntropyModuleMagicGenerator.tooltip.02=    Vacuos: §a500,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.03=    Vacuos + Mortus: §a1,250,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.04=    Vacuos + Mortus + Vitium: §a1,750,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.05=    Vacuos + Mortus + Vitium + Strontio: §a2,500,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.06=    Vacuos consumption: §b2,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.07=    Mortus consumption: §b4,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.08=    Vitium consumption: §b12,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.09=    Strontio consumption: §b16,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.EntropyModuleMagicGenerator.tooltip.11=    Unknown liquid: §a5,000 L/s§r, §6x2§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.12=    UU Amplifier: §a20,000 L/s§r, §6x3§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.13=    Dragon blood: §a10,000 L/s§r, §6x4§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.EntropyModuleMagicGenerator.tooltip.15=    Red heart: §d2048x§7 reduces fluid consumption by §625%
+multiblock.EntropyModuleMagicGenerator.tooltip.16=    Yellow heart: §d2048x§7 reduces fluid consumption by §650%
+multiblock.EntropyModuleMagicGenerator.tooltip.17=    Green heart: §d2048x§7 reduces fluid consumption by §675%
+multiblock.EntropyModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
+
+#EarthModuleMagicGenerator
+multiblock.EarthModuleMagicGenerator=Earth Module Magic Generator
+multiblock.EarthModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.EarthModuleMagicGenerator.tooltip.00=Functions only in the §cTwilight Forest
+multiblock.EarthModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.EarthModuleMagicGenerator.tooltip.02=    Metallum: §a10,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.03=    Metallum + Vitreus: §a25,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.04=    Metallum + Vitreus + Herba: §a35,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.05=    Metallum + Vitreus + Herba + Iter: §a50,000 EU/t§7, 4 aspects per second
+multiblock.EarthModuleMagicGenerator.tooltip.06=Fluid Buffs:
+multiblock.EarthModuleMagicGenerator.tooltip.07=    Lubricant: §a3,000 L/s§r, §6x2§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.08=    Radon: §a500 L/s§r, §6x3§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.09=    Mana: §a3,000 L/s§r, §6x4§7 energy buff
+multiblock.EarthModuleMagicGenerator.tooltip.10=Catalysts (§clasts 1 hour§7)
+multiblock.EarthModuleMagicGenerator.tooltip.11=    Manasteel: §d32x§7 reduces fluid consumption by §625%
+multiblock.EarthModuleMagicGenerator.tooltip.12=    Earth Rune: §d8x§7 reduces fluid consumption by §650%
+multiblock.EarthModuleMagicGenerator.tooltip.13=    Terrasteel: §d1x§7 reduces fluid consumption by §675%
+multiblock.EarthModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
@@ -302,6 +441,8 @@ GTN.TooltipBuilder.ExoticHatch=Multi-Amp | Laser Hatch
 GTN.TooltipBuilder.ExoticOrEnergyHatch=Multi-Amp | Laser | Energy Hatch
 GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
 GTN.TooltipBuilder.ManaHatch=Mana Hatch
+GTN.TooltipBuilder.AspectHatch=Aspect Hatch
+GTN.TooltipBuilder.MeAspectHatch=ME Aspect Hatch
 GTN.StructureLib.text.missing_block=§cMissing block: %s
 GTN.StructureLib.text.invalid_placement=§cInvalid block placement
 GTN.Tooltip.mana_hud.tier.0=§cTier I

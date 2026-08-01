@@ -12,6 +12,6 @@ public class DraconicEvolutionBlocks extends ModHandler {
     public DraconicEvolutionBlocks() {
         super(Mods.DraconicEvolution);
 
-        DissEnchanter = new ModBlock(mod, "dissEnchanter", 0, "Disenchanter");
+        DissEnchanter = createBlock("dissEnchanter");
     }
 }

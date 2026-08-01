@@ -1,10 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare.DeleteRecipe;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.AE2FluidCraftItems;
 
 public class DeleteRecipe {
 
     public static void init() {
-        DeleteRecipeUtils.removeRecipesByOutput(ModItems.AE_2_FLUID_CRAFT_ITEMS.SuperStockReplenisher.get(1));
+        DeleteRecipeUtils.removeRecipesByOutput(AE2FluidCraftItems.SuperStockReplenisher.get(1));
     }
 }

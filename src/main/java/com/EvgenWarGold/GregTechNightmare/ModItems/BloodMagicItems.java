@@ -1,21 +1,48 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
+import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.Mods;
 
-public class BloodMagicItems extends ModHandler {
+public enum BloodMagicItems {
 
-    public final ModItem BoundPickaxe;
-    public final ModItem LifeShard;
-    public final ModItem SoulShard;
+    // spotless:off
+    BoundPickaxe("boundPickaxe", "Bound Pickaxe"),
+    LifeShard("bloodMagicBaseItems", "Life Shard", 28),
+    SoulShard("bloodMagicBaseItems", "Soul Shard", 29),
+    ReinforcedSlate("reinforcedSlate", "Reinforced Slate"),
+    Incendium("incendium", "Incendium"),
+    Offensa("bloodMagicBaseAlchemyItems", "Offensa"),
+    ;
+    //spotless:on
 
-    public BloodMagicItems() {
-        super(Mods.BloodMagic);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-        BoundPickaxe = new ModItem(mod, "boundPickaxe", 0, "Bound Pickaxe");
-        LifeShard = new ModItem(mod, "bloodMagicBaseItems", 28, "Life Shard");
-        SoulShard = new ModItem(mod, "bloodMagicBaseItems", 29, "Soul Shard");
+    BloodMagicItems(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    BloodMagicItems(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.BloodMagic, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }

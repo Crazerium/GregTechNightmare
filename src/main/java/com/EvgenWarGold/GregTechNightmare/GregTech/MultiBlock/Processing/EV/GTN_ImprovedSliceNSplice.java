@@ -20,7 +20,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -30,16 +30,6 @@ import gregtech.api.util.GTUtility;
 public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSliceNSplice> {
 
     private static final Map<ItemStack, Integer> CAPACITOR_PARALLELS = new HashMap<>();
-
-    static {
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.BasicCapacitor.get(1), 4);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.DoubleLayerCapacitor.get(1), 8);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.OctadicCapacitor.get(1), 16);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.CrystallineCapacitor.get(1), 32);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.MelodicCapacitor.get(1), 64);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.StellarCapacitor.get(1), 128);
-        CAPACITOR_PARALLELS.put(ModItems.ENDER_IO.TotemicCapacitor.get(1), 512);
-    }
 
     public GTN_ImprovedSliceNSplice(int id, String name) {
         super(id, name);
@@ -120,4 +110,15 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
         return getParallelFromCapacitor();
     }
 
+    @Override
+    protected void initialize() {
+        super.initialize();
+        CAPACITOR_PARALLELS.put(EnderIOItems.BasicCapacitor.get(), 4);
+        CAPACITOR_PARALLELS.put(EnderIOItems.DoubleLayerCapacitor.get(), 8);
+        CAPACITOR_PARALLELS.put(EnderIOItems.OctadicCapacitor.get(), 16);
+        CAPACITOR_PARALLELS.put(EnderIOItems.CrystallineCapacitor.get(), 32);
+        CAPACITOR_PARALLELS.put(EnderIOItems.MelodicCapacitor.get(), 64);
+        CAPACITOR_PARALLELS.put(EnderIOItems.StellarCapacitor.get(), 128);
+        CAPACITOR_PARALLELS.put(EnderIOItems.TotemicCapacitor.get(), 512);
+    }
 }

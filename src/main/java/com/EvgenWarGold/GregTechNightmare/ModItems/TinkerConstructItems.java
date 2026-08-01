@@ -4,10 +4,12 @@ import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.Mods;
 
-public enum AE2FluidCraftItems {
+public enum TinkerConstructItems {
 
     // spotless:off
-    SuperStockReplenisher("super_stock_replenisher", "Super Stock Replenisher"),
+    MiniatureRedHeart("heartCanister", "Miniature Red Heart", 1),
+    MiniatureYellowHeart("heartCanister", "Miniature Yellow Heart", 3),
+    MiniatureGreenHeart("heartCanister", "Miniature Green Heart", 5),
     ;
     //spotless:on
 
@@ -16,19 +18,19 @@ public enum AE2FluidCraftItems {
     private final int meta;
     private ModItem cachedItem;
 
-    AE2FluidCraftItems(String unlocalizedName, String localizedName, int meta) {
+    TinkerConstructItems(String unlocalizedName, String localizedName, int meta) {
         this.unlocalizedName = unlocalizedName;
         this.localizedName = localizedName;
         this.meta = meta;
     }
 
-    AE2FluidCraftItems(String unlocalizedName, String localizedName) {
+    TinkerConstructItems(String unlocalizedName, String localizedName) {
         this(unlocalizedName, localizedName, 0);
     }
 
     private ModItem getItem() {
         if (cachedItem == null) {
-            cachedItem = new ModItem(Mods.AE2FluidCraft, unlocalizedName, localizedName, meta);
+            cachedItem = new ModItem(Mods.TinkerConstruct, unlocalizedName, localizedName, meta);
         }
         return cachedItem;
     }

@@ -1,17 +1,43 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
-import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
+import net.minecraft.item.ItemStack;
 
 import gregtech.api.enums.Mods;
 
-public class ThaumicHorizons extends ModHandler {
+public enum ThaumicHorizons {
 
-    public final ModItem WandFocusDisintegration;
+    // spotless:off
+    WandFocusDisintegration("focusDisintegration", "Wand Focus: Disintegration"),
+    ;
+    //spotless:on
 
-    public ThaumicHorizons() {
-        super(Mods.ThaumicHorizons);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModItem cachedItem;
 
-        WandFocusDisintegration = new ModItem(mod, "focusDisintegration", 0, "Wand Focus: Disintegration");
+    ThaumicHorizons(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    ThaumicHorizons(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    private ModItem getItem() {
+        if (cachedItem == null) {
+            cachedItem = new ModItem(Mods.ThaumicHorizons, unlocalizedName, localizedName, meta);
+        }
+        return cachedItem;
+    }
+
+    public ItemStack get() {
+        return getItem().get();
+    }
+
+    public ItemStack get(int count) {
+        return getItem().get(count);
     }
 }

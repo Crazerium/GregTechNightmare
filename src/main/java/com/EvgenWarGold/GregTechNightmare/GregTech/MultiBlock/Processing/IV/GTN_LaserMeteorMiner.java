@@ -638,8 +638,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.onFirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
+        super.GTN_FirstTick(aBaseMetaTileEntity);
         BlockHighlighter.registerHighlighter(this, blockHighlighter);
     }
 
