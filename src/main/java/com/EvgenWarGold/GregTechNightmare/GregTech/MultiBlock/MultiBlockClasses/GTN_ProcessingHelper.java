@@ -261,6 +261,70 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     public boolean consumeFluid(Map<FluidStack, Integer> fluidsMap) {
         return consumeFluid(fluidsMap, false);
     }
+
+    public boolean outputFluid(FluidStack fluid, int amount, boolean simulate) {
+        FluidStack outputFluid = fluid.copy();
+        outputFluid.amount = amount;
+
+        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
+        voidProtectionHelper.setMachine(multiblock)
+            .setFluidOutputs(new FluidStack[]{outputFluid})
+            .build();
+
+        boolean hasSpace = !voidProtectionHelper.isFluidFull();
+
+        if (!hasSpace) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        multiblock.mOutputFluids = new FluidStack[]{outputFluid.copy()};
+
+        return true;
+    }
+
+    public boolean outputFluid(FluidStack fluid, int amount) {
+        return outputFluid(fluid, amount, false);
+    }
+
+    public boolean outputFluid(Map<FluidStack, Integer> fluidsMap, boolean simulate) {
+        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
+        voidProtectionHelper.setMachine(multiblock);
+
+        List<FluidStack> allOutputs = new ArrayList<>();
+        for (Map.Entry<FluidStack, Integer> entry : fluidsMap.entrySet()) {
+            FluidStack fluid = entry.getKey();
+            int amount = entry.getValue();
+
+            FluidStack outputFluid = fluid.copy();
+            outputFluid.amount = amount;
+            allOutputs.add(outputFluid);
+        }
+
+        voidProtectionHelper.setFluidOutputs(allOutputs.toArray(new FluidStack[0]));
+        voidProtectionHelper.build();
+
+        boolean hasSpace = !voidProtectionHelper.isFluidFull();
+
+        if (!hasSpace) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        multiblock.mOutputFluids = allOutputs.toArray(new FluidStack[0]);
+
+        return true;
+    }
+
+    public boolean outputFluid(Map<FluidStack, Integer> fluidsMap) {
+        return outputFluid(fluidsMap, false);
+    }
     // endregion
 
     // region Aspects

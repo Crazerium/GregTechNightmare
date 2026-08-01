@@ -16,11 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import gregtech.api.enums.Materials;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -153,12 +156,17 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
         ItemStack input = new ItemStack(Items.stick);
+//        FluidStack outputFluid = Materials.Fluorine.getGas(1);
 //        ItemStack output = new ItemStack(Items.coal);
         Map<ItemStack, Integer> output = new HashMap<>();
+        Map<FluidStack, Integer> outputFluid = new HashMap<>();
 
         output.put(new ItemStack(Items.coal), 64);
         output.put(new ItemStack(Items.glass_bottle), 64);
         output.put(new ItemStack(Items.apple), 64);
+
+        outputFluid.put(Materials.Fluorine.getGas(1), 3_000);
+        outputFluid.put(Materials.Praseodymium.getMolten(1), 3_000);
 
 //        if (processingHelper.consumeItem(input, 4)) {
 //            processingHelper.outputItem(output, 64);
@@ -166,10 +174,15 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 //            return CheckRecipeResultRegistry.SUCCESSFUL;
 //        }
 
-        if (processingHelper.outputItem(output)) {
+        if (processingHelper.outputFluid(outputFluid)) {
             processingHelper.setDurationInSeconds(1);
             return processingHelper.resultSuccess();
         }
+
+//        if (processingHelper.outputItem(output)) {
+//            processingHelper.setDurationInSeconds(1);
+//            return processingHelper.resultSuccess();
+//        }
 
         return processingHelper.resultNoRecipe();
     }
