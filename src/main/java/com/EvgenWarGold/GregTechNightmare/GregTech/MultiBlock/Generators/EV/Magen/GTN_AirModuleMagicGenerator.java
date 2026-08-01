@@ -78,7 +78,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     private static final int TIER_3_GENERATE = 4_375_000;
     private static final int TIER_4_GENERATE = 6_250_000;
 
-    private static final int VALID_DIMENSION = 0;
+    private static final int VALID_DIMENSION = 1;
 
     static {
         TIER_1.put(Aspect.TREE, ARBOR_CONSUMPTION);

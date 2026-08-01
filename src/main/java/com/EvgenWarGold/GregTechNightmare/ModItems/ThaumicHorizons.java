@@ -1,7 +1,8 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import gregtech.api.enums.Mods;
 import net.minecraft.item.ItemStack;
+
+import gregtech.api.enums.Mods;
 
 public enum ThaumicHorizons {
 

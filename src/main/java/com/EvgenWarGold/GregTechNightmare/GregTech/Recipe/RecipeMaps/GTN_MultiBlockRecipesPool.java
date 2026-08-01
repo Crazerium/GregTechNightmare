@@ -25,10 +25,6 @@ import static gregtech.api.util.GTRecipeBuilder.MINUTES;
 import static gregtech.api.util.GTRecipeConstants.RESEARCH_ITEM;
 import static gregtech.api.util.GTRecipeConstants.SCANNING;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
-import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
-import com.EvgenWarGold.GregTechNightmare.ModItems.TaintedMagicItems;
-import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicHorizons;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -37,6 +33,10 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_RecipeBuilder;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.TaintedMagicItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicHorizons;
 import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicTinkererItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 

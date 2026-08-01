@@ -17,8 +17,7 @@ public class ModItem {
     protected final int meta;
     private ItemStack cachedStack;
 
-    protected ModItem(@NotNull String modID, @NotNull String unlocalizedName, @NotNull String localizedName,
-                      int meta) {
+    protected ModItem(@NotNull String modID, @NotNull String unlocalizedName, @NotNull String localizedName, int meta) {
         this.modID = modID;
         this.unlocalizedName = unlocalizedName;
         this.localizedName = localizedName;

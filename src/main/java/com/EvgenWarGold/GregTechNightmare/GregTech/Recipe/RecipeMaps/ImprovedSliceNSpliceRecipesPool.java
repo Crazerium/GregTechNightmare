@@ -4,11 +4,11 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static gregtech.api.enums.Materials.Water;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
+import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;

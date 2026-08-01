@@ -1,9 +1,11 @@
 package com.EvgenWarGold.GregTechNightmare.ModItems;
 
-import gregtech.api.enums.Mods;
 import net.minecraft.item.ItemStack;
 
+import gregtech.api.enums.Mods;
+
 public enum BotaniaItems {
+
     // spotless:off
     TerraShatterer("terraPick", "Terra Shatterer"),
     ManaLensBore("lens", "Mana Lens: Bore", 7),

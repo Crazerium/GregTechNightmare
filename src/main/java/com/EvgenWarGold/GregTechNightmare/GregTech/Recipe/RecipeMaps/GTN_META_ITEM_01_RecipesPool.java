@@ -5,11 +5,11 @@ import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.BloodMagicItems;
-import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import net.minecraft.init.Blocks;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BloodMagicItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
