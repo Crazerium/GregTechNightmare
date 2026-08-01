@@ -352,6 +352,25 @@ multiblock.AirModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Mu
 #OrderModuleMagicGenerator
 multiblock.OrderModuleMagicGenerator=Order Module Magic Generator
 multiblock.OrderModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.OrderModuleMagicGenerator.tooltip.00=Functions only on §cCeres
+multiblock.OrderModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.OrderModuleMagicGenerator.tooltip.02=    Permutation: §a75,000,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.03=    Permutation + Instrumentum: §a187,500,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.04=    Permutation + Instrumentum + Motus: §a262,500,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.05=    Permutation + Instrumentum + Motus + Aequalitas: §a375,000,000 EU/t
+multiblock.OrderModuleMagicGenerator.tooltip.06=    Permutation consumption: §b1,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.07=    Instrumentum consumption: §b2,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.08=    Motus consumption: §b6,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.09=    Aequalitas consumption: §b8,000 §7per second
+multiblock.OrderModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.OrderModuleMagicGenerator.tooltip.11=    Liquid oxygen: §a100,000 L/s§r, §6x2§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.12=    Molten Praseodium: §a2,000 L/s§r, §6x3§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.13=    Liquid death: §a20,000 L/s§r, §6x4§7 energy buff
+multiblock.OrderModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.OrderModuleMagicGenerator.tooltip.15=    Super fuel binder: §d512x§7 reduces fluid consumption by §625%
+multiblock.OrderModuleMagicGenerator.tooltip.16=    Magic solid super fuel: §d512x§7 reduces fluid consumption by §650%
+multiblock.OrderModuleMagicGenerator.tooltip.17=    Primordial pearl: §d4x§7 reduces fluid consumption by §675%
+multiblock.OrderModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
 
 #EntropyModuleMagicGenerator
 multiblock.EntropyModuleMagicGenerator=Entropy Module Magic Generator
