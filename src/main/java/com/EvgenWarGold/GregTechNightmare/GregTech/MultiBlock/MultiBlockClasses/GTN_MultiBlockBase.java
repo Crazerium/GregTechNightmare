@@ -100,6 +100,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     private int maxParallel = 1;
     private float euModifier = 1;
     private float speedBonus = 1;
+    protected final GTN_ProcessingHelper<?> processingHelper;
     // Global Variable
     public final Map<CoordMultiBlock, IGregTechTileEntity> multiBlocks = new HashMap<>();
     protected int multiBlockTier = 0;
@@ -116,12 +117,14 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public GTN_MultiBlockBase(int id, String name) {
         super(id, TRANSLATE_KEY + name, GTN_Utils.tr(TRANSLATE_KEY + name));
         MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
+        processingHelper = new GTN_ProcessingHelper<>(self());
         initDefaultVariant();
     }
 
     public GTN_MultiBlockBase(String name) {
         super(name);
         MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
+        processingHelper = new GTN_ProcessingHelper<>(self());
         initDefaultVariant();
     }
     // endregion

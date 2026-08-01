@@ -15,7 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumChatFormatting;
+
+import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
@@ -30,6 +34,7 @@ import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.recipe.check.CheckRecipeResult;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
@@ -141,5 +146,15 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     @Override
     public OverclockType getOverclockType() {
         return multiBlockTier > 1 ? OverclockType.PerfectOverclock : OverclockType.NormalOverclock;
+    }
+
+    @Override
+    public @NotNull CheckRecipeResult checkProcessing() {
+        if (processingHelper.consumeItem(new ItemStack(Items.stick), 4)) {
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultFailureMessage(EnumChatFormatting.RED + "TEST");
+        }
+
+        return processingHelper.resultNoRecipe();
     }
 }

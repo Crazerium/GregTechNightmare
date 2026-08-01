@@ -6,5 +6,6 @@ public class RecipeResultRegisters {
 
     public static void init() {
         CheckRecipeResultRegistry.register(new ResultInsufficientRangeTier(0, 0));
+        CheckRecipeResultRegistry.register(new ResultMessage(""));
     }
 }
