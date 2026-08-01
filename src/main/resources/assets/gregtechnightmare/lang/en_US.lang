@@ -287,6 +287,25 @@ multiblock.MagicGenerator.machine_type=Generator
 #WaterModuleMagicGenerator
 multiblock.WaterModuleMagicGenerator=Water Module Magic Generator
 multiblock.WaterModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.WaterModuleMagicGenerator.tooltip.00=Functions only on §cEuropa
+multiblock.WaterModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.WaterModuleMagicGenerator.tooltip.02=    Victus: §a7,500,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.03=    Victus + Limus: §a18,750,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.04=    Victus + Limus + Venenum: §a26,250,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.05=    Victus + Limus + Venenum + Tempestas: §a37,500,000 EU/t
+multiblock.WaterModuleMagicGenerator.tooltip.06=    Victus consumption: §b1,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.07=    Limus consumption: §b2,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.08=    Venenum consumption: §b3,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.09=    Tempestas consumption: §b4,000 §7per second
+multiblock.WaterModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.WaterModuleMagicGenerator.tooltip.11=    Gelid cryotheum: §a20,000 L/s§r, §6x2§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.12=    Fiery blood: §a10,000 L/s§r, §6x3§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.13=    Liquid DNA: §a50,000 L/s§r, §6x4§7 energy buff
+multiblock.WaterModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.WaterModuleMagicGenerator.tooltip.15=    Snow queen blood: §d512x§7 reduces fluid consumption by §625%
+multiblock.WaterModuleMagicGenerator.tooltip.16=    Nether star block: §d512x§7 reduces fluid consumption by §650%
+multiblock.WaterModuleMagicGenerator.tooltip.17=    Dragon stone: §d512x§7 reduces fluid consumption by §675%
+multiblock.WaterModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
 
 #FireModuleMagicGenerator
 multiblock.FireModuleMagicGenerator=Fire Module Magic Generator

@@ -12,6 +12,7 @@ public enum BotaniaItems {
     ManaSteelIngot("manaResource", "Manasteel ingot"),
     RuneOfEarth("rune", "Rune Of Earth", 2),
     TerrasteelIngot("manaResource", "Terrasteel ingot", 4),
+    DragonStone("manaResource", "Dragon Stone", 9),
     ;
     //spotless:on
 

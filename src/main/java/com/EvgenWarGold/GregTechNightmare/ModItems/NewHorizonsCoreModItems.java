@@ -8,6 +8,7 @@ public enum NewHorizonsCoreModItems {
 
     // spotless:off
     HighEnergyFlowCircuit("HighEnergyFlowCircuit", "High Energy Flow Circuit"),
+    SnowQueenBlood("SnowQueenBlood", "Snow Queen Blood")
         ;
     //spotless:on
 
