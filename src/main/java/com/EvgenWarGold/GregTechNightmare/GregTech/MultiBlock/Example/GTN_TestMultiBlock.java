@@ -12,12 +12,14 @@ import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -150,9 +152,23 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        if (processingHelper.consumeItem(new ItemStack(Items.stick), 4)) {
+        ItemStack input = new ItemStack(Items.stick);
+//        ItemStack output = new ItemStack(Items.coal);
+        Map<ItemStack, Integer> output = new HashMap<>();
+
+        output.put(new ItemStack(Items.coal), 64);
+        output.put(new ItemStack(Items.glass_bottle), 64);
+        output.put(new ItemStack(Items.apple), 64);
+
+//        if (processingHelper.consumeItem(input, 4)) {
+//            processingHelper.outputItem(output, 64);
+//            processingHelper.setDurationInSeconds(1);
+//            return CheckRecipeResultRegistry.SUCCESSFUL;
+//        }
+
+        if (processingHelper.outputItem(output)) {
             processingHelper.setDurationInSeconds(1);
-            return processingHelper.resultFailureMessage(EnumChatFormatting.RED + "TEST");
+            return processingHelper.resultSuccess();
         }
 
         return processingHelper.resultNoRecipe();

@@ -25,4 +25,9 @@ public class GTN_Utils {
             .getEffectiveSide()
             .isClient();
     }
+
+    @SafeVarargs
+    public static <T> T[] toArray(T... values) {
+        return values;
+    }
 }

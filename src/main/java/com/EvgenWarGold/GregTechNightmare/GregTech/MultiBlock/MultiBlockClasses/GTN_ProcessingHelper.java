@@ -1,8 +1,15 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.ItemEjectionHelper;
+import gregtech.api.util.VoidProtectionHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -107,6 +114,70 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
     public boolean consumeItem(Map<ItemStack, Integer> itemsMap) {
         return consumeItem(itemsMap, false);
+    }
+
+    public boolean outputItem(ItemStack item, int amount, boolean simulate) {
+        ItemStack outputStack = item.copy();
+        outputStack.stackSize = amount;
+
+        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
+        voidProtectionHelper.setMachine(multiblock)
+            .setItemOutputs(new ItemStack[]{outputStack})
+            .build();
+
+        boolean hasSpace = !voidProtectionHelper.isItemFull();
+
+        if (!hasSpace) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        multiblock.mOutputItems = GTN_Utils.toArray(outputStack.copy());
+
+        return true;
+    }
+
+    public boolean outputItem(ItemStack item, int amount) {
+        return outputItem(item, amount, false);
+    }
+
+    public boolean outputItem(Map<ItemStack, Integer> itemsMap, boolean simulate) {
+        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
+        voidProtectionHelper.setMachine(multiblock);
+
+        List<ItemStack> allOutputs = new ArrayList<>();
+        for (Map.Entry<ItemStack, Integer> entry : itemsMap.entrySet()) {
+            ItemStack item = entry.getKey();
+            int amount = entry.getValue();
+
+            ItemStack outputStack = item.copy();
+            outputStack.stackSize = amount;
+            allOutputs.add(outputStack);
+        }
+
+        voidProtectionHelper.setItemOutputs(allOutputs.toArray(new ItemStack[0]));
+        voidProtectionHelper.build();
+
+        boolean hasSpace = !voidProtectionHelper.isItemFull();
+
+        if (!hasSpace) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        multiblock.mOutputItems = allOutputs.toArray(new ItemStack[0]);
+
+        return true;
+    }
+
+    public boolean outputItem(Map<ItemStack, Integer> itemsMap) {
+        return outputItem(itemsMap, false);
     }
     // endregion
 
