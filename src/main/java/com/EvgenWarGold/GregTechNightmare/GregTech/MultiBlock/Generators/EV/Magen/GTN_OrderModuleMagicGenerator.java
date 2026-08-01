@@ -111,7 +111,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     }
 
     @Override
-    public int generate() {
+    public long generate() {
         return generate;
     }
 
@@ -265,7 +265,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
         currentTip.add(
             EnumChatFormatting.GREEN + "Generate: "
                 + EnumChatFormatting.AQUA
-                + formatNumber(tag.getInteger("generate")));
+                + formatNumber(tag.getLong("generate")));
         currentTip.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA
@@ -277,7 +277,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
                                 int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
 
-        tag.setInteger("generate", generate);
+        tag.setLong("generate", generate);
 
         if (catalystData != null) {
             tag.setInteger("catalyst", catalystData.getDuration());

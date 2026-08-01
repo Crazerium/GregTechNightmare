@@ -375,6 +375,25 @@ multiblock.OrderModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid 
 #EntropyModuleMagicGenerator
 multiblock.EntropyModuleMagicGenerator=Entropy Module Magic Generator
 multiblock.EntropyModuleMagicGenerator.machine_type=Magic Generator Module
+multiblock.EntropyModuleMagicGenerator.tooltip.00=Functions only on §cBarnarda E
+multiblock.EntropyModuleMagicGenerator.tooltip.01=Aspects:
+multiblock.EntropyModuleMagicGenerator.tooltip.02=    Vacuos: §a500,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.03=    Vacuos + Mortus: §a1,250,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.04=    Vacuos + Mortus + Vitium: §a1,750,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.05=    Vacuos + Mortus + Vitium + Strontio: §a2,500,000,000 EU/t
+multiblock.EntropyModuleMagicGenerator.tooltip.06=    Vacuos consumption: §b2,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.07=    Mortus consumption: §b4,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.08=    Vitium consumption: §b12,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.09=    Strontio consumption: §b16,000 §7per second
+multiblock.EntropyModuleMagicGenerator.tooltip.10=Fluid Buffs:
+multiblock.EntropyModuleMagicGenerator.tooltip.11=    Unknown liquid: §a5,000 L/s§r, §6x2§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.12=    UU Amplifier: §a20,000 L/s§r, §6x3§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.13=    Dragon blood: §a10,000 L/s§r, §6x4§7 energy buff
+multiblock.EntropyModuleMagicGenerator.tooltip.14=Catalysts (§clasts 1 hour§7)
+multiblock.EntropyModuleMagicGenerator.tooltip.15=    Red heart: §d2048x§7 reduces fluid consumption by §625%
+multiblock.EntropyModuleMagicGenerator.tooltip.16=    Yellow heart: §d2048x§7 reduces fluid consumption by §650%
+multiblock.EntropyModuleMagicGenerator.tooltip.17=    Green heart: §d2048x§7 reduces fluid consumption by §675%
+multiblock.EntropyModuleMagicGenerator.tooltip.18=Final EU/t = Base EU/t × Fluid Multiplier
 
 #EarthModuleMagicGenerator
 multiblock.EarthModuleMagicGenerator=Earth Module Magic Generator

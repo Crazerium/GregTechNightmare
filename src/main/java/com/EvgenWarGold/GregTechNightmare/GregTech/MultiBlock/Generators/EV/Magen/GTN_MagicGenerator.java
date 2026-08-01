@@ -141,7 +141,8 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     public @NotNull CheckRecipeResult checkProcessing() {
         if (multiBlocks.isEmpty()) return CheckRecipeResultRegistry.NO_RECIPE;
 
-        int generate = 0;
+        long generate = 0;
+        int activeModules = 0;
 
         for (CoordMultiBlock coord : multiBlocks.keySet()) {
             IGregTechTileEntity gte = multiBlocks.get(coord);
@@ -150,11 +151,15 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
             if (mte instanceof IMagicGeneratorModule module) {
                 if (gte.isActive()) {
                     generate += module.generate();
+                    activeModules++;
                 }
             }
         }
 
         if (generate == 0) return CheckRecipeResultRegistry.NO_RECIPE;
+
+        double bonusMultiplier = 1.0 + (activeModules * 0.25);
+        generate = (long) (generate * bonusMultiplier);
 
         setEnergyGenerate(generate);
         super.mEfficiency = getEfficiency();
