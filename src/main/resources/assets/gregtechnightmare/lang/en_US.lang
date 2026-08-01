@@ -283,6 +283,11 @@ multiblock.MagicEBF.tooltip.02=§aDoes not generate pollution
 #MagicGenerator
 multiblock.MagicGenerator=Magic Generator
 multiblock.MagicGenerator.machine_type=Generator
+multiblock.MagicGenerator.tooltip.00=Generates EU from connected modules
+multiblock.MagicGenerator.tooltip.01=Accepts §c1 §7module type: §aEarth §cFire §eAir §bWater §fOrder §8Entropy
+multiblock.MagicGenerator.tooltip.02=Each module: §a+25% §7bonus
+multiblock.MagicGenerator.tooltip.03=Final = §6Base §7× §6(1 + 0.25 × Modules)
+multiblock.MagicGenerator.tooltip.04=Use §6Structures Link Tool §7to connect modules
 
 #WaterModuleMagicGenerator
 multiblock.WaterModuleMagicGenerator=Water Module Magic Generator

@@ -1,10 +1,12 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen;
 
+import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.DynamoMulti;
 import static gregtech.api.enums.HatchElement.InputHatch;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -92,7 +94,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-
+        builder.addDynamoHatch();
     }
 
     @Override
@@ -103,7 +105,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     @Override
     public IStructureDefinition<GTN_MagicGenerator> getStructureDefinition() {
         return buildStructureDefinition(
-            builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch))
+            builder -> builder.addMainCasing('C', b -> b.hatches(DynamoMulti))
                 .addBlock('A', Loaders.essentiaCell, 0)
                 .addBlock('B', Loaders.essentiaFilterCasing, 0)
                 .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
