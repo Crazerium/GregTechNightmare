@@ -16,14 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -38,6 +35,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
+import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 
@@ -156,8 +154,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
         ItemStack input = new ItemStack(Items.stick);
-//        FluidStack outputFluid = Materials.Fluorine.getGas(1);
-//        ItemStack output = new ItemStack(Items.coal);
+        // FluidStack outputFluid = Materials.Fluorine.getGas(1);
+        // ItemStack output = new ItemStack(Items.coal);
         Map<ItemStack, Integer> output = new HashMap<>();
         Map<FluidStack, Integer> outputFluid = new HashMap<>();
 
@@ -168,21 +166,21 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         outputFluid.put(Materials.Fluorine.getGas(1), 3_000);
         outputFluid.put(Materials.Praseodymium.getMolten(1), 3_000);
 
-//        if (processingHelper.consumeItem(input, 4)) {
-//            processingHelper.outputItem(output, 64);
-//            processingHelper.setDurationInSeconds(1);
-//            return CheckRecipeResultRegistry.SUCCESSFUL;
-//        }
+        // if (processingHelper.consumeItem(input, 4)) {
+        // processingHelper.outputItem(output, 64);
+        // processingHelper.setDurationInSeconds(1);
+        // return CheckRecipeResultRegistry.SUCCESSFUL;
+        // }
 
         if (processingHelper.outputFluid(outputFluid)) {
             processingHelper.setDurationInSeconds(1);
             return processingHelper.resultSuccess();
         }
 
-//        if (processingHelper.outputItem(output)) {
-//            processingHelper.setDurationInSeconds(1);
-//            return processingHelper.resultSuccess();
-//        }
+        // if (processingHelper.outputItem(output)) {
+        // processingHelper.setDurationInSeconds(1);
+        // return processingHelper.resultSuccess();
+        // }
 
         return processingHelper.resultNoRecipe();
     }

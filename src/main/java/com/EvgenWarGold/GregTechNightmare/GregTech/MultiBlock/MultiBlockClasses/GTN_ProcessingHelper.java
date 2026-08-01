@@ -1,15 +1,9 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
-import gregtech.api.util.GTUtility;
-import gregtech.api.util.ItemEjectionHelper;
-import gregtech.api.util.VoidProtectionHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -17,9 +11,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultMessage;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.util.VoidProtectionHelper;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
 import thaumcraft.api.aspects.Aspect;
 
@@ -122,7 +118,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
         voidProtectionHelper.setMachine(multiblock)
-            .setItemOutputs(new ItemStack[]{outputStack})
+            .setItemOutputs(new ItemStack[] { outputStack })
             .build();
 
         boolean hasSpace = !voidProtectionHelper.isItemFull();
@@ -268,7 +264,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
         voidProtectionHelper.setMachine(multiblock)
-            .setFluidOutputs(new FluidStack[]{outputFluid})
+            .setFluidOutputs(new FluidStack[] { outputFluid })
             .build();
 
         boolean hasSpace = !voidProtectionHelper.isFluidFull();
@@ -281,7 +277,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             return true;
         }
 
-        multiblock.mOutputFluids = new FluidStack[]{outputFluid.copy()};
+        multiblock.mOutputFluids = new FluidStack[] { outputFluid.copy() };
 
         return true;
     }
