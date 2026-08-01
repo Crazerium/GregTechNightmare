@@ -153,7 +153,9 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-
+        builder.addInputBus()
+            .addInputHatch()
+            .addMeAspectHatch();
     }
 
     @Override

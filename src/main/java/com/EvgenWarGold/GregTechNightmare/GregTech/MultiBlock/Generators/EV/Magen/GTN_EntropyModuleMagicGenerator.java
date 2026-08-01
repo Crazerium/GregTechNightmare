@@ -156,7 +156,9 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-
+        builder.addInputBus()
+            .addInputHatch()
+            .addMeAspectHatch();
     }
 
     @Override

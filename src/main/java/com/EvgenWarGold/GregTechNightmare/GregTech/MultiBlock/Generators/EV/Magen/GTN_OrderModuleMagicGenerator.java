@@ -157,7 +157,9 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-
+        builder.addInputBus()
+            .addInputHatch()
+            .addMeAspectHatch();
     }
 
     @Override
