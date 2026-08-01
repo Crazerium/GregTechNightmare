@@ -1,12 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen;
 
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.DynamoMulti;
-import static gregtech.api.enums.HatchElement.InputHatch;
 
 import java.util.Arrays;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

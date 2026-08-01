@@ -262,9 +262,7 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
         NBTTagCompound tag = accessor.getNBTData();
 
         currentTip.add(
-            EnumChatFormatting.GREEN + "Generate: "
-                + EnumChatFormatting.AQUA
-                + formatNumber(tag.getLong("generate")));
+            EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
         currentTip.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA

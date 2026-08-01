@@ -263,9 +263,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
         NBTTagCompound tag = accessor.getNBTData();
 
         currentTip.add(
-            EnumChatFormatting.GREEN + "Generate: "
-                + EnumChatFormatting.AQUA
-                + formatNumber(tag.getLong("generate")));
+            EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
         currentTip.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA

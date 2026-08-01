@@ -5,19 +5,10 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumcraftItems;
-import com.EvgenWarGold.GregTechNightmare.ModItems.TinkerConstructItems;
-import gregtech.api.enums.ItemList;
-import gregtech.api.enums.TCAspects;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gtPlusPlus.core.material.MaterialsElements;
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,6 +17,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -35,14 +27,19 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.TinkerConstructItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.TCAspects;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gtPlusPlus.core.material.MaterialsElements;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 import thaumcraft.api.aspects.Aspect;
-import thaumcraft.common.config.ConfigBlocks;
 
 public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EntropyModuleMagicGenerator>
     implements IMagicGeneratorModule {
@@ -258,15 +255,13 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
 
     @Override
     public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
+        IWailaConfigHandler config) {
         super.getWailaBody(itemStack, currentTip, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
 
         currentTip.add(
-            EnumChatFormatting.GREEN + "Generate: "
-                + EnumChatFormatting.AQUA
-                + formatNumber(tag.getLong("generate")));
+            EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
         currentTip.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA
@@ -275,7 +270,7 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
 
     @Override
     public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-                                int z) {
+        int z) {
         super.getWailaNBTData(player, tile, tag, world, x, y, z);
 
         tag.setLong("generate", generate);

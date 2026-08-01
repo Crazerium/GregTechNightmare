@@ -259,9 +259,7 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
         NBTTagCompound tag = accessor.getNBTData();
 
         currentTip.add(
-            EnumChatFormatting.GREEN + "Generate: "
-                + EnumChatFormatting.AQUA
-                + formatNumber(tag.getLong("generate")));
+            EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
         currentTip.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA
