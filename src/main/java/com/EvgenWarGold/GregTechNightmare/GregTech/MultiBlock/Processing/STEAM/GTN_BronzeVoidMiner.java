@@ -3,7 +3,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputHatch;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,11 +36,7 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     private static VoidMinerUtils voidMiner = null;
     private static final int ALLOW_DIMENSION = 0;
     private static boolean preGenerated = false;
-    private static final FluidStack STEAM;
-
-    static {
-        STEAM = Materials.Steam.getGas(8_000);
-    }
+    private static FluidStack STEAM;
 
     public GTN_BronzeVoidMiner(int id, String name) {
         super(id, name);
@@ -53,18 +48,18 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
 
     @Override
     public List<StructureVariant<GTN_BronzeVoidMiner>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "BronzeVoidMiner",
                 // spotless:off
                 new String[][]{
-                    {"   "," C ","   "},
-                    {"   "," C ","   "},
-                    {"   "," C ","   "},
-                    {" C ","CAC"," C "},
-                    {" C ","CAC"," C "},
-                    {" C ","CAC"," C "},
-                    {"B~B","BBB","BBB"}
+                    {"   ", " C ", "   "},
+                    {"   ", " C ", "   "},
+                    {"   ", " C ", "   "},
+                    {" C ", "CAC", " C "},
+                    {" C ", "CAC", " C "},
+                    {" C ", "CAC", " C "},
+                    {"B~B", "BBB", "BBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 6, 0),
@@ -167,5 +162,11 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     @Override
     protected SoundResource getActivitySoundLoop() {
         return SoundResource.GTCEU_LOOP_MINER;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        STEAM = Materials.Steam.getGas(8_000);
     }
 }

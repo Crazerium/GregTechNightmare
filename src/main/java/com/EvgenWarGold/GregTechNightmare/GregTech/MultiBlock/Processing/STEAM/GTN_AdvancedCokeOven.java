@@ -5,7 +5,6 @@ import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockC
 import static com.gtnewhorizon.structurelib.util.XSTR.XSTR_INSTANCE;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -60,15 +59,15 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
 
     @Override
     public List<StructureVariant<GTN_AdvancedCokeOven>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "CokeOven",
                 // spotless:off
                 new String[][]{
-                    {"  A  "," AAA ","  A  ","     "},
-                    {" AAA "," AAA "," AAA ","     "},
-                    {" A~A ","AAAAA"," AAA ","  A  "},
-                    {" AAA ","AAAAA"," AAA ","  A  "}
+                    {"  A  ", " AAA ", "  A  ", "     "},
+                    {" AAA ", " AAA ", " AAA ", "     "},
+                    {" A~A ", "AAAAA", " AAA ", "  A  "},
+                    {" AAA ", "AAAAA", " AAA ", "  A  "}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 2, 0),

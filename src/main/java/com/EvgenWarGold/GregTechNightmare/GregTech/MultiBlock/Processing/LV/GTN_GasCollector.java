@@ -4,7 +4,6 @@ import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -42,18 +41,18 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
 
     @Override
     public List<StructureVariant<GTN_GasCollector>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "GasCollector",
                 // spotless:off
                 new String[][]{
-                    {"BBBBB","BBBBB","BBBBB","BBBBB","BBBBB"},
-                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
-                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
-                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
-                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
-                    {"CAAAC","A   A","A   A","A   A","CAAAC"},
-                    {"BB~BB","BBBBB","BBBBB","BBBBB","BBBBB"}
+                    {"BBBBB", "BBBBB", "BBBBB", "BBBBB", "BBBBB"},
+                    {"CAAAC", "A   A", "A   A", "A   A", "CAAAC"},
+                    {"CAAAC", "A   A", "A   A", "A   A", "CAAAC"},
+                    {"CAAAC", "A   A", "A   A", "A   A", "CAAAC"},
+                    {"CAAAC", "A   A", "A   A", "A   A", "CAAAC"},
+                    {"CAAAC", "A   A", "A   A", "A   A", "CAAAC"},
+                    {"BB~BB", "BBBBB", "BBBBB", "BBBBB", "BBBBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 6, 0),

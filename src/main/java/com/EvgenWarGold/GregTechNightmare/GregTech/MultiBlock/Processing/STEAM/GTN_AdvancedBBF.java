@@ -3,7 +3,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamInputBus;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.SteamOutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -34,17 +33,17 @@ public class GTN_AdvancedBBF extends GTN_MultiBlockBase<GTN_AdvancedBBF> {
 
     @Override
     public List<StructureVariant<GTN_AdvancedBBF>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "AdvancedBBF",
                 // spotless:off
                 new String[][]{
-                    {"     "," AAA "," A A "," AAA ","     "},
-                    {" AAA ","A   A","A A A","A   A"," AAA "},
-                    {" AAA ","A   A","A A A","A   A"," AAA "},
-                    {"AAAAA","A   A","A A A","A   A","AAAAA"},
-                    {"BA~AB","AAAAA","AAAAA","AAAAA","BAAAB"},
-                    {"B   B","     ","     ","     ","B   B"}
+                    {"     ", " AAA ", " A A ", " AAA ", "     "},
+                    {" AAA ", "A   A", "A A A", "A   A", " AAA "},
+                    {" AAA ", "A   A", "A A A", "A   A", " AAA "},
+                    {"AAAAA", "A   A", "A A A", "A   A", "AAAAA"},
+                    {"BA~AB", "AAAAA", "AAAAA", "AAAAA", "BAAAB"},
+                    {"B   B", "     ", "     ", "     ", "B   B"}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 4, 0),

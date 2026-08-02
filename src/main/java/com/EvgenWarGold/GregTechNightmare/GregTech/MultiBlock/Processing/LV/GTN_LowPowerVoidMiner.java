@@ -48,18 +48,18 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
 
     @Override
     public List<StructureVariant<GTN_LowPowerVoidMiner>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "LowPowerVoidMiner",
                 // spotless:off
                 new String[][]{
-                    {"   "," B ","   "},
-                    {"   "," B ","   "},
-                    {"   "," B ","   "},
-                    {" B ","BCB"," B "},
-                    {" B ","BCB"," B "},
-                    {" B ","BCB"," B "},
-                    {"A~A","AAA","AAA"}
+                    {"   ", " B ", "   "},
+                    {"   ", " B ", "   "},
+                    {"   ", " B ", "   "},
+                    {" B ", "BCB", " B "},
+                    {" B ", "BCB", " B "},
+                    {" B ", "BCB", " B "},
+                    {"A~A", "AAA", "AAA"}
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 6, 0),
