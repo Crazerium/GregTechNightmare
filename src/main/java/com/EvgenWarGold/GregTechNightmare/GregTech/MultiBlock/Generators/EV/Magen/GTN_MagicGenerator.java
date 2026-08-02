@@ -53,30 +53,30 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
     @Override
     public List<StructureVariant<GTN_MagicGenerator>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "MagicGenerator",
                 // spotless:off
                 new String[][]{
-                    {"               ","               ","               ","               ","               ","      CCC      ","     CAAAC     ","     CAEAC     ","     CAAAC     ","      CCC      ","               ","               ","               ","               ","               "},
-                    {"               ","               ","               ","               ","     CCCCC     ","    CCCCCCC    ","    CC   CC    ","    CC  ECC    ","    CC   CC    ","    CCCCCCC    ","     CCCCC     ","               ","               ","               ","               "},
-                    {"               ","               ","               ","      CDC      ","    DCAAACD    ","    C     C    ","   CA  E  AC   ","   DA     AD   ","   CA     AC   ","    C     C    ","    DCAAACD    ","      CDC      ","               ","               ","               "},
-                    {"     FFFFF     ","   FF     FF   ","  E         E  "," F    CDC    F "," F  DC   CD  F ","F   C     C   F","F  C       C  F","F  D  E    D  F","F  C       C  F","F   C     C   F"," F  DC   CD  F "," F    CDC    F ","  E         E  ","   FF     FF   ","     FFFFF     "},
-                    {"               ","               ","               ","    B CDC B    ","   BDC   CDB   ","    C     C    ","   C       C   ","   D       D   ","   C   E   C   ","    C     C    ","   BDC   CDB   ","    B CDC B    ","               ","               ","               "},
-                    {"               ","               ","      CDC      ","   DC     CD   ","   C       C   ","               ","  C         C  ","  D     E   D  ","  C         C  ","               ","   C       C   ","   DC     CD   ","      CDC      ","               ","               "},
-                    {"               ","  F   FFF   F  "," FF   CDC   FF ","   DC     CD   ","   C       C   ","               "," FC    E    CF "," FD         DF "," FC         CF ","               ","   C       C   ","   DC     CD   "," FF   CDC   FF ","  F   FFF   F  ","               "},
-                    {"               ","   F  FDF  F   ","  DF  FDF  FD  "," FFDC     CDFF ","   C       C   ","               "," FF         FF "," DD    E    DD "," FF         FF ","               ","   C       C   "," FFDC     CDFF ","  DF  FDF  FD  ","   F  FDF  F   ","               "},
-                    {"               ","       D       ","  DF  F F  FD  ","  FDC     CDF  ","   C       C   ","               ","  F   BBB   F  "," D    BEB    D ","  F   BBB   F  ","               ","   C       C   ","  FDC     CDF  ","  DF  F F  FD  ","       D       ","               "},
-                    {"               ","       ~       ","  DF  FDF  FD  ","  FDDDDDDDDDF  ","   D   D   D   ","   D   D   D   ","  FD  BBB  DF  "," DDDDDBEBDDDDD ","  FD  BBB  DF  ","   D   D   D   ","   D   D   D   ","  FDDDDDDDDDF  ","  DF  FDF  FD  ","       D       ","               "},
-                    {"               ","       D       ","  DF  F F  FD  ","  FDC     CDF  ","   C       C   ","               ","  F   BBB   F  "," D    BEB    D ","  F   BBB   F  ","               ","   C       C   ","  FDC     CDF  ","  DF  F F  FD  ","       D       ","               "},
-                    {"               ","   F  FDF  F   ","  DF  FDF  FD  "," FFDC     CDFF ","   C       C   ","               "," FF         FF "," DD    E    DD "," FF         FF ","               ","   C       C   "," FFDC     CDFF ","  DF  FDF  FD  ","   F  FDF  F   ","               "},
-                    {"               ","  F   FFF   F  "," FF   CDC   FF ","   DC     CD   ","   C       C   ","               "," FC    E    CF "," FD         DF "," FC         CF ","               ","   C       C   ","   DC     CD   "," FF   CDC   FF ","  F   FFF   F  ","               "},
-                    {"               ","               ","      CDC      ","   DC     CD   ","   C       C   ","               ","  C         C  ","  D     E   D  ","  C         C  ","               ","   C       C   ","   DC     CD   ","      CDC      ","               ","               "},
-                    {"               ","               ","               ","    B CDC B    ","   BDC   CDB   ","    C     C    ","   C       C   ","   D       D   ","   C   E   C   ","    C     C    ","   BDC   CDB   ","    B CDC B    ","               ","               ","               "},
-                    {"     FFFFF     ","   FF     FF   ","  E         E  "," F    CDC    F "," F  DC   CD  F ","F   C     C   F","F  C       C  F","F  D  E    D  F","F  C       C  F","F   C     C   F"," F  DC   CD  F "," F    CDC    F ","  E         E  ","   FF     FF   ","     FFFFF     "},
-                    {"               ","               ","               ","      CDC      ","    DCAAACD    ","    C     C    ","   CA  E  AC   ","   DA     AD   ","   CA     AC   ","    C     C    ","    DCAAACD    ","      CDC      ","               ","               ","               "},
-                    {"               ","               ","               ","               ","      CCC      ","     CCCCC     ","    CC   CC    ","    CC E CC    ","    CC   CC    ","     CCCCC     ","      CCC      ","               ","               ","               ","               "},
-                    {"               ","               ","               ","               ","               ","      CCC      ","     CAAAC     ","     CAEAC     ","     CAAAC     ","      CCC      ","               ","               ","               ","               ","               "}
+                    {"               ", "               ", "               ", "               ", "               ", "      CCC      ", "     CAAAC     ", "     CAEAC     ", "     CAAAC     ", "      CCC      ", "               ", "               ", "               ", "               ", "               "},
+                    {"               ", "               ", "               ", "               ", "     CCCCC     ", "    CCCCCCC    ", "    CC   CC    ", "    CC  ECC    ", "    CC   CC    ", "    CCCCCCC    ", "     CCCCC     ", "               ", "               ", "               ", "               "},
+                    {"               ", "               ", "               ", "      CDC      ", "    DCAAACD    ", "    C     C    ", "   CA  E  AC   ", "   DA     AD   ", "   CA     AC   ", "    C     C    ", "    DCAAACD    ", "      CDC      ", "               ", "               ", "               "},
+                    {"     FFFFF     ", "   FF     FF   ", "  E         E  ", " F    CDC    F ", " F  DC   CD  F ", "F   C     C   F", "F  C       C  F", "F  D  E    D  F", "F  C       C  F", "F   C     C   F", " F  DC   CD  F ", " F    CDC    F ", "  E         E  ", "   FF     FF   ", "     FFFFF     "},
+                    {"               ", "               ", "               ", "    B CDC B    ", "   BDC   CDB   ", "    C     C    ", "   C       C   ", "   D       D   ", "   C   E   C   ", "    C     C    ", "   BDC   CDB   ", "    B CDC B    ", "               ", "               ", "               "},
+                    {"               ", "               ", "      CDC      ", "   DC     CD   ", "   C       C   ", "               ", "  C         C  ", "  D     E   D  ", "  C         C  ", "               ", "   C       C   ", "   DC     CD   ", "      CDC      ", "               ", "               "},
+                    {"               ", "  F   FFF   F  ", " FF   CDC   FF ", "   DC     CD   ", "   C       C   ", "               ", " FC    E    CF ", " FD         DF ", " FC         CF ", "               ", "   C       C   ", "   DC     CD   ", " FF   CDC   FF ", "  F   FFF   F  ", "               "},
+                    {"               ", "   F  FDF  F   ", "  DF  FDF  FD  ", " FFDC     CDFF ", "   C       C   ", "               ", " FF         FF ", " DD    E    DD ", " FF         FF ", "               ", "   C       C   ", " FFDC     CDFF ", "  DF  FDF  FD  ", "   F  FDF  F   ", "               "},
+                    {"               ", "       D       ", "  DF  F F  FD  ", "  FDC     CDF  ", "   C       C   ", "               ", "  F   BBB   F  ", " D    BEB    D ", "  F   BBB   F  ", "               ", "   C       C   ", "  FDC     CDF  ", "  DF  F F  FD  ", "       D       ", "               "},
+                    {"               ", "       ~       ", "  DF  FDF  FD  ", "  FDDDDDDDDDF  ", "   D   D   D   ", "   D   D   D   ", "  FD  BBB  DF  ", " DDDDDBEBDDDDD ", "  FD  BBB  DF  ", "   D   D   D   ", "   D   D   D   ", "  FDDDDDDDDDF  ", "  DF  FDF  FD  ", "       D       ", "               "},
+                    {"               ", "       D       ", "  DF  F F  FD  ", "  FDC     CDF  ", "   C       C   ", "               ", "  F   BBB   F  ", " D    BEB    D ", "  F   BBB   F  ", "               ", "   C       C   ", "  FDC     CDF  ", "  DF  F F  FD  ", "       D       ", "               "},
+                    {"               ", "   F  FDF  F   ", "  DF  FDF  FD  ", " FFDC     CDFF ", "   C       C   ", "               ", " FF         FF ", " DD    E    DD ", " FF         FF ", "               ", "   C       C   ", " FFDC     CDFF ", "  DF  FDF  FD  ", "   F  FDF  F   ", "               "},
+                    {"               ", "  F   FFF   F  ", " FF   CDC   FF ", "   DC     CD   ", "   C       C   ", "               ", " FC    E    CF ", " FD         DF ", " FC         CF ", "               ", "   C       C   ", "   DC     CD   ", " FF   CDC   FF ", "  F   FFF   F  ", "               "},
+                    {"               ", "               ", "      CDC      ", "   DC     CD   ", "   C       C   ", "               ", "  C         C  ", "  D     E   D  ", "  C         C  ", "               ", "   C       C   ", "   DC     CD   ", "      CDC      ", "               ", "               "},
+                    {"               ", "               ", "               ", "    B CDC B    ", "   BDC   CDB   ", "    C     C    ", "   C       C   ", "   D       D   ", "   C   E   C   ", "    C     C    ", "   BDC   CDB   ", "    B CDC B    ", "               ", "               ", "               "},
+                    {"     FFFFF     ", "   FF     FF   ", "  E         E  ", " F    CDC    F ", " F  DC   CD  F ", "F   C     C   F", "F  C       C  F", "F  D  E    D  F", "F  C       C  F", "F   C     C   F", " F  DC   CD  F ", " F    CDC    F ", "  E         E  ", "   FF     FF   ", "     FFFFF     "},
+                    {"               ", "               ", "               ", "      CDC      ", "    DCAAACD    ", "    C     C    ", "   CA  E  AC   ", "   DA     AD   ", "   CA     AC   ", "    C     C    ", "    DCAAACD    ", "      CDC      ", "               ", "               ", "               "},
+                    {"               ", "               ", "               ", "               ", "      CCC      ", "     CCCCC     ", "    CC   CC    ", "    CC E CC    ", "    CC   CC    ", "     CCCCC     ", "      CCC      ", "               ", "               ", "               ", "               "},
+                    {"               ", "               ", "               ", "               ", "               ", "      CCC      ", "     CAAAC     ", "     CAEAC     ", "     CAAAC     ", "      CCC      ", "               ", "               ", "               ", "               ", "               "}
                 },
                 //spotless:on
                 new MultiblockOffsets(7, 9, 1),
@@ -139,7 +139,9 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        if (multiBlocks.isEmpty()) return CheckRecipeResultRegistry.NO_RECIPE;
+        if (multiBlocks.isEmpty()) {
+            return processingHelper.resultNoRecipe();
+        }
 
         long generate = 0;
         int activeModules = 0;
@@ -156,15 +158,16 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
             }
         }
 
-        if (generate == 0) return CheckRecipeResultRegistry.NO_RECIPE;
+        if (generate == 0) {
+            return processingHelper.resultNoRecipe();
+        }
 
         double bonusMultiplier = 1.0 + (activeModules * 0.25);
         generate = (long) (generate * bonusMultiplier);
 
-        setEnergyGenerate(generate);
-        super.mEfficiency = getEfficiency();
-        setDurationInSeconds(1);
-        return CheckRecipeResultRegistry.GENERATING;
+        processingHelper.setEnergyGenerate(generate);
+        processingHelper.setDurationInSeconds(1);
+        return processingHelper.resultGenerating();
     }
 
     @Override
