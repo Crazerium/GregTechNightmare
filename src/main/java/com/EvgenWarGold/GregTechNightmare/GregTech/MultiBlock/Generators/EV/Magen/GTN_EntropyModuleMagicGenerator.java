@@ -35,7 +35,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.TCAspects;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gtPlusPlus.core.material.MaterialsElements;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

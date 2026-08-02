@@ -5,7 +5,6 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.TCAspects;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import thaumcraft.api.aspects.Aspect;
@@ -53,6 +51,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     private static final Map<Aspect, Integer> TIER_2 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_3 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_4 = new HashMap<>();
+
     private static final int PERMUTATION_CONSUMPTION = 1_000;
     private static final int INSTRUMENTUM_CONSUMPTION = 2_000;
     private static final int TEMPUS_CONSUMPTION = 3_000;
@@ -119,26 +118,26 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
 
     @Override
     public List<StructureVariant<GTN_OrderModuleMagicGenerator>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "OrderModuleMagicGenerator",
                 // spotless:off
                 new String[][]{
-                    {"     CCC     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B     F      ","      B      ","             "," B         D ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B    BFB     ","             ","             "," B           ","             ","   B     D   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B     B      ","             ","             "," B         D ","             ","   B         ","      D      "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BEB     ","      B      ","             "," B         B ","             ","   D     D   ","             "},
-                    {"     B       ","   B         ","             "," B           ","             ","      B      ","B    BE      ","      B      ","             "," D         B ","             ","         B   ","      D      "},
-                    {"     B       ","   B         ","             "," B           ","             ","     FEF     ","D    EEE     ","     FEF     ","             ","           B ","             ","   D     B   ","      B      "},
-                    {"     B       ","   B         ","             "," D           ","     FEF     ","    FAAAF    ","    EAAAE    ","    FAAAF    ","     FEF     "," D         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   D         ","             ","             ","     FEF     ","    FAAAF    ","D   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
-                    {"     D       ","             ","             "," D           ","     FEF     ","    FAAAF    ","B   EAAAE    ","    FAAAF    ","     FEF     "," B         B ","             ","   B     B   ","      B      "},
-                    {"             ","   D         ","             "," B           ","             ","     FEF     ","B    EEE     ","     FEF     ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     D       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     B       ","   B         ","             "," B           ","             ","             ","B            ","             ","             "," B         B ","             ","   B     B   ","      B      "},
-                    {"     C~C     ","   CCCCCCC   ","  CCCCCCCCC  "," CCCCCCCCCCC "," CCCCCCCCCCC ","CCCCCCCCCCCCC","CCCCCCCCCCCCC","CCCCCCCCCCCCC"," CCCCCCCCCCC "," CCCCCCCCCCC ","  CCCCCCCCC  ","   CCCCCCC   ","     CCC     "}
+                    {"     CCC     ", "   CCCCCCC   ", "  CCCCCCCCC  ", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "  CCCCCCCCC  ", "   CCCCCCC   ", "     CCC     "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B     B      ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B     F      ", "      B      ", "             ", " B         D ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B    BFB     ", "             ", "             ", " B           ", "             ", "   B     D   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B     B      ", "             ", "             ", " B         D ", "             ", "   B         ", "      D      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B    BEB     ", "      B      ", "             ", " B         B ", "             ", "   D     D   ", "             "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "      B      ", "B    BE      ", "      B      ", "             ", " D         B ", "             ", "         B   ", "      D      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "     FEF     ", "D    EEE     ", "     FEF     ", "             ", "           B ", "             ", "   D     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " D           ", "     FEF     ", "    FAAAF    ", "    EAAAE    ", "    FAAAF    ", "     FEF     ", " D         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   D         ", "             ", "             ", "     FEF     ", "    FAAAF    ", "D   EAAAE    ", "    FAAAF    ", "     FEF     ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     D       ", "             ", "             ", " D           ", "     FEF     ", "    FAAAF    ", "B   EAAAE    ", "    FAAAF    ", "     FEF     ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"             ", "   D         ", "             ", " B           ", "             ", "     FEF     ", "B    EEE     ", "     FEF     ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     D       ", "   B         ", "             ", " B           ", "             ", "             ", "B            ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     B       ", "   B         ", "             ", " B           ", "             ", "             ", "B            ", "             ", "             ", " B         B ", "             ", "   B     B   ", "      B      "},
+                    {"     C~C     ", "   CCCCCCC   ", "  CCCCCCCCC  ", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", "CCCCCCCCCCCCC", " CCCCCCCCCCC ", " CCCCCCCCCCC ", "  CCCCCCCCC  ", "   CCCCCCC   ", "     CCC     "}
                 },
                 //spotless:on
                 new MultiblockOffsets(6, 14, 0),
@@ -184,7 +183,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
         if (gte != null) {
             World world = gte.getWorld();
             if (world != null && world.provider.dimensionId != VALID_DIMENSION) {
-                return CheckRecipeResultRegistry.NO_RECIPE;
+                return processingHelper.resultFailureMessage("Invalid Dimension");
             }
         }
 
@@ -193,58 +192,46 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
         double catalystBuff = 1;
 
         if (catalystData == null) {
-            if (consumeItemFromHatches(PRIMORDIAL_PEARL, PRIMORDIAL_PEARL_CONSUMPTION, true)) {
-                consumeItemFromHatches(PRIMORDIAL_PEARL, PRIMORDIAL_PEARL_CONSUMPTION, false);
+            if (processingHelper.consumeItem(PRIMORDIAL_PEARL, PRIMORDIAL_PEARL_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.25);
-            } else if (consumeItemFromHatches(MAGIC_SOLID_SUPER_FUEL, MAGIC_SOLID_SUPER_FUEL_CONSUMPTION, true)) {
-                consumeItemFromHatches(MAGIC_SOLID_SUPER_FUEL, MAGIC_SOLID_SUPER_FUEL_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(MAGIC_SOLID_SUPER_FUEL, MAGIC_SOLID_SUPER_FUEL_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.5);
-            } else if (consumeItemFromHatches(SUPER_FUEL_BINDER, SUPER_FUEL_BINDER_CONSUMPTION, true)) {
-                consumeItemFromHatches(SUPER_FUEL_BINDER, SUPER_FUEL_BINDER_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(SUPER_FUEL_BINDER, SUPER_FUEL_BINDER_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.75);
             }
-        }
-
-        if (consumeAspectFromMeHatches(TIER_4, true)) {
-            consumeAspectFromMeHatches(TIER_4, false);
-            generate = TIER_4_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_3, true)) {
-            consumeAspectFromMeHatches(TIER_3, false);
-            generate = TIER_3_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_2, true)) {
-            consumeAspectFromMeHatches(TIER_2, false);
-            generate = TIER_2_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_1, true)) {
-            consumeAspectFromMeHatches(TIER_1, false);
-            generate = TIER_1_GENERATE;
         }
 
         if (catalystData != null && catalystData.getDuration() != 0) {
             catalystBuff = catalystData.getBoost();
         }
 
-        if (consumeFluidFromHatches(LIQUID_DEATH, (int) (LIQUID_DEATH_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(LIQUID_DEATH, (int) (LIQUID_DEATH_CONSUMPTION * catalystBuff), false);
+        if (processingHelper.consumeMeAspect(TIER_4)) {
+            generate = TIER_4_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_3)) {
+            generate = TIER_3_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_2)) {
+            generate = TIER_2_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_1)) {
+            generate = TIER_1_GENERATE;
+        }
+
+        if (processingHelper.consumeFluid(LIQUID_DEATH, (int) (LIQUID_DEATH_CONSUMPTION * catalystBuff))) {
             boostLevel = 4;
-        } else if (consumeFluidFromHatches(
-            MOLTEN_PRASEODIUM,
-            (int) (MOLTEN_PRASEODIUM_CONSUMPTION * catalystBuff),
-            true)) {
-                consumeFluidFromHatches(MOLTEN_PRASEODIUM, (int) (MOLTEN_PRASEODIUM_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper
+            .consumeFluid(MOLTEN_PRASEODIUM, (int) (MOLTEN_PRASEODIUM_CONSUMPTION * catalystBuff))) {
                 boostLevel = 3;
-            } else if (consumeFluidFromHatches(LIQUID_OXYGEN, (int) (LIQUID_OXYGEN_CONSUMPTION * catalystBuff), true)) {
-                consumeFluidFromHatches(LIQUID_OXYGEN, (int) (LIQUID_OXYGEN_CONSUMPTION * catalystBuff), false);
+            } else if (processingHelper.consumeFluid(LIQUID_OXYGEN, (int) (LIQUID_OXYGEN_CONSUMPTION * catalystBuff))) {
                 boostLevel = 2;
             }
 
         generate *= boostLevel;
 
         if (generate > 0) {
-            setDurationInSeconds(1);
-            return CheckRecipeResultRegistry.SUCCESSFUL;
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultSuccess();
         }
 
-        return CheckRecipeResultRegistry.NO_RECIPE;
+        return processingHelper.resultNoRecipe();
     }
 
     @Override
