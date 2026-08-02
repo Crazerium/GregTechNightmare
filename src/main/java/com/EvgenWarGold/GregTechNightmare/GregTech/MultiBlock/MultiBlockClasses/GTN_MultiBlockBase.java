@@ -626,7 +626,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // region Energy
     public boolean addEnergyOutput(long aEU) {
         if (aEU <= 0) {
-            return true;
+            return false;
         }
         if (!mDynamoHatches.isEmpty() || !mDynamoMultiHatches.isEmpty()) {
             return addEnergyOutputMultipleDynamos(aEU, true);
