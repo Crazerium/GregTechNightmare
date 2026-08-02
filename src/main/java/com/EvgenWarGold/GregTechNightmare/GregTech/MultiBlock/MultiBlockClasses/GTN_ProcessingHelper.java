@@ -1,9 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
+import gregtech.api.util.GTUtility;
+import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -320,6 +325,179 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
     public boolean outputFluid(Map<FluidStack, Integer> fluidsMap) {
         return outputFluid(fluidsMap, false);
+    }
+
+    public boolean outputFluidToHatches(FluidStack fluid, int amount, boolean simulate) {
+        FluidStack copiedFluidStack = fluid.copy();
+        copiedFluidStack.amount = amount;
+
+        int totalCapacity = 0;
+        FluidStack checkFluid = fluid.copy();
+        checkFluid.amount = amount;
+
+        for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
+            if (tHatch.canStoreFluid(checkFluid)) {
+                if (tHatch instanceof MTEHatchOutputME tMEHatch) {
+                    if (!tMEHatch.canFillFluid()) {
+                        continue;
+                    }
+                }
+
+                int tAmount = tHatch.fill(checkFluid, false);
+                if (tAmount > 0) {
+                    totalCapacity += tAmount;
+                    checkFluid.amount -= tAmount;
+                }
+            }
+        }
+
+        if (totalCapacity < amount) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        FluidStack fillFluid = fluid.copy();
+        fillFluid.amount = amount;
+        int remainingAmount = amount;
+
+        for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
+            if (tHatch.canStoreFluid(fillFluid)) {
+                if (tHatch instanceof MTEHatchOutputME tMEHatch) {
+                    if (!tMEHatch.canFillFluid()) {
+                        continue;
+                    }
+                }
+
+                int tAmount = tHatch.fill(fillFluid, false);
+                if (tAmount > 0) {
+                    int actualFill = tHatch.fill(fillFluid, true);
+                    remainingAmount -= actualFill;
+
+                    if (remainingAmount <= 0) {
+                        return true;
+                    }
+                    fillFluid.amount = remainingAmount;
+                }
+            }
+        }
+
+        return remainingAmount <= 0;
+    }
+
+    public boolean outputFluidToHatches(FluidStack fluid, int amount) {
+        return outputFluidToHatches(fluid, amount, false);
+    }
+
+    public boolean outputFluidToHatches(Map<FluidStack, Integer> fluidsMap, boolean simulate) {
+        Map<FluidStack, Integer> remainingFluids = new HashMap<>();
+        for (Map.Entry<FluidStack, Integer> entry : fluidsMap.entrySet()) {
+            remainingFluids.put(entry.getKey().copy(), entry.getValue());
+        }
+
+        for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
+            if (tHatch instanceof MTEHatchOutputME tMEHatch) {
+                if (!tMEHatch.canFillFluid()) {
+                    continue;
+                }
+            }
+
+            Iterator<Map.Entry<FluidStack, Integer>> iterator = remainingFluids.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<FluidStack, Integer> entry = iterator.next();
+                FluidStack fluid = entry.getKey();
+                int amount = entry.getValue();
+
+                if (amount <= 0) {
+                    iterator.remove();
+                    continue;
+                }
+
+                FluidStack checkFluid = fluid.copy();
+                checkFluid.amount = amount;
+
+                if (!tHatch.canStoreFluid(checkFluid)) {
+                    continue;
+                }
+
+                int tAmount = tHatch.fill(checkFluid, false);
+                if (tAmount > 0) {
+                    int newAmount = amount - tAmount;
+                    if (newAmount <= 0) {
+                        iterator.remove();
+                    } else {
+                        entry.setValue(newAmount);
+                    }
+                }
+            }
+
+            if (remainingFluids.isEmpty()) {
+                break;
+            }
+        }
+
+        if (!remainingFluids.isEmpty()) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        Map<FluidStack, Integer> fillFluids = new HashMap<>();
+        for (Map.Entry<FluidStack, Integer> entry : fluidsMap.entrySet()) {
+            fillFluids.put(entry.getKey().copy(), entry.getValue());
+        }
+
+        for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
+            if (tHatch instanceof MTEHatchOutputME tMEHatch) {
+                if (!tMEHatch.canFillFluid()) {
+                    continue;
+                }
+            }
+
+            Iterator<Map.Entry<FluidStack, Integer>> iterator = fillFluids.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<FluidStack, Integer> entry = iterator.next();
+                FluidStack fluid = entry.getKey();
+                int amount = entry.getValue();
+
+                if (amount <= 0) {
+                    iterator.remove();
+                    continue;
+                }
+
+                FluidStack fillFluid = fluid.copy();
+                fillFluid.amount = amount;
+
+                if (!tHatch.canStoreFluid(fillFluid)) {
+                    continue;
+                }
+
+                int tAmount = tHatch.fill(fillFluid, false);
+                if (tAmount > 0) {
+                    int actualFill = tHatch.fill(fillFluid, true);
+                    int newAmount = amount - actualFill;
+                    if (newAmount <= 0) {
+                        iterator.remove();
+                    } else {
+                        entry.setValue(newAmount);
+                    }
+                }
+            }
+
+            if (fillFluids.isEmpty()) {
+                return true;
+            }
+        }
+
+        return fillFluids.isEmpty();
+    }
+
+    public boolean outputFluidToHatches(Map<FluidStack, Integer> fluidsMap) {
+        return outputFluidToHatches(fluidsMap, false);
     }
     // endregion
 

@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.Utils;
 import net.minecraft.util.StatCollector;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraftforge.fluids.FluidStack;
 
 public class GTN_Utils {
 
@@ -29,5 +30,15 @@ public class GTN_Utils {
     @SafeVarargs
     public static <T> T[] toArray(T... values) {
         return values;
+    }
+
+    public static FluidStack copyAmount(int amount, FluidStack fluid) {
+        if (fluid == null) {
+            return null;
+        } else {
+            FluidStack rStack = fluid.copy();
+            rStack.amount = amount;
+            return rStack;
+        }
     }
 }
