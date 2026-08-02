@@ -42,6 +42,8 @@ import gregtech.api.recipe.check.CheckRecipeResult;
 
 public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
+    private GTN_ProcessingBuilder<?> processingBuilder = new GTN_ProcessingBuilder<>(processingHelper);
+
     public GTN_TestMultiBlock(int id, String name) {
         super(id, name);
     }
@@ -154,6 +156,18 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
+        CheckRecipeResult result = processingBuilder.execute();
+
+        if (processingBuilder.executeCheck()) {
+            return result;
+        }
+
+        return result;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
         ItemStack input = new ItemStack(Items.stick);
         Map<ItemStack, Integer> output = new HashMap<>();
         Map<FluidStack, Integer> outputFluid = new HashMap<>();
@@ -165,19 +179,11 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         outputFluid.put(Materials.Fluorine.getGas(1), 3_000);
         outputFluid.put(Materials.Praseodymium.getMolten(1), 3_000);
 
-        GTN_ProcessingBuilder<?> builder = new GTN_ProcessingBuilder<>(processingHelper).consumeItem(input, 4)
+        processingBuilder.consumeItem(input, 4)
             .consumeFluid(Materials.Fluorine.getGas(1), 3_000)
             .outputFluid(outputFluid)
             .outputItem(output)
             .setEnergyUsageWithoutLoss(32)
             .setDurationSeconds(1);
-
-        CheckRecipeResult result = builder.execute();
-
-        if (builder.executeCheck()) {
-            return result;
-        }
-
-        return result;
     }
 }
