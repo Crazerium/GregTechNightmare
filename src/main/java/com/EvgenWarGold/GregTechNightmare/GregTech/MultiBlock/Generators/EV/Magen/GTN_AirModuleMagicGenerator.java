@@ -49,6 +49,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     private static final Map<Aspect, Integer> TIER_2 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_3 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_4 = new HashMap<>();
+
     private static final int ARBOR_CONSUMPTION = 100;
     private static final int SENSUS_CONSUMPTION = 200;
     private static final int VOLATUS_CONSUMPTION = 300;

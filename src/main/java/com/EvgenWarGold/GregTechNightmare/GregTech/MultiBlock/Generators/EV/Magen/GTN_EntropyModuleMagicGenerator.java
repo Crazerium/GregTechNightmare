@@ -52,6 +52,7 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
     private static final Map<Aspect, Integer> TIER_2 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_3 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_4 = new HashMap<>();
+
     private static final int VACUOS_CONSUMPTION = 2_000;
     private static final int MORTUS_CONSUMPTION = 4_000;
     private static final int VITIUM_CONSUMPTION = 12_000;
@@ -183,7 +184,7 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
         if (gte != null) {
             World world = gte.getWorld();
             if (world != null && world.provider.dimensionId != VALID_DIMENSION) {
-                return CheckRecipeResultRegistry.NO_RECIPE;
+                return processingHelper.resultFailureMessage("Invalid Dimension");
             }
         }
 
@@ -192,55 +193,45 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
         double catalystBuff = 1;
 
         if (catalystData == null) {
-            if (consumeItemFromHatches(GREEN_HEART, GREEN_HEART_CONSUMPTION, true)) {
-                consumeItemFromHatches(GREEN_HEART, GREEN_HEART_CONSUMPTION, false);
+            if (processingHelper.consumeItem(GREEN_HEART, GREEN_HEART_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.25);
-            } else if (consumeItemFromHatches(YELLOW_HEART, YELLOW_HEART_CONSUMPTION, true)) {
-                consumeItemFromHatches(YELLOW_HEART, YELLOW_HEART_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(YELLOW_HEART, YELLOW_HEART_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.5);
-            } else if (consumeItemFromHatches(RED_HEART, RED_HEART_CONSUMPTION, true)) {
-                consumeItemFromHatches(RED_HEART, RED_HEART_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(RED_HEART, RED_HEART_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.75);
             }
-        }
-
-        if (consumeAspectFromMeHatches(TIER_4, true)) {
-            consumeAspectFromMeHatches(TIER_4, false);
-            generate = TIER_4_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_3, true)) {
-            consumeAspectFromMeHatches(TIER_3, false);
-            generate = TIER_3_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_2, true)) {
-            consumeAspectFromMeHatches(TIER_2, false);
-            generate = TIER_2_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_1, true)) {
-            consumeAspectFromMeHatches(TIER_1, false);
-            generate = TIER_1_GENERATE;
         }
 
         if (catalystData != null && catalystData.getDuration() != 0) {
             catalystBuff = catalystData.getBoost();
         }
 
-        if (consumeFluidFromHatches(DRAGON_BLOOD, (int) (DRAGON_BLOOD_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(DRAGON_BLOOD, (int) (DRAGON_BLOOD_CONSUMPTION * catalystBuff), false);
+        if (processingHelper.consumeMeAspect(TIER_4)) {
+            generate = TIER_4_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_3)) {
+            generate = TIER_3_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_2)) {
+            generate = TIER_2_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_1)) {
+            generate = TIER_1_GENERATE;
+        }
+
+        if (processingHelper.consumeFluid(DRAGON_BLOOD, (int) (DRAGON_BLOOD_CONSUMPTION * catalystBuff))) {
             boostLevel = 4;
-        } else if (consumeFluidFromHatches(UU_AMPLIFIER, (int) (UU_AMPLIFIER_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(UU_AMPLIFIER, (int) (UU_AMPLIFIER_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(UU_AMPLIFIER, (int) (UU_AMPLIFIER_CONSUMPTION * catalystBuff))) {
             boostLevel = 3;
-        } else if (consumeFluidFromHatches(UNKNOWN_LIQUID, (int) (UNKNOWN_LIQUID_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(UNKNOWN_LIQUID, (int) (UNKNOWN_LIQUID_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(UNKNOWN_LIQUID, (int) (UNKNOWN_LIQUID_CONSUMPTION * catalystBuff))) {
             boostLevel = 2;
         }
 
         generate *= boostLevel;
 
         if (generate > 0) {
-            setDurationInSeconds(1);
-            return CheckRecipeResultRegistry.SUCCESSFUL;
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultSuccess();
         }
 
-        return CheckRecipeResultRegistry.NO_RECIPE;
+        return processingHelper.resultNoRecipe();
     }
 
     @Override
