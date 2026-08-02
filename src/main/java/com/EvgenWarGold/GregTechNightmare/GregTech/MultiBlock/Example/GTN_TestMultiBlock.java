@@ -169,6 +169,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             .consumeFluid(Materials.Fluorine.getGas(1), 3_000)
             .outputFluid(outputFluid)
             .outputItem(output)
+            .setEnergyUsageWithoutLoss(32)
             .setDurationSeconds(1);
 
         CheckRecipeResult result = builder.execute();

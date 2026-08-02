@@ -29,6 +29,8 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
     private final Map<Aspect, Integer> meAspectsToConsume = new HashMap<>();
     private Integer manaToConsume = null;
     private Integer durationTicks = null;
+    private Long eu = null;
+    private Integer efficiency = null;
     // endregion
 
     // region Constructor
@@ -164,6 +166,38 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
 
     public GTN_ProcessingBuilder<T> setDurationDays(int days) {
         return setDurationHours(days * 24);
+    }
+    // endregion
+
+    // region Energy
+    public GTN_ProcessingBuilder<T> setEnergyGenerate(long eu, int efficiency) {
+        this.eu = eu;
+        this.efficiency = efficiency;
+        return this;
+    }
+
+    public GTN_ProcessingBuilder<T> setEnergyGenerate(long eu) {
+        return setEnergyGenerate(eu, 10_000);
+    }
+
+    public GTN_ProcessingBuilder<T> setEnergyUsage(long eu, int efficiency) {
+        this.efficiency = efficiency;
+        this.eu = -eu;
+        return this;
+    }
+
+    public GTN_ProcessingBuilder<T> setEnergyUsage(long eu) {
+        return setEnergyUsage(eu, 10_000);
+    }
+
+    public GTN_ProcessingBuilder<T> setEnergyUsageWithoutLoss(long eu, int efficiency) {
+        this.efficiency = efficiency;
+        this.eu = (long) (-eu * 0.95);
+        return this;
+    }
+
+    public GTN_ProcessingBuilder<T> setEnergyUsageWithoutLoss(long eu) {
+        return setEnergyUsageWithoutLoss(eu, 10_000);
     }
     // endregion
 
@@ -311,7 +345,16 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
     public CheckRecipeResult execute() {
         CheckRecipeResult result = executeResult(false);
         if (result.wasSuccessful() && durationTicks != null && durationTicks > 0) {
-            helper.multiblock.mMaxProgresstime = durationTicks;
+            T multiblock = helper.multiblock;
+            multiblock.mMaxProgresstime = durationTicks;
+
+            if (efficiency != null) {
+                multiblock.mEfficiency = efficiency;
+            }
+
+            if (eu != null) {
+                multiblock.lEUt = eu;
+            }
         }
         return result;
     }

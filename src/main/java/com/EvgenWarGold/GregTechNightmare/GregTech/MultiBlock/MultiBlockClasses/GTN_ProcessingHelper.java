@@ -617,4 +617,23 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         return ResultMessage.of(message);
     }
     // endregion
+
+    // region Energy
+    public void setEnergyGenerate(long eu, int efficiency) {
+        multiblock.mEfficiency = efficiency;
+        multiblock.lEUt = eu;
+    }
+
+    public void setEnergyGenerate(long eu) {
+        setEnergyGenerate(eu, 10_000);
+    }
+
+    public void setEnergyUsage(long eu) {
+        multiblock.lEUt = -eu;
+    }
+
+    protected void setEnergyUsageWithoutLoss(long eu) {
+        multiblock.lEUt = (long) (-eu * 0.95);
+    }
+    // endregion
 }
