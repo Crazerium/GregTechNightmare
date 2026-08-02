@@ -22,7 +22,7 @@ import thaumcraft.api.aspects.Aspect;
 public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
     // region Variables
-    private final T multiblock;
+    public final T multiblock;
     // endregion
 
     // region Constructor

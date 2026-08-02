@@ -29,6 +29,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.TieredElementBuilder;
@@ -154,8 +155,6 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
         ItemStack input = new ItemStack(Items.stick);
-        // FluidStack outputFluid = Materials.Fluorine.getGas(1);
-        // ItemStack output = new ItemStack(Items.coal);
         Map<ItemStack, Integer> output = new HashMap<>();
         Map<FluidStack, Integer> outputFluid = new HashMap<>();
 
@@ -166,22 +165,18 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
         outputFluid.put(Materials.Fluorine.getGas(1), 3_000);
         outputFluid.put(Materials.Praseodymium.getMolten(1), 3_000);
 
-        // if (processingHelper.consumeItem(input, 4)) {
-        // processingHelper.outputItem(output, 64);
-        // processingHelper.setDurationInSeconds(1);
-        // return CheckRecipeResultRegistry.SUCCESSFUL;
-        // }
+        GTN_ProcessingBuilder<?> builder = new GTN_ProcessingBuilder<>(processingHelper).consumeItem(input, 4)
+            .consumeFluid(Materials.Fluorine.getGas(1), 3_000)
+            .outputFluid(outputFluid)
+            .outputItem(output)
+            .setDurationSeconds(1);
 
-        if (processingHelper.outputFluid(outputFluid)) {
-            processingHelper.setDurationInSeconds(1);
-            return processingHelper.resultSuccess();
+        CheckRecipeResult result = builder.execute();
+
+        if (builder.executeCheck()) {
+            return result;
         }
 
-        // if (processingHelper.outputItem(output)) {
-        // processingHelper.setDurationInSeconds(1);
-        // return processingHelper.resultSuccess();
-        // }
-
-        return processingHelper.resultNoRecipe();
+        return result;
     }
 }
