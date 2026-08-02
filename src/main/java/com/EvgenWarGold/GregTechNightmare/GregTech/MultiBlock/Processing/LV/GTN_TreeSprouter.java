@@ -1,6 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlock;
 import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofChain;
 import static gregtech.api.enums.HatchElement.InputHatch;
@@ -9,13 +8,8 @@ import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.Mods.Forestry;
 import static gregtech.common.tileentities.machines.multi.MTETreeFarm.treeProductsMap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,7 +22,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -41,9 +34,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.logic.ProcessingLogic;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
 import gregtech.common.tileentities.machines.multi.MTETreeFarm;
 import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
@@ -64,17 +55,17 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     @Override
     public List<StructureVariant<GTN_TreeSprouter>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "TreeSprouter",
                 // spotless:off
                 new String[][]{
-                    {"     ","  A  "," ABA ","  A  ","     "},
-                    {" AAA ","ADDDA","ADDDA","ADDDA"," AAA "},
-                    {"ADDDA","D   D","D E D","D   D","ADDDA"},
-                    {"ADDDA","D E D","DEFED","D E D","ADDDA"},
-                    {"BDDDB","D   D","D F D","D   D","BDDDB"},
-                    {"BB~BB","BCCCB","BCCCB","BCCCB","BBBBB"}
+                    {"     ", "  A  ", " ABA ", "  A  ", "     "},
+                    {" AAA ", "ADDDA", "ADDDA", "ADDDA", " AAA "},
+                    {"ADDDA", "D   D", "D E D", "D   D", "ADDDA"},
+                    {"ADDDA", "D E D", "DEFED", "D E D", "ADDDA"},
+                    {"BDDDB", "D   D", "D F D", "D   D", "BDDDB"},
+                    {"BB~BB", "BCCCB", "BCCCB", "BCCCB", "BBBBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 5, 0),

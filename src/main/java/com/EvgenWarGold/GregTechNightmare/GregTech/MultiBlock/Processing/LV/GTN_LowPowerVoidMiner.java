@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import gregtech.api.util.GTUtility;
 import net.minecraft.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +30,7 @@ import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.util.GTUtility;
 
 public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMiner> {
 
@@ -121,12 +121,10 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
             return CheckRecipeResultRegistry.insufficientPower(128);
         }
 
-        Map<ItemStack, Integer> result = voidMiner.generateStackOre(8).stream()
+        Map<ItemStack, Integer> result = voidMiner.generateStackOre(8)
+            .stream()
             .filter(stack -> !GTUtility.isStackInvalid(stack))
-            .collect(Collectors.toMap(
-                ItemStack::copy,
-                stack -> stack.stackSize
-            ));
+            .collect(Collectors.toMap(ItemStack::copy, stack -> stack.stackSize));
 
         if (processingHelper.outputItem(result)) {
             processingHelper.setDurationInSeconds(1);
