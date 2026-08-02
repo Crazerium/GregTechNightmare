@@ -53,9 +53,9 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
     private static final Map<Aspect, Integer> TIER_3 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_4 = new HashMap<>();
 
-    private static final FluidStack LAVA;
-    private static final FluidStack INDALLOY_140;
-    private static final FluidStack BLOOD;
+    private static FluidStack LAVA;
+    private static FluidStack INDALLOY_140;
+    private static FluidStack BLOOD;
 
     private static final int ASPECT_CONSUMPTION = 4;
     private static final int LAVA_CONSUMPTION = 2_000;
@@ -93,10 +93,6 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
         TIER_4.put(Aspect.MIND, ASPECT_CONSUMPTION);
         TIER_4.put(Aspect.PLANT, ASPECT_CONSUMPTION);
         TIER_4.put(Lucrum.ULTRA_DEATH, ASPECT_CONSUMPTION);
-
-        LAVA = Materials.Lava.getFluid(1);
-        INDALLOY_140 = MaterialsAlloy.INDALLOY_140.getFluidStack(1);
-        BLOOD = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1);
     }
 
     public GTN_FireModuleMagicGenerator(int id, String name) {
@@ -184,7 +180,7 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
         if (gte != null) {
             World world = gte.getWorld();
             if (world != null && world.provider.dimensionId != VALID_DIMENSION) {
-                return CheckRecipeResultRegistry.NO_RECIPE;
+                return processingHelper.resultFailureMessage("Invalid Dimension");
             }
         }
 
@@ -193,55 +189,45 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
         double catalystBuff = 1;
 
         if (catalystData == null) {
-            if (consumeItemFromHatches(OFFENSA, OFFENSA_CONSUMPTION, true)) {
-                consumeItemFromHatches(OFFENSA, OFFENSA_CONSUMPTION, false);
+            if (processingHelper.consumeItem(OFFENSA, OFFENSA_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.25);
-            } else if (consumeItemFromHatches(INCENDIUM, INCENDIUM_CONSUMPTION, true)) {
-                consumeItemFromHatches(INCENDIUM, INCENDIUM_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(INCENDIUM, INCENDIUM_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.5);
-            } else if (consumeItemFromHatches(REINFORCED_SLATE, REINFORCED_SLATE_CONSUMPTION, true)) {
-                consumeItemFromHatches(REINFORCED_SLATE, REINFORCED_SLATE_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(REINFORCED_SLATE, REINFORCED_SLATE_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.75);
             }
-        }
-
-        if (consumeAspectFromHatches(TIER_4, true)) {
-            consumeAspectFromHatches(TIER_4, false);
-            generate = TIER_4_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_3, true)) {
-            consumeAspectFromHatches(TIER_3, false);
-            generate = TIER_3_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_2, true)) {
-            consumeAspectFromHatches(TIER_2, false);
-            generate = TIER_2_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_1, true)) {
-            consumeAspectFromHatches(TIER_1, false);
-            generate = TIER_1_GENERATE;
         }
 
         if (catalystData != null && catalystData.getDuration() != 0) {
             catalystBuff = catalystData.getBoost();
         }
 
-        if (consumeFluidFromHatches(BLOOD, (int) (BLOOD_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(BLOOD, (int) (BLOOD_CONSUMPTION * catalystBuff), false);
+        if (processingHelper.consumeAspect(TIER_4)) {
+            generate = TIER_4_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_3)) {
+            generate = TIER_3_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_2)) {
+            generate = TIER_2_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_1)) {
+            generate = TIER_1_GENERATE;
+        }
+
+        if (processingHelper.consumeFluid(BLOOD, (int) (BLOOD_CONSUMPTION * catalystBuff))) {
             boostLevel = 4;
-        } else if (consumeFluidFromHatches(INDALLOY_140, (int) (INDALLOY_140_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(INDALLOY_140, (int) (INDALLOY_140_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(INDALLOY_140, (int) (INDALLOY_140_CONSUMPTION * catalystBuff))) {
             boostLevel = 3;
-        } else if (consumeFluidFromHatches(LAVA, (int) (LAVA_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(LAVA, (int) (LAVA_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(LAVA, (int) (LAVA_CONSUMPTION * catalystBuff))) {
             boostLevel = 2;
         }
 
         generate *= boostLevel;
 
         if (generate > 0) {
-            setDurationInSeconds(1);
-            return CheckRecipeResultRegistry.SUCCESSFUL;
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultSuccess();
         }
 
-        return CheckRecipeResultRegistry.NO_RECIPE;
+        return processingHelper.resultNoRecipe();
     }
 
     @Override
@@ -314,6 +300,10 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
     @Override
     protected void initialize() {
         super.initialize();
+        LAVA = Materials.Lava.getFluid(1);
+        INDALLOY_140 = MaterialsAlloy.INDALLOY_140.getFluidStack(1);
+        BLOOD = new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1);
+
         REINFORCED_SLATE = BloodMagicItems.ReinforcedSlate.get();
         OFFENSA = BloodMagicItems.Offensa.get();
         INCENDIUM = BloodMagicItems.Incendium.get();
