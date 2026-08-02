@@ -8,7 +8,6 @@ import static gregtech.api.enums.HatchElement.OutputBus;
 
 import java.util.List;
 
-import gregtech.api.util.GTUtility;
 import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;

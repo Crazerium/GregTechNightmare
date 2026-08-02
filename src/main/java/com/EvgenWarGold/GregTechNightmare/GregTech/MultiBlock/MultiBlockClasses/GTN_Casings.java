@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -16,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_Blocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.gtnhlib.util.data.BlockSupplier;
 import com.gtnewhorizon.structurelib.structure.IStructureElement;
 import com.gtnewhorizon.structurelib.structure.StructureUtility;
