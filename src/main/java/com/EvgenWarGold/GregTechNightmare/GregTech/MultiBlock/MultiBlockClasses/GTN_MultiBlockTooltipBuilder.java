@@ -17,39 +17,39 @@ import gregtech.GTMod;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.StringUtils;
 
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.tr;
+
 public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
 
-    private static final String TT_hold = StatCollector.translateToLocal("GT5U.MBTT.Hold");
-    private static final String TT_todisplay = StatCollector.translateToLocal("GT5U.MBTT.Display");
-    private static final String TT_addedBy = StatCollector.translateToLocal("GT5U.MBTT.Mod");
-    private static final String TT_machineType = StatCollector.translateToLocal("GT5U.MBTT.MachineType");
+    private static final String HOLD = tr("GT5U.MBTT.Hold");
+    private static final String DISPLAY = tr("GT5U.MBTT.Display");
+    private static final String ADDED_BY = tr("GT5U.MBTT.Mod");
+    private static final String MACHINE_TYPE = tr("GT5U.MBTT.MachineType");
     private static final String TAB = "   ";
     private static final String COLON = ": ";
     private static final String SEPARATOR = ", ";
-    private static final String TT_structurehint = StatCollector.translateToLocal("GT5U.MBTT.StructureHint");
-    private static final String TT_steaminputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamInputBus");
-    private static final String TT_steamoutputbus = StatCollector.translateToLocal("GTPP.MBTT.SteamOutputBus");
-    private static final String TT_steamhatch = StatCollector.translateToLocal("GTPP.MBTT.SteamHatch");
-    private static final String TT_maintenancehatch = StatCollector.translateToLocal("GT5U.MBTT.MaintenanceHatch");
-    private static final String TT_energyhatch = StatCollector.translateToLocal("GT5U.MBTT.EnergyHatch");
-    private static final String TT_dynamohatch = StatCollector.translateToLocal("GT5U.MBTT.DynamoHatch");
-    private static final String TT_mufflerhatch = StatCollector.translateToLocal("GT5U.MBTT.MufflerHatch");
-    private static final String TT_inputbus = StatCollector.translateToLocal("GT5U.MBTT.InputBus");
-    private static final String TT_inputhatch = StatCollector.translateToLocal("GT5U.MBTT.InputHatch");
-    private static final String TT_outputbus = StatCollector.translateToLocal("GT5U.MBTT.OutputBus");
-    private static final String TT_outputhatch = StatCollector.translateToLocal("GT5U.MBTT.OutputHatch");
-    private static final String TT_tectechhatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ExoticHatch");
-    private static final String TT_EnergyOrTecTechHatch = StatCollector
-        .translateToLocal("GTN.TooltipBuilder.ExoticOrEnergyHatch");
-    private static final String TT_DynamoOrBufferedHatch = StatCollector
-        .translateToLocal("GTN.TooltipBuilder.DynamoOrBufferedHatch");
-    private static final String TT_ManaHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.ManaHatch");
-    private static final String TT_AspectHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.AspectHatch");
-    private static final String TT_MeAspectHatch = StatCollector.translateToLocal("GTN.TooltipBuilder.MeAspectHatch");
-    private static final String TT_dimensions = StatCollector.translateToLocal("GT5U.MBTT.Dimensions");
-    private static final String TT_structure = StatCollector.translateToLocal("GT5U.MBTT.Structure");
+    private static final String STRUCTURE_HINT = tr("GT5U.MBTT.StructureHint");
+    private static final String STEAM_INPUT_BUS = tr("GTPP.MBTT.SteamInputBus");
+    private static final String TT_steamoutputbus = tr("GTPP.MBTT.SteamOutputBus");
+    private static final String TT_steamhatch = tr("GTPP.MBTT.SteamHatch");
+    private static final String TT_maintenancehatch = tr("GT5U.MBTT.MaintenanceHatch");
+    private static final String TT_energyhatch = tr("GT5U.MBTT.EnergyHatch");
+    private static final String TT_dynamohatch = tr("GT5U.MBTT.DynamoHatch");
+    private static final String TT_mufflerhatch = tr("GT5U.MBTT.MufflerHatch");
+    private static final String TT_inputbus = tr("GT5U.MBTT.InputBus");
+    private static final String TT_inputhatch = tr("GT5U.MBTT.InputHatch");
+    private static final String TT_outputbus = tr("GT5U.MBTT.OutputBus");
+    private static final String TT_outputhatch = tr("GT5U.MBTT.OutputHatch");
+    private static final String TT_tectechhatch = tr("GTN.TooltipBuilder.ExoticHatch");
+    private static final String TT_EnergyOrTecTechHatch = tr("GTN.TooltipBuilder.ExoticOrEnergyHatch");
+    private static final String TT_DynamoOrBufferedHatch = tr("GTN.TooltipBuilder.DynamoOrBufferedHatch");
+    private static final String TT_ManaHatch = tr("GTN.TooltipBuilder.ManaHatch");
+    private static final String TT_AspectHatch = tr("GTN.TooltipBuilder.AspectHatch");
+    private static final String TT_MeAspectHatch = tr("GTN.TooltipBuilder.MeAspectHatch");
+    private static final String TT_dimensions = tr("GT5U.MBTT.Dimensions");
+    private static final String TT_structure = tr("GT5U.MBTT.Structure");
     private static final String[] TT_dots = IntStream.range(0, 16)
-        .mapToObj(i -> StatCollector.translateToLocal("structurelib.blockhint." + i + ".name"))
+        .mapToObj(i -> tr("structurelib.blockhint." + i + ".name"))
         .toArray(String[]::new);
 
     public void addInfoMultiLineTranslated(String key) {
@@ -67,7 +67,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> iLines = accessor.getILines();
         iLines.add(
-            EnumChatFormatting.GRAY + TT_machineType
+            EnumChatFormatting.GRAY + MACHINE_TYPE
                 + COLON
                 + EnumChatFormatting.YELLOW
                 + machine
@@ -121,7 +121,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     }
 
     public GTN_MultiBlockTooltipBuilder addSteamInputBus(int count, int dot) {
-        addHatch(TT_steaminputbus, count, dot);
+        addHatch(STEAM_INPUT_BUS, count, dot);
         return this;
     }
 
@@ -364,18 +364,18 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         }
 
         iLines.add(
-            TT_hold + " "
+            HOLD + " "
                 + EnumChatFormatting.BOLD
                 + "[LSHIFT]"
                 + EnumChatFormatting.RESET
                 + EnumChatFormatting.GRAY
                 + " "
-                + TT_todisplay);
+                + DISPLAY);
         if (authors != null && authors.length > 0) {
             final String authorTag = "Author: ";
             final StringBuilder sb = new StringBuilder();
             sb.append(EnumChatFormatting.GRAY);
-            sb.append(TT_addedBy);
+            sb.append(ADDED_BY);
             sb.append(COLON);
             for (int i = 0; i < authors.length; i++) {
                 String author = authors[i];
@@ -395,7 +395,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
             }
             iLines.add(sb.toString());
         }
-        hLines.add(TT_structurehint);
+        hLines.add(STRUCTURE_HINT);
         this.addStructureInfoSeparator(EnumChatFormatting.GRAY, 30, true);
         // create the final arrays
         accessor.setIArray(iLines.toArray(new String[0]));
