@@ -690,14 +690,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         return injected > 0;
     }
 
-    protected void setEnergyUsageWithoutLoss(long lEUt) {
-        this.lEUt = (long) (-lEUt * 0.95);
-    }
-
-    protected void setEnergyGenerate(long lEUt) {
-        this.lEUt = lEUt;
-    }
-
     public long getAllDynamoBuffer() {
         long buffer = 0;
         for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
@@ -941,26 +933,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     protected String tr(String key, Object... formatted) {
         return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key, formatted);
-    }
-
-    public void setDurationInTicks(int ticks) {
-        mMaxProgresstime = ticks;
-    }
-
-    public void setDurationInSeconds(int seconds) {
-        setDurationInTicks(seconds * 20);
-    }
-
-    public void setDurationInMinutes(int minutes) {
-        setDurationInSeconds(minutes * 60);
-    }
-
-    public void setDurationInHours(int hours) {
-        setDurationInMinutes(hours * 60);
-    }
-
-    public void setDurationInDays(int days) {
-        setDurationInHours(days * 24);
     }
 
     public void repairMachine() {

@@ -920,7 +920,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         multiblock.lEUt = -eu;
     }
 
-    protected void setEnergyUsageWithoutLoss(long eu) {
+    public void setEnergyUsageWithoutLoss(long eu) {
         multiblock.lEUt = (long) (-eu * 0.95);
     }
     // endregion
