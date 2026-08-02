@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HatchElement.ManaHatch;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.Energy;
+import static gregtech.api.enums.HatchElement.ExoticDynamo;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.InputHatch;
@@ -134,6 +135,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
                             OutputBus,
                             Energy,
                             ExoticEnergy,
+                            ExoticDynamo,
                             Maintenance,
                             Muffler,
                             Dynamo,
@@ -183,7 +185,7 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
             .consumeFluid(Materials.Fluorine.getGas(1), 3_000)
             .outputFluid(outputFluid)
             .outputItem(output)
-            .setEnergyUsageWithoutLoss(32)
+            .setEnergyGenerate(96)
             .setDurationSeconds(1);
     }
 }

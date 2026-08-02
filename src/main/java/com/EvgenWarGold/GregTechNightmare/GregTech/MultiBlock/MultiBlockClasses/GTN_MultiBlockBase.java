@@ -624,16 +624,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Energy
-    public boolean addEnergyOutput(long aEU) {
-        if (aEU <= 0) {
-            return false;
-        }
-        if (!mDynamoHatches.isEmpty() || !mDynamoMultiHatches.isEmpty()) {
-            return addEnergyOutputMultipleDynamos(aEU, true);
-        }
-        return false;
-    }
-
     @Override
     public boolean addEnergyOutputMultipleDynamos(long aEU, boolean aAllowMixedVoltageDynamos) {
         long injected = 0;
@@ -650,6 +640,11 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
             allDynamos.add(hatch);
         }
+
+        for (MTEHatch hatch : validMTEList(mExoticDynamoHatches)) {
+            allDynamos.add(hatch);
+        }
+
 
         for (MTEHatch aDynamo : allDynamos) {
             long aVoltage = aDynamo.maxEUOutput();
@@ -1004,6 +999,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         for (MTEHatch h : mOutputHatches) h.updateTexture(textureId);
         for (MTEHatch h : mMufflerHatches) h.updateTexture(textureId);
         for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
+        for (MTEHatch h : mExoticDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
         for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
         for (MTEHatch h : mAspectHatch) h.updateTexture(textureId);
