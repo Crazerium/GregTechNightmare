@@ -645,7 +645,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             allDynamos.add(hatch);
         }
 
-
         for (MTEHatch aDynamo : allDynamos) {
             long aVoltage = aDynamo.maxEUOutput();
             long aTotal = aDynamo.maxAmperesOut() * aVoltage;

@@ -604,12 +604,16 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         return CheckRecipeResultRegistry.NO_RECIPE;
     }
 
+    public CheckRecipeResult resultShutDown() {
+        multiblock.stopMachine(ShutDownReasonRegistry.NONE);
+        return CheckRecipeResultRegistry.NONE;
+    }
+
     public CheckRecipeResult resultGenerating() {
         return CheckRecipeResultRegistry.GENERATING;
     }
 
     public CheckRecipeResult resultFailureMessage(String message) {
-        multiblock.stopMachine(ShutDownReasonRegistry.NONE);
         return ResultMessage.of(message);
     }
 

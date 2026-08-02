@@ -34,7 +34,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.enums.Materials;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import thaumcraft.api.aspects.Aspect;
@@ -51,8 +50,8 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     private static final Map<Aspect, Integer> TIER_3 = new HashMap<>();
     private static final Map<Aspect, Integer> TIER_4 = new HashMap<>();
 
-    private static final FluidStack LUBRICANT;
-    private static final FluidStack RADON;
+    private static FluidStack LUBRICANT;
+    private static FluidStack RADON;
 
     private static final int ASPECT_CONSUMPTION = 4;
     private static final int LUBRICANT_CONSUMPTION = 3_000;
@@ -90,9 +89,6 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
         TIER_4.put(Aspect.CRYSTAL, ASPECT_CONSUMPTION);
         TIER_4.put(Aspect.PLANT, ASPECT_CONSUMPTION);
         TIER_4.put(Aspect.TRAVEL, ASPECT_CONSUMPTION);
-
-        LUBRICANT = Materials.Lubricant.getFluid(1);
-        RADON = Materials.Radon.getGas(1);
     }
 
     public GTN_EarthModuleMagicGenerator(int id, String name) {
@@ -181,7 +177,7 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
         if (gte != null) {
             World world = gte.getWorld();
             if (world != null && world.provider.dimensionId != VALID_DIMENSION) {
-                return CheckRecipeResultRegistry.NO_RECIPE;
+                return processingHelper.resultFailureMessage("Invalid Dimension");
             }
         }
 
@@ -190,55 +186,45 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
         double catalystBuff = 1;
 
         if (catalystData == null) {
-            if (consumeItemFromHatches(TERRASTELL_INGOT, TERRASTEEL_INGOT_CONSUMPTION, true)) {
-                consumeItemFromHatches(TERRASTELL_INGOT, TERRASTEEL_INGOT_CONSUMPTION, false);
+            if (processingHelper.consumeItem(TERRASTELL_INGOT, TERRASTEEL_INGOT_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.25);
-            } else if (consumeItemFromHatches(RUNE_OF_EARTH, RUNE_OF_EARTH_CONSUMPTION, true)) {
-                consumeItemFromHatches(RUNE_OF_EARTH, RUNE_OF_EARTH_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(RUNE_OF_EARTH, RUNE_OF_EARTH_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.5);
-            } else if (consumeItemFromHatches(MANASTEEL_INGOT, MANASTEEL_INGOT_CONSUMPTION, true)) {
-                consumeItemFromHatches(MANASTEEL_INGOT, MANASTEEL_INGOT_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(MANASTEEL_INGOT, MANASTEEL_INGOT_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.75);
             }
-        }
-
-        if (consumeAspectFromHatches(TIER_4, true)) {
-            consumeAspectFromHatches(TIER_4, false);
-            generate = TIER_4_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_3, true)) {
-            consumeAspectFromHatches(TIER_3, false);
-            generate = TIER_3_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_2, true)) {
-            consumeAspectFromHatches(TIER_2, false);
-            generate = TIER_2_GENERATE;
-        } else if (consumeAspectFromHatches(TIER_1, true)) {
-            consumeAspectFromHatches(TIER_1, false);
-            generate = TIER_1_GENERATE;
         }
 
         if (catalystData != null && catalystData.getDuration() != 0) {
             catalystBuff = catalystData.getBoost();
         }
 
-        if (consumeManaFromHatches((int) (MANA_CONSUMPTION * catalystBuff), true)) {
-            consumeManaFromHatches((int) (MANA_CONSUMPTION * catalystBuff), false);
+        if (processingHelper.consumeAspect(TIER_4)) {
+            generate = TIER_4_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_3)) {
+            generate = TIER_3_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_2)) {
+            generate = TIER_2_GENERATE;
+        } else if (processingHelper.consumeAspect(TIER_1)) {
+            generate = TIER_1_GENERATE;
+        }
+
+        if (processingHelper.consumeMana((int) (MANA_CONSUMPTION * catalystBuff))) {
             boostLevel = 4;
-        } else if (consumeFluidFromHatches(RADON, (int) (RADON_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(RADON, (int) (RADON_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(RADON, (int) (RADON_CONSUMPTION * catalystBuff))) {
             boostLevel = 3;
-        } else if (consumeFluidFromHatches(LUBRICANT, (int) (LUBRICANT_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(LUBRICANT, (int) (LUBRICANT_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(LUBRICANT, (int) (LUBRICANT_CONSUMPTION * catalystBuff))) {
             boostLevel = 2;
         }
 
         generate *= boostLevel;
 
         if (generate > 0) {
-            setDurationInSeconds(1);
-            return CheckRecipeResultRegistry.SUCCESSFUL;
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultSuccess();
         }
 
-        return CheckRecipeResultRegistry.NO_RECIPE;
+        return processingHelper.resultNoRecipe();
     }
 
     @Override
@@ -311,6 +297,9 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     @Override
     protected void initialize() {
         super.initialize();
+        LUBRICANT = Materials.Lubricant.getFluid(1);
+        RADON = Materials.Radon.getGas(1);
+
         MANASTEEL_INGOT = BotaniaItems.ManaSteelIngot.get();
         RUNE_OF_EARTH = BotaniaItems.RuneOfEarth.get();
         TERRASTELL_INGOT = BotaniaItems.TerrasteelIngot.get();
