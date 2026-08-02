@@ -165,7 +165,7 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
         if (coilLevel != null) {
             heatingCapacity = (int) coilLevel.getHeat() + 100 * (GTUtility.getTier(getMaxInputVoltage()) - 2);
         }
-        return super.GTN_checkMachine(aBaseMetaTileEntity, aStack) && mManaHatch.size() <= 1;
+        return super.GTN_checkMachine(aBaseMetaTileEntity, aStack) && manaHatches.size() <= 1;
     }
 
     @Override
@@ -173,12 +173,12 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
         super.runMachine(aBaseMetaTileEntity, aTick);
 
         if (mMaxProgresstime > 0 && aTick % 20 == 0) {
-            if (mManaHatch.isEmpty()) {
+            if (manaHatches.isEmpty()) {
                 stopMachine(ShutDownReasonRegistry.CRITICAL_NONE);
                 causeMaintenanceIssue();
             }
 
-            GTN_ManaHatch manaHatch = mManaHatch.get(0);
+            GTN_ManaHatch manaHatch = manaHatches.get(0);
 
             if (manaHatch.extractMana(MANA_CONSUME, true)) {
                 manaHatch.extractMana(MANA_CONSUME);

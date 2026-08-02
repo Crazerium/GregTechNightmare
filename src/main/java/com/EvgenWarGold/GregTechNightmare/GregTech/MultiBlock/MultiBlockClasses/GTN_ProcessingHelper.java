@@ -611,7 +611,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     public boolean consumeAspect(Aspect aspect, int amount, boolean simulate) {
         int total = 0;
 
-        for (GTN_AspectHatch hatch : multiblock.mAspectHatch) {
+        for (GTN_AspectHatch hatch : multiblock.aspectHatches) {
             total += hatch.containerContains(aspect);
 
             if (total >= amount) {
@@ -629,7 +629,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         int remaining = amount;
 
-        for (GTN_AspectHatch hatch : multiblock.mAspectHatch) {
+        for (GTN_AspectHatch hatch : multiblock.aspectHatches) {
             int available = hatch.containerContains(aspect);
 
             if (available <= 0) {
@@ -660,7 +660,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             int amount = entry.getValue();
             int total = 0;
 
-            for (GTN_AspectHatch hatch : multiblock.mAspectHatch) {
+            for (GTN_AspectHatch hatch : multiblock.aspectHatches) {
                 total += hatch.containerContains(aspect);
 
                 if (total >= amount) {
@@ -681,7 +681,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             Aspect aspect = entry.getKey();
             int remaining = entry.getValue();
 
-            for (GTN_AspectHatch hatch : multiblock.mAspectHatch) {
+            for (GTN_AspectHatch hatch : multiblock.aspectHatches) {
                 int available = hatch.containerContains(aspect);
 
                 if (available <= 0) {
@@ -712,7 +712,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     public boolean consumeMeAspect(Aspect aspect, int amount, boolean simulate) {
         long total = 0;
 
-        for (GTN_MeAspectHatch hatch : multiblock.mMeAspectHatch) {
+        for (GTN_MeAspectHatch hatch : multiblock.meAspectHatches) {
             total += hatch.getAspectAmountInNetwork(aspect);
 
             if (total >= amount) {
@@ -730,7 +730,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         long remaining = amount;
 
-        for (GTN_MeAspectHatch hatch : multiblock.mMeAspectHatch) {
+        for (GTN_MeAspectHatch hatch : multiblock.meAspectHatches) {
             long available = hatch.getAspectAmountInNetwork(aspect);
 
             if (available <= 0) {
@@ -761,7 +761,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             int amount = entry.getValue();
             long total = 0;
 
-            for (GTN_MeAspectHatch hatch : multiblock.mMeAspectHatch) {
+            for (GTN_MeAspectHatch hatch : multiblock.meAspectHatches) {
                 total += hatch.getAspectAmountInNetwork(aspect);
 
                 if (total >= amount) {
@@ -782,7 +782,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             Aspect aspect = entry.getKey();
             long remaining = entry.getValue();
 
-            for (GTN_MeAspectHatch hatch : multiblock.mMeAspectHatch) {
+            for (GTN_MeAspectHatch hatch : multiblock.meAspectHatches) {
                 long available = hatch.getAspectAmountInNetwork(aspect);
 
                 if (available <= 0) {
@@ -813,7 +813,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     public boolean consumeMana(int amount, boolean simulate) {
         int total = 0;
 
-        for (GTN_ManaHatch hatch : multiblock.mManaHatch) {
+        for (GTN_ManaHatch hatch : multiblock.manaHatches) {
             total += hatch.getCurrentMana();
 
             if (total >= amount) {
@@ -831,7 +831,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         int remaining = amount;
 
-        for (GTN_ManaHatch hatch : multiblock.mManaHatch) {
+        for (GTN_ManaHatch hatch : multiblock.manaHatches) {
             int available = hatch.getCurrentMana();
 
             if (available <= 0) {

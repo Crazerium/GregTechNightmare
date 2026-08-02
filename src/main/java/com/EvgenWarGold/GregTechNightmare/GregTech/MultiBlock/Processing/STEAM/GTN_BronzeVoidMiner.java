@@ -108,11 +108,11 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
 
             @Override
             public @NotNull CheckRecipeResult process() {
-                if (mSteamInputFluids == null) return CheckRecipeResultRegistry.NO_RECIPE;
+                if (steamOutputFluids == null) return CheckRecipeResultRegistry.NO_RECIPE;
 
-                if (mSteamInputFluids.get(0) == null) return CheckRecipeResultRegistry.NO_RECIPE;
+                if (steamOutputFluids.get(0) == null) return CheckRecipeResultRegistry.NO_RECIPE;
 
-                FluidStack currentFluidStack = mSteamInputFluids.get(0)
+                FluidStack currentFluidStack = steamOutputFluids.get(0)
                     .getFluid();
 
                 if (currentFluidStack == null) return CheckRecipeResultRegistry.NO_RECIPE;

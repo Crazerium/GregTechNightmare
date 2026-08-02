@@ -21,67 +21,70 @@ import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti;
 @SuppressWarnings("unchecked")
 public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
-    SteamInputHatch("SteamInputHatch", (base, tile, casing) -> base.addSteamInputHatchToMachineList(tile),
+    SteamInputHatch("SteamInputHatch", (base, tile, casing) -> base.hatchControl.addSteamInputHatchToMachineList(tile),
         MTEHatchCustomFluidBase.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mSteamInputFluids.size();
+            return gtnMultiBlockBase.steamOutputFluids.size();
         }
     },
 
-    SteamInputBus("SteamInputBus", (base, tile, casing) -> base.addSteamInputBusToMachineList(tile),
+    SteamInputBus("SteamInputBus", (base, tile, casing) -> base.hatchControl.addSteamInputBusToMachineList(tile),
         MTEHatchSteamBusInput.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mSteamInputBusses.size();
+            return gtnMultiBlockBase.steamInputBusses.size();
         }
     },
 
-    SteamOutputBus("SteamOutputBus", (base, tile, casing) -> base.addSteamOutputBusToMachineList(tile),
+    SteamOutputBus("SteamOutputBus", (base, tile, casing) -> base.hatchControl.addSteamOutputBusToMachineList(tile),
         MTEHatchSteamBusOutput.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mSteamOutputBusses.size();
+            return gtnMultiBlockBase.steamOutputBusses.size();
         }
     },
 
-    SensorHatch("SensorHatch", (base, tile, casing) -> base.addSensorHatchToMachineList(tile), GTN_SensorHatch.class) {
+    SensorHatch("SensorHatch", (base, tile, casing) -> base.hatchControl.addSensorHatchToMachineList(tile),
+        GTN_SensorHatch.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mSensorHatch.size();
+            return gtnMultiBlockBase.sensorHatches.size();
         }
     },
 
-    ManaHatch("ManaHatch", (base, tile, casing) -> base.addManaHatchToMachineList(tile), GTN_ManaHatch.class) {
+    ManaHatch("ManaHatch", (base, tile, casing) -> base.hatchControl.addManaHatchToMachineList(tile),
+        GTN_ManaHatch.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mManaHatch.size();
+            return gtnMultiBlockBase.manaHatches.size();
         }
     },
 
-    AspectHatch("AspectHatch", (base, tile, casing) -> base.addAspectHatchToMachineList(tile), GTN_AspectHatch.class) {
+    AspectHatch("AspectHatch", (base, tile, casing) -> base.hatchControl.addAspectHatchToMachineList(tile),
+        GTN_AspectHatch.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mAspectHatch.size();
+            return gtnMultiBlockBase.aspectHatches.size();
         }
     },
 
-    MeAspectHatch("MeAspectHatch", (base, tile, casing) -> base.addMeAspectHatchToMachineList(tile),
+    MeAspectHatch("MeAspectHatch", (base, tile, casing) -> base.hatchControl.addMeAspectHatchToMachineList(tile),
         GTN_MeAspectHatch.class) {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mMeAspectHatch.size();
+            return gtnMultiBlockBase.meAspectHatches.size();
         }
     },
 
-    DynamoMulti("DynamoMulti", (base, tile, casing) -> base.addDynamoMultiHatchToMachineList(tile),
+    DynamoMulti("DynamoMulti", (base, tile, casing) -> base.hatchControl.addDynamoMultiHatchToMachineList(tile),
         MTEHatchDynamoMulti.class) {
 
         @Override

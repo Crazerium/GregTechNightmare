@@ -292,7 +292,7 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
             processingHelper.setEnergyGenerate(checkEnergy(eu, heat));
 
-            for (GTN_SensorHatch hatch : mSensorHatch) {
+            for (GTN_SensorHatch hatch : sensorHatches) {
                 hatch.updateRedstoneOutput(heat);
             }
         }

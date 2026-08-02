@@ -58,8 +58,6 @@ import gregtech.api.render.TextureFactory;
 import gregtech.api.structure.error.StructureError;
 import gregtech.api.structure.error.StructureErrorRegistry;
 import gregtech.api.util.MultiblockTooltipBuilder;
-import gregtech.api.util.VoidProtectionHelper;
-import gregtech.common.tileentities.machines.IDualInputHatch;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusInput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.MTEHatchSteamBusOutput;
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.MTEHatchCustomFluidBase;
@@ -86,14 +84,15 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     private static final String TRANSLATE_KEY = "multiblock.";
     private final String MULTIBLOCK_NAME_KEY;
     // Hatches
-    public ArrayList<MTEHatchSteamBusInput> mSteamInputBusses = new ArrayList<>();
-    public ArrayList<MTEHatchSteamBusOutput> mSteamOutputBusses = new ArrayList<>();
-    public ArrayList<MTEHatchCustomFluidBase> mSteamInputFluids = new ArrayList<>();
-    public ArrayList<GTN_SensorHatch> mSensorHatch = new ArrayList<>();
-    public ArrayList<GTN_ManaHatch> mManaHatch = new ArrayList<>();
-    public ArrayList<GTN_AspectHatch> mAspectHatch = new ArrayList<>();
-    public ArrayList<GTN_MeAspectHatch> mMeAspectHatch = new ArrayList<>();
-    public ArrayList<MTEHatchDynamoMulti> mDynamoMultiHatches = new ArrayList<>();
+    public ArrayList<MTEHatchSteamBusInput> steamInputBusses = new ArrayList<>();
+    public ArrayList<MTEHatchSteamBusOutput> steamOutputBusses = new ArrayList<>();
+    public ArrayList<MTEHatchCustomFluidBase> steamOutputFluids = new ArrayList<>();
+    public ArrayList<GTN_SensorHatch> sensorHatches = new ArrayList<>();
+    public ArrayList<GTN_ManaHatch> manaHatches = new ArrayList<>();
+    public ArrayList<GTN_AspectHatch> aspectHatches = new ArrayList<>();
+    public ArrayList<GTN_MeAspectHatch> meAspectHatches = new ArrayList<>();
+    public ArrayList<MTEHatchDynamoMulti> dynamoMultiHatches = new ArrayList<>();
+    protected final GTN_HatchControl<?> hatchControl;
     // Processing
     private int maxParallel = 1;
     private float euModifier = 1;
@@ -116,6 +115,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         super(id, TRANSLATE_KEY + name, GTN_Utils.tr(TRANSLATE_KEY + name));
         MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
         processingHelper = new GTN_ProcessingHelper<>(self());
+        hatchControl = new GTN_HatchControl<>(self());
         initDefaultVariant();
     }
 
@@ -123,6 +123,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         super(name);
         MULTIBLOCK_NAME_KEY = TRANSLATE_KEY + name;
         processingHelper = new GTN_ProcessingHelper<>(self());
+        hatchControl = new GTN_HatchControl<>(self());
         initDefaultVariant();
     }
     // endregion
@@ -138,14 +139,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     @Override
     public void clearHatches() {
         super.clearHatches();
-        this.mSteamInputFluids.clear();
-        this.mSteamInputBusses.clear();
-        this.mSteamOutputBusses.clear();
-        this.mSensorHatch.clear();
-        this.mManaHatch.clear();
-        this.mAspectHatch.clear();
-        this.mMeAspectHatch.clear();
-        this.mDynamoMultiHatches.clear();
+        hatchControl.clearHatches();
         mainCasingCount = 0;
 
         for (CasingData casingData : registeredCasingData) {
@@ -287,6 +281,16 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                     .build() };
         }
         return new ITexture[] { Textures.BlockIcons.getCasingTextureForId(textureId) };
+    }
+
+    public void updateHatchTexture() {
+        int textureId = mainCasing.textureId;
+
+        if (mainCasingTextureId != 0) {
+            textureId = mainCasingTextureId;
+        }
+
+        hatchControl.updateHatches(textureId);
     }
     // endregion
 
@@ -542,85 +546,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
     // endregion
 
-    // region Hatches
-    private boolean baseCheckHatch(IGregTechTileEntity tileEntity) {
-        if (tileEntity == null) {
-            return false;
-        }
-        IMetaTileEntity aMetaTileEntity = tileEntity.getMetaTileEntity();
-
-        return aMetaTileEntity == null;
-    }
-
-    public final boolean addSteamInputBusToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusInput steamBusInput)) return false;
-
-        mInputBusses.add(steamBusInput);
-
-        return mSteamInputBusses.add(steamBusInput);
-    }
-
-    public final boolean addSteamInputHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchCustomFluidBase steamHatchInput)) return false;
-
-        return mSteamInputFluids.add(steamHatchInput);
-    }
-
-    public final boolean addSteamOutputBusToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchSteamBusOutput steamBusOutput)) return false;
-
-        mOutputBusses.add(steamBusOutput);
-
-        return mSteamOutputBusses.add(steamBusOutput);
-    }
-
-    public final boolean addSensorHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof GTN_SensorHatch sensorHatch)) return false;
-
-        return mSensorHatch.add(sensorHatch);
-    }
-
-    public final boolean addManaHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof GTN_ManaHatch manaHatch)) return false;
-
-        return mManaHatch.add(manaHatch);
-    }
-
-    public final boolean addAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof GTN_AspectHatch aspectHatch)) return false;
-
-        return mAspectHatch.add(aspectHatch);
-    }
-
-    public final boolean addMeAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof GTN_MeAspectHatch aspectHatch)) return false;
-
-        return mMeAspectHatch.add(aspectHatch);
-    }
-
-    public final boolean addDynamoMultiHatchToMachineList(IGregTechTileEntity tileEntity) {
-        if (baseCheckHatch(tileEntity)) return false;
-
-        if (!(tileEntity.getMetaTileEntity() instanceof MTEHatchDynamoMulti dynamoMulti)) return false;
-
-        return mDynamoMultiHatches.add(dynamoMulti);
-    }
-    // endregion
-
     // region Energy
     @Override
     public boolean addEnergyOutputMultipleDynamos(long aEU, boolean aAllowMixedVoltageDynamos) {
@@ -631,7 +556,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         List<MTEHatch> allDynamos = new ArrayList<>();
 
-        for (MTEHatchDynamoMulti hatch : validMTEList(mDynamoMultiHatches)) {
+        for (MTEHatchDynamoMulti hatch : validMTEList(dynamoMultiHatches)) {
             allDynamos.add(hatch);
         }
 
@@ -761,18 +686,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
     // endregion
 
-    // region Void Helper
-    protected boolean isItemOutputFull(ItemStack[] itemOutputs) {
-        VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
-
-        voidProtectionHelper.setMachine(this)
-            .setItemOutputs(itemOutputs)
-            .build();
-
-        return voidProtectionHelper.isItemFull();
-    }
-    // endregion
-
     // region Sync Data
     @Override
     public NBTTagCompound getDescriptionData() {
@@ -798,6 +711,20 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             validateLinks();
         }
     }
+
+    @Override
+    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
+        super.onFirstTick(baseMetaTileEntity);
+
+        GTN_FirstTick(baseMetaTileEntity);
+
+        if (!initialized) {
+            initialize();
+            initialized = true;
+        }
+    }
+
+    protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
     // endregion
 
     // region Block
@@ -950,31 +877,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public boolean isEnergyMultiBlock() {
         return true;
-    }
-
-    public void updateHatchTexture() {
-        int textureId = mainCasing.textureId;
-
-        if (mainCasingTextureId != 0) {
-            textureId = mainCasingTextureId;
-        }
-
-        for (IDualInputHatch h : mDualInputHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mInputBusses) h.updateTexture(textureId);
-        for (MTEHatch h : mMaintenanceHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mEnergyHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mOutputBusses) h.updateTexture(textureId);
-        for (MTEHatch h : mInputHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mOutputHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mMufflerHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mExoticEnergyHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mExoticDynamoHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mSensorHatch) h.updateTexture(textureId);
-        for (MTEHatch h : mManaHatch) h.updateTexture(textureId);
-        for (MTEHatch h : mAspectHatch) h.updateTexture(textureId);
-        for (MTEHatch h : mMeAspectHatch) h.updateTexture(textureId);
-        for (MTEHatch h : mDynamoHatches) h.updateTexture(textureId);
-        for (MTEHatch h : mDynamoMultiHatches) h.updateTexture(textureId);
     }
 
     public CoordMultiBlock getCoord() {
@@ -1207,20 +1109,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             info.addAll(list);
         }
     }
-
-    @Override
-    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
-        super.onFirstTick(baseMetaTileEntity);
-
-        GTN_FirstTick(baseMetaTileEntity);
-
-        if (!initialized) {
-            initialize();
-            initialized = true;
-        }
-    }
-
-    protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
 
     protected void initialize() {}
 
