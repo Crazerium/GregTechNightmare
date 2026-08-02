@@ -7,7 +7,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
@@ -44,7 +43,7 @@ import thaumcraft.common.tiles.TileNode;
 
 public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
-    protected ArrayList<TileNode> mNode = new ArrayList<>();
+    protected ArrayList<TileNode> node = new ArrayList<>();
 
     public GTN_NodeEnergizer(int id, String name) {
         super(id, name);
@@ -56,17 +55,17 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
     @Override
     public List<StructureVariant<GTN_NodeEnergizer>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "NodeEnergizer",
                 // spotless:off
                 new String[][]{
-                    {"       ","       ","   C   ","       ","       ","       "},
-                    {"  AAA  "," A C A "," ACCCA "," A C A ","  AAA  ","       "},
-                    {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
-                    {"       ","  C C  ","A BDB A","  CBC  ","       ","   A   "},
-                    {"       ","  CBC  ","A B B A","  CBC  ","       ","   A   "},
-                    {"  C~C  "," CCCCC ","ACCCCCA"," CCCCC ","  CCC  ","   A   "}
+                    {"       ", "       ", "   C   ", "       ", "       ", "       "},
+                    {"  AAA  ", " A C A ", " ACCCA ", " A C A ", "  AAA  ", "       "},
+                    {"       ", "  CBC  ", "A B B A", "  CBC  ", "       ", "   A   "},
+                    {"       ", "  C C  ", "A BDB A", "  CBC  ", "       ", "   A   "},
+                    {"       ", "  CBC  ", "A B B A", "  CBC  ", "       ", "   A   "},
+                    {"  C~C  ", " CCCCC ", "ACCCCCA", " CCCCC ", "  CCC  ", "   A   "}
                 },
                 //spotless:on
                 new MultiblockOffsets(3, 5, 0),
@@ -108,10 +107,10 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
         return OverclockType.NONE;
     }
 
-    public final boolean addNodeEnergized(TileEntity aTileEntity) {
-        if (aTileEntity instanceof TileNode nodeEnergized) {
-            if (!(mNode.size() == 1)) {
-                return this.mNode.add(nodeEnergized);
+    public final boolean addNodeEnergized(TileEntity tileEntity) {
+        if (tileEntity instanceof TileNode nodeEnergized) {
+            if (!(node.size() == 1)) {
+                return this.node.add(nodeEnergized);
             } else return true;
         }
         return false;
@@ -120,7 +119,7 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     @Override
     public void clearHatches() {
         super.clearHatches();
-        mNode.clear();
+        node.clear();
     }
 
     protected ProcessingLogic createProcessingLogic() {
@@ -133,12 +132,16 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
                 long availableEUt = getMaxInputPower();
                 int consumeEUt;
                 MTEHatchInputBus bus = mInputBusses.get(0);
-                TileNode node = mNode.size() == 1 ? mNode.get(0) : null;
+                TileNode node = GTN_NodeEnergizer.this.node.size() == 1 ? GTN_NodeEnergizer.this.node.get(0) : null;
                 boolean bonus = false;
 
-                if (node == null) return SimpleCheckRecipeResult.ofFailure("node_enough");
+                if (node == null) {
+                    return SimpleCheckRecipeResult.ofFailure("node_enough");
+                }
 
-                if (bus == null || inputItems.isEmpty()) return CheckRecipeResultRegistry.NO_RECIPE;
+                if (bus == null || inputItems.isEmpty()) {
+                    return CheckRecipeResultRegistry.NO_RECIPE;
+                }
 
                 switch ((int) bus.getInputTier()) {
                     case 0 -> {
@@ -195,7 +198,7 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
 
     @Override
     protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-        return mInputBusses.size() <= 1 && mNode.size() <= 1 && mEnergyHatches.size() <= 2;
+        return mInputBusses.size() <= 1 && node.size() <= 1 && mEnergyHatches.size() <= 2;
     }
 
     @SideOnly(Side.CLIENT)

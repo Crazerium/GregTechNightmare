@@ -5,7 +5,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -38,16 +37,16 @@ public class GTN_ZeroPowerWireMill extends GTN_MultiBlockBase<GTN_ZeroPowerWireM
 
     @Override
     public List<StructureVariant<GTN_ZeroPowerWireMill>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
-                "",
+                "ZeroPowerWireMill",
                 // spotless:off
                 new String[][]{
-                    {"       ","       "," BBBBB ","       "," BBBBB ","       ","       "},
-                    {"       "," B   B ","BC   CB","B     B","BC   CB"," B   B ","       "},
-                    {" B   B ","       ","BC   CB","  A A  ","BC   CB","       "," B   B "},
-                    {" B   B ","       ","BCA ACB"," BBBBB ","BCA ACB","       "," B   B "},
-                    {" BB~BB ","BB   BB","BC   CB","B A A B","BC   CB","BB   BB"," BBBBB "}
+                    {"       ", "       ", " BBBBB ", "       ", " BBBBB ", "       ", "       "},
+                    {"       ", " B   B ", "BC   CB", "B     B", "BC   CB", " B   B ", "       "},
+                    {" B   B ", "       ", "BC   CB", "  A A  ", "BC   CB", "       ", " B   B "},
+                    {" B   B ", "       ", "BCA ACB", " BBBBB ", "BCA ACB", "       ", " B   B "},
+                    {" BB~BB ", "BB   BB", "BC   CB", "B A A B", "BC   CB", "BB   BB", " BBBBB "}
                 },
                 //spotless:on
                 new MultiblockOffsets(3, 4, 0),

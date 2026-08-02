@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.init.Blocks;
@@ -54,15 +53,15 @@ public class GTN_ImprovedAlgaeFarm extends GTN_MultiBlockBase<GTN_ImprovedAlgaeF
 
     @Override
     public List<StructureVariant<GTN_ImprovedAlgaeFarm>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "ImprovedAlgaeFarm",
                 // spotless:off
                 new String[][]{
-                    {"           ","           ","           ","           ","    BBB    ","    BBB    ","    BBB    ","           ","           ","           ","           "},
-                    {"    BBB    ","  BB A BB  "," B   A   B "," B   A   B ","B   BBB   B","BAAABBBAAAB","B   BBB   B"," B   A   B "," B   A   B ","  BB A BB  ","    BBB    "},
-                    {"    B~B    ","  BBCACBB  "," BCCCACCCB "," BCCCACCCB ","BCCCBBBCCCB","BAAABBBAAAB","BCCCBBBCCCB"," BCCCACCCB "," BCCCACCCB ","  BBCACBB  ","    BBB    "},
-                    {"    BBB    ","  BBBBBBB  "," BBBBBBBBB "," BBBBBBBBB ","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"," BBBBBBBBB "," BBBBBBBBB ","  BBBBBBB  ","    BBB    "}
+                    {"           ", "           ", "           ", "           ", "    BBB    ", "    BBB    ", "    BBB    ", "           ", "           ", "           ", "           "},
+                    {"    BBB    ", "  BB A BB  ", " B   A   B ", " B   A   B ", "B   BBB   B", "BAAABBBAAAB", "B   BBB   B", " B   A   B ", " B   A   B ", "  BB A BB  ", "    BBB    "},
+                    {"    B~B    ", "  BBCACBB  ", " BCCCACCCB ", " BCCCACCCB ", "BCCCBBBCCCB", "BAAABBBAAAB", "BCCCBBBCCCB", " BCCCACCCB ", " BCCCACCCB ", "  BBCACBB  ", "    BBB    "},
+                    {"    BBB    ", "  BBBBBBB  ", " BBBBBBBBB ", " BBBBBBBBB ", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", " BBBBBBBBB ", " BBBBBBBBB ", "  BBBBBBB  ", "    BBB    "}
                 },
                 //spotless:on
                 new MultiblockOffsets(5, 2, 0),

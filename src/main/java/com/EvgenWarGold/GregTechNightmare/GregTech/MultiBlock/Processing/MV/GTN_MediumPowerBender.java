@@ -5,7 +5,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -38,14 +37,14 @@ public class GTN_MediumPowerBender extends GTN_MultiBlockBase<GTN_MediumPowerBen
 
     @Override
     public List<StructureVariant<GTN_MediumPowerBender>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "MediumPowerBender",
                 // spotless:off
                 new String[][]{
-                    {"BB   B","AAAAAA","BB   B"},
-                    {"A~   A","AA   A","AA   A"},
-                    {"AABBBA","AAAAAA","AABBBA"}
+                    {"BB   B", "AAAAAA", "BB   B"},
+                    {"A~   A", "AA   A", "AA   A"},
+                    {"AABBBA", "AAAAAA", "AABBBA"}
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 1, 0),

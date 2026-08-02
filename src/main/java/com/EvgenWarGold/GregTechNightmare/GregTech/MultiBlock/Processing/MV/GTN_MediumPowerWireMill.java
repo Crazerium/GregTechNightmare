@@ -5,7 +5,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -37,14 +36,14 @@ public class GTN_MediumPowerWireMill extends GTN_MultiBlockBase<GTN_MediumPowerW
 
     @Override
     public List<StructureVariant<GTN_MediumPowerWireMill>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "MediumPowerWireMill",
                 // spotless:off
                 new String[][]{
-                    {"A  A    ","A  A    ","A  A    "},
-                    {"~  A   A","ACCCCCCA","A  A   A"},
-                    {"AAAAAAAA","ABBBBBBA","AAAAAAAA"}
+                    {"A  A    ", "A  A    ", "A  A    "},
+                    {"~  A   A", "ACCCCCCA", "A  A   A"},
+                    {"AAAAAAAA", "ABBBBBBA", "AAAAAAAA"}
                 },
                 //spotless:on
                 new MultiblockOffsets(0, 1, 0),

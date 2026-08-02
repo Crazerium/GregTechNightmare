@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -39,16 +38,16 @@ public class GTN_ExtremePowerCircuitAssembler extends GTN_MultiBlockBase<GTN_Ext
 
     @Override
     public List<StructureVariant<GTN_ExtremePowerCircuitAssembler>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "ExtremePowerCircuitAssembler",
                 // spotless:off
                 new String[][]{
-                    {"DDDDDDD ","DBBBCC  ","DAAACC  ","DBBBCC  ","DDDDDDD "},
-                    {"DEEECCCD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
-                    {"DEEEC~CD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
-                    {"DEEECCCD","B   CCC ","A   CCC ","B   CCC ","DEEECCCD"},
-                    {"DDDDDDDD","DCCCCCCD","DCCCCCCD","DCCCCCCD","DDDDDDDD"}
+                    {"DDDDDDD ", "DBBBCC  ", "DAAACC  ", "DBBBCC  ", "DDDDDDD "},
+                    {"DEEECCCD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD"},
+                    {"DEEEC~CD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD"},
+                    {"DEEECCCD", "B   CCC ", "A   CCC ", "B   CCC ", "DEEECCCD"},
+                    {"DDDDDDDD", "DCCCCCCD", "DCCCCCCD", "DCCCCCCD", "DDDDDDDD"}
                 },
                 //spotless:on
                 new MultiblockOffsets(5, 2, 0),

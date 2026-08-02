@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
@@ -40,17 +39,17 @@ public class GTN_MediumPowerExtruder extends GTN_MultiBlockBase<GTN_MediumPowerE
 
     @Override
     public List<StructureVariant<GTN_MediumPowerExtruder>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "MediumPowerExtruder",
                 // spotless:off
                 new String[][]{
-                    {" AAA ","AAAAA","AAAAA","AAAAA"," AAA "},
-                    {"     ","     ","A C A","     ","     "},
-                    {"     "," CCC ","BCCCB"," CCC ","     "},
-                    {"     ","     ","B   B","     ","     "},
-                    {" A~A ","A   A","B   B","A   A"," AAA "},
-                    {" AAA ","ACCCA","ACCCA","ACCCA"," AAA "}
+                    {" AAA ", "AAAAA", "AAAAA", "AAAAA", " AAA "},
+                    {"     ", "     ", "A C A", "     ", "     "},
+                    {"     ", " CCC ", "BCCCB", " CCC ", "     "},
+                    {"     ", "     ", "B   B", "     ", "     "},
+                    {" A~A ", "A   A", "B   B", "A   A", " AAA "},
+                    {" AAA ", "ACCCA", "ACCCA", "ACCCA", " AAA "}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 4, 0),

@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,16 +40,16 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
 
     @Override
     public List<StructureVariant<GTN_ImprovedSliceNSplice>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "",
                 // spotless:off
                 new String[][]{
-                    {"CCCCCCC","CAAAAAC","CAAAAAC","CAAAAAC","CCCCCCC"},
-                    {"CBCBCBC","B     B","B     B","B     B","CCCCCCC"},
-                    {"CCC~CCC","B     B","C     C","B     B","CCCCCCC"},
-                    {"CBCBCBC","B     B","B     B","B     B","CCCCCCC"},
-                    {"CCCCCCC","CCCCCCC","CCCCCCC","CCCCCCC","CCCCCCC"}
+                    {"CCCCCCC", "CAAAAAC", "CAAAAAC", "CAAAAAC", "CCCCCCC"},
+                    {"CBCBCBC", "B     B", "B     B", "B     B", "CCCCCCC"},
+                    {"CCC~CCC", "B     B", "C     C", "B     B", "CCCCCCC"},
+                    {"CBCBCBC", "B     B", "B     B", "B     B", "CCCCCCC"},
+                    {"CCCCCCC", "CCCCCCC", "CCCCCCC", "CCCCCCC", "CCCCCCC"}
                 },
                 //spotless:on
                 new MultiblockOffsets(3, 2, 0),
@@ -94,7 +93,9 @@ public class GTN_ImprovedSliceNSplice extends GTN_MultiBlockBase<GTN_ImprovedSli
     private int getParallelFromCapacitor() {
         ItemStack stack = getControllerSlot();
 
-        if (stack == null) return 2;
+        if (stack == null) {
+            return 2;
+        }
 
         for (Map.Entry<ItemStack, Integer> entry : CAPACITOR_PARALLELS.entrySet()) {
             if (GTUtility.areStacksEqual(stack, entry.getKey(), true)) {

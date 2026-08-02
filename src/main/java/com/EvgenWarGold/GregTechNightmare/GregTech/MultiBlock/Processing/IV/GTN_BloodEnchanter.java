@@ -8,7 +8,6 @@ import static gregtech.api.enums.HatchElement.Muffler;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.enchantment.Enchantment;
@@ -71,21 +70,21 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
 
     @Override
     public List<StructureVariant<GTN_BloodEnchanter>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "BloodEnchanter",
                 // spotless:off
                 new String[][]{
-                    {"BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"},
-                    {"BAAAAAAAAAB","A         A","A         A","A         A","A   C C   A","A         A","A   C C   A","A         A","A         A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A         A","A  C   C  A","A         A","A         A","A         A","A  C   C  A","A         A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A C C C C A","A         A","A C     C A","A         A","A C     C A","A         A","A C C C C A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A CC   CC A","A C     C A","A         A","A         A","A         A","A C     C A","A CC   CC A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A C  D  C A","A         A","A         A","A D  F  D A","A         A","A         A","A C  D  C A","A         A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A    C    A","A C CCC C A","A    C    A","A C     C A","ACCC E CCCA","A C     C A","A    C    A","A C CCC C A","A    C    A","BAAAAAAAAAB"},
-                    {"BAAAAAAAAAB","A         A","A C     C A","A         A","A         A","A         A","A         A","A         A","A C     C A","A         A","BAAAAAAAAAB"},
-                    {"BBBBB~BBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB","BBBBBBBBBBB"}
+                    {"BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB"},
+                    {"BAAAAAAAAAB", "A         A", "A         A", "A         A", "A   C C   A", "A         A", "A   C C   A", "A         A", "A         A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A         A", "A  C   C  A", "A         A", "A         A", "A         A", "A  C   C  A", "A         A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A C C C C A", "A         A", "A C     C A", "A         A", "A C     C A", "A         A", "A C C C C A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A CC   CC A", "A C     C A", "A         A", "A         A", "A         A", "A C     C A", "A CC   CC A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A C     C A", "A         A", "A         A", "A         A", "A         A", "A         A", "A C     C A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A C  D  C A", "A         A", "A         A", "A D  F  D A", "A         A", "A         A", "A C  D  C A", "A         A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A    C    A", "A C CCC C A", "A    C    A", "A C     C A", "ACCC E CCCA", "A C     C A", "A    C    A", "A C CCC C A", "A    C    A", "BAAAAAAAAAB"},
+                    {"BAAAAAAAAAB", "A         A", "A C     C A", "A         A", "A         A", "A         A", "A         A", "A         A", "A C     C A", "A         A", "BAAAAAAAAAB"},
+                    {"BBBBB~BBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB", "BBBBBBBBBBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(5, 9, 0),
@@ -159,8 +158,8 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
         return 128000;
     }
 
-    public boolean addInfusionProvider(TileEntity aTileEntity) {
-        if (aTileEntity instanceof TileInfusionProvider provider) {
+    public boolean addInfusionProvider(TileEntity tileEntity) {
+        if (tileEntity instanceof TileInfusionProvider provider) {
             if (!this.tileInfusionProviders.contains(provider)) {
                 this.tileInfusionProviders.add(provider);
             }

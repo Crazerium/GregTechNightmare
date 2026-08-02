@@ -8,7 +8,6 @@ import static thaumcraft.common.config.ConfigBlocks.blockMetalDevice;
 import static thaumcraft.common.config.ConfigBlocks.blockStoneDevice;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
@@ -68,17 +67,17 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
 
     @Override
     public List<StructureVariant<GTN_LargeArcaneAssembler>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "LargeArcaneAssembler",
                 // spotless:off
                 new String[][]{
-                    {"BBBBB","BAAAB","BAAAB","BAAAB","BBBBB"},
-                    {"BAAAB","A   A","A   A","A   A","BAAAB"},
-                    {"BAAAB","A   A","A E A","A   A","BAAAB"},
-                    {"BAAAB","A   A","A   A","A   A","BAAAB"},
-                    {"BAAAB","A   A","A D A","A   A","BAAAB"},
-                    {"BB~BB","BCCCB","BCCCB","BCCCB","BBBBB"}
+                    {"BBBBB", "BAAAB", "BAAAB", "BAAAB", "BBBBB"},
+                    {"BAAAB", "A   A", "A   A", "A   A", "BAAAB"},
+                    {"BAAAB", "A   A", "A E A", "A   A", "BAAAB"},
+                    {"BAAAB", "A   A", "A   A", "A   A", "BAAAB"},
+                    {"BAAAB", "A   A", "A D A", "A   A", "BAAAB"},
+                    {"BB~BB", "BCCCB", "BCCCB", "BCCCB", "BBBBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(2, 5, 0),
@@ -148,10 +147,14 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
         super.GTN_FirstTick(aBaseMetaTileEntity);
 
-        if (!aBaseMetaTileEntity.isServerSide()) return;
+        if (!aBaseMetaTileEntity.isServerSide()) {
+            return;
+        }
 
         String owner = aBaseMetaTileEntity.getOwnerName();
-        if (owner == null || owner.isEmpty()) return;
+        if (owner == null || owner.isEmpty()) {
+            return;
+        }
 
         research.clear();
 
@@ -169,8 +172,12 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     @Override
     public void onPostTick(IGregTechTileEntity tile, long tick) {
         super.onPostTick(tile, tick);
-        if (!tile.isClientSide()) return;
-        if (!tile.isActive()) return;
+        if (!tile.isClientSide()) {
+            return;
+        }
+        if (!tile.isActive()) {
+            return;
+        }
         if (tick % 2 == 0) {
             spawnLAAStyleFX(tile);
         }

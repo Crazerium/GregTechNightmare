@@ -8,7 +8,6 @@ import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 import static gregtech.api.enums.HatchElement.OutputHatch;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -19,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
@@ -60,15 +58,15 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
 
     @Override
     public List<StructureVariant<GTN_MagicEBF>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "MagicEBF",
                 // spotless:off
                 new String[][]{
-                    {"BBB","BBB","BBB"},
-                    {"AAA","A A","AAA"},
-                    {"AAA","A A","AAA"},
-                    {"B~B","BBB","BBB"}
+                    {"BBB", "BBB", "BBB"},
+                    {"AAA", "A A", "AAA"},
+                    {"AAA", "A A", "AAA"},
+                    {"B~B", "BBB", "BBB"}
                 },
                 //spotless:on
                 new MultiblockOffsets(1, 3, 0),
@@ -178,12 +176,7 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
                 causeMaintenanceIssue();
             }
 
-            GTN_ManaHatch manaHatch = manaHatches.get(0);
-
-            if (manaHatch.extractMana(MANA_CONSUME, true)) {
-                manaHatch.extractMana(MANA_CONSUME);
-            } else {
-                manaHatch.extractMana(MANA_CONSUME);
+            if (!processingHelper.consumeMana(MANA_CONSUME)) {
                 stopMachine(ShutDownReasonRegistry.CRITICAL_NONE);
                 causeMaintenanceIssue();
             }

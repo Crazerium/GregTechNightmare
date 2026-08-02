@@ -6,7 +6,6 @@ import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
@@ -49,15 +48,15 @@ public class GTN_HighPowerComponentAssembler extends GTN_MultiBlockBase<GTN_High
 
     @Override
     public List<StructureVariant<GTN_HighPowerComponentAssembler>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "HighPowerComponentAssembler",
                 // spotless:off
                 new String[][]{
-                    {"          "," EECEECEED","   D  D   "},
-                    {"DAAAAAAAAD","D  D  D  D","DAAAAAAAAD"},
-                    {"~AAAAAAAAD","D        D","DAAAAAAAAD"},
-                    {"DDDDDDDDDD","DBBBBBBBBD","DDDDDDDDDD"}
+                    {"          ", " EECEECEED", "   D  D   "},
+                    {"DAAAAAAAAD", "D  D  D  D", "DAAAAAAAAD"},
+                    {"~AAAAAAAAD", "D        D", "DAAAAAAAAD"},
+                    {"DDDDDDDDDD", "DBBBBBBBBD", "DDDDDDDDDD"}
                 },
                 //spotless:on
                 new MultiblockOffsets(0, 2, 0),
