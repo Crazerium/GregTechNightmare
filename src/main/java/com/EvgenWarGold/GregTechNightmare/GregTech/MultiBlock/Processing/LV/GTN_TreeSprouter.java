@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,8 @@ import gtPlusPlus.xmod.gregtech.common.blocks.textures.TexturesGtBlock;
 public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
 
     private static final MTETreeFarm.Mode LOG = MTETreeFarm.Mode.LOG;
+    private static FluidStack STEAM;
+    private static final int STEAM_CONSUMPTION = 16_000;
 
     public GTN_TreeSprouter(int id, String name) {
         super(id, name);
@@ -114,39 +117,29 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     }
 
     @Override
-    protected ProcessingLogic createProcessingLogic() {
-        return new GTN_ProcessingLogic() {
+    public @NotNull CheckRecipeResult checkProcessing() {
+        ItemStack controllerSlot = getControllerSlot();
 
-            @Override
-            public @NotNull CheckRecipeResult process() {
-                ItemStack controllerSlot = getControllerSlot();
-                ArrayList<FluidStack> inputs = getStoredFluids();
+        if (controllerSlot == null) {
+            return processingHelper.resultNoRecipe();
+        }
 
-                if (controllerSlot == null) return CheckRecipeResultRegistry.NO_RECIPE;
+        if (!isValidSapling(controllerSlot)) {
+            return SimpleCheckRecipeResult.ofFailure("sapling_enough");
+        }
 
-                if (!isValidSapling(controllerSlot)) {
-                    return SimpleCheckRecipeResult.ofFailure("sapling_enough");
-                }
+        ItemStack output = getOutputsForSapling(controllerSlot);
 
-                ItemStack output = Objects.requireNonNull(getOutputsForSapling(controllerSlot))
-                    .copy();
-
-                output.stackSize = 64;
-
-                if (isItemOutputFull(new ItemStack[] { output })) return CheckRecipeResultRegistry.ITEM_OUTPUT_FULL;
-
-                outputItems = new ItemStack[] { output };
-
-                if (removeFluids(inputs, Collections.singletonList(Materials.Steam.getGas(16_000)), true)) {
-                    removeFluids(inputs, Collections.singletonList(Materials.Steam.getGas(16_000)));
-                    setDurationInMinutes(2 + (100 - Math.min((getEfficiency() / 100), 100)) / 2);
-                } else {
-                    setDurationInMinutes(5 + (100 - Math.min((getEfficiency() / 100), 100)) / 2);
-                }
-
-                return CheckRecipeResultRegistry.SUCCESSFUL;
+        if (processingHelper.outputItem(output, 64)) {
+            if (processingHelper.consumeFluid(STEAM, STEAM_CONSUMPTION)) {
+                processingHelper.setDurationInMinutes(2 + (100 - Math.min((getEfficiency() / 100), 100)));
+            } else {
+                processingHelper.setDurationInMinutes(5 + (100 - Math.min((getEfficiency() / 100), 100)) / 2);
             }
-        }.setMaxParallelSupplier(this::getMaxParallelRecipes);
+            return processingHelper.resultSuccess();
+        }
+
+        return processingHelper.resultNoRecipe();
     }
 
     private boolean isValidSapling(ItemStack stack) {
@@ -196,5 +189,11 @@ public class GTN_TreeSprouter extends GTN_MultiBlockBase<GTN_TreeSprouter> {
     @Override
     protected SoundResource getActivitySoundLoop() {
         return SoundResource.GTCEU_OP_SAW;
+    }
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        STEAM = Materials.Steam.getGas(1);
     }
 }
