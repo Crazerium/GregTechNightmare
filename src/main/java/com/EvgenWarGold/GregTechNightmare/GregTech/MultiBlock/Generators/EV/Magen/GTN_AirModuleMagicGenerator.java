@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingBuilder;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -55,9 +56,9 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     private static final int VOLATUS_CONSUMPTION = 300;
     private static final int AURAM_CONSUMPTION = 400;
 
-    private static final FluidStack WATER_T1;
-    private static final FluidStack ENDER_GOO;
-    private static final FluidStack ARGON;
+    private static FluidStack WATER_T1;
+    private static FluidStack ENDER_GOO;
+    private static FluidStack ARGON;
 
     private static final int WATER_T1_CONSUMPTION = 2_000;
     private static final int ENDER_GOO_CONSUMPTION = 300;
@@ -94,10 +95,6 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
         TIER_4.put(Aspect.SENSES, SENSUS_CONSUMPTION);
         TIER_4.put(Aspect.FLIGHT, VOLATUS_CONSUMPTION);
         TIER_4.put(Aspect.AURA, AURAM_CONSUMPTION);
-
-        WATER_T1 = Materials.Grade1PurifiedWater.getFluid(1);
-        ENDER_GOO = FluidRegistry.getFluidStack("endergoo", 1);
-        ARGON = Materials.Argon.getGas(1);
     }
 
     public GTN_AirModuleMagicGenerator(int id, String name) {
@@ -185,7 +182,7 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
         if (gte != null) {
             World world = gte.getWorld();
             if (world != null && world.provider.dimensionId != VALID_DIMENSION) {
-                return CheckRecipeResultRegistry.NO_RECIPE;
+                return processingHelper.resultNoRecipe();
             }
         }
 
@@ -194,55 +191,45 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
         double catalystBuff = 1;
 
         if (catalystData == null) {
-            if (consumeItemFromHatches(ICHOR, ICHOR_CONSUMPTION, true)) {
-                consumeItemFromHatches(ICHOR, ICHOR_CONSUMPTION, false);
+            if (processingHelper.consumeItem(ICHOR, ICHOR_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.25);
-            } else if (consumeItemFromHatches(VOID_METAL_BLOCK, VOID_METAL_BLOCK_CONSUMPTION, true)) {
-                consumeItemFromHatches(VOID_METAL_BLOCK, VOID_METAL_BLOCK_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(VOID_METAL_BLOCK, VOID_METAL_BLOCK_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.5);
-            } else if (consumeItemFromHatches(SALIS_MUNDUS_BLOCK, SALIS_MUNDUS_BLOCK_CONSUMPTION, true)) {
-                consumeItemFromHatches(SALIS_MUNDUS_BLOCK, SALIS_MUNDUS_BLOCK_CONSUMPTION, false);
+            } else if (processingHelper.consumeItem(SALIS_MUNDUS_BLOCK, SALIS_MUNDUS_BLOCK_CONSUMPTION)) {
                 catalystData = new CatalystData(CATALYST_BUFF_DURATION, 0.75);
             }
-        }
-
-        if (consumeAspectFromMeHatches(TIER_4, true)) {
-            consumeAspectFromMeHatches(TIER_4, false);
-            generate = TIER_4_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_3, true)) {
-            consumeAspectFromMeHatches(TIER_3, false);
-            generate = TIER_3_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_2, true)) {
-            consumeAspectFromMeHatches(TIER_2, false);
-            generate = TIER_2_GENERATE;
-        } else if (consumeAspectFromMeHatches(TIER_1, true)) {
-            consumeAspectFromMeHatches(TIER_1, false);
-            generate = TIER_1_GENERATE;
         }
 
         if (catalystData != null && catalystData.getDuration() != 0) {
             catalystBuff = catalystData.getBoost();
         }
 
-        if (consumeFluidFromHatches(ARGON, (int) (ARGON_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(ARGON, (int) (ARGON_CONSUMPTION * catalystBuff), false);
+        if (processingHelper.consumeMeAspect(TIER_4)) {
+            generate = TIER_4_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_3)) {
+            generate = TIER_3_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_2)) {
+            generate = TIER_2_GENERATE;
+        } else if (processingHelper.consumeMeAspect(TIER_1)) {
+            generate = TIER_1_GENERATE;
+        }
+
+        if (processingHelper.consumeFluid(ARGON, (int) (ARGON_CONSUMPTION * catalystBuff))) {
             boostLevel = 4;
-        } else if (consumeFluidFromHatches(ENDER_GOO, (int) (ENDER_GOO_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(ENDER_GOO, (int) (ENDER_GOO_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(ENDER_GOO, (int) (ENDER_GOO_CONSUMPTION * catalystBuff))) {
             boostLevel = 3;
-        } else if (consumeFluidFromHatches(WATER_T1, (int) (WATER_T1_CONSUMPTION * catalystBuff), true)) {
-            consumeFluidFromHatches(WATER_T1, (int) (WATER_T1_CONSUMPTION * catalystBuff), false);
+        } else if (processingHelper.consumeFluid(WATER_T1, (int) (WATER_T1_CONSUMPTION * catalystBuff))) {
             boostLevel = 2;
         }
 
         generate *= boostLevel;
 
         if (generate > 0) {
-            setDurationInSeconds(1);
-            return CheckRecipeResultRegistry.SUCCESSFUL;
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultSuccess();
         }
 
-        return CheckRecipeResultRegistry.NO_RECIPE;
+        return processingHelper.resultNoRecipe();
     }
 
     @Override
@@ -315,6 +302,10 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     @Override
     protected void initialize() {
         super.initialize();
+        WATER_T1 = Materials.Grade1PurifiedWater.getFluid(1);
+        ENDER_GOO = FluidRegistry.getFluidStack("endergoo", 1);
+        ARGON = Materials.Argon.getGas(1);
+
         SALIS_MUNDUS_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.SalisMundusBlock.getItemStack(1);
         VOID_METAL_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getItemStack(1);
         ICHOR = ThaumicTinkererItems.Ichor.get();
