@@ -21,6 +21,7 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
 
     // region Variables
     private final GTN_ProcessingHelper<T> helper;
+    private final T multiblock;
     private final Map<ItemStack, Integer> itemsToConsume = new HashMap<>();
     private final Map<ItemStack, Integer> itemsToOutput = new HashMap<>();
     private final Map<FluidStack, Integer> fluidsToConsume = new HashMap<>();
@@ -36,6 +37,7 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
     // region Constructor
     public GTN_ProcessingBuilder(GTN_ProcessingHelper<T> helper) {
         this.helper = helper;
+        this.multiblock = helper.multiblock;
     }
     // endregion
 
@@ -203,6 +205,9 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
 
     // region Execute
     public CheckRecipeResult executeResult(boolean simulate) {
+        List<ItemStack> itemOutput = new ArrayList<>();
+        List<FluidStack> fluidOutput = new ArrayList<>();
+
         if (!itemsToConsume.isEmpty()) {
             for (Map.Entry<ItemStack, Integer> entry : itemsToConsume.entrySet()) {
                 if (!helper.consumeItem(entry.getKey(), entry.getValue(), true)) {
@@ -243,17 +248,16 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
 
         if (!itemsToOutput.isEmpty()) {
             VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
-            voidProtectionHelper.setMachine(helper.multiblock);
+            voidProtectionHelper.setMachine(multiblock);
 
-            List<ItemStack> allOutputs = new ArrayList<>();
             for (Map.Entry<ItemStack, Integer> entry : itemsToOutput.entrySet()) {
                 ItemStack outputStack = entry.getKey()
                     .copy();
                 outputStack.stackSize = entry.getValue();
-                allOutputs.add(outputStack);
+                itemOutput.add(outputStack);
             }
 
-            voidProtectionHelper.setItemOutputs(allOutputs.toArray(new ItemStack[0]));
+            voidProtectionHelper.setItemOutputs(itemOutput.toArray(new ItemStack[0]));
             voidProtectionHelper.build();
 
             if (voidProtectionHelper.isItemFull()) {
@@ -263,17 +267,16 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
 
         if (!fluidsToOutput.isEmpty()) {
             VoidProtectionHelper voidProtectionHelper = new VoidProtectionHelper();
-            voidProtectionHelper.setMachine(helper.multiblock);
+            voidProtectionHelper.setMachine(multiblock);
 
-            List<FluidStack> allOutputs = new ArrayList<>();
             for (Map.Entry<FluidStack, Integer> entry : fluidsToOutput.entrySet()) {
                 FluidStack outputFluid = entry.getKey()
                     .copy();
                 outputFluid.amount = entry.getValue();
-                allOutputs.add(outputFluid);
+                fluidOutput.add(outputFluid);
             }
 
-            voidProtectionHelper.setFluidOutputs(allOutputs.toArray(new FluidStack[0]));
+            voidProtectionHelper.setFluidOutputs(fluidOutput.toArray(new FluidStack[0]));
             voidProtectionHelper.build();
 
             if (voidProtectionHelper.isFluidFull()) {
@@ -324,11 +327,11 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
         }
 
         if (!itemsToOutput.isEmpty()) {
-            helper.outputItem(itemsToOutput, false);
+            multiblock.mOutputItems = itemOutput.toArray(new ItemStack[0]);
         }
 
         if (!fluidsToOutput.isEmpty()) {
-            helper.outputFluid(fluidsToOutput, false);
+            multiblock.mOutputFluids = fluidOutput.toArray(new FluidStack[0]);
         }
 
         if (durationTicks != null && durationTicks > 0) {
@@ -345,7 +348,6 @@ public class GTN_ProcessingBuilder<T extends GTN_MultiBlockBase<T>> {
     public CheckRecipeResult execute() {
         CheckRecipeResult result = executeResult(false);
         if (result.wasSuccessful() && durationTicks != null && durationTicks > 0) {
-            T multiblock = helper.multiblock;
             multiblock.mMaxProgresstime = durationTicks;
 
             if (efficiency != null) {
