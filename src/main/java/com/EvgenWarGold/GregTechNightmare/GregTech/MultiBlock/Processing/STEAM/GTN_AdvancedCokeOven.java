@@ -257,7 +257,7 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     }
 
     @Override
-    protected GTGuiTheme getGuiTheme() {
+    public GTGuiTheme getGuiTheme() {
         return GTGuiThemes.COKE_OVEN;
     }
 

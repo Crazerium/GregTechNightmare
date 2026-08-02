@@ -436,7 +436,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
             if (tHatch.canStoreFluid(checkFluid)) {
                 if (tHatch instanceof MTEHatchOutputME tMEHatch) {
-                    if (!tMEHatch.canFillFluid()) {
+                    if (!tMEHatch.canStoreFluid(checkFluid)) {
                         continue;
                     }
                 }
@@ -464,7 +464,7 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
             if (tHatch.canStoreFluid(fillFluid)) {
                 if (tHatch instanceof MTEHatchOutputME tMEHatch) {
-                    if (!tMEHatch.canFillFluid()) {
+                    if (!tMEHatch.canStoreFluid(fillFluid)) {
                         continue;
                     }
                 }
@@ -499,12 +499,6 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         }
 
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
-            if (tHatch instanceof MTEHatchOutputME tMEHatch) {
-                if (!tMEHatch.canFillFluid()) {
-                    continue;
-                }
-            }
-
             Iterator<Map.Entry<FluidStack, Integer>> iterator = remainingFluids.entrySet()
                 .iterator();
             while (iterator.hasNext()) {
@@ -557,12 +551,6 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         }
 
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
-            if (tHatch instanceof MTEHatchOutputME tMEHatch) {
-                if (!tMEHatch.canFillFluid()) {
-                    continue;
-                }
-            }
-
             Iterator<Map.Entry<FluidStack, Integer>> iterator = fillFluids.entrySet()
                 .iterator();
             while (iterator.hasNext()) {
@@ -916,12 +904,22 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
         setEnergyGenerate(eu, 10_000);
     }
 
-    public void setEnergyUsage(long eu) {
+    public void setEnergyUsage(long eu, int efficiency) {
+        multiblock.mEfficiency = efficiency;
         multiblock.lEUt = -eu;
     }
 
-    public void setEnergyUsageWithoutLoss(long eu) {
+    public void setEnergyUsage(long eu) {
+        setEnergyUsage(eu, 10_000);
+    }
+
+    public void setEnergyUsageWithoutLoss(long eu, int efficiency) {
+        multiblock.mEfficiency = efficiency;
         multiblock.lEUt = (long) (-eu * 0.95);
+    }
+
+    public void setEnergyUsageWithoutLoss(long eu) {
+        setEnergyUsageWithoutLoss(eu, 10_000);
     }
     // endregion
 }

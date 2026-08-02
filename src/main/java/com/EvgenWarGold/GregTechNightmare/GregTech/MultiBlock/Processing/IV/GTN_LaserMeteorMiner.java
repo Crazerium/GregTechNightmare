@@ -197,7 +197,7 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
             if (getBaseMetaTileEntity() == null) return;
 
-            getBaseMetaTileEntity().issueClientUpdate();
+            getBaseMetaTileEntity().issueTileUpdate();
         })
             .setPlayClickSound(true)
             .setBackground(() -> new IDrawable[] { GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_SHUFFLE })

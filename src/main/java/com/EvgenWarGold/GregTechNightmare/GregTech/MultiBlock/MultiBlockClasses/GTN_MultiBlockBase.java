@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import gregtech.api.util.GTUtility;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

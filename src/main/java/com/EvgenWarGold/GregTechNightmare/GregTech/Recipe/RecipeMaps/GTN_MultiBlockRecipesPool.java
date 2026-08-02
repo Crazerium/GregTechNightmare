@@ -81,7 +81,7 @@ public class GTN_MultiBlockRecipesPool {
         addCraftingRecipe(
             GTN_ItemList.LowPowerVoidMiner.get(1),
             new Object[]{"AAA", "BCB", "DDD",
-                'A', GTN_Casings.BoltedCobaltCasing.getItemStack(),
+                'A', GTN_Casings.BoltedCarbonCasing.getItemStack(),
                 'B', getCircuit(Materials.LV),
                 'C', GTN_ItemList.BronzeVoidMiner.get(1),
                 'D', GTN_Casings.SolidSteelMachineCasing.getItemStack()

@@ -9,6 +9,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import gregtech.api.interfaces.IHatchElement;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.util.GTUtility;
@@ -111,7 +112,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
     @Override
     public String getDisplayName() {
-        return GTUtility.translate(name);
+        return GTN_Utils.tr(name);
     }
 
     @Override

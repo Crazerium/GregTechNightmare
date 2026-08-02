@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
@@ -390,7 +391,7 @@ public enum GTN_Casings implements ICasing {
     AlchemicalCasing(() -> GregTechAPI.sBlockCasings12, 10, gt(16, 5, 10)) {
         @Override
         public String getLocalizedName() {
-            return GTUtility.translate("GT5U.MBTT.AlchemyCasingAny");
+            return GTN_Utils.tr("GT5U.MBTT.AlchemyCasingAny");
         }
 
         @Override
@@ -442,7 +443,7 @@ public enum GTN_Casings implements ICasing {
     AlchemicalConstructTiered(() -> GameRegistry.findBlock(Mods.Thaumcraft.ID, "blockMetalDevice"), 9, -1) {
         @Override
         public String getLocalizedName() {
-            return GTUtility.translate("GT5U.MBTT.AlchemicalConstructAny");
+            return GTN_Utils.tr("GT5U.MBTT.AlchemicalConstructAny");
         }
 
         @Override
@@ -621,6 +622,8 @@ public enum GTN_Casings implements ICasing {
         (() -> WerkstoffLoader.BWBlockCasings, 31799, 31799),
     ReboltedIridiumCasing
         (() -> WerkstoffLoader.BWBlockCasingsAdvanced, 31850, 31850),
+    BoltedCarbonCasing
+        (() -> WerkstoffLoader.BWBlockCasings, 31776, 31776),
 
     // ------------------ GT++ Casings -----------------
 
@@ -1029,7 +1032,7 @@ public enum GTN_Casings implements ICasing {
     BorosilicateGlassAny(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override
         public String getLocalizedName() {
-            return GTUtility.translate("GT5U.MBTT.BoroGlassAny");
+            return GTN_Utils.tr("GT5U.MBTT.BoroGlassAny");
         }
 
         @Override
@@ -1041,7 +1044,7 @@ public enum GTN_Casings implements ICasing {
     BorosilicateGlassTiered(BorosilicateGlass::getGlassBlock, 0, -1) {
         @Override
         public String getLocalizedName() {
-            return GTUtility.translate("GT5U.MBTT.BoroGlassTiered");
+            return GTN_Utils.tr("GT5U.MBTT.BoroGlassTiered");
         }
 
         @Override
@@ -1064,7 +1067,7 @@ public enum GTN_Casings implements ICasing {
     SuperChest(() -> GregTechAPI.sBlockMachines, 0, -1) {
         @Override
         public String getLocalizedName() {
-            return GTUtility.translate("GT5U.MBTT.SuperChest");
+            return GTN_Utils.tr("GT5U.MBTT.SuperChest");
         }
 
         @Override

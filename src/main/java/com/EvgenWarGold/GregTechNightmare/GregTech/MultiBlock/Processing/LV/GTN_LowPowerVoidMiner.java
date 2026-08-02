@@ -89,7 +89,7 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     public IStructureDefinition<GTN_LowPowerVoidMiner> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addFrame('B', Materials.Cobalt)
-                .addCasing('C', GTN_Casings.BoltedCobaltCasing)
+                .addCasing('C', GTN_Casings.BoltedCarbonCasing)
                 .addMainCasing('A', b -> b.hatches(OutputBus, Energy, Maintenance)));
     }
 
