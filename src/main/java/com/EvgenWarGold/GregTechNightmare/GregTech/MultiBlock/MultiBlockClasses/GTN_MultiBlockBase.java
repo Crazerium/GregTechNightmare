@@ -222,6 +222,31 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             false,
             true);
     }
+
+    protected IStructureDefinition<T> buildStructureDefinition(Consumer<GTN_StructureBuilder<T>> elementBuilder) {
+        GTN_StructureBuilder<T> builder = new GTN_StructureBuilder<>(this);
+
+        List<StructureVariant<T>> variants = getStructureVariants();
+
+        for (StructureVariant<T> variant : variants) {
+            builder.addShape(variant.piece, transpose(variant.shape));
+        }
+
+        elementBuilder.accept(builder);
+
+        return builder.build();
+    }
+
+    public boolean checkPieceProxy(String piece, int h, int v, int d, @Nullable List<StructureError> errors) {
+        return checkPiece(piece, h, v, d, errors);
+    }
+
+    private void initDefaultVariant() {
+        List<StructureVariant<T>> variants = getStructureVariants();
+        if (!variants.isEmpty()) {
+            mainCasing = variants.get(0).casing;
+        }
+    }
     // endregion
 
     // region Textures
@@ -292,6 +317,18 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
         hatchControl.updateHatches(textureId);
     }
+
+    protected void updateCasingTextureFromTierData() {
+        for (CasingData casing : registeredCasingData) {
+            if (casing.getCasingTier() > 0 && casing.getIsMainCasing()) {
+                setMainCasingTextureId(casing.getCasingTextureId());
+            }
+        }
+    }
+
+    public void setMainCasingTextureId(int mainCasingTextureId) {
+        this.mainCasingTextureId = mainCasingTextureId;
+    }
     // endregion
 
     // region ProcessingLogic
@@ -305,6 +342,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public float getSpeedBonus() {
         return speedBonus;
+    }
+
+    public OverclockType getOverclockType() {
+        return OverclockType.NormalOverclock;
     }
 
     protected ProcessingLogic createProcessingLogic() {
@@ -370,6 +411,27 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     protected Pair<Integer, Integer> getMinMaxEnergyTier() {
         return null;
+    }
+
+    protected int getEfficiency() {
+        return getCurrentEfficiency(this.getStackForm(1));
+    }
+
+    public void repairMachine() {
+        mHardHammer = true;
+        mSoftMallet = true;
+        mScrewdriver = true;
+        mCrowbar = true;
+        mSolderingTool = true;
+        mWrench = true;
+    }
+
+    public boolean isNoMaintenanceIssue() {
+        return false;
+    }
+
+    public boolean isEnergyMultiBlock() {
+        return true;
     }
     // endregion
 
@@ -755,6 +817,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
     }
 
+    protected void initialize() {}
+
     protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
     // endregion
 
@@ -767,118 +831,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
     // endregion
 
-    // region Other methods
-    public void setMainCasingCount(int mainCasingCount) {
-        this.mainCasingCount = mainCasingCount;
-    }
-
-    public int getMainCasingCount() {
-        return mainCasingCount;
-    }
-
-    protected void updateCasingTextureFromTierData() {
-        for (CasingData casing : registeredCasingData) {
-            if (casing.getCasingTier() > 0 && casing.getIsMainCasing()) {
-                setMainCasingTextureId(casing.getCasingTextureId());
-            }
-        }
-    }
-
-    protected CasingData createCasingData(String channelName, boolean isMainCasing) {
-        CasingData data = new CasingData();
-        data.setChannelName(channelName);
-        data.setIsMainCasing(isMainCasing);
-        registeredCasingData.add(data);
-        return data;
-    }
-
-    protected CasingData createCasingData(String channelName) {
-        return createCasingData(channelName, false);
-    }
-
-    public OverclockType getOverclockType() {
-        return OverclockType.NormalOverclock;
-    }
-
-    public void setMainCasingTextureId(int mainCasingTextureId) {
-        this.mainCasingTextureId = mainCasingTextureId;
-    }
-
-    private void initDefaultVariant() {
-        List<StructureVariant<T>> variants = getStructureVariants();
-        if (!variants.isEmpty()) {
-            mainCasing = variants.get(0).casing;
-        }
-    }
-
-    protected IStructureDefinition<T> buildStructureDefinition(Consumer<GTN_StructureBuilder<T>> elementBuilder) {
-        GTN_StructureBuilder<T> builder = new GTN_StructureBuilder<>(this);
-
-        List<StructureVariant<T>> variants = getStructureVariants();
-
-        for (StructureVariant<T> variant : variants) {
-            builder.addShape(variant.piece, transpose(variant.shape));
-        }
-
-        elementBuilder.accept(builder);
-
-        return builder.build();
-    }
-
-    @SuppressWarnings("unchecked")
-    protected final T self() {
-        return (T) this;
-    }
-
-    public void setMainCasing(GTN_Casings mainCasing) {
-        this.mainCasing = mainCasing;
-    }
-
-    public GTN_Casings getMainCasing() {
-        return mainCasing;
-    }
-
-    public void setMultiBlockTier(int globalMultiBlockTier) {
-        this.multiBlockTier = globalMultiBlockTier;
-    }
-
-    public int getMultiBlockTier() {
-        return multiBlockTier;
-    }
-
-    public boolean checkPieceProxy(String piece, int h, int v, int d, @Nullable List<StructureError> errors) {
-        return checkPiece(piece, h, v, d, errors);
-    }
-
-    protected int getEfficiency() {
-        return getCurrentEfficiency(this.getStackForm(1));
-    }
-
-    protected String tr(String key) {
-        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key);
-    }
-
-    protected String tr(String key, Object... formatted) {
-        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key, formatted);
-    }
-
-    public void repairMachine() {
-        mHardHammer = true;
-        mSoftMallet = true;
-        mScrewdriver = true;
-        mCrowbar = true;
-        mSolderingTool = true;
-        mWrench = true;
-    }
-
-    public boolean isNoMaintenanceIssue() {
-        return false;
-    }
-
-    public boolean isEnergyMultiBlock() {
-        return true;
-    }
-
+    // region Link
     public CoordMultiBlock getCoord() {
         IGregTechTileEntity gte = getBaseMetaTileEntity();
 
@@ -1071,7 +1024,9 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public boolean linkUseP2P() {
         return false;
     }
+    // endregion
 
+    // region Scanner Info
     @Override
     public void getExtraInfoData(List<String> info) {
         super.getExtraInfoData(info);
@@ -1109,8 +1064,60 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             info.addAll(list);
         }
     }
+    // endregion
 
-    protected void initialize() {}
+    // region Translate
+    protected String tr(String key) {
+        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key);
+    }
 
+    protected String tr(String key, Object... formatted) {
+        return GTN_Utils.tr(this.MULTIBLOCK_NAME_KEY + "." + key, formatted);
+    }
+    // endregion
+
+    // region CasingData
+    public void setMainCasingCount(int mainCasingCount) {
+        this.mainCasingCount = mainCasingCount;
+    }
+
+    public int getMainCasingCount() {
+        return mainCasingCount;
+    }
+
+    protected CasingData createCasingData(String channelName, boolean isMainCasing) {
+        CasingData data = new CasingData();
+        data.setChannelName(channelName);
+        data.setIsMainCasing(isMainCasing);
+        registeredCasingData.add(data);
+        return data;
+    }
+
+    protected CasingData createCasingData(String channelName) {
+        return createCasingData(channelName, false);
+    }
+
+    public void setMainCasing(GTN_Casings mainCasing) {
+        this.mainCasing = mainCasing;
+    }
+
+    public GTN_Casings getMainCasing() {
+        return mainCasing;
+    }
+    // endregion
+
+    // region Other methods
+    @SuppressWarnings("unchecked")
+    protected final T self() {
+        return (T) this;
+    }
+
+    public void setMultiBlockTier(int globalMultiBlockTier) {
+        this.multiBlockTier = globalMultiBlockTier;
+    }
+
+    public int getMultiBlockTier() {
+        return multiBlockTier;
+    }
     // endregion
 }
