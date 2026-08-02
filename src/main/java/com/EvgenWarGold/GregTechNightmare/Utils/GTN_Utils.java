@@ -1,9 +1,9 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidStack;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraftforge.fluids.FluidStack;
 
 public class GTN_Utils {
 

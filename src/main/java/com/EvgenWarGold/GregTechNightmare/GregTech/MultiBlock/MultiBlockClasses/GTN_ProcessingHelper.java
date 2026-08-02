@@ -6,9 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import gregtech.api.metatileentity.implementations.MTEHatchOutput;
-import gregtech.api.util.GTUtility;
-import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -18,10 +15,14 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultMessage;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
+import gregtech.api.metatileentity.implementations.MTEHatchOutput;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
+import gregtech.api.util.GTUtility;
+import gregtech.api.util.ItemEjectionHelper;
 import gregtech.api.util.VoidProtectionHelper;
 import gregtech.api.util.shutdown.ShutDownReasonRegistry;
+import gregtech.common.tileentities.machines.outputme.MTEHatchOutputME;
 import thaumcraft.api.aspects.Aspect;
 
 public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
@@ -179,6 +180,103 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
     public boolean outputItem(Map<ItemStack, Integer> itemsMap) {
         return outputItem(itemsMap, false);
+    }
+
+    public boolean outputItemToHatches(ItemStack item, int amount, boolean simulate) {
+        if (GTUtility.isStackInvalid(item) || amount <= 0) {
+            return false;
+        }
+
+        ItemStack checkStack = item.copy();
+        checkStack.stackSize = amount;
+        int initialCount = checkStack.stackSize;
+
+        ItemEjectionHelper checkHelper = new ItemEjectionHelper(multiblock);
+        checkHelper.ejectStack(checkStack);
+
+        if (checkStack.stackSize > 0) {
+            return false;
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        ItemStack fillStack = item.copy();
+        fillStack.stackSize = amount;
+        ItemEjectionHelper fillHelper = new ItemEjectionHelper(multiblock);
+        fillHelper.ejectStack(fillStack);
+
+        if (fillStack.stackSize == 0) {
+            fillHelper.commit();
+            return true;
+        } else {
+            fillStack.stackSize = initialCount;
+            return false;
+        }
+    }
+
+    public boolean outputItemToHatches(ItemStack item, int amount) {
+        return outputItemToHatches(item, amount, false);
+    }
+
+    public boolean outputItemToHatches(Map<ItemStack, Integer> itemsMap, boolean simulate) {
+        if (itemsMap == null || itemsMap.isEmpty()) {
+            return false;
+        }
+
+        Map<ItemStack, Integer> remainingItems = new HashMap<>();
+        for (Map.Entry<ItemStack, Integer> entry : itemsMap.entrySet()) {
+            ItemStack stack = entry.getKey();
+            int amount = entry.getValue();
+            if (!GTUtility.isStackInvalid(stack) && amount > 0) {
+                remainingItems.put(stack.copy(), amount);
+            }
+        }
+
+        if (remainingItems.isEmpty()) {
+            return false;
+        }
+
+        ItemEjectionHelper checkHelper = new ItemEjectionHelper(multiblock);
+        for (Map.Entry<ItemStack, Integer> entry : remainingItems.entrySet()) {
+            ItemStack checkStack = entry.getKey()
+                .copy();
+            checkStack.stackSize = entry.getValue();
+            checkHelper.ejectStack(checkStack);
+            if (checkStack.stackSize > 0) {
+                return false;
+            }
+        }
+
+        if (simulate) {
+            return true;
+        }
+
+        ItemEjectionHelper fillHelper = new ItemEjectionHelper(multiblock);
+        boolean allSuccess = true;
+
+        for (Map.Entry<ItemStack, Integer> entry : remainingItems.entrySet()) {
+            ItemStack fillStack = entry.getKey()
+                .copy();
+            fillStack.stackSize = entry.getValue();
+            fillHelper.ejectStack(fillStack);
+            if (fillStack.stackSize > 0) {
+                allSuccess = false;
+                break;
+            }
+        }
+
+        if (allSuccess) {
+            fillHelper.commit();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean outputItemToHatches(Map<ItemStack, Integer> itemsMap) {
+        return outputItemToHatches(itemsMap, false);
     }
     // endregion
 
@@ -394,7 +492,10 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     public boolean outputFluidToHatches(Map<FluidStack, Integer> fluidsMap, boolean simulate) {
         Map<FluidStack, Integer> remainingFluids = new HashMap<>();
         for (Map.Entry<FluidStack, Integer> entry : fluidsMap.entrySet()) {
-            remainingFluids.put(entry.getKey().copy(), entry.getValue());
+            remainingFluids.put(
+                entry.getKey()
+                    .copy(),
+                entry.getValue());
         }
 
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
@@ -404,7 +505,8 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
                 }
             }
 
-            Iterator<Map.Entry<FluidStack, Integer>> iterator = remainingFluids.entrySet().iterator();
+            Iterator<Map.Entry<FluidStack, Integer>> iterator = remainingFluids.entrySet()
+                .iterator();
             while (iterator.hasNext()) {
                 Map.Entry<FluidStack, Integer> entry = iterator.next();
                 FluidStack fluid = entry.getKey();
@@ -448,7 +550,10 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
 
         Map<FluidStack, Integer> fillFluids = new HashMap<>();
         for (Map.Entry<FluidStack, Integer> entry : fluidsMap.entrySet()) {
-            fillFluids.put(entry.getKey().copy(), entry.getValue());
+            fillFluids.put(
+                entry.getKey()
+                    .copy(),
+                entry.getValue());
         }
 
         for (MTEHatchOutput tHatch : GTUtility.validMTEList(multiblock.mOutputHatches)) {
@@ -458,7 +563,8 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
                 }
             }
 
-            Iterator<Map.Entry<FluidStack, Integer>> iterator = fillFluids.entrySet().iterator();
+            Iterator<Map.Entry<FluidStack, Integer>> iterator = fillFluids.entrySet()
+                .iterator();
             while (iterator.hasNext()) {
                 Map.Entry<FluidStack, Integer> entry = iterator.next();
                 FluidStack fluid = entry.getKey();
