@@ -11,7 +11,6 @@ import static gregtech.api.enums.HatchElement.OutputHatch;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -88,20 +87,20 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
     @Override
     public List<StructureVariant<GTN_VacuumNuke>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "VacuumNuke",
                 // spotless:off
                 new String[][]{
-                    {"   E E   ","   CBC   ","   CBC   ","   CBC   ","         ","         ","         ","         ","   CBC   ","   CBC   ","   CBC   ","   E E   "},
-                    {"   E E   ","  CCBCC  ","  C   C  ","  C   C  ","  CFFFC  ","  CFFFC  ","  CFFFC  ","  CFFFC  ","  C   C  ","  C   C  ","  CCBCC  ","   E E   "},
-                    {"  E B E  "," CCCDCCC "," C  DD C "," CD  DDC "," CDD  DC "," C DD  C "," C  DD C "," CD  DDC "," CDD  DC "," C DD  C "," CCCDCCC ","  E B E  "},
-                    {"EE FFF EE","CCC   CCC","C D     C","C D     C"," F    DF "," F    DF "," FD    F "," FD    F ","C     D C","C     D C","CCC   CCC","EE FFF EE"},
-                    {"  BF~FB  ","BBD A DBB","B D A D B","B   A   B"," F  A  F "," FD A DF "," FD A DF "," F  A  F ","B   A   B","B D A D B","BBD A DBB","  BFBFB  "},
-                    {"EE FFF EE","CCC   CCC","C     D C","C     D C"," FD    F "," FD    F "," F    DF "," F    DF ","C D     C","C D     C","CC    CCC","EE FFF EE"},
-                    {"  E B E  "," CCCDCCC "," C DD  C "," CDD  DC "," CD  DDC "," C  DD C "," C DD  C "," CDD  DC "," CD  DDC "," C  DD C "," CCCDCCC ","  E B E  "},
-                    {"   E E   ","  CCBCC  ","  C   C  ","  C   C  ","  CFFFC  ","  CFFFC  ","  CFFFC  ","  CFFFC  ","  C   C  ","  C   C  ","  CCBCC  ","   E E   "},
-                    {"   E E   ","   CBC   ","   CBC   ","   CBC   ","         ","         ","         ","         ","   CBC   ","   CBC   ","   CBC   ","   E E   "}
+                    {"   E E   ", "   CBC   ", "   CBC   ", "   CBC   ", "         ", "         ", "         ", "         ", "   CBC   ", "   CBC   ", "   CBC   ", "   E E   "},
+                    {"   E E   ", "  CCBCC  ", "  C   C  ", "  C   C  ", "  CFFFC  ", "  CFFFC  ", "  CFFFC  ", "  CFFFC  ", "  C   C  ", "  C   C  ", "  CCBCC  ", "   E E   "},
+                    {"  E B E  ", " CCCDCCC ", " C  DD C ", " CD  DDC ", " CDD  DC ", " C DD  C ", " C  DD C ", " CD  DDC ", " CDD  DC ", " C DD  C ", " CCCDCCC ", "  E B E  "},
+                    {"EE FFF EE", "CCC   CCC", "C D     C", "C D     C", " F    DF ", " F    DF ", " FD    F ", " FD    F ", "C     D C", "C     D C", "CCC   CCC", "EE FFF EE"},
+                    {"  BF~FB  ", "BBD A DBB", "B D A D B", "B   A   B", " F  A  F ", " FD A DF ", " FD A DF ", " F  A  F ", "B   A   B", "B D A D B", "BBD A DBB", "  BFBFB  "},
+                    {"EE FFF EE", "CCC   CCC", "C     D C", "C     D C", " FD    F ", " FD    F ", " F    DF ", " F    DF ", "C D     C", "C D     C", "CC    CCC", "EE FFF EE"},
+                    {"  E B E  ", " CCCDCCC ", " C DD  C ", " CDD  DC ", " CD  DDC ", " C  DD C ", " C DD  C ", " CDD  DC ", " CD  DDC ", " C  DD C ", " CCCDCCC ", "  E B E  "},
+                    {"   E E   ", "  CCBCC  ", "  C   C  ", "  C   C  ", "  CFFFC  ", "  CFFFC  ", "  CFFFC  ", "  CFFFC  ", "  C   C  ", "  C   C  ", "  CCBCC  ", "   E E   "},
+                    {"   E E   ", "   CBC   ", "   CBC   ", "   CBC   ", "         ", "         ", "         ", "         ", "   CBC   ", "   CBC   ", "   CBC   ", "   E E   "}
                 },
                 //spotless:on
                 new MultiblockOffsets(4, 4, 0),
@@ -252,34 +251,27 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
             if (fluidAmount > 0) {
                 if (inputFluid.isFluidEqual(IC2_COOLANT)) {
                     long decreaseTemp = fluidAmount / 10_000;
-                    FluidStack drain = inputFluid.copy();
-                    drain.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(drain, true) && decreaseTemp > 0) {
-                        heat -= decreaseTemp;
-                        depleteInput(drain);
-                        outputFluid.amount = Math.toIntExact(10_000 * decreaseTemp);
-                        addOutput(outputFluid);
+                    if (decreaseTemp > 0) {
+                        if (processingHelper.consumeFluid(inputFluid, Math.toIntExact(fluidAmount))) {
+                            heat -= decreaseTemp;
+                            processingHelper.outputFluidToHatches(outputFluid, Math.toIntExact(10_000 * decreaseTemp));
+                        }
                     }
                 }
 
                 if (inputFluid.isFluidEqual(SUPER_COOLANT)) {
                     long decreaseTemp = fluidAmount / 1_000;
-                    FluidStack drain = inputFluid.copy();
-                    drain.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(drain, true) && decreaseTemp > 0) {
-                        heat -= decreaseTemp;
-                        depleteInput(drain);
-                        outputFluid.amount = Math.toIntExact(10_000 * decreaseTemp);
-                        addOutput(outputFluid);
+                    if (decreaseTemp > 0) {
+                        if (processingHelper.consumeFluid(inputFluid, Math.toIntExact(fluidAmount))) {
+                            heat -= decreaseTemp;
+                            processingHelper.outputFluidToHatches(outputFluid, Math.toIntExact(1_000 * decreaseTemp));
+                        }
                     }
                 }
 
                 if (inputFluid.isFluidEqual(GELID_CRYOTHEUM)) {
-                    FluidStack drain = inputFluid.copy();
-                    drain.amount = Math.toIntExact(fluidAmount);
-                    if (depleteInput(drain, true)) {
+                    if (processingHelper.consumeFluid(inputFluid, Math.toIntExact(fluidAmount))) {
                         heat -= fluidAmount;
-                        depleteInput(drain);
                     }
                 }
             }
@@ -298,7 +290,7 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
 
             long eu = (long) (generating * (1 + 0.1 * level.getTier()));
 
-            setEnergyGenerate(checkEnergy(eu, heat));
+            processingHelper.setEnergyGenerate(checkEnergy(eu, heat));
 
             for (GTN_SensorHatch hatch : mSensorHatch) {
                 hatch.updateRedstoneOutput(heat);
