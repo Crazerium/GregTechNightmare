@@ -460,6 +460,37 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tt.toolTipFinisher(Constants.MOD_NAME);
         return tt;
     }
+
+    private void addMultiBlockBasicInfo(GTN_MultiBlockTooltipBuilder tt) {
+        tt.addExtraInfo(GTN_Utils.tr("GTN.TooltipBuilder.basic_info"));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.max_parallel", getTrueParallel()));
+        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(getEuModifier() * 100)));
+        tt.addExtraInfoWithSpace(
+            GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / (1F / getSpeedBonus()))));
+        tt.addExtraInfoWithSpace(
+            GTN_Utils
+                .tr("multiblock.waila.overclock", getOverclockType().timeReduction, getOverclockType().powerIncrease));
+    }
+
+    private void addMultiBlockAreaInfo(GTN_MultiBlockTooltipBuilder tt) {
+        List<StructureVariant<T>> variants = getStructureVariants();
+
+        if (variants.isEmpty()) {
+            return;
+        }
+
+        if (variants.size() == 1) {
+            StructureVariant<T> variant = variants.get(0);
+            MultiblockArea area = variant.multiblockArea;
+            tt.addMultiBlockAreaInfo(area.width, area.height, area.length);
+            return;
+        }
+
+        for (StructureVariant<T> variant : variants) {
+            MultiblockArea area = variant.multiblockArea;
+            tt.addMultiBlockAreaInfoWithName(variant.piece, area.width, area.height, area.length);
+        }
+    }
     // endregion
 
     // region Waila
@@ -737,37 +768,6 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     // endregion
 
     // region Other methods
-    private void addMultiBlockBasicInfo(GTN_MultiBlockTooltipBuilder tt) {
-        tt.addExtraInfo(GTN_Utils.tr("GTN.TooltipBuilder.basic_info"));
-        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.max_parallel", getTrueParallel()));
-        tt.addExtraInfoWithSpace(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(getEuModifier() * 100)));
-        tt.addExtraInfoWithSpace(
-            GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / (1F / getSpeedBonus()))));
-        tt.addExtraInfoWithSpace(
-            GTN_Utils
-                .tr("multiblock.waila.overclock", getOverclockType().timeReduction, getOverclockType().powerIncrease));
-    }
-
-    private void addMultiBlockAreaInfo(GTN_MultiBlockTooltipBuilder tt) {
-        List<StructureVariant<T>> variants = getStructureVariants();
-
-        if (variants.isEmpty()) {
-            return;
-        }
-
-        if (variants.size() == 1) {
-            StructureVariant<T> variant = variants.get(0);
-            MultiblockArea area = variant.multiblockArea;
-            tt.addMultiBlockAreaInfo(area.width, area.height, area.length);
-            return;
-        }
-
-        for (StructureVariant<T> variant : variants) {
-            MultiblockArea area = variant.multiblockArea;
-            tt.addMultiBlockAreaInfoWithName(variant.piece, area.width, area.height, area.length);
-        }
-    }
-
     public void setMainCasingCount(int mainCasingCount) {
         this.mainCasingCount = mainCasingCount;
     }
