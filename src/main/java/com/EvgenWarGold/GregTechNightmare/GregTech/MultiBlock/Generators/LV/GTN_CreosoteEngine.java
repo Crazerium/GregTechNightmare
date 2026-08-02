@@ -1,12 +1,9 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV;
 
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.removeFluids;
 import static gregtech.api.enums.HatchElement.Dynamo;
 import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.Maintenance;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
@@ -55,14 +52,14 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
 
     @Override
     public List<StructureVariant<GTN_CreosoteEngine>> getStructureVariants() {
-        return Arrays.asList(
+        return List.of(
             new StructureVariant<>(
                 "CreosoteEngine",
                 // spotless:off
-                new String[][] {
-                    { "      B ", "     E B", "     E B", "      B " },
-                    { "BFFFB~B ", "     E B", "     E B", "BFFFBBB " },
-                    { "BCCCBD  ", "AAAAABBB", "AAAAABBB", "BCCCBD  " } },
+                new String[][]{
+                    {"      B ", "     E B", "     E B", "      B "},
+                    {"BFFFB~B ", "     E B", "     E B", "BFFFBBB "},
+                    {"BCCCBD  ", "AAAAABBB", "AAAAABBB", "BCCCBD  "}},
                 //spotless:on
                 new MultiblockOffsets(5, 1, 0),
                 new MultiblockArea(8, 3, 4),
@@ -78,7 +75,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
         builder.addInputHatch()
-            .addDynamoOrBufferedHatch()
+            .addDynamoHatch()
             .addMaintenanceHatch();
     }
 
@@ -105,38 +102,26 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
 
     @Override
     public @NotNull CheckRecipeResult checkProcessing() {
-        List<FluidStack> fluids = getStoredFluids();
-        List<FluidStack> fluidUsage = Collections.singletonList(CREOSOTE);
+        if (getAllMaxDynamoBuffer() == getAllDynamoBuffer()) {
+            return processingHelper.resultNoRecipe();
+        }
 
-        if (fluids.isEmpty()) return CheckRecipeResultRegistry.NO_RECIPE;
-
-        for (FluidStack fluid : fluids) {
-            if (fluid.isFluidEqual(CREOSOTE)) {
-                switch (DYNAMO_TIER) {
-                    case 1 -> {
-                        CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP);
-                        setEnergyGenerate(32 * DYNAMO_AMP);
-                    }
-                    case 2 -> {
-                        CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP) * 4;
-                        setEnergyGenerate(128 * DYNAMO_AMP);
-                    }
-                }
-
-                if (getAllMaxDynamoBuffer() != getAllDynamoBuffer()) {
-                    if (removeFluids(fluids, fluidUsage, true)) {
-                        removeFluids(fluids, fluidUsage);
-                        mEfficiency = getEfficiency();
-                        setDurationInSeconds(1);
-                        return CheckRecipeResultRegistry.GENERATING;
-                    }
-                }
+        switch (DYNAMO_TIER) {
+            case 1 -> {
+                CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP);
+                processingHelper.setEnergyGenerate(32 * DYNAMO_AMP);
+            }
+            case 2 -> {
+                CREOSOTE.amount = Math.toIntExact(CREOSOTE_USAGE_PER_SEC * DYNAMO_AMP) * 4;
+                processingHelper.setEnergyGenerate(128 * DYNAMO_AMP);
             }
         }
 
-        super.lEUt = 0;
-        super.mEfficiency = 0;
-        super.mMaxProgresstime = 0;
+        if (processingHelper.consumeFluid(CREOSOTE, CREOSOTE.amount)) {
+            processingHelper.setDurationInSeconds(1);
+            return processingHelper.resultGenerating();
+        }
+
         return CheckRecipeResultRegistry.NO_FUEL_FOUND;
     }
 
@@ -144,7 +129,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
         DYNAMO_AMP = getDynamoAmperage();
         DYNAMO_TIER = getTierDynamo();
-        return checkCountDynamo(1) && setDynamoTier(2, false);
+        return checkCountDynamo(4) && setDynamoTier(2, false);
     }
 
     @Override
