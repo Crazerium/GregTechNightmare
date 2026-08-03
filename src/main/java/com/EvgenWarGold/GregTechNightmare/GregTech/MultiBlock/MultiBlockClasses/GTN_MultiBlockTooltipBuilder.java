@@ -1,5 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses;
 
+import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.tr;
+
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -16,8 +18,6 @@ import com.google.common.collect.SetMultimap;
 import gregtech.GTMod;
 import gregtech.api.util.MultiblockTooltipBuilder;
 import gregtech.api.util.StringUtils;
-
-import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils.tr;
 
 public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
 
