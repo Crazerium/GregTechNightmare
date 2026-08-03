@@ -26,7 +26,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumicTinkererItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -167,12 +169,9 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
             builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch, InputBus, MeAspectHatch))
                 .addCasing('A', GTN_Casings.NaquadahCoilBlock)
                 .addFrame('B', Materials.Indium)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
-                .addBlock(
-                    'E',
-                    ModBlocks.THAUMIC_BASES_BLOCKS.AirCrystalBlock.getBlock(),
-                    ModBlocks.THAUMIC_BASES_BLOCKS.AirCrystalBlock.meta)
-                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
+                .addBlock('E', ThaumicBasesBlocks.AirCrystalBlock.get(), ThaumicBasesBlocks.AirCrystalBlock.getMeta())
+                .addBlock('F', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override
@@ -305,8 +304,8 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
         ENDER_GOO = FluidRegistry.getFluidStack("endergoo", 1);
         ARGON = Materials.Argon.getGas(1);
 
-        SALIS_MUNDUS_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.SalisMundusBlock.getItemStack(1);
-        VOID_METAL_BLOCK = ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getItemStack(1);
+        SALIS_MUNDUS_BLOCK = ThaumicBasesBlocks.SalisMundusBlock.getItemStack();
+        VOID_METAL_BLOCK = ThaumicBasesBlocks.VoidBlock.getItemStack();
         ICHOR = ThaumicTinkererItems.Ichor.get();
     }
 }

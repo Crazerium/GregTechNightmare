@@ -26,7 +26,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -169,12 +171,12 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
             builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch, InputBus, MeAspectHatch))
                 .addCasing('A', GTN_Casings.NaquadahAlloyCoilBlock)
                 .addFrame('B', Materials.Americium)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
                 .addBlock(
                     'E',
-                    ModBlocks.THAUMIC_BASES_BLOCKS.WaterCrystalBlock.getBlock(),
-                    ModBlocks.THAUMIC_BASES_BLOCKS.WaterCrystalBlock.meta)
-                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                    ThaumicBasesBlocks.WaterCrystalBlock.get(),
+                    ThaumicBasesBlocks.WaterCrystalBlock.getMeta())
+                .addBlock('F', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override

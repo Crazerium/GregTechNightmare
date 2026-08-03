@@ -25,7 +25,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.BloodMagicItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -165,12 +167,9 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
             builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch, AspectHatch, InputBus))
                 .addCasing('A', GTN_Casings.HSSGCoilBlock)
                 .addFrame('B', Materials.TungstenSteel)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
-                .addBlock(
-                    'E',
-                    ModBlocks.THAUMIC_BASES_BLOCKS.FireCrystalBlock.getBlock(),
-                    ModBlocks.THAUMIC_BASES_BLOCKS.FireCrystalBlock.meta)
-                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
+                .addBlock('E', ThaumicBasesBlocks.FireCrystalBlock.get(), ThaumicBasesBlocks.FireCrystalBlock.getMeta())
+                .addBlock('F', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override

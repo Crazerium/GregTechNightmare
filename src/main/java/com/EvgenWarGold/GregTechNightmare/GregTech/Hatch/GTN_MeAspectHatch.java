@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Textures.GTN_BlockIcons;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 
 import appeng.api.config.Actionable;
@@ -222,7 +222,7 @@ public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IAc
         }
 
         try {
-            final IIcon livingRockIcon = ModBlocks.THAUMCRAFT_BLOCKS.ArcaneStoneBlock.getBlock()
+            final IIcon livingRockIcon = ThaumcraftBlocks.ArcaneStoneBlock.get()
                 .getIcon(0, 6);
 
             cachedArcaneStoneBlockTexture = TextureFactory.of(new IIconContainer() {

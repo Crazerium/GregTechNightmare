@@ -25,7 +25,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.ThaumcraftItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -169,12 +171,12 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
             builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch, InputBus, MeAspectHatch))
                 .addCasing('A', GTN_Casings.ElectrumFluxCoilBlock)
                 .addFrame('B', Materials.Neutronium)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
                 .addBlock(
                     'E',
-                    ModBlocks.THAUMIC_BASES_BLOCKS.OrderCrystalBlock.getBlock(),
-                    ModBlocks.THAUMIC_BASES_BLOCKS.OrderCrystalBlock.meta)
-                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                    ThaumicBasesBlocks.OrderCrystalBlock.get(),
+                    ThaumicBasesBlocks.OrderCrystalBlock.getMeta())
+                .addBlock('F', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override

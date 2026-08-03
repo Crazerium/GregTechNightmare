@@ -26,7 +26,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.TinkerConstructItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
@@ -169,12 +171,12 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
             builder -> builder.addMainCasing('C', b -> b.hatches(InputHatch, InputBus, MeAspectHatch))
                 .addCasing('A', GTN_Casings.AwakenedDraconiumCoilBlock)
                 .addFrame('B', Materials.CosmicNeutronium)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
                 .addBlock(
                     'E',
-                    ModBlocks.THAUMIC_BASES_BLOCKS.EntropyCrystalBlock.getBlock(),
-                    ModBlocks.THAUMIC_BASES_BLOCKS.EntropyCrystalBlock.meta)
-                .addBlock('F', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                    ThaumicBasesBlocks.EntropyCrystalBlock.get(),
+                    ThaumicBasesBlocks.EntropyCrystalBlock.getMeta())
+                .addBlock('F', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override

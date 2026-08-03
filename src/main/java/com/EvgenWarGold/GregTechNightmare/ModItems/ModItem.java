@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import gregtech.api.enums.Mods;
 import gregtech.api.util.GTModHandler;
@@ -40,7 +41,7 @@ public class ModItem {
         if (cachedStack == null) {
             cachedStack = createItemStack();
         }
-        return copyAmount(count, cachedStack);
+        return GTN_Utils.copyAmount(count, cachedStack);
     }
 
     private ItemStack createItemStack() {
@@ -51,12 +52,5 @@ public class ModItem {
             stack.setStackDisplayName(EnumChatFormatting.RESET + displayName);
         }
         return stack;
-    }
-
-    private static ItemStack copyAmount(int count, ItemStack stack) {
-        if (stack == null) return null;
-        ItemStack copy = stack.copy();
-        copy.stackSize = count;
-        return copy;
     }
 }

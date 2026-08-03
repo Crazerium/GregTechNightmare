@@ -21,7 +21,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -105,9 +107,9 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
             builder -> builder.addMainCasing('C', b -> b.hatches(DynamoMulti))
                 .addBlock('A', Loaders.essentiaCell, 0)
                 .addBlock('B', Loaders.essentiaFilterCasing, 0)
-                .addBlock('D', ModBlocks.THAUMCRAFT_BLOCKS.AmberBlock.getBlock(), 0)
-                .addBlock('F', ModBlocks.THAUMIC_BASES_BLOCKS.VoidBlock.getBlock(), 0)
-                .addBlock('E', ModBlocks.BOTANIA_BLOCKS.AlfGlass.getBlock(), 0));
+                .addBlock('D', ThaumcraftBlocks.AmberBlock.get(), 0)
+                .addBlock('F', ThaumicBasesBlocks.VoidBlock.get(), 0)
+                .addBlock('E', BotaniaBlocks.AlfGlass.get(), 0));
     }
 
     @Override

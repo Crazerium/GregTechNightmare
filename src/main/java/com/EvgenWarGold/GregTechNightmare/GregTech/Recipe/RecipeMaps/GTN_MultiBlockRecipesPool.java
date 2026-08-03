@@ -32,7 +32,12 @@ import net.minecraft.item.ItemStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_RecipeBuilder;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BloodMagicBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.DraconicEvolutionBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.EnderIOBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicEnergeticsBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.TaintedMagicItems;
@@ -167,7 +172,7 @@ public class GTN_MultiBlockRecipesPool {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTN_Casings.MagicCasing.getItemStack(32),
-                ModBlocks.THAUMIC_ENERGETICS_BLOCKS.ARCANE_ASSEMBLER.getItemStack(1),
+                ThaumicEnergeticsBlocks.ArcaneAssembler.getItemStack(),
                 ItemList.Electric_Piston_LuV.get(8),
                 ItemList.Electric_Motor_LuV.get(16),
                 getBlock(Materials.Ichorium, 8),
@@ -309,7 +314,7 @@ public class GTN_MultiBlockRecipesPool {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTN_ItemList.LowPowerVoidMiner.get(16),
-                ModBlocks.THAUMCRAFT_BLOCKS.ArcaneBore.getItemStack(48),
+                ThaumcraftBlocks.ArcaneBore.getItemStack(48),
                 ItemList.Robot_Arm_IV.get(4),
                 ItemList.Conveyor_Module_IV.get(4),
                 ItemRefer.HiC_T1.get(8),
@@ -328,9 +333,9 @@ public class GTN_MultiBlockRecipesPool {
         GTValues.RA.stdBuilder()
             .itemInputs(
                 GTN_Casings.RobustTungstenSteelMachineCasing.getItemStack(8),
-                ModBlocks.BLOOD_MAGIC_BLOCKS.RitualStone.getItemStack(4),
-                ModBlocks.THAUMIC_BASES_BLOCKS.Overchanter.getItemStack(1),
-                ModBlocks.DRACONIC_EVOLUTION_BLOCKS.DissEnchanter.getItemStack(1),
+                BloodMagicBlocks.RitualStone.getItemStack(4),
+                ThaumicBasesBlocks.Overchanter.getItemStack(),
+                DraconicEvolutionBlocks.DissEnchanter.getItemStack(),
                 new ItemStack(Blocks.enchanting_table),
                 getCircuits(Materials.IV, 4)
             )
@@ -376,7 +381,7 @@ public class GTN_MultiBlockRecipesPool {
                 getPlate(Materials.EnergeticAlloy, 16),
                 GTN_Casings.SoulCasing.getItemStack(16),
                 getCircuits(Materials.IV, 4),
-                ModBlocks.ENDER_IO_BLOCKS.SliceNSplice.getItemStack(1),
+                EnderIOBlocks.SliceNSplice.getItemStack(),
                 EnderIOItems.OctadicCapacitor.get(8),
                 EnderIOItems.PulsatingCrystal.get(16)
             )

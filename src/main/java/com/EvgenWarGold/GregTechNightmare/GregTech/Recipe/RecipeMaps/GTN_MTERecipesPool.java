@@ -4,7 +4,8 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import gregtech.api.enums.ItemList;
@@ -35,11 +36,11 @@ public class GTN_MTERecipesPool {
                 "ACA",
                 "DBG",
                 "AEA",
-                'A', ModBlocks.BOTANIA_BLOCKS.LivingRock.getItemStack(1),
-                'B', ModBlocks.BOTANIA_BLOCKS.ManaPool.getItemStack(1),
+                'A', BotaniaBlocks.LivingRock.getItemStack(),
+                'B', BotaniaBlocks.ManaPool.getItemStack(),
                 'D', ItemList.Robot_Arm_MV.get(1),
                 'C', getPlate(Materials.Thaumium),
-                'E', ModBlocks.THAUMCRAFT_BLOCKS.AlchemicalConstruct.getItemStack(1),
+                'E', ThaumcraftBlocks.AlchemicalConstruct.getItemStack(),
                 'G', ItemList.Conveyor_Module_MV.get(1)
             });
         // spotless:on

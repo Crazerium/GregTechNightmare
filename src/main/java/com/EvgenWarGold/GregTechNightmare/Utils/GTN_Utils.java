@@ -1,5 +1,6 @@
 package com.EvgenWarGold.GregTechNightmare.Utils;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -35,10 +36,20 @@ public class GTN_Utils {
     public static FluidStack copyAmount(int amount, FluidStack fluid) {
         if (fluid == null) {
             return null;
-        } else {
-            FluidStack rStack = fluid.copy();
-            rStack.amount = amount;
-            return rStack;
         }
+
+        FluidStack copyFluid = fluid.copy();
+        copyFluid.amount = amount;
+        return copyFluid;
+    }
+
+    public static ItemStack copyAmount(int count, ItemStack itemStack) {
+        if (itemStack == null) {
+            return null;
+        }
+
+        ItemStack copyItemStack = itemStack.copy();
+        copyItemStack.stackSize = count;
+        return copyItemStack;
     }
 }

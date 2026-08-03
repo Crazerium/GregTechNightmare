@@ -4,7 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getDense;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
-import com.EvgenWarGold.GregTechNightmare.ModBlocks.ModBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
 
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -21,7 +21,7 @@ public class GTN_ItemRecipesPool {
                 'B', getDense(Materials.Manasteel),
                 'C', Materials.Benzene.getCells(1),
                 'G', getDense(Materials.RedstoneAlloy),
-                'D', ModBlocks.BOTANIA_BLOCKS.ManaPool.getItemStack(1),
+                'D', BotaniaBlocks.ManaPool.getItemStack(),
                 'F', ItemList.Sensor_LV.get(1),
                 'W', getDense(Materials.Thaumium),
                 'E', ItemList.Emitter_LV.get(1)

@@ -1,17 +1,60 @@
 package com.EvgenWarGold.GregTechNightmare.ModBlocks;
 
-import static gregtech.api.enums.Mods.ThaumicEnergistics;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
-import com.EvgenWarGold.GregTechNightmare.Api.ModBlock;
-import com.EvgenWarGold.GregTechNightmare.Api.ModHandler;
+import gregtech.api.enums.Mods;
 
-public class ThaumicEnergeticsBlocks extends ModHandler {
+public enum ThaumicEnergeticsBlocks {
 
-    public final ModBlock ARCANE_ASSEMBLER;
+    // spotless:off
+    ArcaneAssembler("thaumicenergistics.block.arcane.assembler"),
+    ;
+    //spotless:on
 
-    public ThaumicEnergeticsBlocks() {
-        super(ThaumicEnergistics);
+    private final String unlocalizedName;
+    private final String localizedName;
+    private final int meta;
+    private ModBlock cachedBlock;
 
-        ARCANE_ASSEMBLER = createBlock("thaumicenergistics.block.arcane.assembler");
+    ThaumicEnergeticsBlocks(String unlocalizedName, String localizedName, int meta) {
+        this.unlocalizedName = unlocalizedName;
+        this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    ThaumicEnergeticsBlocks(String unlocalizedName, String localizedName) {
+        this(unlocalizedName, localizedName, 0);
+    }
+
+    ThaumicEnergeticsBlocks(String unlocalizedName, int meta) {
+        this(unlocalizedName, unlocalizedName, meta);
+    }
+
+    ThaumicEnergeticsBlocks(String unlocalizedName) {
+        this(unlocalizedName, unlocalizedName, 0);
+    }
+
+    private ModBlock getBlock() {
+        if (cachedBlock == null) {
+            cachedBlock = new ModBlock(Mods.ThaumicEnergistics, unlocalizedName, localizedName, meta);
+        }
+        return cachedBlock;
+    }
+
+    public Block get() {
+        return getBlock().get();
+    }
+
+    public int getMeta() {
+        return meta;
+    }
+
+    public ItemStack getItemStack(int count) {
+        return getBlock().getItemStack(count);
+    }
+
+    public ItemStack getItemStack() {
+        return getItemStack(1);
     }
 }
