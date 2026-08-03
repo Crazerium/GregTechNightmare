@@ -213,13 +213,13 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-        IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
+                             IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, info, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
 
-        currentTip
+        info
             .add(
                 tag.getBoolean("AirModule")
                     ? EnumChatFormatting.YELLOW + "Air Module "
@@ -227,7 +227,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
                         + (tag.getBoolean("AirModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        currentTip
+        info
             .add(
                 tag.getBoolean("FireModule")
                     ? EnumChatFormatting.DARK_RED + "Fire Module "
@@ -235,7 +235,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
                         + (tag.getBoolean("FireModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        currentTip
+        info
             .add(
                 tag.getBoolean("EarthModule")
                     ? EnumChatFormatting.DARK_GREEN + "Earth Module "
@@ -243,7 +243,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
                         + (tag.getBoolean("EarthModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        currentTip
+        info
             .add(
                 tag.getBoolean("EntropyModule")
                     ? EnumChatFormatting.DARK_GRAY + "Entropy Module "
@@ -251,7 +251,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
                         + (tag.getBoolean("EntropyModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        currentTip
+        info
             .add(
                 tag.getBoolean("OrderModule")
                     ? EnumChatFormatting.WHITE + "Order Module "
@@ -259,7 +259,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
                         + (tag.getBoolean("OrderModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        currentTip
+        info
             .add(
                 tag.getBoolean("WaterModule")
                     ? EnumChatFormatting.DARK_BLUE + "Water Module "

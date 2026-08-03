@@ -558,7 +558,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Waila
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
         IWailaConfigHandler config) {
         final NBTTagCompound tag = accessor.getNBTData();
 
@@ -570,30 +570,30 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         int multiblockTier = tag.getInteger("multiblockTier");
 
         if (tag.getBoolean("incompleteStructure")) {
-            currentTip.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
+            info.add(RED + translateToLocalFormatted("GT5U.waila.multiblock.status.incomplete") + RESET);
         } else {
             if (isEnergyMultiBlock()) {
                 if (trueParallel > 0) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.max_parallel", trueParallel));
+                    info.add(GTN_Utils.tr("multiblock.waila.max_parallel", trueParallel));
                 }
 
                 if (euModifier > 0) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(euModifier * 100)));
+                    info.add(GTN_Utils.tr("multiblock.waila.eu_modifier", Math.round(euModifier * 100)));
                 }
 
                 if (speedBonus > 0) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / speedBonus)));
+                    info.add(GTN_Utils.tr("multiblock.waila.speed_bonus", (int) Math.round(100.0 / speedBonus)));
                 }
 
                 if (getOverclockType() != null) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.overclock", timeReduction, powerIncrease));
+                    info.add(GTN_Utils.tr("multiblock.waila.overclock", timeReduction, powerIncrease));
                 }
 
                 if (multiblockTier > 0 && getStructureVariants().size() > 1) {
-                    currentTip.add(GTN_Utils.tr("multiblock.waila.tier", multiblockTier));
+                    info.add(GTN_Utils.tr("multiblock.waila.tier", multiblockTier));
                 }
             }
-            super.getWailaBody(itemStack, currentTip, accessor, config);
+            super.getWailaBody(itemStack, info, accessor, config);
         }
     }
 

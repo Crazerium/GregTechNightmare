@@ -212,15 +212,15 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-        IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
+                             IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, info, accessor, config);
         final NBTTagCompound tag = accessor.getNBTData();
 
         double heat = tag.getDouble("heat");
 
         if (heat > 0) {
-            currentTip.add(GTN_Utils.tr("multiblock.VacuumNuke.waila.heat", df.format(heat)));
+            info.add(GTN_Utils.tr("multiblock.VacuumNuke.waila.heat", df.format(heat)));
         }
     }
 

@@ -180,12 +180,12 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-        IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
+                             IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, info, accessor, config);
         final NBTTagCompound tag = accessor.getNBTData();
-        currentTip.add(tr("tier." + tag.getInteger("tier")) + EnumChatFormatting.RESET);
-        currentTip.add(tr("fortune." + tag.getInteger("fortune")) + EnumChatFormatting.RESET);
+        info.add(tr("tier." + tag.getInteger("tier")) + EnumChatFormatting.RESET);
+        info.add(tr("fortune." + tag.getInteger("fortune")) + EnumChatFormatting.RESET);
     }
 
     @Override

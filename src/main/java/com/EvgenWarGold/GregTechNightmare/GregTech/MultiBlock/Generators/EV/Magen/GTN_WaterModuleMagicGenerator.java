@@ -246,15 +246,15 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
-        IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, currentTip, accessor, config);
+    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
+                             IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, info, accessor, config);
 
         NBTTagCompound tag = accessor.getNBTData();
 
-        currentTip.add(
+        info.add(
             EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
-        currentTip.add(
+        info.add(
             EnumChatFormatting.GREEN + "Catalyst duration: "
                 + EnumChatFormatting.AQUA
                 + formatNumber(tag.getInteger("catalyst")));
