@@ -89,7 +89,7 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
 
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
-            return gtnMultiBlockBase.mDynamoHatches.size();
+            return gtnMultiBlockBase.dynamoMultiHatches.size();
         }
     };
 
