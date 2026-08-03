@@ -1,50 +1,56 @@
 package com.EvgenWarGold.GregTechNightmare.Api;
 
-import static gregtech.api.util.GTUtility.copyAmount;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import gregtech.api.enums.Mods;
 import gregtech.api.util.GTModHandler;
+import journeymap.shadow.org.jetbrains.annotations.NotNull;
 
 public class ModItem {
 
-    public final String unlocalizedName;
-    public final String localizedName;
-    public final int meta;
-    public final String modID;
-    protected ItemStack itemStack;
+    protected final String modID;
+    protected final String unlocalizedName;
+    protected final String localizedName;
+    protected final int meta;
+    private ItemStack cachedStack;
 
-    public ModItem(@NotNull Mods mod, @NotNull String unlocalizedName, int meta, @NotNull String localizedName) {
-        this(mod.ID, unlocalizedName, meta, localizedName);
-    }
-
-    public ModItem(@NotNull String modID, @NotNull String unlocalizedName, int meta, @NotNull String localizedName) {
+    public ModItem(@NotNull String modID, @NotNull String unlocalizedName, @NotNull String localizedName, int meta) {
         this.modID = modID;
         this.unlocalizedName = unlocalizedName;
-        this.meta = meta;
         this.localizedName = localizedName;
+        this.meta = meta;
+    }
+
+    public ModItem(@NotNull Mods mod, @NotNull String unlocalizedName, @NotNull String localizedName, int meta) {
+        this(mod.ID, unlocalizedName, localizedName, meta);
+    }
+
+    public ModItem(@NotNull Mods mod, @NotNull String unlocalizedName, @NotNull String localizedName) {
+        this(mod.ID, unlocalizedName, localizedName, 0);
+    }
+
+    public ItemStack get() {
+        return get(1);
     }
 
     public ItemStack get(int count) {
-        if (itemStack == null) {
-            itemStack = GTModHandler.getModItem(modID, unlocalizedName, 1, meta);
-            if (itemStack == null) {
-                itemStack = createFallbackItem(localizedName, count);
-            }
+        if (cachedStack == null) {
+            cachedStack = createItemStack();
         }
-        return copyAmount(count, itemStack);
+        return GTN_Utils.copyAmount(count, cachedStack);
     }
 
-    public ItemStack createFallbackItem(String name, int count) {
-        ItemStack stack = GTN_ItemList.TestItem.get(count);
-        String stackName = EnumChatFormatting.WHITE + modID + " : " + name;
-        stack.setStackDisplayName(EnumChatFormatting.RESET + stackName);
+    private ItemStack createItemStack() {
+        ItemStack stack = GTModHandler.getModItem(modID, unlocalizedName, 1, meta);
+        if (stack == null) {
+            stack = GTN_ItemList.TestItem.get(1);
+            String displayName = EnumChatFormatting.WHITE + modID + " : " + localizedName;
+            stack.setStackDisplayName(EnumChatFormatting.RESET + displayName);
+        }
         return stack;
     }
 }

@@ -2,6 +2,8 @@ package com.EvgenWarGold.GregTechNightmare.ModItems;
 
 import net.minecraft.item.ItemStack;
 
+import com.EvgenWarGold.GregTechNightmare.Api.ModItem;
+
 import gregtech.api.enums.Mods;
 
 public enum AE2FluidCraftItems {

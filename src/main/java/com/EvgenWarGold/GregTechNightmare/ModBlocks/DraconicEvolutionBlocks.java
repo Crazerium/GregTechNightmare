@@ -3,6 +3,8 @@ package com.EvgenWarGold.GregTechNightmare.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
+import com.EvgenWarGold.GregTechNightmare.Api.ModBlock;
+
 import gregtech.api.enums.Mods;
 
 public enum DraconicEvolutionBlocks {
