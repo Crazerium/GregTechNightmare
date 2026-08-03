@@ -141,18 +141,18 @@ public class GTN_BronzeVoidMiner extends GTN_MultiBlockBase<GTN_BronzeVoidMiner>
     }
 
     @Override
-    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.GTN_FirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity gte) {
+        super.GTN_FirstTick(gte);
 
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aBaseMetaTileEntity.getWorld().provider.dimensionId != ALLOW_DIMENSION) {
+        if (gte.isServerSide()) {
+            if (gte.getWorld().provider.dimensionId != ALLOW_DIMENSION) {
                 explodeMultiblock();
                 return;
             }
 
             if (!preGenerated) {
                 voidMiner = new VoidMinerUtils(Collections.singletonList(ALLOW_DIMENSION));
-                voidMiner.initDropMap(aBaseMetaTileEntity);
+                voidMiner.initDropMap(gte);
                 preGenerated = true;
             }
         }

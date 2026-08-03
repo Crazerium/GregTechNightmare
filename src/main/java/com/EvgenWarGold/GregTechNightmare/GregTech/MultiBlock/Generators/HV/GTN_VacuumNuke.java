@@ -311,36 +311,36 @@ public class GTN_VacuumNuke extends GTN_MultiBlockBase<GTN_VacuumNuke> {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setLong("generating", generating);
-        aNBT.setDouble("heat", heat);
-        aNBT.setDouble("heat_increase", heatIncrease);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setLong("generating", generating);
+        nbt.setDouble("heat", heat);
+        nbt.setDouble("heat_increase", heatIncrease);
         if (inputFluid != null) {
             NBTTagCompound fluidInput = new NBTTagCompound();
             inputFluid.writeToNBT(fluidInput);
-            aNBT.setTag("fluidInput", fluidInput);
+            nbt.setTag("fluidInput", fluidInput);
         }
 
         if (outputFluid != null) {
             NBTTagCompound fluidOutput = new NBTTagCompound();
             outputFluid.writeToNBT(fluidOutput);
-            aNBT.setTag("fluidOutput", fluidOutput);
+            nbt.setTag("fluidOutput", fluidOutput);
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        generating = aNBT.getLong("generating");
-        heat = aNBT.getDouble("heat");
-        heatIncrease = aNBT.getDouble("heat_increase");
-        if (aNBT.hasKey("fluidInput")) {
-            inputFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("fluidInput"));
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        generating = nbt.getLong("generating");
+        heat = nbt.getDouble("heat");
+        heatIncrease = nbt.getDouble("heat_increase");
+        if (nbt.hasKey("fluidInput")) {
+            inputFluid = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("fluidInput"));
         }
 
-        if (aNBT.hasKey("fluidOutput")) {
-            outputFluid = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("fluidOutput"));
+        if (nbt.hasKey("fluidOutput")) {
+            outputFluid = FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("fluidOutput"));
         }
 
     }

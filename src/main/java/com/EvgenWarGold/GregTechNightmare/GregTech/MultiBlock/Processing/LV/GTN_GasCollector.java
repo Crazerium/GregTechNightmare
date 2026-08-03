@@ -92,7 +92,7 @@ public class GTN_GasCollector extends GTN_MultiBlockBase<GTN_GasCollector> {
     }
 
     @Override
-    public boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    public boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         for (MTEHatchEnergy hatch : mEnergyHatches) {
             if (hatch.mTier > glass.getCasingTier()) {
                 return false;

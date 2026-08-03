@@ -136,21 +136,21 @@ public class GTN_BloodEnchanter extends GTN_MultiBlockBase<GTN_BloodEnchanter> {
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setInteger("mLastMode", lastMode);
-        aNBT.setInteger("mLastNeedLP", lastNeedLP);
-        aNBT.setInteger("mLastNeedXP", lastNeedXP);
-        aNBT.setInteger("mLastNeedPraecantatio", lastNeedPraecantatio);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger("mLastMode", lastMode);
+        nbt.setInteger("mLastNeedLP", lastNeedLP);
+        nbt.setInteger("mLastNeedXP", lastNeedXP);
+        nbt.setInteger("mLastNeedPraecantatio", lastNeedPraecantatio);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        lastMode = aNBT.getInteger("mLastMode");
-        lastNeedLP = aNBT.getInteger("mLastNeedLP");
-        lastNeedXP = aNBT.getInteger("mLastNeedXP");
-        lastNeedPraecantatio = aNBT.getInteger("mLastNeedPraecantatio");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        lastMode = nbt.getInteger("mLastMode");
+        lastNeedLP = nbt.getInteger("mLastNeedLP");
+        lastNeedXP = nbt.getInteger("mLastNeedXP");
+        lastNeedPraecantatio = nbt.getInteger("mLastNeedPraecantatio");
     }
 
     @Override

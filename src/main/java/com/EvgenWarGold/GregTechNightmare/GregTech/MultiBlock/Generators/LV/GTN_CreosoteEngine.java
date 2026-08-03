@@ -126,7 +126,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     }
 
     @Override
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         DYNAMO_AMP = getDynamoAmperage();
         DYNAMO_TIER = getTierDynamo();
         return checkCountDynamo(4) && setDynamoTier(2, false);

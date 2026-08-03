@@ -273,10 +273,10 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
-        if (aBaseMetaTileEntity.isServerSide()) {
-            if (aTimer % 20 == 0) {
+    public void onPostTick(IGregTechTileEntity gte, long timer) {
+        super.onPostTick(gte, timer);
+        if (gte.isServerSide()) {
+            if (timer % 20 == 0) {
                 if (catalystData != null) {
                     catalystData.decreaseDuration();
 
@@ -289,17 +289,17 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         if (catalystData != null) {
-            catalystData.writeToNBT(aNBT);
+            catalystData.writeToNBT(nbt);
         }
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        catalystData = CatalystData.readFromNBT(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        catalystData = CatalystData.readFromNBT(nbt);
     }
 
     @Override

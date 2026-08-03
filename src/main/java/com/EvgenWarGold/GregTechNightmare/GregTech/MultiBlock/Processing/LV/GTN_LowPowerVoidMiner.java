@@ -94,12 +94,12 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
     }
 
     @Override
-    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.GTN_FirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity gte) {
+        super.GTN_FirstTick(gte);
 
-        if (aBaseMetaTileEntity.isServerSide()) {
+        if (gte.isServerSide()) {
             boolean matchFound = ALLOW_DIMENSION.stream()
-                .anyMatch(n -> n.equals(aBaseMetaTileEntity.getWorld().provider.dimensionId));
+                .anyMatch(n -> n.equals(gte.getWorld().provider.dimensionId));
 
             if (!matchFound) {
                 explodeMultiblock();
@@ -107,7 +107,7 @@ public class GTN_LowPowerVoidMiner extends GTN_MultiBlockBase<GTN_LowPowerVoidMi
 
             if (!preGenerated) {
                 voidMiner = new VoidMinerUtils(ALLOW_DIMENSION);
-                voidMiner.initDropMap(aBaseMetaTileEntity);
+                voidMiner.initDropMap(gte);
                 preGenerated = true;
             }
         }

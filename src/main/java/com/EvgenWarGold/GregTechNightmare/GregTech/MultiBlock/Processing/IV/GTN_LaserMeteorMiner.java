@@ -570,47 +570,47 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setInteger("currentRadius", currentRadius);
-        aNBT.setInteger("xDrill", xDrill);
-        aNBT.setInteger("yDrill", yDrill);
-        aNBT.setInteger("zDrill", zDrill);
-        aNBT.setInteger("xStart", xStart);
-        aNBT.setInteger("yStart", yStart);
-        aNBT.setInteger("zStart", zStart);
-        aNBT.setBoolean("isStartInitialized", isStartInitialized);
-        aNBT.setBoolean("hasFinished", hasFinished);
-        aNBT.setBoolean("isWaiting", isWaiting);
-        aNBT.setInteger("multiTier", multiTier);
-        aNBT.setInteger("fortuneTier", fortuneTier);
-        aNBT.setBoolean("showBlockHighlight", showBlockHighlight);
-        aNBT.setInteger("currentLayer", currentLayer);
-        aNBT.setInteger("minY", minY);
-        aNBT.setInteger("maxY", maxY);
-        aNBT.setBoolean("isLayerInitialized", isLayerInitialized);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger("currentRadius", currentRadius);
+        nbt.setInteger("xDrill", xDrill);
+        nbt.setInteger("yDrill", yDrill);
+        nbt.setInteger("zDrill", zDrill);
+        nbt.setInteger("xStart", xStart);
+        nbt.setInteger("yStart", yStart);
+        nbt.setInteger("zStart", zStart);
+        nbt.setBoolean("isStartInitialized", isStartInitialized);
+        nbt.setBoolean("hasFinished", hasFinished);
+        nbt.setBoolean("isWaiting", isWaiting);
+        nbt.setInteger("multiTier", multiTier);
+        nbt.setInteger("fortuneTier", fortuneTier);
+        nbt.setBoolean("showBlockHighlight", showBlockHighlight);
+        nbt.setInteger("currentLayer", currentLayer);
+        nbt.setInteger("minY", minY);
+        nbt.setInteger("maxY", maxY);
+        nbt.setBoolean("isLayerInitialized", isLayerInitialized);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        currentRadius = aNBT.getInteger("currentRadius");
-        xDrill = aNBT.getInteger("xDrill");
-        yDrill = aNBT.getInteger("yDrill");
-        zDrill = aNBT.getInteger("zDrill");
-        xStart = aNBT.getInteger("xStart");
-        yStart = aNBT.getInteger("yStart");
-        zStart = aNBT.getInteger("zStart");
-        isStartInitialized = aNBT.getBoolean("isStartInitialized");
-        hasFinished = aNBT.getBoolean("hasFinished");
-        isWaiting = aNBT.getBoolean("isWaiting");
-        multiTier = aNBT.getInteger("multiTier");
-        fortuneTier = aNBT.getInteger("fortuneTier");
-        showBlockHighlight = aNBT.getBoolean("showBlockHighlight");
-        currentLayer = aNBT.getInteger("currentLayer");
-        minY = aNBT.getInteger("minY");
-        maxY = aNBT.getInteger("maxY");
-        isLayerInitialized = aNBT.getBoolean("isLayerInitialized");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        currentRadius = nbt.getInteger("currentRadius");
+        xDrill = nbt.getInteger("xDrill");
+        yDrill = nbt.getInteger("yDrill");
+        zDrill = nbt.getInteger("zDrill");
+        xStart = nbt.getInteger("xStart");
+        yStart = nbt.getInteger("yStart");
+        zStart = nbt.getInteger("zStart");
+        isStartInitialized = nbt.getBoolean("isStartInitialized");
+        hasFinished = nbt.getBoolean("hasFinished");
+        isWaiting = nbt.getBoolean("isWaiting");
+        multiTier = nbt.getInteger("multiTier");
+        fortuneTier = nbt.getInteger("fortuneTier");
+        showBlockHighlight = nbt.getBoolean("showBlockHighlight");
+        currentLayer = nbt.getInteger("currentLayer");
+        minY = nbt.getInteger("minY");
+        maxY = nbt.getInteger("maxY");
+        isLayerInitialized = nbt.getBoolean("isLayerInitialized");
     }
 
     private void setFortuneTier() {
@@ -649,8 +649,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.GTN_FirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity gte) {
+        super.GTN_FirstTick(gte);
         BlockHighlighter.registerHighlighter(this, blockHighlighter);
     }
 
@@ -661,16 +661,16 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
-        super.onPostTick(aBaseMetaTileEntity, aTick);
+    public void onPostTick(IGregTechTileEntity gte, long timer) {
+        super.onPostTick(gte, timer);
 
-        if (aBaseMetaTileEntity.isServerSide()) {
+        if (gte.isServerSide()) {
             if (isStartInitialized) {
                 blockHighlighter.updatePosition(
                     xStart,
                     yStart,
                     zStart,
-                    aBaseMetaTileEntity.getWorld().provider.dimensionId,
+                    gte.getWorld().provider.dimensionId,
                     showBlockHighlight);
             } else {
                 blockHighlighter.disable();

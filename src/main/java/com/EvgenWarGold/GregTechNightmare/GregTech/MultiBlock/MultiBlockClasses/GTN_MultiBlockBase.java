@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import gregtech.api.metatileentity.BaseMetaTileEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -130,7 +131,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Create Meta
     @Override
-    public IMetaTileEntity newMetaEntity(IGregTechTileEntity aTileEntity) {
+    public IMetaTileEntity newMetaEntity(IGregTechTileEntity gte) {
         return createNewMetaEntity();
     }
     // endregion
@@ -147,12 +148,12 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
     }
 
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         return true;
     }
 
     @Override
-    public void checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack, List<StructureError> errors) {
+    public void checkMachine(IGregTechTileEntity gte, ItemStack stack, List<StructureError> errors) {
         List<StructureVariant<T>> variants = getStructureVariants();
         boolean built = false;
 
@@ -168,7 +169,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             neiVariant = null;
         }
 
-        if (!built || !GTN_checkMachine(aBaseMetaTileEntity, aStack)) {
+        if (!built || !GTN_checkMachine(gte, stack)) {
             if (errors.isEmpty()) {
                 errors.add(StructureErrorRegistry.UNKNOWN_STRUCTURE_ERROR);
             }
@@ -267,7 +268,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity aBaseMetaTileEntity, ForgeDirection side, ForgeDirection facing,
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing,
         int colorIndex, boolean aActive, boolean aRedstone) {
 
         StructureVariant<T> variant = null;
@@ -437,13 +438,13 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region NBT
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
-        aNBT.setInteger("maxParallel", getMaxParallelRecipes());
-        aNBT.setFloat("euModifier", getEuModifier());
-        aNBT.setFloat("speedBonus", 1F / getSpeedBonus());
-        aNBT.setInteger("multiblockTier", multiBlockTier);
-        aNBT.setInteger("mainCasingTextureId", mainCasingTextureId);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
+        nbt.setInteger("maxParallel", getMaxParallelRecipes());
+        nbt.setFloat("euModifier", getEuModifier());
+        nbt.setFloat("speedBonus", 1F / getSpeedBonus());
+        nbt.setInteger("multiblockTier", multiBlockTier);
+        nbt.setInteger("mainCasingTextureId", mainCasingTextureId);
 
         NBTTagList multiBlockList = new NBTTagList();
         for (CoordMultiBlock coordMultiBlock : multiBlocks.keySet()) {
@@ -463,22 +464,22 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             multiBlockList.appendTag(blockData);
         }
 
-        aNBT.setTag("multiBlocks", multiBlockList);
+        nbt.setTag("multiBlocks", multiBlockList);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
-        maxParallel = Math.max(aNBT.getInteger("maxParallel"), 1);
-        euModifier = aNBT.getFloat("euModifier");
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
+        maxParallel = Math.max(nbt.getInteger("maxParallel"), 1);
+        euModifier = nbt.getFloat("euModifier");
         if (euModifier <= 0) euModifier = 1;
-        speedBonus = aNBT.getFloat("speedBonus");
+        speedBonus = nbt.getFloat("speedBonus");
         if (speedBonus <= 0) speedBonus = 1;
-        multiBlockTier = aNBT.getInteger("multiblockTier");
-        mainCasingTextureId = aNBT.getInteger("mainCasingTextureId");
+        multiBlockTier = nbt.getInteger("multiblockTier");
+        mainCasingTextureId = nbt.getInteger("mainCasingTextureId");
 
         multiBlocks.clear();
-        NBTTagList multiBlockList = aNBT.getTagList("multiBlocks", 10);
+        NBTTagList multiBlockList = nbt.getTagList("multiBlocks", 10);
 
         for (int i = 0; i < multiBlockList.tagCount(); i++) {
             NBTTagCompound blockData = multiBlockList.getCompoundTagAt(i);
@@ -542,7 +543,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         }
 
         if (variants.size() == 1) {
-            StructureVariant<T> variant = variants.get(0);
+            StructureVariant<T> variant = variants.getFirst();
             MultiblockArea area = variant.multiblockArea;
             tt.addMultiBlockAreaInfo(area.width, area.height, area.length);
             return;
@@ -641,11 +642,23 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Energy
     @Override
-    public boolean addEnergyOutputMultipleDynamos(long aEU, boolean aAllowMixedVoltageDynamos) {
+    public boolean addEnergyOutput(long eu) {
+        if (eu <= 0L) {
+            return true;
+        }
+
+        if (!dynamoMultiHatches.isEmpty() || !mDynamoHatches.isEmpty() || !mExoticDynamoHatches.isEmpty()) {
+            addEnergyOutputMultipleDynamos(eu, true);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addEnergyOutputMultipleDynamos(long eu, boolean aAllowMixedVoltageDynamos) {
         long injected = 0;
         long totalOutput = 0;
-        long aFirstVoltageFound = -1;
-        boolean aFoundMixedDynamos = false;
+        long firstVoltageFound = -1;
+        boolean foundMixedDynamos = false;
 
         List<MTEHatch> allDynamos = new ArrayList<>();
 
@@ -661,47 +674,47 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
             allDynamos.add(hatch);
         }
 
-        for (MTEHatch aDynamo : allDynamos) {
-            long aVoltage = aDynamo.maxEUOutput();
-            long aTotal = aDynamo.maxAmperesOut() * aVoltage;
+        for (MTEHatch dynamo : allDynamos) {
+            long aVoltage = dynamo.maxEUOutput();
+            long aTotal = dynamo.maxAmperesOut() * aVoltage;
 
-            if (aFirstVoltageFound == -1) {
-                aFirstVoltageFound = aVoltage;
-            } else if (aFirstVoltageFound != aVoltage) {
-                aFoundMixedDynamos = true;
+            if (firstVoltageFound == -1) {
+                firstVoltageFound = aVoltage;
+            } else if (firstVoltageFound != aVoltage) {
+                foundMixedDynamos = true;
             }
 
             totalOutput += aTotal;
         }
 
-        if (totalOutput < aEU || (aFoundMixedDynamos && !aAllowMixedVoltageDynamos)) {
+        if (totalOutput < eu || (foundMixedDynamos && !aAllowMixedVoltageDynamos)) {
             explodeMultiblock();
             return false;
         }
 
-        for (MTEHatch aDynamo : allDynamos) {
-            if (injected >= aEU) break;
+        for (MTEHatch dynamo : allDynamos) {
+            if (injected >= eu) break;
 
-            IGregTechTileEntity base = aDynamo.getBaseMetaTileEntity();
+            IGregTechTileEntity base = dynamo.getBaseMetaTileEntity();
             if (base == null) continue;
 
-            long leftToInject = aEU - injected;
-            long aVoltage = aDynamo.maxEUOutput();
+            long leftToInject = eu - injected;
+            long voltage = dynamo.maxEUOutput();
 
-            long aAmpsToInject = leftToInject / aVoltage;
-            long aRemainder = leftToInject - (aAmpsToInject * aVoltage);
+            long ampsToInject = leftToInject / voltage;
+            long remainder = leftToInject - (ampsToInject * voltage);
 
-            long ampsOnCurrentHatch = Math.min(aDynamo.maxAmperesOut(), aAmpsToInject);
+            long ampsOnCurrentHatch = Math.min(dynamo.maxAmperesOut(), ampsToInject);
 
             for (int i = 0; i < ampsOnCurrentHatch; i++) {
-                base.increaseStoredEnergyUnits(aVoltage, false);
+                base.increaseStoredEnergyUnits(voltage, false);
             }
 
-            injected += aVoltage * ampsOnCurrentHatch;
+            injected += voltage * ampsOnCurrentHatch;
 
-            if (aRemainder > 0 && ampsOnCurrentHatch < aDynamo.maxAmperesOut()) {
-                base.increaseStoredEnergyUnits(aRemainder, false);
-                injected += aRemainder;
+            if (remainder > 0 && ampsOnCurrentHatch < dynamo.maxAmperesOut()) {
+                base.increaseStoredEnergyUnits(remainder, false);
+                injected += remainder;
             }
         }
 
@@ -710,34 +723,38 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public long getAllDynamoBuffer() {
         long buffer = 0;
-        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
-            buffer += tHatch.getEUVar();
+        for (MTEHatch hatch : validMTEList(mDynamoHatches)) {
+            buffer += hatch.getEUVar();
         }
         return buffer;
     }
 
     public long getAllMaxDynamoBuffer() {
         long buffer = 0;
-        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
-            buffer += tHatch.maxEUStore();
+        for (MTEHatch hatch : validMTEList(mDynamoHatches)) {
+            buffer += hatch.maxEUStore();
         }
         return buffer;
     }
 
     public long getDynamoAmperage() {
         long dynamoAmperage = 0;
-        for (MTEHatch tHatch : validMTEList(mDynamoHatches)) {
-            assert tHatch.getBaseMetaTileEntity() != null;
-            dynamoAmperage += tHatch.getBaseMetaTileEntity()
-                .getOutputAmperage();
+        for (MTEHatch hatch : validMTEList(mDynamoHatches)) {
+            IGregTechTileEntity mte = hatch.getBaseMetaTileEntity();
+
+            if (mte == null) {
+                return 0;
+            }
+
+            dynamoAmperage += mte.getOutputAmperage();
         }
         return dynamoAmperage;
     }
 
     public boolean checkMixedDynamo() {
         long firstVoltage = -1;
-        for (MTEHatchDynamo tHatch : validMTEList(mDynamoHatches)) {
-            long aVoltage = tHatch.maxEUOutput();
+        for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
+            long aVoltage = hatch.maxEUOutput();
             if (firstVoltage == -1) {
                 firstVoltage = aVoltage;
             } else {
@@ -751,7 +768,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     public boolean checkCountDynamo(int countAvaliableDynamo) {
         int count = 0;
-        for (MTEHatchDynamo tHatch : validMTEList(mDynamoHatches)) {
+        for (MTEHatchDynamo hatch : validMTEList(mDynamoHatches)) {
             count++;
             if (count > countAvaliableDynamo) return false;
         }
@@ -798,18 +815,18 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     // region Ticks
     @Override
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTimer) {
-        super.onPostTick(aBaseMetaTileEntity, aTimer);
-        if (aTimer % 100 == 5) {
+    public void onPostTick(IGregTechTileEntity gte, long timer) {
+        super.onPostTick(gte, timer);
+        if (timer % 100 == 5) {
             validateLinks();
         }
     }
 
     @Override
-    public void onFirstTick(IGregTechTileEntity baseMetaTileEntity) {
-        super.onFirstTick(baseMetaTileEntity);
+    public void onFirstTick(IGregTechTileEntity gte) {
+        super.onFirstTick(gte);
 
-        GTN_FirstTick(baseMetaTileEntity);
+        GTN_FirstTick(gte);
 
         if (!initialized) {
             initialize();
@@ -819,7 +836,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
 
     protected void initialize() {}
 
-    protected void GTN_FirstTick(IGregTechTileEntity baseMetaTileEntity) {}
+    protected void GTN_FirstTick(IGregTechTileEntity gte) {}
     // endregion
 
     // region Block

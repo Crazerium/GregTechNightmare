@@ -147,8 +147,8 @@ public class GTN_TestMultiBlock extends GTN_MultiBlockBase<GTN_TestMultiBlock> {
     }
 
     @Override
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
-        return super.GTN_checkMachine(aBaseMetaTileEntity, aStack);
+    protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
+        return super.GTN_checkMachine(gte, stack);
     }
 
     @Override

@@ -118,23 +118,23 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public void saveNBTData(NBTTagCompound aNBT) {
-        super.saveNBTData(aNBT);
+    public void saveNBTData(NBTTagCompound nbt) {
+        super.saveNBTData(nbt);
         NBTTagList list = new NBTTagList();
         for (String key : research) {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("ResearchKey", key);
             list.appendTag(tag);
         }
-        aNBT.setTag("ResearchList", list);
+        nbt.setTag("ResearchList", list);
     }
 
     @Override
-    public void loadNBTData(NBTTagCompound aNBT) {
-        super.loadNBTData(aNBT);
+    public void loadNBTData(NBTTagCompound nbt) {
+        super.loadNBTData(nbt);
         research.clear();
-        if (aNBT.hasKey("ResearchList")) {
-            NBTTagList list = aNBT.getTagList("ResearchList", 10);
+        if (nbt.hasKey("ResearchList")) {
+            NBTTagList list = nbt.getTagList("ResearchList", 10);
             for (int i = 0; i < list.tagCount(); i++) {
                 research.add(
                     list.getCompoundTagAt(i)
@@ -144,14 +144,14 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public void GTN_FirstTick(IGregTechTileEntity aBaseMetaTileEntity) {
-        super.GTN_FirstTick(aBaseMetaTileEntity);
+    public void GTN_FirstTick(IGregTechTileEntity gte) {
+        super.GTN_FirstTick(gte);
 
-        if (!aBaseMetaTileEntity.isServerSide()) {
+        if (!gte.isServerSide()) {
             return;
         }
 
-        String owner = aBaseMetaTileEntity.getOwnerName();
+        String owner = gte.getOwnerName();
         if (owner == null || owner.isEmpty()) {
             return;
         }
@@ -170,16 +170,16 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity tile, long tick) {
-        super.onPostTick(tile, tick);
-        if (!tile.isClientSide()) {
+    public void onPostTick(IGregTechTileEntity gte, long timer) {
+        super.onPostTick(gte, timer);
+        if (!gte.isClientSide()) {
             return;
         }
-        if (!tile.isActive()) {
+        if (!gte.isActive()) {
             return;
         }
-        if (tick % 2 == 0) {
-            spawnLAAStyleFX(tile);
+        if (timer % 2 == 0) {
+            spawnLAAStyleFX(gte);
         }
     }
 
@@ -246,7 +246,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
-    public boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    public boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         for (MTEHatchEnergy hatch : mEnergyHatches) {
             if (hatch.mTier > glass.getCasingTier()) {
                 return false;

@@ -197,7 +197,7 @@ public class GTN_NodeEnergizer extends GTN_MultiBlockBase<GTN_NodeEnergizer> {
     }
 
     @Override
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         return mInputBusses.size() <= 1 && node.size() <= 1 && mEnergyHatches.size() <= 2;
     }
 

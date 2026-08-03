@@ -158,12 +158,12 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
     }
 
     @Override
-    protected boolean GTN_checkMachine(IGregTechTileEntity aBaseMetaTileEntity, ItemStack aStack) {
+    protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         HeatingCoilLevel coilLevel = coil.getCoilLevel();
         if (coilLevel != null) {
             heatingCapacity = (int) coilLevel.getHeat() + 100 * (GTUtility.getTier(getMaxInputVoltage()) - 2);
         }
-        return super.GTN_checkMachine(aBaseMetaTileEntity, aStack) && manaHatches.size() <= 1;
+        return super.GTN_checkMachine(gte, stack) && manaHatches.size() <= 1;
     }
 
     @Override

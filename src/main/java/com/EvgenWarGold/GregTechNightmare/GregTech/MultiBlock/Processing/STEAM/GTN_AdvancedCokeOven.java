@@ -114,9 +114,9 @@ public class GTN_AdvancedCokeOven extends GTN_MultiBlockBase<GTN_AdvancedCokeOve
     }
 
     @Override
-    public void onPostTick(IGregTechTileEntity baseMetaTileEntity, long tick) {
-        if (baseMetaTileEntity.isClientSide()) onPostTickClient();
-        if (baseMetaTileEntity.isServerSide()) onPostTickServer(baseMetaTileEntity, tick);
+    public void onPostTick(IGregTechTileEntity gte, long timer) {
+        if (gte.isClientSide()) onPostTickClient();
+        if (gte.isServerSide()) onPostTickServer(gte, timer);
     }
 
     private void onPostTickClient() {
