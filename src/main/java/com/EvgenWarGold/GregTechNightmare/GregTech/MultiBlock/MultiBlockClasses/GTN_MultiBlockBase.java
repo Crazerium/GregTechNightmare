@@ -245,7 +245,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     private void initDefaultVariant() {
         List<StructureVariant<T>> variants = getStructureVariants();
         if (!variants.isEmpty()) {
-            mainCasing = variants.get(0).casing;
+            mainCasing = variants.getFirst().casing;
         }
     }
     // endregion
