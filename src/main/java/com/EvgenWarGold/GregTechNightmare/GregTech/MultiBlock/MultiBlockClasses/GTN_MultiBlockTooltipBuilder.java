@@ -30,25 +30,25 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String SEPARATOR = ", ";
     private static final String STRUCTURE_HINT = tr("GT5U.MBTT.StructureHint");
     private static final String STEAM_INPUT_BUS = tr("GTPP.MBTT.SteamInputBus");
-    private static final String TT_steamoutputbus = tr("GTPP.MBTT.SteamOutputBus");
-    private static final String TT_steamhatch = tr("GTPP.MBTT.SteamHatch");
-    private static final String TT_maintenancehatch = tr("GT5U.MBTT.MaintenanceHatch");
-    private static final String TT_energyhatch = tr("GT5U.MBTT.EnergyHatch");
-    private static final String TT_dynamohatch = tr("GT5U.MBTT.DynamoHatch");
-    private static final String TT_mufflerhatch = tr("GT5U.MBTT.MufflerHatch");
-    private static final String TT_inputbus = tr("GT5U.MBTT.InputBus");
-    private static final String TT_inputhatch = tr("GT5U.MBTT.InputHatch");
-    private static final String TT_outputbus = tr("GT5U.MBTT.OutputBus");
-    private static final String TT_outputhatch = tr("GT5U.MBTT.OutputHatch");
-    private static final String TT_tectechhatch = tr("GTN.TooltipBuilder.ExoticHatch");
-    private static final String TT_EnergyOrTecTechHatch = tr("GTN.TooltipBuilder.ExoticOrEnergyHatch");
-    private static final String TT_DynamoOrBufferedHatch = tr("GTN.TooltipBuilder.DynamoOrBufferedHatch");
-    private static final String TT_ManaHatch = tr("GTN.TooltipBuilder.ManaHatch");
-    private static final String TT_AspectHatch = tr("GTN.TooltipBuilder.AspectHatch");
-    private static final String TT_MeAspectHatch = tr("GTN.TooltipBuilder.MeAspectHatch");
-    private static final String TT_dimensions = tr("GT5U.MBTT.Dimensions");
-    private static final String TT_structure = tr("GT5U.MBTT.Structure");
-    private static final String[] TT_dots = IntStream.range(0, 16)
+    private static final String STEAM_OUTPUT_BUS = tr("GTPP.MBTT.SteamOutputBus");
+    private static final String STEAM_HATCH = tr("GTPP.MBTT.SteamHatch");
+    private static final String MAINTENANCE_HATCH = tr("GT5U.MBTT.MaintenanceHatch");
+    private static final String ENERGY_HATCH = tr("GT5U.MBTT.EnergyHatch");
+    private static final String DYNAMO_HATCH = tr("GT5U.MBTT.DynamoHatch");
+    private static final String MUFFLER_HATCH = tr("GT5U.MBTT.MufflerHatch");
+    private static final String INPUT_BUS = tr("GT5U.MBTT.InputBus");
+    private static final String INPUT_HATCH = tr("GT5U.MBTT.InputHatch");
+    private static final String OUTPUT_BUS = tr("GT5U.MBTT.OutputBus");
+    private static final String OUTPUT_HATCH = tr("GT5U.MBTT.OutputHatch");
+    private static final String EXOTIC_ENERGY_HATCH = tr("GTN.TooltipBuilder.ExoticHatch");
+    private static final String EXOTIC_OR_ENERGY_HATCH = tr("GTN.TooltipBuilder.ExoticOrEnergyHatch");
+    private static final String DYNAMO_OR_BUFFERED_HATCH = tr("GTN.TooltipBuilder.DynamoOrBufferedHatch");
+    private static final String MANA_HATCH = tr("GTN.TooltipBuilder.ManaHatch");
+    private static final String ASPECT_HATCH = tr("GTN.TooltipBuilder.AspectHatch");
+    private static final String ME_ASPECT_HATCH = tr("GTN.TooltipBuilder.MeAspectHatch");
+    private static final String DIMENSIONS = tr("GT5U.MBTT.Dimensions");
+    private static final String STRUCTURE = tr("GT5U.MBTT.Structure");
+    private static final String[] DOTS = IntStream.range(0, 16)
         .mapToObj(i -> tr("structurelib.blockhint." + i + ".name"))
         .toArray(String[]::new);
 
@@ -126,82 +126,82 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     }
 
     public GTN_MultiBlockTooltipBuilder addSteamHatch(int count, int dot) {
-        addHatch(TT_steamhatch, count, dot);
+        addHatch(STEAM_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addSteamOutputBus(int count, int dot) {
-        addHatch(TT_steamoutputbus, count, dot);
+        addHatch(STEAM_OUTPUT_BUS, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addEnergyHatch(int count, int dot) {
-        addHatch(TT_energyhatch, count, dot);
+        addHatch(ENERGY_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addDynamoHatch(int count, int dot) {
-        addHatch(TT_dynamohatch, count, dot);
+        addHatch(DYNAMO_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addMaintenanceHatch(int count, int dot) {
-        addHatch(TT_maintenancehatch, count, dot);
+        addHatch(MAINTENANCE_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addMufflerHatch(int count, int dot) {
-        addHatch(TT_mufflerhatch, count, dot);
+        addHatch(MUFFLER_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addInputBus(int count, int dot) {
-        addHatch(TT_inputbus, count, dot);
+        addHatch(INPUT_BUS, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addInputHatch(int count, int dot) {
-        addHatch(TT_inputhatch, count, dot);
+        addHatch(INPUT_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addOutputBus(int count, int dot) {
-        addHatch(TT_outputbus, count, dot);
+        addHatch(OUTPUT_BUS, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addOutputHatch(int count, int dot) {
-        addHatch(TT_outputhatch, count, dot);
+        addHatch(OUTPUT_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addExoticEnergyHatch(int count, int dot) {
-        addHatch(TT_tectechhatch, count, dot);
+        addHatch(EXOTIC_ENERGY_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addExoticOrEnergyHatch(int count, int dot) {
-        addHatch(TT_EnergyOrTecTechHatch, count, dot);
+        addHatch(EXOTIC_OR_ENERGY_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addDynamoOrBufferedHatch(int count, int dot) {
-        addHatch(TT_DynamoOrBufferedHatch, count, dot);
+        addHatch(DYNAMO_OR_BUFFERED_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addManaHatch(int count, int dot) {
-        addHatch(TT_ManaHatch, count, dot);
+        addHatch(MANA_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addAspectHatch(int count, int dot) {
-        addHatch(TT_AspectHatch, count, dot);
+        addHatch(ASPECT_HATCH, count, dot);
         return this;
     }
 
     public GTN_MultiBlockTooltipBuilder addMeAspectHatch(int count, int dot) {
-        addHatch(TT_MeAspectHatch, count, dot);
+        addHatch(ME_ASPECT_HATCH, count, dot);
         return this;
     }
 
@@ -296,7 +296,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         List<String> sLines = accessor.getSLines();
 
         sLines.add(
-            EnumChatFormatting.GRAY + TT_dimensions
+            EnumChatFormatting.GRAY + DIMENSIONS
                 + (name.isEmpty() ? "" : EnumChatFormatting.AQUA + " " + name + EnumChatFormatting.GRAY)
                 + COLON
                 + EnumChatFormatting.GOLD
@@ -334,7 +334,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     public MultiblockTooltipBuilder beginStructureBlock() {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
-        sLines.add(EnumChatFormatting.GRAY + TT_structure + COLON);
+        sLines.add(EnumChatFormatting.GRAY + STRUCTURE + COLON);
         return this;
     }
 
@@ -407,7 +407,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
                 hBlocks.asMap()
                     .entrySet()
                     .stream()
-                    .map(e -> TT_dots[e.getKey() - 1] + COLON + String.join(SEPARATOR, e.getValue())))
+                    .map(e -> DOTS[e.getKey() - 1] + COLON + String.join(SEPARATOR, e.getValue())))
                 .toArray(String[]::new));
         // free memory
         iLines = null;
