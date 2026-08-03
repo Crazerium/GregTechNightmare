@@ -112,11 +112,6 @@ public class GTN_WaterModuleMagicGenerator extends GTN_MultiBlockBase<GTN_WaterM
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_WaterModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

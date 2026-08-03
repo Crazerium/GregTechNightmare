@@ -112,11 +112,6 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_OrderModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

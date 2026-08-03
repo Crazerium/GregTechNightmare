@@ -108,11 +108,6 @@ public class GTN_FireModuleMagicGenerator extends GTN_MultiBlockBase<GTN_FireMod
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_FireModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

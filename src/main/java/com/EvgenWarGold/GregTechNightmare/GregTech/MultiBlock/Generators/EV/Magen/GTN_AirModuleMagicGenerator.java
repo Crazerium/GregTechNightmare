@@ -110,11 +110,6 @@ public class GTN_AirModuleMagicGenerator extends GTN_MultiBlockBase<GTN_AirModul
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_AirModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

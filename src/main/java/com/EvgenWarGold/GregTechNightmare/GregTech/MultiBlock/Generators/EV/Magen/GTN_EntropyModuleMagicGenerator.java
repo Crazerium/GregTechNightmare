@@ -112,11 +112,6 @@ public class GTN_EntropyModuleMagicGenerator extends GTN_MultiBlockBase<GTN_Entr
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_EntropyModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

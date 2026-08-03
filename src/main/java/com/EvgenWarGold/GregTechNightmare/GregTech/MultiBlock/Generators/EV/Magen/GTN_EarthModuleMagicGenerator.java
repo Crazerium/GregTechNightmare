@@ -105,11 +105,6 @@ public class GTN_EarthModuleMagicGenerator extends GTN_MultiBlockBase<GTN_EarthM
     }
 
     @Override
-    public int boostLevel() {
-        return boostLevel;
-    }
-
-    @Override
     public List<StructureVariant<GTN_EarthModuleMagicGenerator>> getStructureVariants() {
         return List.of(
             new StructureVariant<>(

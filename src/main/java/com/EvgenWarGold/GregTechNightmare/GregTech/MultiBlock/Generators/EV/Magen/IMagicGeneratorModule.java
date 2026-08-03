@@ -3,6 +3,4 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Mag
 public interface IMagicGeneratorModule {
 
     long generate();
-
-    int boostLevel();
 }
