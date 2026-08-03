@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import gregtech.api.metatileentity.BaseMetaTileEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,6 +29,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.EvgenWarGold.GregTechNightmare.Api.Dimensions;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
@@ -268,8 +268,8 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     }
 
     @Override
-    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing,
-        int colorIndex, boolean aActive, boolean aRedstone) {
+    public ITexture[] getTexture(IGregTechTileEntity gte, ForgeDirection side, ForgeDirection facing, int colorIndex,
+        boolean aActive, boolean aRedstone) {
 
         StructureVariant<T> variant = null;
 
@@ -593,7 +593,10 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
                     info.add(GTN_Utils.tr("multiblock.waila.tier", multiblockTier));
                 }
             }
+
             super.getWailaBody(itemStack, info, accessor, config);
+
+            GTN_WailaBody(itemStack, info, tag);
         }
     }
 
@@ -608,7 +611,13 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
         tag.setInteger("timeReduction", getOverclockType().timeReduction);
         tag.setInteger("powerIncrease", getOverclockType().powerIncrease);
         tag.setInteger("multiblockTier", multiBlockTier);
+
+        GTN_WailaNBT(tile, new Dimensions(world, x, y, z), tag);
     }
+
+    public void GTN_WailaBody(ItemStack itemStack, List<String> info, NBTTagCompound tag) {}
+
+    public void GTN_WailaNBT(TileEntity tile, Dimensions dimensions, NBTTagCompound tag) {}
     // endregion
 
     // region Buttons

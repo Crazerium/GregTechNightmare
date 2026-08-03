@@ -5,15 +5,14 @@ import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockC
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.Api.Dimensions;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CoordMultiBlock;
@@ -31,8 +30,6 @@ import goodgenerator.loader.Loaders;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
 
 public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
 
@@ -172,10 +169,7 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     @Override
-    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-        int z) {
-        super.getWailaNBTData(player, tile, tag, world, x, y, z);
-
+    public void GTN_WailaNBT(TileEntity tile, Dimensions dimensions, NBTTagCompound tag) {
         for (CoordMultiBlock coord : multiBlocks.keySet()) {
             IGregTechTileEntity gte = multiBlocks.get(coord);
             IMetaTileEntity mte = gte.getMetaTileEntity();
@@ -213,55 +207,50 @@ public class GTN_MagicGenerator extends GTN_MultiBlockBase<GTN_MagicGenerator> {
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, info, accessor, config);
-
-        NBTTagCompound tag = accessor.getNBTData();
-
-        info
-            .add(
-                tag.getBoolean("AirModule")
+    public void GTN_WailaBody(ItemStack itemStack, List<String> info, NBTTagCompound tag) {
+        info.add(
+            tag.getBoolean(
+                "AirModule")
                     ? EnumChatFormatting.YELLOW + "Air Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("AirModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        info
-            .add(
-                tag.getBoolean("FireModule")
+        info.add(
+            tag.getBoolean(
+                "FireModule")
                     ? EnumChatFormatting.DARK_RED + "Fire Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("FireModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        info
-            .add(
-                tag.getBoolean("EarthModule")
+        info.add(
+            tag.getBoolean(
+                "EarthModule")
                     ? EnumChatFormatting.DARK_GREEN + "Earth Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("EarthModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        info
-            .add(
-                tag.getBoolean("EntropyModule")
+        info.add(
+            tag.getBoolean(
+                "EntropyModule")
                     ? EnumChatFormatting.DARK_GRAY + "Entropy Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("EntropyModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        info
-            .add(
-                tag.getBoolean("OrderModule")
+        info.add(
+            tag.getBoolean(
+                "OrderModule")
                     ? EnumChatFormatting.WHITE + "Order Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("OrderModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"
                             : EnumChatFormatting.RED + "INACTIVE")
                     : "");
-        info
-            .add(
-                tag.getBoolean("WaterModule")
+        info.add(
+            tag.getBoolean(
+                "WaterModule")
                     ? EnumChatFormatting.DARK_BLUE + "Water Module "
                         + EnumChatFormatting.RESET
                         + (tag.getBoolean("WaterModuleActive") ? EnumChatFormatting.GREEN + "ACTIVE"

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -19,6 +18,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.Api.Dimensions;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
@@ -37,8 +37,6 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.TCAspects;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.recipe.check.CheckRecipeResult;
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.config.ConfigBlocks;
 
@@ -247,12 +245,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, info, accessor, config);
-
-        NBTTagCompound tag = accessor.getNBTData();
-
+    public void GTN_WailaBody(ItemStack itemStack, List<String> info, NBTTagCompound tag) {
         info.add(
             EnumChatFormatting.GREEN + "Generate: " + EnumChatFormatting.AQUA + formatNumber(tag.getLong("generate")));
         info.add(
@@ -262,10 +255,7 @@ public class GTN_OrderModuleMagicGenerator extends GTN_MultiBlockBase<GTN_OrderM
     }
 
     @Override
-    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-        int z) {
-        super.getWailaNBTData(player, tile, tag, world, x, y, z);
-
+    public void GTN_WailaNBT(TileEntity tile, Dimensions dimensions, NBTTagCompound tag) {
         tag.setLong("generate", generate);
 
         if (catalystData != null) {

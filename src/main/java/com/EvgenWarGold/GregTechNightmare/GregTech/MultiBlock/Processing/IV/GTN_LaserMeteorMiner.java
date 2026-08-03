@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,6 +26,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 import org.jetbrains.annotations.NotNull;
 
+import com.EvgenWarGold.GregTechNightmare.Api.Dimensions;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
@@ -65,8 +65,6 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.OverclockCalculator;
 import it.unimi.dsi.fastutil.Pair;
-import mcp.mobius.waila.api.IWailaConfigHandler;
-import mcp.mobius.waila.api.IWailaDataAccessor;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMiner> {
@@ -172,18 +170,13 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
     }
 
     @Override
-    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
-        int z) {
-        super.getWailaNBTData(player, tile, tag, world, x, y, z);
+    public void GTN_WailaNBT(TileEntity tile, Dimensions dimensions, NBTTagCompound tag) {
         tag.setInteger("fortune", this.fortuneTier);
         tag.setInteger("tier", this.multiTier);
     }
 
     @Override
-    public void getWailaBody(ItemStack itemStack, List<String> info, IWailaDataAccessor accessor,
-                             IWailaConfigHandler config) {
-        super.getWailaBody(itemStack, info, accessor, config);
-        final NBTTagCompound tag = accessor.getNBTData();
+    public void GTN_WailaBody(ItemStack itemStack, List<String> info, NBTTagCompound tag) {
         info.add(tr("tier." + tag.getInteger("tier")) + EnumChatFormatting.RESET);
         info.add(tr("fortune." + tag.getInteger("fortune")) + EnumChatFormatting.RESET);
     }
@@ -666,12 +659,8 @@ public class GTN_LaserMeteorMiner extends GTN_MultiBlockBase<GTN_LaserMeteorMine
 
         if (gte.isServerSide()) {
             if (isStartInitialized) {
-                blockHighlighter.updatePosition(
-                    xStart,
-                    yStart,
-                    zStart,
-                    gte.getWorld().provider.dimensionId,
-                    showBlockHighlight);
+                blockHighlighter
+                    .updatePosition(xStart, yStart, zStart, gte.getWorld().provider.dimensionId, showBlockHighlight);
             } else {
                 blockHighlighter.disable();
             }
