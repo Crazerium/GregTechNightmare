@@ -21,6 +21,22 @@ public enum GTN_ItemList {
     MeteorMinerSchematic1,
     MeteorMinerSchematic2,
     ManaProspector,
+    WildcardIngot,
+    WildcardPlate,
+    WildcardDust,
+    WildcardStick,
+    WildcardScrew,
+    WildcardBolt,
+    WildcardRing,
+    WildcardFoil,
+    WildcardGear,
+    WildcardWire1x,
+    WildcardCable1x,
+    WildcardFrame,
+    WildcardGem,
+    WildcardBlock,
+    WildcardNugget,
+    WildcardDensePlate,
     // endregion
 
     // region Casings
@@ -71,6 +87,7 @@ public enum GTN_ItemList {
     ManaHatch,
     AspectHatch,
     MeAspectHatch,
+    WildcardPatternBuffer,
     // endregion
 
     ;

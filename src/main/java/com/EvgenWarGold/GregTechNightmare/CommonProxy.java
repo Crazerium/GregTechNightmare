@@ -1,7 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare;
 
+import appeng.api.AEApi;
+
 import com.EvgenWarGold.GregTechNightmare.DeleteRecipe.DeleteRecipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
@@ -19,6 +22,10 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         GTN_ItemsRegister.init();
         GTN_BlocksRegister.init();
+        AEApi.instance()
+            .registries()
+            .interfaceTerminal()
+            .register(GTN_WildcardPatternBuffer.class);
     }
 
     public void init(FMLInitializationEvent event) {
