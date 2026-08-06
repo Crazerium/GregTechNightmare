@@ -52,7 +52,9 @@ public final class CraftingInputMECircuitResolver {
         String name = stack.getUnlocalizedName();
         if (name == null) return false;
 
-        String normalized = name.toLowerCase(Locale.ROOT).replace("_", "").replace(".", "");
+        String normalized = name.toLowerCase(Locale.ROOT)
+            .replace("_", "")
+            .replace(".", "");
         return normalized.contains("integratedcircuit") || normalized.contains("programmedcircuit");
     }
 
@@ -63,7 +65,8 @@ public final class CraftingInputMECircuitResolver {
         for (Class<?> type = root.getClass(); type != null && type != Object.class; type = type.getSuperclass()) {
             for (Method method : type.getDeclaredMethods()) {
                 if (Modifier.isStatic(method.getModifiers()) || method.getParameterTypes().length != 0
-                    || method.getReturnType() == Void.TYPE || !containsCircuitWord(method.getName())) {
+                    || method.getReturnType() == Void.TYPE
+                    || !containsCircuitWord(method.getName())) {
                     continue;
                 }
 
@@ -117,7 +120,8 @@ public final class CraftingInputMECircuitResolver {
             for (Field field : type.getDeclaredFields()) {
                 if (Modifier.isStatic(field.getModifiers())) continue;
 
-                String name = field.getName().toLowerCase(Locale.ROOT);
+                String name = field.getName()
+                    .toLowerCase(Locale.ROOT);
                 if (name.contains("pattern") && Map.class.isAssignableFrom(field.getType())) continue;
                 if (!isInterestingStorageField(field, name)) continue;
 
@@ -133,9 +137,14 @@ public final class CraftingInputMECircuitResolver {
 
     private static boolean isInterestingStorageField(Field field, String name) {
         Class<?> type = field.getType();
-        return name.contains("circuit") || name.contains("inventory") || name.contains("slot")
-            || name.contains("input") || name.contains("shared") || ItemStack.class.isAssignableFrom(type)
-            || type.isArray() || IInventory.class.isAssignableFrom(type) || Collection.class.isAssignableFrom(type);
+        return name.contains("circuit") || name.contains("inventory")
+            || name.contains("slot")
+            || name.contains("input")
+            || name.contains("shared")
+            || ItemStack.class.isAssignableFrom(type)
+            || type.isArray()
+            || IInventory.class.isAssignableFrom(type)
+            || Collection.class.isAssignableFrom(type);
     }
 
     private static ItemStack findCircuit(Object value, IdentityHashMap<Object, Boolean> visited, int depth,
@@ -195,7 +204,8 @@ public final class CraftingInputMECircuitResolver {
             for (Field field : type.getDeclaredFields()) {
                 if (Modifier.isStatic(field.getModifiers())) continue;
 
-                String name = field.getName().toLowerCase(Locale.ROOT);
+                String name = field.getName()
+                    .toLowerCase(Locale.ROOT);
                 if (!isInterestingStorageField(field, name)) continue;
 
                 try {
@@ -211,8 +221,10 @@ public final class CraftingInputMECircuitResolver {
     private static ItemStack readStackHandler(Object value, IdentityHashMap<Object, Boolean> visited, int depth,
         boolean inspectNamedContainers) {
         try {
-            Method getSlots = value.getClass().getMethod("getSlots");
-            Method getStackInSlot = value.getClass().getMethod("getStackInSlot", int.class);
+            Method getSlots = value.getClass()
+                .getMethod("getSlots");
+            Method getStackInSlot = value.getClass()
+                .getMethod("getStackInSlot", int.class);
             Object slotCount = getSlots.invoke(value);
             if (!(slotCount instanceof Number)) return null;
 
@@ -267,14 +279,19 @@ public final class CraftingInputMECircuitResolver {
     }
 
     private static boolean containsCircuitWord(String value) {
-        return value != null && value.toLowerCase(Locale.ROOT).contains("circuit");
+        return value != null && value.toLowerCase(Locale.ROOT)
+            .contains("circuit");
     }
 
     private static boolean isInspectableContainer(Class<?> type) {
         String name = type.getName();
-        String simpleName = type.getSimpleName().toLowerCase(Locale.ROOT);
-        return name.startsWith("gregtech.") || name.startsWith("appeng.") || simpleName.contains("circuit")
-            || simpleName.contains("inventory") || simpleName.contains("slot") || simpleName.contains("handler");
+        String simpleName = type.getSimpleName()
+            .toLowerCase(Locale.ROOT);
+        return name.startsWith("gregtech.") || name.startsWith("appeng.")
+            || simpleName.contains("circuit")
+            || simpleName.contains("inventory")
+            || simpleName.contains("slot")
+            || simpleName.contains("handler");
     }
 
     private static ItemStack one(ItemStack stack) {

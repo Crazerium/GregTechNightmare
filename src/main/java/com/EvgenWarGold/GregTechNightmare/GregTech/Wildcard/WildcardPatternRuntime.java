@@ -3,9 +3,12 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,70 +20,107 @@ import gregtech.api.enums.GTValues;
 import gregtech.api.objects.GTDualInputPattern;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 
+/**
+ * Supplies material-resolved inputs to a live GT5U PatternSlot and prevents different material expansions from
+ * sharing one occupied slot.
+ */
 public final class WildcardPatternRuntime {
 
-    private static final Object ACTIVE_LOCK = new Object();
     private static final Map<Object, ActivePattern> ACTIVE_PATTERNS = new WeakHashMap<>();
+    private static final Map<Class<?>, Method> IS_EMPTY_METHODS = new ConcurrentHashMap<>();
+    private static final Set<Class<?>> MISSING_IS_EMPTY_METHODS = Collections
+        .newSetFromMap(new ConcurrentHashMap<Class<?>, Boolean>());
 
     private WildcardPatternRuntime() {}
 
+    /**
+     * Reserves the live GT5U pattern slot for one resolved wildcard variant.
+     *
+     * @param host    Crafting Input ME hatch receiving the request
+     * @param details resolved wildcard pattern selected by AE
+     * @return {@code true} when the slot is empty or already reserved for the same resolved variant
+     * @author Crazerium
+     * @reason Different material variants must never share one occupied GT5U pattern slot
+     */
     public static boolean preparePush(Object host, WildcardPatternDetails details) {
         if (host == null || details == null) return false;
 
         Object patternSlot = CraftingInputMEIntrospection.findLivePatternSlot(host, details.getDelegate());
         if (patternSlot == null) return false;
 
-        MTEHatchCraftingInputME craftingHost = host instanceof MTEHatchCraftingInputME
-            ? (MTEHatchCraftingInputME) host
-            : null;
-
-        synchronized (ACTIVE_LOCK) {
+        synchronized (ACTIVE_PATTERNS) {
             ActivePattern active = ACTIVE_PATTERNS.get(patternSlot);
+            MTEHatchCraftingInputME hatch = host instanceof MTEHatchCraftingInputME ? (MTEHatchCraftingInputME) host
+                : null;
+
             if (active == null || isPatternSlotEmpty(patternSlot)) {
-                ACTIVE_PATTERNS.put(patternSlot, new ActivePattern(details, craftingHost));
+                ACTIVE_PATTERNS.put(patternSlot, new ActivePattern(details, hatch));
                 return true;
             }
 
-            active.setHost(craftingHost);
+            if (hatch != null) active.host = new WeakReference<>(hatch);
             return sameResolvedPattern(active.details, details);
         }
     }
 
     public static WildcardPatternDetails getActiveDetails(Object patternSlot) {
         if (patternSlot == null) return null;
-
-        synchronized (ACTIVE_LOCK) {
+        synchronized (ACTIVE_PATTERNS) {
             ActivePattern active = ACTIVE_PATTERNS.get(patternSlot);
             return active == null ? null : active.details;
         }
     }
 
+    /**
+     * Builds the concrete GT recipe inputs from shared slots, the programmed circuit and the resolved pattern.
+     *
+     * @param patternSlot live GT5U pattern slot requesting its recipe inputs
+     * @param details     resolved wildcard pattern assigned to that slot
+     * @return concrete GT dual-input pattern, or {@code null} when the slot is not active
+     * @author Crazerium
+     * @reason GT5U recipe lookup cannot process phantom wildcard item or fluid tokens
+     */
     public static GTDualInputPattern buildResolvedPatternInputs(Object patternSlot, WildcardPatternDetails details) {
         if (patternSlot == null || details == null) return null;
 
         ItemStack[] sharedItems = null;
-        MTEHatchCraftingInputME host;
-        synchronized (ACTIVE_LOCK) {
+        MTEHatchCraftingInputME host = null;
+        synchronized (ACTIVE_PATTERNS) {
             ActivePattern active = ACTIVE_PATTERNS.get(patternSlot);
-            host = active == null ? null : active.getHost();
-        }
-
-        if (host != null) {
-            try {
-                sharedItems = host.getSharedItems();
-            } catch (RuntimeException ignored) {}
+            host = active == null || active.host == null ? null : active.host.get();
+            if (host != null) {
+                try {
+                    sharedItems = host.getSharedItems();
+                } catch (RuntimeException ignored) {}
+            }
         }
 
         List<ItemStack> items = new ArrayList<>();
         appendSharedItems(sharedItems, items);
-
         if (!containsIntegratedCircuit(items)) {
             ItemStack circuit = CraftingInputMECircuitResolver.find(host, patternSlot);
             if (circuit != null) items.add(circuit);
         }
 
         List<FluidStack> fluids = new ArrayList<>();
-        appendResolvedInputs(details.getAEInputs(), items, fluids);
+        for (IAEStack aeStack : details.getAEInputs()) {
+            if (aeStack == null || aeStack.getStackSize() <= 0) continue;
+            if (aeStack instanceof IAEItemStack) {
+                ItemStack stack = ((IAEItemStack) aeStack).getItemStack();
+                if (stack == null) continue;
+                ItemStack copy = stack.copy();
+                long amount = aeStack.getStackSize();
+                copy.stackSize = amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
+                items.add(copy);
+            } else if (aeStack instanceof IAEFluidStack) {
+                FluidStack stack = ((IAEFluidStack) aeStack).getFluidStack();
+                if (stack == null) continue;
+                FluidStack copy = stack.copy();
+                long amount = aeStack.getStackSize();
+                copy.amount = amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
+                fluids.add(copy);
+            }
+        }
 
         GTDualInputPattern result = new GTDualInputPattern();
         result.inputItems = items.toArray(new ItemStack[items.size()]);
@@ -90,59 +130,54 @@ public final class WildcardPatternRuntime {
     }
 
     private static void appendSharedItems(ItemStack[] sharedItems, List<ItemStack> output) {
-        if (sharedItems == null) return;
+        if (sharedItems == null || sharedItems.length == 0) return;
 
         for (ItemStack stack : sharedItems) {
             if (stack != null && stack.stackSize > 0) output.add(stack.copy());
         }
     }
 
-    private static void appendResolvedInputs(IAEStack[] inputs, List<ItemStack> items, List<FluidStack> fluids) {
-        for (IAEStack aeStack : inputs) {
-            if (aeStack == null || aeStack.getStackSize() <= 0) continue;
-
-            if (aeStack instanceof IAEItemStack) {
-                ItemStack stack = ((IAEItemStack) aeStack).getItemStack();
-                if (stack == null) continue;
-
-                ItemStack copy = stack.copy();
-                copy.stackSize = clampAmount(aeStack.getStackSize());
-                items.add(copy);
-                continue;
-            }
-
-            if (aeStack instanceof IAEFluidStack) {
-                FluidStack stack = ((IAEFluidStack) aeStack).getFluidStack();
-                if (stack == null) continue;
-
-                FluidStack copy = stack.copy();
-                copy.amount = clampAmount(aeStack.getStackSize());
-                fluids.add(copy);
-            }
-        }
-    }
-
-    private static int clampAmount(long amount) {
-        return amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
-    }
-
     private static boolean isPatternSlotEmpty(Object patternSlot) {
-        for (Class<?> type = patternSlot.getClass(); type != null && type != Object.class;
-            type = type.getSuperclass()) {
+        Method method = getIsEmptyMethod(patternSlot.getClass());
+        if (method != null) {
             try {
-                Method method = type.getDeclaredMethod("isEmpty");
-                method.setAccessible(true);
                 Object result = method.invoke(patternSlot);
                 if (result instanceof Boolean) return ((Boolean) result).booleanValue();
-            } catch (NoSuchMethodException ignored) {
-                continue;
-            } catch (ReflectiveOperationException | RuntimeException ignored) {
-                break;
-            }
+            } catch (ReflectiveOperationException | RuntimeException ignored) {}
         }
 
-        // Fail closed when an occupied slot cannot be inspected.
-        return false;
+        // Fail closed so an unreadable occupied slot cannot mix different materials.
+        return !ACTIVE_PATTERNS.containsKey(patternSlot);
+    }
+
+    private static Method getIsEmptyMethod(Class<?> type) {
+        Method cached = IS_EMPTY_METHODS.get(type);
+        if (cached != null) return cached;
+        if (MISSING_IS_EMPTY_METHODS.contains(type)) return null;
+
+        Method resolved = findIsEmptyMethod(type);
+        if (resolved == null) {
+            MISSING_IS_EMPTY_METHODS.add(type);
+            return null;
+        }
+        Method existing = IS_EMPTY_METHODS.putIfAbsent(type, resolved);
+        return existing == null ? resolved : existing;
+    }
+
+    private static Method findIsEmptyMethod(Class<?> type) {
+        Class<?> current = type;
+        while (current != null && current != Object.class) {
+            try {
+                Method method = current.getDeclaredMethod("isEmpty");
+                method.setAccessible(true);
+                return method;
+            } catch (NoSuchMethodException ignored) {
+                current = current.getSuperclass();
+            } catch (RuntimeException ignored) {
+                return null;
+            }
+        }
+        return null;
     }
 
     private static boolean containsIntegratedCircuit(List<ItemStack> items) {
@@ -153,8 +188,8 @@ public final class WildcardPatternRuntime {
     }
 
     private static boolean sameResolvedPattern(WildcardPatternDetails first, WildcardPatternDetails second) {
-        return sameStacks(first.getCondensedAEInputs(), second.getCondensedAEInputs())
-            && sameStacks(first.getCondensedAEOutputs(), second.getCondensedAEOutputs());
+        return sameStacks(first.getCondensedAEInputsView(), second.getCondensedAEInputsView())
+            && sameStacks(first.getCondensedAEOutputsView(), second.getCondensedAEOutputsView());
     }
 
     private static boolean sameStacks(IAEStack[] first, IAEStack[] second) {
@@ -166,7 +201,6 @@ public final class WildcardPatternRuntime {
             boolean found = false;
             for (int i = 0; i < second.length; i++) {
                 if (used[i] || !sameStack(wanted, second[i])) continue;
-
                 used[i] = true;
                 found = true;
                 break;
@@ -179,14 +213,13 @@ public final class WildcardPatternRuntime {
     private static boolean sameStack(IAEStack first, IAEStack second) {
         if (first == null || second == null) return first == second;
         if (first.getStackSize() != second.getStackSize()) return false;
-
         if (first instanceof IAEItemStack && second instanceof IAEItemStack) {
             ItemStack firstItem = ((IAEItemStack) first).getItemStack();
             ItemStack secondItem = ((IAEItemStack) second).getItemStack();
-            return firstItem != null && secondItem != null && firstItem.isItemEqual(secondItem)
+            return firstItem != null && secondItem != null
+                && firstItem.isItemEqual(secondItem)
                 && ItemStack.areItemStackTagsEqual(firstItem, secondItem);
         }
-
         if (first instanceof IAEFluidStack && second instanceof IAEFluidStack) {
             FluidStack firstFluid = ((IAEFluidStack) first).getFluidStack();
             FluidStack secondFluid = ((IAEFluidStack) second).getFluidStack();
@@ -202,14 +235,6 @@ public final class WildcardPatternRuntime {
 
         private ActivePattern(WildcardPatternDetails details, MTEHatchCraftingInputME host) {
             this.details = details;
-            setHost(host);
-        }
-
-        private MTEHatchCraftingInputME getHost() {
-            return host == null ? null : host.get();
-        }
-
-        private void setHost(MTEHatchCraftingInputME host) {
             this.host = host == null ? null : new WeakReference<>(host);
         }
     }

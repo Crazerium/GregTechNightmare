@@ -46,8 +46,8 @@ public final class ItemWildcardPrefix extends Item {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister register) {
         for (WildcardPrefix prefix : WildcardPrefix.values()) {
-            icons[prefix.getMeta()] = register.registerIcon(
-                GregTechNightmare.RESOURCE_ROOT_ID + ":wildcard/" + prefix.getSerializedName());
+            icons[prefix.getMeta()] = register
+                .registerIcon(GregTechNightmare.RESOURCE_ROOT_ID + ":wildcard/" + prefix.getSerializedName());
         }
         itemIcon = icons[WildcardPrefix.INGOT.getMeta()];
 
@@ -85,8 +85,7 @@ public final class ItemWildcardPrefix extends Item {
         String kind = prefix.isFluid() ? StatCollector.translateToLocal("GTN.Wildcard.tooltip.fluid")
             : prefix.getOrePrefixName();
         tooltip.add(
-            EnumChatFormatting.AQUA
-                + StatCollector.translateToLocalFormatted("GTN.Wildcard.tooltip.prefix", kind));
+            EnumChatFormatting.AQUA + StatCollector.translateToLocalFormatted("GTN.Wildcard.tooltip.prefix", kind));
 
         if (prefix.isFluid()) {
             tooltip.add(EnumChatFormatting.AQUA + StatCollector.translateToLocal("GTN.Wildcard.tooltip.fluidAmount"));
@@ -94,5 +93,12 @@ public final class ItemWildcardPrefix extends Item {
         tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("GTN.Wildcard.tooltip.pattern"));
         tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("GTN.Wildcard.tooltip.expand"));
         tooltip.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("GTN.Wildcard.tooltip.phantom"));
+        tooltip.add(
+            EnumChatFormatting.GRAY + StatCollector
+                .translateToLocalFormatted("GTN.Wildcard.tooltip.author", EnumChatFormatting.GREEN + "Crazer"));
+        tooltip.add(
+            EnumChatFormatting.GRAY + StatCollector.translateToLocalFormatted(
+                "GTN.Wildcard.tooltip.addedBy",
+                EnumChatFormatting.DARK_RED + "GregTechNightmare"));
     }
 }

@@ -1,41 +1,28 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 
 import appeng.api.networking.crafting.ICraftingPatternDetails;
-import appeng.api.storage.data.IAEFluidStack;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
+import gregtech.api.enums.Materials;
 
 public final class WildcardPatternDetails implements ICraftingPatternDetails {
 
     private final ICraftingPatternDetails delegate;
-    private final IAEStack[] aeInputs;
-    private final IAEStack[] aeOutputs;
-    private final IAEStack[] condensedAEInputs;
-    private final IAEStack[] condensedAEOutputs;
-    private final IAEItemStack[] itemInputs;
-    private final IAEItemStack[] itemOutputs;
-    private final IAEItemStack[] condensedItemInputs;
-    private final IAEItemStack[] condensedItemOutputs;
+    private final WildcardPatternVariant variant;
     private int priority;
 
-    public WildcardPatternDetails(ICraftingPatternDetails delegate, IAEStack[] inputs, IAEStack[] outputs) {
+    public WildcardPatternDetails(ICraftingPatternDetails delegate, Materials material, IAEStack[] inputs,
+        IAEStack[] outputs) {
+        this(delegate, new WildcardPatternVariant(material, inputs, outputs));
+    }
+
+    WildcardPatternDetails(ICraftingPatternDetails delegate, WildcardPatternVariant variant) {
         this.delegate = delegate;
-        this.aeInputs = AEPatternStackAccess.copy(inputs);
-        this.aeOutputs = AEPatternStackAccess.copy(outputs);
-        this.condensedAEInputs = condense(aeInputs);
-        this.condensedAEOutputs = condense(aeOutputs);
-        this.itemInputs = toLegacyItems(aeInputs);
-        this.itemOutputs = toLegacyItems(aeOutputs);
-        this.condensedItemInputs = toLegacyItems(condensedAEInputs);
-        this.condensedItemOutputs = toLegacyItems(condensedAEOutputs);
+        this.variant = variant;
         this.priority = delegate.getPriority();
     }
 
@@ -43,21 +30,37 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
         return delegate;
     }
 
-    // These methods exist only in newer AE2/AE2FC APIs, so @Override would break older compile targets.
+    public Materials getMaterial() {
+        return variant.getMaterial();
+    }
+
+    public boolean isBlockedBy(WildcardPatternBlacklist blacklist) {
+        return variant.isBlockedBy(blacklist);
+    }
+
+    // Kept without @Override so this also compiles against older AE2 API jars.
     public IAEStack[] getAEInputs() {
-        return AEPatternStackAccess.copy(aeInputs);
+        return variant.getAEInputs();
     }
 
     public IAEStack[] getAEOutputs() {
-        return AEPatternStackAccess.copy(aeOutputs);
+        return variant.getAEOutputs();
     }
 
     public IAEStack[] getCondensedAEInputs() {
-        return AEPatternStackAccess.copy(condensedAEInputs);
+        return variant.getCondensedAEInputs();
     }
 
     public IAEStack[] getCondensedAEOutputs() {
-        return AEPatternStackAccess.copy(condensedAEOutputs);
+        return variant.getCondensedAEOutputs();
+    }
+
+    IAEStack[] getCondensedAEInputsView() {
+        return variant.getCondensedAEInputsView();
+    }
+
+    IAEStack[] getCondensedAEOutputsView() {
+        return variant.getCondensedAEOutputsView();
     }
 
     @Override
@@ -67,11 +70,9 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
 
     @Override
     public boolean isValidItemForSlot(int slotIndex, ItemStack itemStack, World world) {
-        if (slotIndex < 0 || slotIndex >= itemInputs.length) return false;
-
-        IAEItemStack expected = itemInputs[slotIndex];
+        if (slotIndex < 0 || slotIndex >= variant.getItemInputCount()) return false;
+        IAEItemStack expected = variant.getItemInput(slotIndex);
         if (expected == null || itemStack == null) return expected == null && itemStack == null;
-
         ItemStack expectedStack = expected.getItemStack();
         return expectedStack != null && expectedStack.isItemEqual(itemStack)
             && ItemStack.areItemStackTagsEqual(expectedStack, itemStack);
@@ -84,22 +85,22 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
 
     @Override
     public IAEItemStack[] getInputs() {
-        return copyItems(itemInputs);
+        return variant.getItemInputs();
     }
 
     @Override
     public IAEItemStack[] getCondensedInputs() {
-        return copyItems(condensedItemInputs);
+        return variant.getCondensedItemInputs();
     }
 
     @Override
     public IAEItemStack[] getCondensedOutputs() {
-        return copyItems(condensedItemOutputs);
+        return variant.getCondensedItemOutputs();
     }
 
     @Override
     public IAEItemStack[] getOutputs() {
-        return copyItems(itemOutputs);
+        return variant.getItemOutputs();
     }
 
     @Override
@@ -108,11 +109,8 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
     }
 
     @Override
-    public ItemStack getOutput(InventoryCrafting craftingInventory, World world) {
-        for (IAEItemStack output : itemOutputs) {
-            if (output != null && output.getStackSize() > 0) return output.getItemStack();
-        }
-        return null;
+    public ItemStack getOutput(InventoryCrafting craftingInv, World world) {
+        return variant.getFirstItemOutput();
     }
 
     @Override
@@ -123,67 +121,5 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
     @Override
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    private static IAEItemStack[] toLegacyItems(IAEStack[] source) {
-        List<IAEItemStack> result = new ArrayList<>();
-        for (IAEStack stack : source) {
-            if (stack instanceof IAEItemStack) {
-                result.add(((IAEItemStack) stack).copy());
-                continue;
-            }
-
-            if (stack instanceof IAEFluidStack) {
-                IAEItemStack packet = AE2FCFluidPacketBridge.toPacket((IAEFluidStack) stack);
-                if (packet != null) result.add(packet);
-            }
-        }
-        return result.toArray(new IAEItemStack[result.size()]);
-    }
-
-    private static IAEItemStack[] copyItems(IAEItemStack[] source) {
-        IAEItemStack[] copy = new IAEItemStack[source.length];
-        for (int i = 0; i < source.length; i++) {
-            copy[i] = source[i] == null ? null : source[i].copy();
-        }
-        return copy;
-    }
-
-    private static IAEStack[] condense(IAEStack[] source) {
-        List<IAEStack> condensed = new ArrayList<>();
-        for (IAEStack stack : source) {
-            if (stack == null || stack.getStackSize() <= 0) continue;
-
-            IAEStack matching = findMatching(condensed, stack);
-            if (matching == null) {
-                condensed.add(stack.copy());
-            } else {
-                matching.setStackSize(matching.getStackSize() + stack.getStackSize());
-            }
-        }
-        return condensed.toArray(new IAEStack[condensed.size()]);
-    }
-
-    private static IAEStack findMatching(List<IAEStack> candidates, IAEStack wanted) {
-        for (IAEStack candidate : candidates) {
-            if (sameTypeAndContent(candidate, wanted)) return candidate;
-        }
-        return null;
-    }
-
-    private static boolean sameTypeAndContent(IAEStack first, IAEStack second) {
-        if (first instanceof IAEItemStack && second instanceof IAEItemStack) {
-            ItemStack firstItem = ((IAEItemStack) first).getItemStack();
-            ItemStack secondItem = ((IAEItemStack) second).getItemStack();
-            return firstItem != null && secondItem != null && firstItem.isItemEqual(secondItem)
-                && ItemStack.areItemStackTagsEqual(firstItem, secondItem);
-        }
-
-        if (first instanceof IAEFluidStack && second instanceof IAEFluidStack) {
-            FluidStack firstFluid = ((IAEFluidStack) first).getFluidStack();
-            FluidStack secondFluid = ((IAEFluidStack) second).getFluidStack();
-            return firstFluid != null && secondFluid != null && firstFluid.isFluidEqual(secondFluid);
-        }
-        return false;
     }
 }

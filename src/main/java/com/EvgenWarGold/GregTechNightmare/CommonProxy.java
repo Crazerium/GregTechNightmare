@@ -1,7 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare;
 
-import appeng.api.AEApi;
-
 import com.EvgenWarGold.GregTechNightmare.DeleteRecipe.DeleteRecipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_BlocksRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
@@ -10,6 +8,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.RecipeResultRegisters;
 
+import appeng.api.AEApi;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

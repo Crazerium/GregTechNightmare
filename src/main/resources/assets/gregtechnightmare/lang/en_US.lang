@@ -463,7 +463,7 @@ GTN.Tooltip.item.ManaProspector.4=Right Click: Scan Area
 GTN.Tooltip.item.ManaProspector.5=Shift+Right Click: Change Mode
 GTN.Tooltip.item.ManaProspector.error_scan=§cNot enough mana
 
-# Wildcard Pattern Buffer 
+# Wildcard Pattern Buffer core
 item.GTN_WildcardPrefix.ingot.name=Wildcard: Any Ingot
 item.GTN_WildcardPrefix.plate.name=Wildcard: Any Plate
 item.GTN_WildcardPrefix.dust.name=Wildcard: Any Dust
@@ -480,6 +480,15 @@ item.GTN_WildcardPrefix.gem.name=Wildcard: Any Gem
 item.GTN_WildcardPrefix.block.name=Wildcard: Any Material Block
 item.GTN_WildcardPrefix.nugget.name=Wildcard: Any Nugget
 item.GTN_WildcardPrefix.dense_plate.name=Wildcard: Any Dense Plate
+GTN.Wildcard.tooltip.prefix=Wildcard ore prefix: %s
+GTN.Wildcard.tooltip.pattern=Use it on the input side or the output side of an AE processing pattern.
+GTN.Wildcard.tooltip.expand=The dedicated ME Wildcard Pattern Buffer expands it for every GT material.
+GTN.Wildcard.tooltip.phantom=Phantom token: it is not consumed by the machine.
+
+GTN.Wildcard.hatch.name=ME Wildcard Pattern Buffer
+GTN.Wildcard.hatch.normalBus=Normal ME Crafting Input Busses ignore wildcard patterns.
+
+# Wildcard material parts and fluids (v0.3.0)
 item.GTN_WildcardPrefix.hot_ingot.name=Wildcard: Any Hot Ingot
 item.GTN_WildcardPrefix.tiny_dust.name=Wildcard: Any Tiny Dust
 item.GTN_WildcardPrefix.small_dust.name=Wildcard: Any Small Dust
@@ -527,11 +536,17 @@ item.GTN_WildcardPrefix.large_restrictive_pipe.name=Wildcard: Any Large Restrict
 item.GTN_WildcardPrefix.huge_restrictive_pipe.name=Wildcard: Any Huge Restrictive Pipe
 item.GTN_WildcardPrefix.fluid.name=Wildcard: Any Material Fluid
 item.GTN_WildcardPrefix.molten_fluid.name=Wildcard: Any Molten Material
-GTN.Wildcard.tooltip.prefix=Wildcard ore prefix: %s
-GTN.Wildcard.tooltip.pattern=Use it on the input side or the output side of an AE processing pattern.
-GTN.Wildcard.tooltip.expand=The dedicated ME Wildcard Pattern Buffer expands it for every GT material.
-GTN.Wildcard.tooltip.phantom=Phantom token: it is not consumed by the machine.
-GTN.Wildcard.hatch.name=ME Wildcard Pattern Buffer
-GTN.Wildcard.hatch.normalBus=Normal ME Crafting Input Busses ignore wildcard patterns.
 GTN.Wildcard.tooltip.fluid=AE fluid stack
 GTN.Wildcard.tooltip.fluidAmount=Token amount is interpreted as millibuckets (mB).
+GTN.Wildcard.blacklist.title=Blacklist
+GTN.Wildcard.blacklist.open=Open wildcard recipe blacklist
+GTN.Wildcard.blacklist.mode.input=Mode: input material
+GTN.Wildcard.blacklist.mode.output=Mode: exact output
+GTN.Wildcard.blacklist.mode.input.tooltip=Input mode: an item blocks every wildcard recipe expanded for the same GregTech material.
+GTN.Wildcard.blacklist.mode.output.tooltip=Output mode: an item blocks only recipes whose resolved output exactly matches it.
+GTN.Wildcard.blacklist.clear=Clear blacklist
+GTN.Wildcard.blacklist.page=Page %s/%s
+GTN.Wildcard.blacklist.page.previous=Previous blacklist page
+GTN.Wildcard.blacklist.page.next=Next blacklist page
+GTN.Wildcard.tooltip.author=Author: %s
+GTN.Wildcard.tooltip.addedBy=Added by: %s

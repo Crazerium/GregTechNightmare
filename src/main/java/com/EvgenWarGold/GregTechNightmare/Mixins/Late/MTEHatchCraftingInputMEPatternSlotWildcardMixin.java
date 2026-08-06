@@ -11,9 +11,17 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPatternRunti
 import gregtech.api.objects.GTDualInputPattern;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 
+/** Makes GT5U recipe lookup use material-resolved wildcard inputs and shared bus slots. */
 @Mixin(value = MTEHatchCraftingInputME.PatternSlot.class, remap = false)
 public abstract class MTEHatchCraftingInputMEPatternSlotWildcardMixin {
 
+    /**
+     * Supplies the concrete item and fluid inputs selected for the active wildcard material.
+     *
+     * @param callback callback used to return the resolved GT dual-input pattern
+     * @author Crazerium
+     * @reason GT5U only sees the encoded wildcard tokens and cannot use them for recipe lookup
+     */
     @Inject(method = "getPatternInputs", at = @At("HEAD"), cancellable = true, remap = false, require = 1)
     private void gtn$useResolvedWildcardRecipeHint(CallbackInfoReturnable<GTDualInputPattern> callback) {
         WildcardPatternDetails details = WildcardPatternRuntime.getActiveDetails(this);

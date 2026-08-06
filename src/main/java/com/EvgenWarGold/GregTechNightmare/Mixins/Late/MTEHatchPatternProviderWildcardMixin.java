@@ -10,9 +10,19 @@ import appeng.api.networking.crafting.ICraftingMedium;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 import appeng.api.networking.crafting.ICraftingProviderHelper;
 
+/** Redirects GT5U pattern publication through wildcard expansion. */
 @Mixin(targets = "gregtech.common.tileentities.machines.MTEHatchPatternProvider", remap = false)
 public abstract class MTEHatchPatternProviderWildcardMixin {
 
+    /**
+     * Routes the pattern-provider publication path through wildcard expansion.
+     *
+     * @param craftingTracker AE crafting registry receiving the published pattern
+     * @param medium          crafting medium that owns the pattern
+     * @param details         source encoded pattern
+     * @author Crazerium
+     * @reason Some GT5U versions publish Crafting Input ME patterns through the provider base class
+     */
     @Redirect(
         method = "provideCrafting",
         at = @At(

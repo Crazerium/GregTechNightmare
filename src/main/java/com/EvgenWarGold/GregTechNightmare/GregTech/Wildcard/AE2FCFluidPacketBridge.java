@@ -24,7 +24,9 @@ public final class AE2FCFluidPacketBridge {
 
         ItemStack packet = ItemFluidPacket.newStack(copy);
         if (packet == null) return null;
-        IAEItemStack result = AEApi.instance().storage().createItemStack(packet);
+        IAEItemStack result = AEApi.instance()
+            .storage()
+            .createItemStack(packet);
         if (result != null) result.setStackSize(1L);
         return result;
     }

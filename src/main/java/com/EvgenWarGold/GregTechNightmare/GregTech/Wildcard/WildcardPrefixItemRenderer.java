@@ -27,13 +27,8 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
 
     private static final Object COLOR_LOCK = new Object();
     private static final short[] WHITE_RGBA = { 255, 255, 255, 255 };
-    private static final Materials[] RENDER_MATERIALS = {
-        Materials.Tin,
-        Materials.Silver,
-        Materials.Platinum,
-        Materials.StainlessSteel,
-        Materials.Iron,
-        Materials.Steel };
+    private static final Materials[] RENDER_MATERIALS = { Materials.Tin, Materials.Silver, Materials.Platinum,
+        Materials.StainlessSteel, Materials.Iron, Materials.Steel };
 
     private final ItemStack[] renderStacks = new ItemStack[WildcardPrefix.values().length];
     private final Materials[] renderMaterials = new Materials[WildcardPrefix.values().length];
@@ -64,8 +59,7 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
         Block block = getBlock(renderStack);
         if (block == null || material == null) return;
 
-        RenderBlocks renderBlocks = data.length > 0 && data[0] instanceof RenderBlocks
-            ? (RenderBlocks) data[0]
+        RenderBlocks renderBlocks = data.length > 0 && data[0] instanceof RenderBlocks ? (RenderBlocks) data[0]
             : new RenderBlocks();
 
         synchronized (COLOR_LOCK) {
@@ -76,11 +70,13 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
 
             GL11.glPushMatrix();
             try {
-                // GT block models read these global tints while rendering, so restore them immediately afterwards.
+                // GT block models read these global tints while rendering, so restore them immediately afterward.
                 copyColor(WHITE_RGBA, materialColor);
                 copyColor(WHITE_RGBA, insulationColor);
 
-                Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+                Minecraft.getMinecraft()
+                    .getTextureManager()
+                    .bindTexture(TextureMap.locationBlocksTexture);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 RenderingRegistry.instance()
                     .renderInventoryBlock(renderBlocks, block, renderStack.getItemDamage(), block.getRenderType());
