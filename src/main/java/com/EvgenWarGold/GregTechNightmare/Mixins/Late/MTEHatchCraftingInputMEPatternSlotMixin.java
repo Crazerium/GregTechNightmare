@@ -13,7 +13,7 @@ import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 
 /** Makes GT5U recipe lookup use material-resolved wildcard inputs and shared bus slots. */
 @Mixin(value = MTEHatchCraftingInputME.PatternSlot.class, remap = false)
-public abstract class MTEHatchCraftingInputMEPatternSlotWildcardMixin {
+public abstract class MTEHatchCraftingInputMEPatternSlotMixin {
 
     /**
      * Supplies the concrete item and fluid inputs selected for the active wildcard material.

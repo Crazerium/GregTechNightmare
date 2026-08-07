@@ -9,9 +9,9 @@ public enum Mixins implements IMixins {
 
     MINECRAFT_LATE(new MixinBuilder("Minecraft Late")
         .addCommonMixins(
-            "MTEHatchCraftingInputMEWildcardMixin",
-            "MTEHatchCraftingInputMEPatternSlotWildcardMixin",
-            "MTEHatchPatternProviderWildcardMixin")
+            "MTEHatchCraftingInputMEMixin",
+            "MTEHatchCraftingInputMEPatternSlotMixin",
+            "MTEHatchPatternProviderMixin")
         .addClientMixins(
             "FixTreeSprouterCrushMixins",
             "MTEMultiblockBaseMixins",

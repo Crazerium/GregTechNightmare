@@ -18,7 +18,7 @@ import appeng.api.networking.crafting.ICraftingProviderHelper;
 
 /** Hooks the GT5U Crafting Input Bus backend without inheriting its GUI. */
 @Mixin(targets = "gregtech.common.tileentities.machines.MTEHatchCraftingInputME", remap = false)
-public abstract class MTEHatchCraftingInputMEWildcardMixin {
+public abstract class MTEHatchCraftingInputMEMixin {
 
     /**
      * Routes GT5U pattern publication through the wildcard expansion provider.

@@ -12,7 +12,7 @@ import appeng.api.networking.crafting.ICraftingProviderHelper;
 
 /** Redirects GT5U pattern publication through wildcard expansion. */
 @Mixin(targets = "gregtech.common.tileentities.machines.MTEHatchPatternProvider", remap = false)
-public abstract class MTEHatchPatternProviderWildcardMixin {
+public abstract class MTEHatchPatternProviderMixin {
 
     /**
      * Routes the pattern-provider publication path through wildcard expansion.
