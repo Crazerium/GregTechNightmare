@@ -8,6 +8,10 @@ import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 public enum Mixins implements IMixins {
 
     MINECRAFT_LATE(new MixinBuilder("Minecraft Late")
+        .addCommonMixins(
+            "MTEHatchCraftingInputMEMixin",
+            "MTEHatchCraftingInputMEPatternSlotMixin",
+            "MTEHatchPatternProviderMixin")
         .addClientMixins(
             "FixTreeSprouterCrushMixins",
             "MTEMultiblockBaseMixins",
