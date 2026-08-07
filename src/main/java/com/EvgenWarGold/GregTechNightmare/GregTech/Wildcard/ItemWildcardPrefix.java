@@ -94,6 +94,9 @@ public final class ItemWildcardPrefix extends Item {
         tooltip.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("GTN.Wildcard.tooltip.expand"));
         tooltip.add(EnumChatFormatting.DARK_GRAY + StatCollector.translateToLocal("GTN.Wildcard.tooltip.phantom"));
         tooltip.add(
+            EnumChatFormatting.YELLOW
+                + StatCollector.translateToLocal("GTN.Wildcard.tooltip.dragFromNei"));
+        tooltip.add(
             EnumChatFormatting.GRAY + StatCollector
                 .translateToLocalFormatted("GTN.Wildcard.tooltip.author", EnumChatFormatting.GREEN + "Crazer"));
         tooltip.add(

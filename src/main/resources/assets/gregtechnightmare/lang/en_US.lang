@@ -550,3 +550,4 @@ GTN.Wildcard.blacklist.page.previous=Previous blacklist page
 GTN.Wildcard.blacklist.page.next=Next blacklist page
 GTN.Wildcard.tooltip.author=Author: %s
 GTN.Wildcard.tooltip.addedBy=Added by: %s
+GTN.Wildcard.tooltip.dragFromNei=Drag from NEI into an input or output slot of a Pattern Terminal.

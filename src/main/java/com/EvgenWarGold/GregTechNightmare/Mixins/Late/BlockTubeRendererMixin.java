@@ -1,7 +1,5 @@
 package com.EvgenWarGold.GregTechNightmare.Mixins.Late;
 
-import java.awt.Color;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.tileentity.TileEntity;
