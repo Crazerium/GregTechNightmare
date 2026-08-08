@@ -38,6 +38,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.G
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.ZPM.GTN_ZeroPowerWireMill;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Storage.GTN_ItemCrate;
 
 public final class MachineLoader {
 
@@ -81,6 +82,7 @@ public final class MachineLoader {
         GTN_ItemList.AspectHatch.set(new GTN_AspectHatch(21_035, "Aspect Hatch"));
         GTN_ItemList.MeAspectHatch.set(new GTN_MeAspectHatch(21_036, "ME Aspect Hatch"));
         GTN_ItemList.WildcardPatternBuffer.set(new GTN_WildcardPatternBuffer(21_037, "ME Wildcard Pattern Buffer"));
+        GTN_ItemList.ItemCrate.set(new GTN_ItemCrate(21_038, "ItemCrate"));
         // spotless:on
     }
 }

@@ -80,6 +80,7 @@ public enum GTN_ItemList {
     EntropyModuleMagicGenerator,
     AirModuleMagicGenerator,
     OrderModuleMagicGenerator,
+    ItemCrate,
     // endregion
 
     // region Hatch

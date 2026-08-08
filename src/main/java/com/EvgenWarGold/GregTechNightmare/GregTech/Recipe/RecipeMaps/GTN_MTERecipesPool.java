@@ -18,6 +18,8 @@ import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
+import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.recipe.Scanning;
 
@@ -53,7 +55,6 @@ public class GTN_MTERecipesPool {
                 'E', ThaumcraftBlocks.AlchemicalConstruct.getItemStack(),
                 'G', ItemList.Conveyor_Module_MV.get(1)
             });
-
         // ME Wildcard Pattern Buffer
         GTValues.RA.stdBuilder()
             .metadata(RESEARCH_ITEM, ItemList.Hatch_CraftingInput_Bus_ME_ItemOnly.get(1))
@@ -74,6 +75,18 @@ public class GTN_MTERecipesPool {
             .eut(RECIPE_LuV)
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
+
+        // Item Crate
+        addCraftingRecipe(
+            GTN_ItemList.ItemCrate.get(1),
+            new Object[]{
+                "RPR",
+                "PCP",
+                "RPR",
+                'P', GTOreDictUnificator.get(OrePrefixes.plateDouble, Materials.Steel, 1),
+                'R', GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Steel, 1),
+                'C', ItemList.Automation_ChestBuffer_ULV.get(1)
+            });
         // spotless:on
     }
 }
