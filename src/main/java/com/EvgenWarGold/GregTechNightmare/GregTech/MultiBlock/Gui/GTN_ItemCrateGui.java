@@ -26,8 +26,8 @@ import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import gregtech.api.modularui2.GTGuis;
 import gregtech.api.modularui2.GTGuiTextures;
+import gregtech.api.modularui2.GTGuis;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 
 public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
@@ -74,7 +74,9 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
         storage.child(storageSlots);
 
         searchField.onUpdateListener(field -> {
-            if (FMLCommonHandler.instance().getEffectiveSide().isServer()) return;
+            if (FMLCommonHandler.instance()
+                .getEffectiveSide()
+                .isServer()) return;
 
             String normalizedQuery = normalize(searchQuery);
             if (normalizedQuery.equals(appliedSearchQuery)) return;
@@ -94,12 +96,15 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
             .doesAddGregTechLogo(false)
             .build();
 
-        panel.child(IKey.lang("GTN.ItemCrate.search").asWidget().pos(5, 16));
+        panel.child(
+            IKey.lang("GTN.ItemCrate.search")
+                .asWidget()
+                .pos(5, 16));
         panel.child(searchField.pos(40, 11));
         panel.child(
             IKey.lang(
-                    "GTN.ItemCrate.slots",
-                    () -> new Object[] { multiblock.countOccupiedSlots(), GTN_ItemCrate.SLOT_COUNT })
+                "GTN.ItemCrate.slots",
+                () -> new Object[] { multiblock.countOccupiedSlots(), GTN_ItemCrate.SLOT_COUNT })
                 .asWidget()
                 .pos(7, 34));
         storage.pos(7, 45);
@@ -154,7 +159,9 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     }
 
     private void updateStorageLayout(ParentWidget<?> storageContainer, VerticalScrollData scrollData) {
-        if (FMLCommonHandler.instance().getEffectiveSide().isServer()) return;
+        if (FMLCommonHandler.instance()
+            .getEffectiveSide()
+            .isServer()) return;
 
         int visibleIndex = 0;
         for (int slot = 0; slot < GTN_ItemCrate.SLOT_COUNT; slot++) {
@@ -174,7 +181,9 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     }
 
     private boolean isStorageSlotVisible(int slot) {
-        if (FMLCommonHandler.instance().getEffectiveSide().isServer()) return true;
+        if (FMLCommonHandler.instance()
+            .getEffectiveSide()
+            .isServer()) return true;
         return matchesSearch(slot);
     }
 
@@ -182,7 +191,8 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
         String query = normalize(searchQuery);
         if (query.isEmpty()) return true;
 
-        ItemStack stack = multiblock.getStorageInventory().getStackInSlot(slot);
+        ItemStack stack = multiblock.getStorageInventory()
+            .getStackInSlot(slot);
         if (stack == null) return false;
 
         String displayName = normalize(stack.getDisplayName());
@@ -201,6 +211,7 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     private static String normalize(String text) {
         if (text == null) return "";
         String clean = EnumChatFormatting.getTextWithoutFormattingCodes(text);
-        return (clean == null ? "" : clean).trim().toLowerCase(Locale.ROOT);
+        return (clean == null ? "" : clean).trim()
+            .toLowerCase(Locale.ROOT);
     }
 }
