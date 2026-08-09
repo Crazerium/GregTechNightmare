@@ -8,7 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.StatCollector;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Storage.GTN_ItemCrate;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.cleanroommc.modularui.api.drawable.IKey;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
@@ -25,7 +26,6 @@ import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import gregtech.api.modularui2.GTGuiTextures;
 import gregtech.api.modularui2.GTGuis;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
@@ -37,7 +37,7 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     private static final int ROWS = 64;
     private static final int SLOT_SIZE = 18;
     private static final int STORAGE_VIEW_WIDTH = COLUMNS * SLOT_SIZE + 6;
-    private static final int STORAGE_VIEW_HEIGHT = 130;
+    private static final int STORAGE_VIEW_HEIGHT = 126;
     private static final int STORAGE_CONTENT_HEIGHT = ROWS * SLOT_SIZE;
 
     private final ItemSlot[] storageSlots = new ItemSlot[GTN_ItemCrate.SLOT_COUNT];
@@ -69,17 +69,19 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
         searchField.autoUpdateOnChange(true);
         searchField.size(96, 18);
 
-        ScrollWidget storage = new ScrollWidget(scrollData);
+        ScrollWidget<?> storage = new ScrollWidget<>(scrollData);
         storage.size(STORAGE_VIEW_WIDTH, STORAGE_VIEW_HEIGHT);
         storage.child(storageSlots);
 
-        searchField.onUpdateListener(field -> {
-            if (FMLCommonHandler.instance()
-                .getEffectiveSide()
-                .isServer()) return;
+        searchField.onUpdateListener(_ -> {
+            if (GTN_Utils.isServer()) {
+                return;
+            }
 
             String normalizedQuery = normalize(searchQuery);
-            if (normalizedQuery.equals(appliedSearchQuery)) return;
+            if (normalizedQuery.equals(appliedSearchQuery)) {
+                return;
+            }
 
             appliedSearchQuery = normalizedQuery;
             updateStorageLayout(storageSlots, scrollData);
@@ -106,11 +108,11 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
                 "GTN.ItemCrate.slots",
                 () -> new Object[] { multiblock.countOccupiedSlots(), GTN_ItemCrate.SLOT_COUNT })
                 .asWidget()
-                .pos(7, 34));
-        storage.pos(7, 45);
+                .pos(9, 34));
+        storage.pos(9, 45);
         panel.child(storage);
-        panel.child(createSortButton().pos(145, 8));
-        panel.child(createDepositAllButton(syncManager).pos(163, 8));
+        panel.child(createSortButton().pos(138, 11));
+        panel.child(createDepositAllButton(syncManager).pos(158, 11));
         return panel;
     }
 
@@ -159,13 +161,15 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     }
 
     private void updateStorageLayout(ParentWidget<?> storageContainer, VerticalScrollData scrollData) {
-        if (FMLCommonHandler.instance()
-            .getEffectiveSide()
-            .isServer()) return;
+        if (GTN_Utils.isServer()) {
+            return;
+        }
 
         int visibleIndex = 0;
         for (int slot = 0; slot < GTN_ItemCrate.SLOT_COUNT; slot++) {
-            if (!matchesSearch(slot)) continue;
+            if (!matchesSearch(slot)) {
+                continue;
+            }
 
             ItemSlot itemSlot = storageSlots[slot];
             if (itemSlot != null) {
@@ -181,24 +185,30 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     }
 
     private boolean isStorageSlotVisible(int slot) {
-        if (FMLCommonHandler.instance()
-            .getEffectiveSide()
-            .isServer()) return true;
+        if (GTN_Utils.isServer()) {
+            return true;
+        }
         return matchesSearch(slot);
     }
 
     private boolean matchesSearch(int slot) {
         String query = normalize(searchQuery);
-        if (query.isEmpty()) return true;
+        if (query.isEmpty()) {
+            return true;
+        }
 
         ItemStack stack = multiblock.getStorageInventory()
             .getStackInSlot(slot);
-        if (stack == null) return false;
+        if (stack == null) {
+            return false;
+        }
 
         String displayName = normalize(stack.getDisplayName());
         String unlocalizedName = normalize(stack.getUnlocalizedName());
         for (String token : query.split("\\s+")) {
-            if (!displayName.contains(token) && !unlocalizedName.contains(token)) return false;
+            if (!displayName.contains(token) && !unlocalizedName.contains(token)) {
+                return false;
+            }
         }
         return true;
     }
@@ -209,7 +219,9 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
     }
 
     private static String normalize(String text) {
-        if (text == null) return "";
+        if (text == null) {
+            return "";
+        }
         String clean = EnumChatFormatting.getTextWithoutFormattingCodes(text);
         return (clean == null ? "" : clean).trim()
             .toLowerCase(Locale.ROOT);

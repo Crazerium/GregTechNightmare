@@ -24,6 +24,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MagicEBF;
@@ -38,7 +39,6 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.G
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.GTN_BronzeVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.ZPM.GTN_ZeroPowerWireMill;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Storage.GTN_ItemCrate;
 
 public final class MachineLoader {
 

@@ -1,4 +1,4 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Storage;
+package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV;
 
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SCHEST;
 import static gregtech.api.enums.Textures.BlockIcons.OVERLAY_SCHEST_GLOW;
@@ -37,14 +37,19 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
 
     public static final int SLOT_COUNT = 576;
 
-    private static final String NBT_INVENTORY = "gtnItemCrateInventory";
+    private static final String NBT_INVENTORY = "GTNItemCrateInventory";
 
     private static final Comparator<ItemStack> STACK_COMPARATOR = (first, second) -> {
         int result = Integer.compare(Item.getIdFromItem(first.getItem()), Item.getIdFromItem(second.getItem()));
-        if (result != 0) return result;
+
+        if (result != 0) {
+            return result;
+        }
 
         result = Integer.compare(first.getItemDamage(), second.getItemDamage());
-        if (result != 0) return result;
+        if (result != 0) {
+            return result;
+        }
 
         String firstTag = first.stackTagCompound == null ? "" : first.stackTagCompound.toString();
         String secondTag = second.stackTagCompound == null ? "" : second.stackTagCompound.toString();
@@ -176,24 +181,25 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
     public int countOccupiedSlots() {
         int occupied = 0;
         for (int slot = 0; slot < storageInventory.getSlots(); slot++) {
-            if (storageInventory.getStackInSlot(slot) != null) occupied++;
+            if (storageInventory.getStackInSlot(slot) != null) {
+                occupied++;
+            }
         }
         return occupied;
     }
 
-    /**
-     * Compacts equal stacks and orders the storage by item id, metadata and NBT.
-     *
-     * @author Crazer
-     * @reason Keeps the large inventory compact without changing item identity or NBT
-     */
     public void sortStorage() {
-        if (!mMachine) return;
+        if (!mMachine) {
+            return;
+        }
 
         List<ItemStack> stacks = new ArrayList<>();
         for (int slot = 0; slot < storageInventory.getSlots(); slot++) {
             ItemStack stack = storageInventory.getStackInSlot(slot);
-            if (stack != null) stacks.add(stack.copy());
+
+            if (stack != null) {
+                stacks.add(stack.copy());
+            }
         }
 
         stacks.sort(STACK_COMPARATOR);
@@ -202,10 +208,10 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
         for (ItemStack stack : stacks) {
             int remaining = stack.stackSize;
             if (!compacted.isEmpty()) {
-                ItemStack previous = compacted.get(compacted.size() - 1);
+                ItemStack previous = compacted.getLast();
                 if (canStacksMerge(previous, stack)) {
-                    int previousLimit = Math.max(1, Math.min(64, previous.getMaxStackSize()));
-                    int moved = Math.min(remaining, Math.max(0, previousLimit - previous.stackSize));
+                    int previousLimit = Math.clamp(previous.getMaxStackSize(), 1, 64);
+                    int moved = Math.clamp(previousLimit - previous.stackSize, 0, remaining);
                     previous.stackSize += moved;
                     remaining -= moved;
                 }
@@ -213,7 +219,7 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
 
             while (remaining > 0) {
                 ItemStack split = stack.copy();
-                int splitLimit = Math.max(1, Math.min(64, split.getMaxStackSize()));
+                int splitLimit = Math.clamp(split.getMaxStackSize(), 1, 64);
                 split.stackSize = Math.min(remaining, splitLimit);
                 compacted.add(split);
                 remaining -= split.stackSize;
@@ -231,22 +237,20 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
         markStorageDirty();
     }
 
-    /**
-     * Moves every stack from the player's main inventory into available crate slots.
-     *
-     * @param player player currently using the crate GUI
-     * @author Crazer
-     * @reason Provides a single server-side deposit operation for the 576-slot storage
-     */
     public void depositAll(EntityPlayer player) {
-        if (!mMachine || player == null) return;
+        if (!mMachine || player == null) {
+            return;
+        }
 
         boolean changed = false;
         suppressStorageUpdates = true;
         try {
             for (int playerSlot = 0; playerSlot < player.inventory.mainInventory.length; playerSlot++) {
                 ItemStack stack = player.inventory.mainInventory[playerSlot];
-                if (stack == null) continue;
+
+                if (stack == null) {
+                    continue;
+                }
 
                 ItemStack remainder = insertIntoStorage(stack.copy());
                 if (remainder == null || remainder.stackSize != stack.stackSize) {
@@ -269,6 +273,7 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
 
         for (int slot = 0; slot < storageInventory.getSlots() && remainder != null; slot++) {
             ItemStack existing = storageInventory.getStackInSlot(slot);
+
             if (existing != null && canStacksMerge(existing, remainder)) {
                 remainder = storageInventory.insertItem(slot, remainder, false);
             }
@@ -297,7 +302,9 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
         super.loadNBTData(nbt);
-        if (!nbt.hasKey(NBT_INVENTORY, 10)) return;
+        if (!nbt.hasKey(NBT_INVENTORY, 10)) {
+            return;
+        }
 
         NBTTagCompound inventoryData = nbt.getCompoundTag(NBT_INVENTORY);
         inventoryData.setInteger("Size", SLOT_COUNT);
@@ -317,11 +324,13 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
     }
 
     private void markStorageDirty() {
-        if (suppressStorageUpdates) return;
+        if (suppressStorageUpdates) {
+            return;
+        }
 
-        IGregTechTileEntity base = getBaseMetaTileEntity();
-        if (base instanceof TileEntity) {
-            ((TileEntity) base).markDirty();
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+        if (gte instanceof TileEntity base) {
+            base.markDirty();
         }
     }
 

@@ -419,6 +419,19 @@ multiblock.EarthModuleMagicGenerator.tooltip.12=    Earth Rune: §d8x§7 reduces
 multiblock.EarthModuleMagicGenerator.tooltip.13=    Terrasteel: §d1x§7 reduces fluid consumption by §675%
 multiblock.EarthModuleMagicGenerator.tooltip.14=Final EU/t = Base EU/t × Fluid Multiplier
 
+#Item Crate
+multiblock.ItemCrate=Item Crate
+multiblock.ItemCrate.machine_type=Multiblock Item Storage
+multiblock.ItemCrate.tooltip.00=Stores up to §a576§7 normal item stacks.
+multiblock.ItemCrate.tooltip.01=Right-click the formed controller to access the internal inventory.
+multiblock.ItemCrate.tooltip.02=The 3x3x3 shell uses §fSolid Steel Machine Casings§7 and has a hollow center.
+multiblock.ItemCrate.tooltip.03=Stored contents are preserved in the controller item when it is broken.
+GTN.ItemCrate.slots=Used slots: %s/%s
+GTN.ItemCrate.structureRequired=§cThe Item Crate structure must be formed before opening storage.
+GTN.ItemCrate.sort=Sort and compact storage
+GTN.ItemCrate.depositAll=Deposit all items from your inventory
+GTN.ItemCrate.search=Search
+
 #RecipeResult
 multiblock.reciperesult.range_tier=§cMax Voltage Tier: %s - %s
 multiblock.reciperesult.max_tier=§cMax Voltage Tier: %s
@@ -551,15 +564,3 @@ GTN.Wildcard.blacklist.page.next=Next blacklist page
 GTN.Wildcard.tooltip.author=Author: %s
 GTN.Wildcard.tooltip.addedBy=Added by: %s
 GTN.Wildcard.tooltip.dragFromNei=Drag from NEI into an input or output slot of a Pattern Terminal.
-
-# Item Crate
-multiblock.ItemCrate=Item Crate
-multiblock.ItemCrate.machine_type=Multiblock Item Storage
-multiblock.ItemCrate.tooltip.00=Stores up to §a576§7 normal item stacks.
-multiblock.ItemCrate.tooltip.01=Right-click the formed controller to access the internal inventory.
-multiblock.ItemCrate.tooltip.02=The 3x3x3 shell uses §fSolid Steel Machine Casings§7 and has a hollow center.
-multiblock.ItemCrate.tooltip.03=Stored contents are preserved in the controller item when it is broken.
-GTN.ItemCrate.slots=Used slots: %s/%s
-GTN.ItemCrate.structureRequired=§cThe Item Crate structure must be formed before opening storage.
-GTN.ItemCrate.sort=Sort and compact storage
-GTN.ItemCrate.depositAll=Deposit all items from your inventory
