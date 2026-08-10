@@ -22,6 +22,7 @@ import com.cleanroommc.modularui.widget.ScrollWidget;
 import com.cleanroommc.modularui.widget.WidgetTree;
 import com.cleanroommc.modularui.widget.scroll.VerticalScrollData;
 import com.cleanroommc.modularui.widgets.ButtonWidget;
+import com.cleanroommc.modularui.widgets.TextWidget;
 import com.cleanroommc.modularui.widgets.slot.ItemSlot;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import com.cleanroommc.modularui.widgets.textfield.TextFieldWidget;
@@ -42,7 +43,7 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
 
     private final ItemSlot[] storageSlots = new ItemSlot[GTN_ItemCrate.SLOT_COUNT];
     private String searchQuery = "";
-    private String appliedSearchQuery;
+    private String appliedSearchQuery = null;
 
     public GTN_ItemCrateGui(GTN_ItemCrate itemCrate) {
         super(itemCrate);
@@ -50,45 +51,70 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
 
     @Override
     public ModularPanel build(PosGuiData guiData, PanelSyncManager syncManager, UISettings uiSettings) {
-        appliedSearchQuery = null;
         registerSyncValues(syncManager);
         syncManager.registerSlotGroup(STORAGE_INV_NAME, 0);
 
-        VerticalScrollData scrollData = new VerticalScrollData();
-        scrollData.setScrollSize(STORAGE_CONTENT_HEIGHT);
+        VerticalScrollData scrollData = createVerticalScrollData();
 
         ParentWidget<?> storageSlots = createStorageSlots();
 
-        StringSyncValue searchValue = new StringSyncValue(
-            () -> searchQuery,
-            value -> searchQuery = value == null ? "" : value);
-        searchValue.allowC2S();
+        StringSyncValue searchValue = createStringSyncValue();
 
-        TextFieldWidget searchField = new TextFieldWidget();
-        searchField.value(searchValue);
-        searchField.autoUpdateOnChange(true);
-        searchField.size(96, 18);
+        ScrollWidget<?> storage = createScrollWidget(scrollData, storageSlots);
 
-        ScrollWidget<?> storage = new ScrollWidget<>(scrollData);
-        storage.size(STORAGE_VIEW_WIDTH, STORAGE_VIEW_HEIGHT);
-        storage.child(storageSlots);
+        TextFieldWidget searchField = createTextFieldWidget(searchValue, scrollData, storage, storageSlots);
 
-        searchField.onUpdateListener(_ -> {
-            if (GTN_Utils.isServer()) {
-                return;
-            }
+        ModularPanel panel = createModularPanel(guiData, syncManager, uiSettings);
 
-            String normalizedQuery = normalize(searchQuery);
-            if (normalizedQuery.equals(appliedSearchQuery)) {
-                return;
-            }
+        panel.child(getSearchTextWidget());
+        panel.child(searchField);
+        panel.child(getSlotsTextWidget());
+        panel.child(storage);
+        panel.child(createSortButton());
+        panel.child(createDepositAllButton(syncManager));
+        return panel;
+    }
 
-            appliedSearchQuery = normalizedQuery;
-            updateStorageLayout(storageSlots, scrollData);
-            scrollData.scrollTo(storage.getScrollArea(), 0);
-        }, true);
+    private TextFieldWidget createTextFieldWidget(StringSyncValue searchValue, VerticalScrollData scrollData,
+        ScrollWidget<?> storage, ParentWidget<?> storageSlots) {
+        return new TextFieldWidget().pos(40, 11)
+            .value(searchValue)
+            .autoUpdateOnChange(true)
+            .size(96, 18)
+            .onUpdateListener(_ -> {
+                if (GTN_Utils.isServer()) {
+                    return;
+                }
 
-        ModularPanel panel = GTGuis.mteTemplatePanelBuilder(multiblock, guiData, syncManager, uiSettings)
+                String normalizedQuery = normalize(searchQuery);
+                if (normalizedQuery.equals(appliedSearchQuery)) {
+                    return;
+                }
+
+                appliedSearchQuery = normalizedQuery;
+                updateStorageLayout(storageSlots, scrollData);
+                scrollData.scrollTo(storage.getScrollArea(), 0);
+            }, true);
+    }
+
+    private ScrollWidget<?> createScrollWidget(VerticalScrollData scrollData, ParentWidget<?> storageSlots) {
+        return new ScrollWidget<>(scrollData).pos(9, 45)
+            .size(STORAGE_VIEW_WIDTH, STORAGE_VIEW_HEIGHT)
+            .child(storageSlots);
+    }
+
+    private VerticalScrollData createVerticalScrollData() {
+        VerticalScrollData verticalScrollData = new VerticalScrollData();
+        verticalScrollData.setScrollSize(STORAGE_CONTENT_HEIGHT);
+        return verticalScrollData;
+    }
+
+    private StringSyncValue createStringSyncValue() {
+        return new StringSyncValue(() -> searchQuery, value -> searchQuery = value == null ? "" : value).allowC2S();
+    }
+
+    private ModularPanel createModularPanel(PosGuiData guiData, PanelSyncManager syncManager, UISettings uiSettings) {
+        return GTGuis.mteTemplatePanelBuilder(multiblock, guiData, syncManager, uiSettings)
             .setWidth(181)
             .setHeight(261)
             .doesBindPlayerInventory(true)
@@ -97,23 +123,21 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
             .doesAddGhostCircuitSlot(false)
             .doesAddGregTechLogo(false)
             .build();
+    }
 
-        panel.child(
-            IKey.lang("GTN.ItemCrate.search")
-                .asWidget()
-                .pos(5, 16));
-        panel.child(searchField.pos(40, 11));
-        panel.child(
-            IKey.lang(
+    private TextWidget<?> getSearchTextWidget() {
+        return IKey.lang("GTN.ItemCrate.search")
+            .asWidget()
+            .pos(5, 16);
+    }
+
+    private TextWidget<?> getSlotsTextWidget() {
+        return IKey
+            .lang(
                 "GTN.ItemCrate.slots",
                 () -> new Object[] { multiblock.countOccupiedSlots(), GTN_ItemCrate.SLOT_COUNT })
-                .asWidget()
-                .pos(9, 34));
-        storage.pos(9, 45);
-        panel.child(storage);
-        panel.child(createSortButton().pos(138, 11));
-        panel.child(createDepositAllButton(syncManager).pos(158, 11));
-        return panel;
+            .asWidget()
+            .pos(9, 34);
     }
 
     private ButtonWidget<?> createSortButton() {
@@ -124,6 +148,7 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
         });
 
         return new ButtonWidget<>().syncHandler(handler)
+            .pos(138, 11)
             .overlay(IKey.str("S"))
             .addTooltipLine(StatCollector.translateToLocal("GTN.ItemCrate.sort"))
             .tooltipShowUpTimer(TOOLTIP_DELAY)
@@ -138,6 +163,7 @@ public class GTN_ItemCrateGui extends MTEMultiBlockBaseGui<GTN_ItemCrate> {
         });
 
         return new ButtonWidget<>().syncHandler(handler)
+            .pos(158, 11)
             .overlay(GTGuiTextures.OVERLAY_BUTTON_IMPORT)
             .addTooltipLine(StatCollector.translateToLocal("GTN.ItemCrate.depositAll"))
             .tooltipShowUpTimer(TOOLTIP_DELAY)

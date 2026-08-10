@@ -110,7 +110,9 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
     }
 
     @Override
-    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {}
+    public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
+        builder.addInputBus();
+    }
 
     @Override
     public Authors getAuthor() {
@@ -119,11 +121,7 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
 
     @Override
     public IStructureDefinition<GTN_ItemCrate> getStructureDefinition() {
-        GTN_Casings casing = GTN_Casings.SolidSteelMachineCasing;
-        return buildStructureDefinition(
-            builder -> builder.addElement(
-                'A',
-                InputBus.newAnyOrCasing(casing.getTextureId(), 1, casing.getBlock(), casing.getBlockMeta())));
+        return buildStructureDefinition(builder -> builder.addMainCasing('A', b -> b.hatches(InputBus)));
     }
 
     @Override
