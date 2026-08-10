@@ -5,6 +5,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WirelessMEIOHub;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AirModuleMagicGenerator;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_EarthModuleMagicGenerator;
@@ -83,6 +84,7 @@ public final class MachineLoader {
         GTN_ItemList.MeAspectHatch.set(new GTN_MeAspectHatch(21_036, "ME Aspect Hatch"));
         GTN_ItemList.WildcardPatternBuffer.set(new GTN_WildcardPatternBuffer(21_037, "ME Wildcard Pattern Buffer"));
         GTN_ItemList.ItemCrate.set(new GTN_ItemCrate(21_038, "ItemCrate"));
+        GTN_ItemList.WirelessMEIOHub.set(new GTN_WirelessMEIOHub(21_039, "Wireless ME I/O Hub"));
         // spotless:on
     }
 }
