@@ -38,8 +38,6 @@ import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatchInputBus;
-import gregtech.api.recipe.check.CheckRecipeResult;
-import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 
 public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
@@ -132,51 +130,6 @@ public class GTN_ItemCrate extends GTN_MultiBlockBase<GTN_ItemCrate> {
     @Override
     public boolean isNoMaintenanceIssue() {
         return true;
-    }
-
-    @Override
-    public boolean getDefaultHasMaintenanceChecks() {
-        return false;
-    }
-
-    @Override
-    public boolean supportsVoidProtection() {
-        return false;
-    }
-
-    @Override
-    public boolean supportsInputSeparation() {
-        return false;
-    }
-
-    @Override
-    public boolean supportsBatchMode() {
-        return false;
-    }
-
-    @Override
-    public boolean supportsSingleRecipeLocking() {
-        return false;
-    }
-
-    @Override
-    public boolean shouldDisplayCheckRecipeResult() {
-        return false;
-    }
-
-    @Override
-    public @NotNull CheckRecipeResult checkProcessing() {
-        return CheckRecipeResultRegistry.NO_RECIPE;
-    }
-
-    @Override
-    public boolean isValidSlot(int index) {
-        return false;
-    }
-
-    @Override
-    protected boolean supportsSlotAutomation(int index) {
-        return false;
     }
 
     @Override
