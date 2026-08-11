@@ -21,7 +21,9 @@ public final class WildcardFluidResolver {
     private WildcardFluidResolver() {}
 
     public static FluidStack resolve(Materials material, WildcardPrefix.FluidMode mode, long amount) {
-        if (material == null || mode == null || mode == WildcardPrefix.FluidMode.NONE || amount <= 0) return null;
+        if (material == null || mode == null || mode == WildcardPrefix.FluidMode.NONE || amount <= 0) {
+            return null;
+        }
 
         FluidStack template;
         synchronized (RESOLVED_FLUIDS) {
@@ -29,7 +31,9 @@ public final class WildcardFluidResolver {
             template = byMode == null ? null : byMode.get(mode);
             if (template == null) {
                 EnumSet<WildcardPrefix.FluidMode> missing = MISSING_FLUIDS.get(material);
-                if (missing != null && missing.contains(mode)) return null;
+                if (missing != null && missing.contains(mode)) {
+                    return null;
+                }
             }
         }
 
@@ -67,19 +71,24 @@ public final class WildcardFluidResolver {
         }
 
         FluidStack fluid = invoke(material, "getFluid");
-        if (fluid != null) return fluid;
+        if (fluid != null) {
+            return fluid;
+        }
+
         fluid = invoke(material, "getGas");
         return fluid != null ? fluid : invoke(material, "getMolten");
     }
 
     private static FluidStack invoke(Materials material, String methodName) {
         MethodInvoker invoker = getInvoker(material.getClass(), methodName);
-        if (invoker == MISSING_INVOKER) return null;
+        if (invoker == MISSING_INVOKER) {
+            return null;
+        }
 
         try {
             Object amount = invoker.usesLong ? Long.valueOf(1L) : Integer.valueOf(1);
             Object result = invoker.method.invoke(material, amount);
-            return result instanceof FluidStack ? ((FluidStack) result).copy() : null;
+            return result instanceof FluidStack fluidStack ? fluidStack.copy() : null;
         } catch (ReflectiveOperationException | RuntimeException ignored) {
             return null;
         }
@@ -88,18 +97,17 @@ public final class WildcardFluidResolver {
     private static MethodInvoker getInvoker(Class<?> type, String methodName) {
         synchronized (INVOKERS) {
             Map<String, MethodInvoker> byName = INVOKERS.get(type);
-            if (byName != null && byName.containsKey(methodName)) return byName.get(methodName);
+            if (byName != null && byName.containsKey(methodName)) {
+                return byName.get(methodName);
+            }
         }
 
         MethodInvoker resolved = findInvoker(type, methodName);
         synchronized (INVOKERS) {
-            Map<String, MethodInvoker> byName = INVOKERS.get(type);
-            if (byName == null) {
-                byName = new HashMap<>();
-                INVOKERS.put(type, byName);
-            }
+            Map<String, MethodInvoker> byName = INVOKERS.computeIfAbsent(type, k -> new HashMap<>());
             byName.put(methodName, resolved);
         }
+
         return resolved;
     }
 
@@ -107,10 +115,16 @@ public final class WildcardFluidResolver {
         Class<?> current = type;
         while (current != null && current != Object.class) {
             for (Method method : current.getDeclaredMethods()) {
-                if (!methodName.equals(method.getName()) || method.getParameterTypes().length != 1) continue;
+                if (!methodName.equals(method.getName()) || method.getParameterTypes().length != 1) {
+                    continue;
+                }
+
                 Class<?> parameter = method.getParameterTypes()[0];
                 boolean usesLong = parameter == long.class || parameter == Long.class;
-                if (!usesLong && parameter != int.class && parameter != Integer.class) continue;
+                if (!usesLong && parameter != int.class && parameter != Integer.class) {
+                    continue;
+                }
+
                 try {
                     method.setAccessible(true);
                     return new MethodInvoker(method, usesLong);

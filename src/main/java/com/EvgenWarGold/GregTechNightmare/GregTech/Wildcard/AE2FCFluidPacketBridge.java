@@ -14,20 +14,31 @@ public final class AE2FCFluidPacketBridge {
     private AE2FCFluidPacketBridge() {}
 
     public static IAEItemStack toPacket(IAEFluidStack aeFluid) {
-        if (aeFluid == null || aeFluid.getStackSize() <= 0) return null;
+        if (aeFluid == null || aeFluid.getStackSize() <= 0) {
+            return null;
+        }
+
         FluidStack fluid = aeFluid.getFluidStack();
-        if (fluid == null) return null;
+        if (fluid == null) {
+            return null;
+        }
 
         FluidStack copy = fluid.copy();
         long amount = aeFluid.getStackSize();
         copy.amount = amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
 
         ItemStack packet = ItemFluidPacket.newStack(copy);
-        if (packet == null) return null;
+        if (packet == null) {
+            return null;
+        }
+
         IAEItemStack result = AEApi.instance()
             .storage()
             .createItemStack(packet);
-        if (result != null) result.setStackSize(1L);
+        if (result != null) {
+            result.setStackSize(1L);
+        }
+
         return result;
     }
 }

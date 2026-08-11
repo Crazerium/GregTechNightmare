@@ -34,13 +34,15 @@ public final class WildcardPatternBlacklist {
 
     public static WildcardPatternBlacklist create(WildcardBlacklistMode mode, IItemHandler inventory) {
         WildcardBlacklistMode effectiveMode = mode == null ? WildcardBlacklistMode.OUTPUT : mode;
-        Set<Materials> materials = Collections.newSetFromMap(new IdentityHashMap<Materials, Boolean>());
+        Set<Materials> materials = Collections.newSetFromMap(new IdentityHashMap<>());
         Map<OutputKey, List<ItemStack>> outputs = new HashMap<>();
 
         if (inventory != null) {
             for (int slot = 0; slot < inventory.getSlots(); slot++) {
                 ItemStack stack = inventory.getStackInSlot(slot);
-                if (stack == null) continue;
+                if (stack == null) {
+                    continue;
+                }
 
                 if (effectiveMode == WildcardBlacklistMode.INPUT) {
                     Materials material = getMaterial(stack);
@@ -58,30 +60,39 @@ public final class WildcardPatternBlacklist {
         return mode == WildcardBlacklistMode.INPUT && material != null && materials.contains(material);
     }
 
-    public boolean blocksOutputs(IAEStack[] stacks) {
-        if (mode != WildcardBlacklistMode.OUTPUT || stacks == null || outputs.isEmpty()) return false;
+    public boolean blocksOutputs(IAEStack<?>[] stacks) {
+        if (mode != WildcardBlacklistMode.OUTPUT || stacks == null || outputs.isEmpty()) {
+            return false;
+        }
 
-        for (IAEStack stack : stacks) {
-            if (!(stack instanceof IAEItemStack)) continue;
+        for (IAEStack<?> stack : stacks) {
+            if (!(stack instanceof IAEItemStack)) {
+                continue;
+            }
+
             ItemStack output = ((IAEItemStack) stack).getItemStack();
-            if (output == null) continue;
+            if (output == null) {
+                continue;
+            }
 
             List<ItemStack> filters = outputs.get(new OutputKey(output));
-            if (filters == null) continue;
+            if (filters == null) {
+                continue;
+            }
+
             for (ItemStack filter : filters) {
-                if (ItemStack.areItemStackTagsEqual(filter, output)) return true;
+                if (ItemStack.areItemStackTagsEqual(filter, output)) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 
     private static void addOutput(Map<OutputKey, List<ItemStack>> outputs, ItemStack stack) {
         OutputKey key = new OutputKey(stack);
-        List<ItemStack> filters = outputs.get(key);
-        if (filters == null) {
-            filters = new ArrayList<>();
-            outputs.put(key, filters);
-        }
+        List<ItemStack> filters = outputs.computeIfAbsent(key, k -> new ArrayList<>());
         ItemStack copy = stack.copy();
         copy.stackSize = 1;
         filters.add(copy);
@@ -109,9 +120,14 @@ public final class WildcardPatternBlacklist {
 
         @Override
         public boolean equals(Object object) {
-            if (this == object) return true;
-            if (!(object instanceof OutputKey)) return false;
-            OutputKey other = (OutputKey) object;
+            if (this == object) {
+                return true;
+            }
+
+            if (!(object instanceof OutputKey other)) {
+                return false;
+            }
+
             return item == other.item && damage == other.damage;
         }
 

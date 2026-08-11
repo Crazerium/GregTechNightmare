@@ -15,12 +15,7 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
     private final WildcardPatternVariant variant;
     private int priority;
 
-    public WildcardPatternDetails(ICraftingPatternDetails delegate, Materials material, IAEStack[] inputs,
-        IAEStack[] outputs) {
-        this(delegate, new WildcardPatternVariant(material, inputs, outputs));
-    }
-
-    WildcardPatternDetails(ICraftingPatternDetails delegate, WildcardPatternVariant variant) {
+    public WildcardPatternDetails(ICraftingPatternDetails delegate, WildcardPatternVariant variant) {
         this.delegate = delegate;
         this.variant = variant;
         this.priority = delegate.getPriority();
@@ -38,28 +33,27 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
         return variant.isBlockedBy(blacklist);
     }
 
-    // Kept without @Override so this also compiles against older AE2 API jars.
-    public IAEStack[] getAEInputs() {
+    public IAEStack<?>[] getAEInputs() {
         return variant.getAEInputs();
     }
 
-    public IAEStack[] getAEOutputs() {
+    public IAEStack<?>[] getAEOutputs() {
         return variant.getAEOutputs();
     }
 
-    public IAEStack[] getCondensedAEInputs() {
+    public IAEStack<?>[] getCondensedAEInputs() {
         return variant.getCondensedAEInputs();
     }
 
-    public IAEStack[] getCondensedAEOutputs() {
+    public IAEStack<?>[] getCondensedAEOutputs() {
         return variant.getCondensedAEOutputs();
     }
 
-    IAEStack[] getCondensedAEInputsView() {
+    IAEStack<?>[] getCondensedAEInputsView() {
         return variant.getCondensedAEInputsView();
     }
 
-    IAEStack[] getCondensedAEOutputsView() {
+    IAEStack<?>[] getCondensedAEOutputsView() {
         return variant.getCondensedAEOutputsView();
     }
 
@@ -70,9 +64,15 @@ public final class WildcardPatternDetails implements ICraftingPatternDetails {
 
     @Override
     public boolean isValidItemForSlot(int slotIndex, ItemStack itemStack, World world) {
-        if (slotIndex < 0 || slotIndex >= variant.getItemInputCount()) return false;
+        if (slotIndex < 0 || slotIndex >= variant.getItemInputCount()) {
+            return false;
+        }
+
         IAEItemStack expected = variant.getItemInput(slotIndex);
-        if (expected == null || itemStack == null) return expected == null && itemStack == null;
+        if (expected == null || itemStack == null) {
+            return expected == null && itemStack == null;
+        }
+
         ItemStack expectedStack = expected.getItemStack();
         return expectedStack != null && expectedStack.isItemEqual(itemStack)
             && ItemStack.areItemStackTagsEqual(expectedStack, itemStack);

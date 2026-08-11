@@ -41,10 +41,8 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Reuses GT5U's AE execution backend while replacing its 36-slot interface with a dedicated layout.
- */
 public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     public static final int PHYSICAL_PATTERN_SLOTS = 36;
@@ -109,10 +107,12 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
         return 1;
     }
 
-    // Keep the inherited compatibility slots inaccessible to automation and GUI code.
     @Override
     public void setInventorySlotContents(int aIndex, ItemStack aStack) {
-        if (aIndex > PRIMARY_PATTERN_SLOT && aIndex < PHYSICAL_PATTERN_SLOTS) return;
+        if (aIndex > PRIMARY_PATTERN_SLOT && aIndex < PHYSICAL_PATTERN_SLOTS) {
+            return;
+        }
+
         super.setInventorySlotContents(aIndex, aStack);
         if (aIndex == PRIMARY_PATTERN_SLOT) invalidatePatternIfChanged(aStack);
     }
@@ -123,9 +123,11 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
         if (index == PRIMARY_PATTERN_SLOT) invalidatePatternIfChanged(stack);
     }
 
-    // Only the encoded pattern physically installed in slot zero may be advertised to AE.
     public boolean isPrimaryPattern(ICraftingPatternDetails source) {
-        if (source == null) return false;
+        if (source == null) {
+            return false;
+        }
+
         ItemStack installed = getStackInSlot(PRIMARY_PATTERN_SLOT);
         ItemStack advertised = source.getPattern();
         return installed != null && advertised != null
@@ -147,7 +149,10 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     public void setBlacklistMode(WildcardBlacklistMode mode) {
         WildcardBlacklistMode newMode = mode == null ? WildcardBlacklistMode.OUTPUT : mode;
-        if (blacklistMode == newMode) return;
+        if (blacklistMode == newMode) {
+            return;
+        }
+
         blacklistMode = newMode;
         onBlacklistChanged();
     }
@@ -157,7 +162,10 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
         suppressBlacklistUpdates = true;
         try {
             for (int slot = 0; slot < blacklistInventory.getSlots(); slot++) {
-                if (blacklistInventory.getStackInSlot(slot) == null) continue;
+                if (blacklistInventory.getStackInSlot(slot) == null) {
+                    continue;
+                }
+
                 blacklistInventory.setStackInSlot(slot, null);
                 changed = true;
             }
@@ -205,7 +213,10 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     private void invalidatePatternIfChanged(ItemStack pattern) {
         String fingerprint = WildcardPatternExpander.fingerprintPatternStack(pattern);
-        if (fingerprint.equals(primaryPatternFingerprint)) return;
+        if (fingerprint.equals(primaryPatternFingerprint)) {
+            return;
+        }
+
         primaryPatternFingerprint = fingerprint;
         if (expansionCache != null) expansionCache.invalidatePattern();
     }
@@ -214,12 +225,14 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
         expansionCache.invalidateBlacklist();
 
         IGregTechTileEntity base = getBaseMetaTileEntity();
-        if (base == null || base.getWorld() == null || base.getWorld().isRemote) return;
+        if (base == null || base.getWorld() == null || base.getWorld().isRemote) {
+            return;
+        }
 
         gridChanged();
         base.enableTicking();
-        if (base instanceof TileEntity) {
-            ((TileEntity) base).markDirty();
+        if (base instanceof TileEntity tileEntity) {
+            tileEntity.markDirty();
         }
     }
 
@@ -239,11 +252,10 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
     }
 
     @Override
-    public void addUIWidgets(ModularWindow.Builder builder, UIBuildContext buildContext) {
+    public void addUIWidgets(ModularWindow.@NotNull Builder builder, UIBuildContext buildContext) {
         addDedicatedUI(builder, buildContext);
     }
 
-    // Legacy ModularUI path; this layout never reuses the hidden parent pattern slots.
     public void addDedicatedUI(ModularWindow.Builder builder, UIBuildContext buildContext) {
         builder
 
@@ -258,8 +270,11 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
                         @Override
                         protected ItemStack getItemStackForRendering(Slot slotIn) {
                             ItemStack stack = slot.getStack();
-                            if (stack == null || !(stack.getItem() instanceof ItemEncodedPattern)) return stack;
-                            ItemStack output = ((ItemEncodedPattern) stack.getItem()).getOutput(stack);
+                            if (stack == null || !(stack.getItem() instanceof ItemEncodedPattern itemEncodedPattern)) {
+                                return stack;
+                            }
+
+                            ItemStack output = itemEncodedPattern.getOutput(stack);
                             return output != null ? output : stack;
                         }
                     }.setFilter(itemStack -> itemStack.getItem() instanceof ICraftingPatternItem)
@@ -286,7 +301,7 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
                     .setPos(8, 36))
             .widget(
                 new ButtonWidget()
-                    .setOnClick((clickData, widget) -> { if (clickData.mouseButton == 0) refundAll(false); })
+                    .setOnClick((clickData, _) -> { if (clickData.mouseButton == 0) refundAll(false); })
                     .setPlayClickSound(true)
                     .setBackground(GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_EXPORT)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.hatch.crafting_input_me.export"))
@@ -312,7 +327,7 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
                 .setSize(16, 16)
                 .setPos(116, 9))
             .widget(
-                new ButtonWidget().setOnClick((clickData, widget) -> showPattern = !showPattern)
+                new ButtonWidget().setOnClick((_, _) -> showPattern = !showPattern)
                     .setPlayClickSoundResource(
                         () -> showPattern ? SoundResource.GUI_BUTTON_UP.resourceLocation
                             : SoundResource.GUI_BUTTON_DOWN.resourceLocation)

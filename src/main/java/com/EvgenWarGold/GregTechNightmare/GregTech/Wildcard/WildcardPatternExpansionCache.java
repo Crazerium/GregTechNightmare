@@ -25,19 +25,11 @@ public final class WildcardPatternExpansionCache {
         return blacklistSnapshot;
     }
 
-    /**
-     * Returns material-resolved patterns while reusing the expensive expansion across AE grid rebuilds.
-     *
-     * @param source    encoded AE processing pattern
-     * @param mode      active blacklist mode
-     * @param inventory blacklist filter inventory
-     * @return cached concrete patterns bound to the current source object
-     * @author Crazerium
-     * @reason Repeating ore-dictionary and material resolution for every AE cache rebuild causes TPS spikes
-     */
     public synchronized List<ICraftingPatternDetails> getExpandedPatterns(ICraftingPatternDetails source,
         WildcardBlacklistMode mode, IItemHandler inventory) {
-        if (source == null) return Collections.emptyList();
+        if (source == null) {
+            return Collections.emptyList();
+        }
 
         String fingerprint = WildcardPatternExpander.fingerprintSourcePattern(source);
         if (expansionDirty || !fingerprint.equals(sourceFingerprint)) {
@@ -56,12 +48,6 @@ public final class WildcardPatternExpansionCache {
         return boundPatterns;
     }
 
-    /**
-     * Invalidates only data derived from the encoded pattern.
-     *
-     * @author Crazerium
-     * @reason A changed pattern requires new variants but can keep the existing blacklist snapshot
-     */
     public synchronized void invalidatePattern() {
         expansionDirty = true;
         sourceFingerprint = null;
@@ -70,12 +56,6 @@ public final class WildcardPatternExpansionCache {
         boundPatterns = Collections.emptyList();
     }
 
-    /**
-     * Invalidates both the blacklist snapshot and every variant filtered through it.
-     *
-     * @author Crazerium
-     * @reason Blacklist edits can change which material expansions are published to AE
-     */
     public synchronized void invalidateBlacklist() {
         blacklistSnapshot = null;
         invalidatePattern();

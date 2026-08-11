@@ -51,13 +51,17 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
-        if (type != ItemRenderType.INVENTORY || stack == null) return;
+        if (type != ItemRenderType.INVENTORY || stack == null) {
+            return;
+        }
 
         WildcardPrefix prefix = WildcardPrefix.byMeta(stack.getItemDamage());
         ItemStack renderStack = getRenderStack(prefix);
         Materials material = getRenderMaterial(prefix);
         Block block = getBlock(renderStack);
-        if (block == null || material == null) return;
+        if (block == null || material == null) {
+            return;
+        }
 
         RenderBlocks renderBlocks = data.length > 0 && data[0] instanceof RenderBlocks ? (RenderBlocks) data[0]
             : new RenderBlocks();
@@ -70,7 +74,6 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
 
             GL11.glPushMatrix();
             try {
-                // GT block models read these global tints while rendering, so restore them immediately afterward.
                 copyColor(WHITE_RGBA, materialColor);
                 copyColor(WHITE_RGBA, insulationColor);
 
@@ -90,19 +93,26 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
     }
 
     private Block getRenderBlock(ItemStack wildcardStack) {
-        if (wildcardStack == null) return null;
+        if (wildcardStack == null) {
+            return null;
+        }
+
         return getBlock(getRenderStack(WildcardPrefix.byMeta(wildcardStack.getItemDamage())));
     }
 
     private ItemStack getRenderStack(WildcardPrefix prefix) {
-        if (prefix == null || !prefix.usesGregTechBlockModel()) return null;
+        if (prefix == null || !prefix.usesGregTechBlockModel()) {
+            return null;
+        }
 
         resolve(prefix);
         return renderStacks[prefix.getMeta()];
     }
 
     private Materials getRenderMaterial(WildcardPrefix prefix) {
-        if (prefix == null || !prefix.usesGregTechBlockModel()) return null;
+        if (prefix == null || !prefix.usesGregTechBlockModel()) {
+            return null;
+        }
 
         resolve(prefix);
         return renderMaterials[prefix.getMeta()];
@@ -110,12 +120,21 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
 
     private void resolve(WildcardPrefix prefix) {
         int meta = prefix.getMeta();
-        if (resolved[meta]) return;
+        if (resolved[meta]) {
+            return;
+        }
 
         OrePrefixes orePrefix = prefix.getOrePrefix();
+
+        if (orePrefix == null) {
+            return;
+        }
+
         for (Materials material : RENDER_MATERIALS) {
             ItemStack candidate = GTOreDictUnificator.get(orePrefix, material, 1L);
-            if (GTUtility.isStackInvalid(candidate) || getBlock(candidate) == null) continue;
+            if (GTUtility.isStackInvalid(candidate) || getBlock(candidate) == null) {
+                continue;
+            }
 
             renderStacks[meta] = GTUtility.copyAmount(1, candidate);
             renderMaterials[meta] = material;
@@ -125,12 +144,17 @@ public final class WildcardPrefixItemRenderer implements IItemRenderer {
     }
 
     private static void copyColor(short[] source, short[] target) {
-        if (source == null || target == null) return;
+        if (source == null || target == null) {
+            return;
+        }
+
         System.arraycopy(source, 0, target, 0, Math.min(source.length, target.length));
     }
 
     private static Block getBlock(ItemStack stack) {
-        if (GTUtility.isStackInvalid(stack) || !(stack.getItem() instanceof ItemBlock)) return null;
+        if (GTUtility.isStackInvalid(stack) || !(stack.getItem() instanceof ItemBlock)) {
+            return null;
+        }
 
         Block block = Block.getBlockFromItem(stack.getItem());
         return block == null || block == Blocks.air ? null : block;

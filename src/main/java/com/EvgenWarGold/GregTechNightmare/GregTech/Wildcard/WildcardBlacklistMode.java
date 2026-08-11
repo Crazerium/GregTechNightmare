@@ -8,8 +8,9 @@ public enum WildcardBlacklistMode {
     public static WildcardBlacklistMode fromName(String name) {
         if (name != null) {
             for (WildcardBlacklistMode mode : values()) {
-                if (mode.name()
-                    .equalsIgnoreCase(name)) return mode;
+                if (mode.name().equalsIgnoreCase(name)) {
+                    return mode;
+                }
             }
         }
         return OUTPUT;

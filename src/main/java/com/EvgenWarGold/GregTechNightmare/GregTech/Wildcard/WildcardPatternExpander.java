@@ -25,7 +25,6 @@ import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTUtility;
 
-/** Expands wildcard processing patterns once per compatible GregTech material. */
 public final class WildcardPatternExpander {
 
     private static final Map<OrePrefixes, Map<Materials, ItemStack>> RESOLVED_ITEMS = new IdentityHashMap<>();
@@ -37,57 +36,31 @@ public final class WildcardPatternExpander {
             || containsWildcard(AEPatternStackAccess.getOutputs(details)));
     }
 
-    public static List<ICraftingPatternDetails> expandAll(Collection<ICraftingPatternDetails> sourcePatterns) {
-        return expandAll(sourcePatterns, null);
-    }
-
-    public static List<ICraftingPatternDetails> expandAll(Collection<ICraftingPatternDetails> sourcePatterns,
-        WildcardPatternBlacklist blacklist) {
-        if (sourcePatterns == null || sourcePatterns.isEmpty()) return Collections.emptyList();
-
-        List<ICraftingPatternDetails> result = new ArrayList<>();
-        Set<String> fingerprints = new HashSet<>();
-
-        for (ICraftingPatternDetails source : sourcePatterns) {
-            if (source == null) continue;
-            if (source.isCraftable() || !containsWildcard(source)) {
-                addUnique(result, fingerprints, source);
-                continue;
-            }
-
-            for (WildcardPatternVariant variant : resolveVariants(source, blacklist)) {
-                WildcardPatternDetails details = variant.bind(source);
-                addUnique(result, fingerprints, details);
-            }
-        }
-        return Collections.unmodifiableList(result);
-    }
-
-    /**
-     * Resolves one processing pattern for every compatible GregTech material.
-     *
-     * @param source    encoded processing pattern containing wildcard tokens
-     * @param blacklist snapshot used to filter materials or concrete outputs
-     * @return immutable list of resolved material variants
-     * @author Crazerium
-     * @reason AE crafting cannot plan recipes that contain phantom wildcard tokens
-     */
     static List<WildcardPatternVariant> resolveVariants(ICraftingPatternDetails source,
         WildcardPatternBlacklist blacklist) {
-        if (source == null || source.isCraftable()) return Collections.emptyList();
+        if (source == null || source.isCraftable()) {
+            return Collections.emptyList();
+        }
 
-        IAEStack[] sourceInputs = AEPatternStackAccess.getInputs(source);
-        IAEStack[] sourceOutputs = AEPatternStackAccess.getOutputs(source);
+        IAEStack<?>[] sourceInputs = AEPatternStackAccess.getInputs(source);
+        IAEStack<?>[] sourceOutputs = AEPatternStackAccess.getOutputs(source);
 
         List<WildcardPatternVariant> result = new ArrayList<>();
         Set<String> fingerprints = new HashSet<>();
         for (Materials material : Materials.values()) {
-            if (material == null || blacklist != null && blacklist.blocksMaterial(material)) continue;
+            if (material == null || blacklist != null && blacklist.blocksMaterial(material)) {
+                continue;
+            }
 
-            IAEStack[] resolvedInputs = resolve(sourceInputs, material);
-            if (resolvedInputs == null) continue;
-            IAEStack[] resolvedOutputs = resolve(sourceOutputs, material);
-            if (resolvedOutputs == null || blacklist != null && blacklist.blocksOutputs(resolvedOutputs)) continue;
+            IAEStack<?>[] resolvedInputs = resolve(sourceInputs, material);
+            if (resolvedInputs == null) {
+                continue;
+            }
+
+            IAEStack<?>[] resolvedOutputs = resolve(sourceOutputs, material);
+            if (resolvedOutputs == null || blacklist != null && blacklist.blocksOutputs(resolvedOutputs)) {
+                continue;
+            }
 
             String fingerprint = fingerprint(resolvedInputs, resolvedOutputs);
             if (fingerprints.add(fingerprint)) {
@@ -98,25 +71,22 @@ public final class WildcardPatternExpander {
     }
 
     static List<ICraftingPatternDetails> bind(ICraftingPatternDetails source, List<WildcardPatternVariant> variants) {
-        if (source == null || variants == null || variants.isEmpty()) return Collections.emptyList();
+        if (source == null || variants == null || variants.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         List<ICraftingPatternDetails> result = new ArrayList<>(variants.size());
         for (WildcardPatternVariant variant : variants) {
             result.add(variant.bind(source));
         }
+
         return Collections.unmodifiableList(result);
     }
 
-    /**
-     * Creates a stable fingerprint for cache invalidation without retaining the source pattern object.
-     *
-     * @param details source AE pattern
-     * @return fingerprint containing the pattern stack, flags, priority, inputs and outputs
-     * @author Crazerium
-     * @reason AE may recreate pattern-detail objects while the encoded recipe remains unchanged
-     */
     public static String fingerprintSourcePattern(ICraftingPatternDetails details) {
-        if (details == null) return "null";
+        if (details == null) {
+            return "null";
+        }
 
         StringBuilder builder = new StringBuilder(256);
         appendPatternStack(builder, details.getPattern());
@@ -133,78 +103,99 @@ public final class WildcardPatternExpander {
         return builder.toString();
     }
 
-    public static String fingerprintSourcePatterns(Collection<ICraftingPatternDetails> patterns) {
-        if (patterns == null || patterns.isEmpty()) return "";
-        StringBuilder builder = new StringBuilder(Math.max(256, patterns.size() * 128));
-        for (ICraftingPatternDetails details : patterns) {
-            builder.append(fingerprintSourcePattern(details))
-                .append('\n');
-        }
-        return builder.toString();
-    }
-
     public static String fingerprintPatternStack(ItemStack pattern) {
         StringBuilder builder = new StringBuilder(96);
         appendPatternStack(builder, pattern);
         return builder.toString();
     }
 
-    private static boolean containsWildcard(IAEStack[] stacks) {
-        if (stacks == null) return false;
-        for (IAEStack stack : stacks) {
-            if (!(stack instanceof IAEItemStack)) continue;
-            if (isWildcard(((IAEItemStack) stack).getItemStack())) return true;
+    private static boolean containsWildcard(IAEStack<?>[] stacks) {
+        if (stacks == null) {
+            return false;
+        }
+
+        for (IAEStack<?> stack : stacks) {
+            if (!(stack instanceof IAEItemStack)) {
+                continue;
+            }
+
+            if (isWildcard(((IAEItemStack) stack).getItemStack())) {
+                return true;
+            }
+
         }
         return false;
     }
 
-    private static IAEStack[] resolve(IAEStack[] source, Materials material) {
-        if (source == null) return new IAEStack[0];
-        IAEStack[] result = new IAEStack[source.length];
+    private static IAEStack<?>[] resolve(IAEStack<?>[] source, Materials material) {
+        if (source == null) {
+            return new IAEStack[0];
+        }
+
+        IAEStack<?>[] result = new IAEStack[source.length];
 
         for (int i = 0; i < source.length; i++) {
-            IAEStack input = source[i];
-            if (input == null) continue;
+            IAEStack<?> input = source[i];
+            if (input == null) {
+                continue;
+            }
 
-            if (!(input instanceof IAEItemStack)) {
+            if (!(input instanceof IAEItemStack aeItemStack)) {
                 result[i] = input.copy();
                 continue;
             }
 
-            ItemStack itemStack = ((IAEItemStack) input).getItemStack();
+            ItemStack itemStack = aeItemStack.getItemStack();
             if (!isWildcard(itemStack)) {
                 result[i] = input.copy();
                 continue;
             }
 
             WildcardPrefix wildcard = WildcardPrefix.byMeta(itemStack.getItemDamage());
-            if (wildcard == null) return null;
+            if (wildcard == null) {
+                return null;
+            }
 
             if (wildcard.isFluid()) {
                 FluidStack fluid = WildcardFluidResolver
                     .resolve(material, wildcard.getFluidMode(), input.getStackSize());
-                if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) return null;
+                if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) {
+                    return null;
+                }
+
                 IAEFluidStack aeFluid = AEApi.instance()
                     .storage()
                     .createFluidStack(fluid);
-                if (aeFluid == null) return null;
+                if (aeFluid == null) {
+                    return null;
+                }
+
                 aeFluid.setStackSize(input.getStackSize());
                 result[i] = aeFluid;
                 continue;
             }
 
             OrePrefixes orePrefix = wildcard.getOrePrefix();
-            if (orePrefix == null) return null;
+            if (orePrefix == null) {
+                return null;
+            }
+
             ItemStack resolved = resolveItem(orePrefix, material);
-            if (resolved == null) return null;
+            if (resolved == null) {
+                return null;
+            }
 
             IAEItemStack aeResolved = AEApi.instance()
                 .storage()
                 .createItemStack(resolved);
-            if (aeResolved == null) return null;
+            if (aeResolved == null) {
+                return null;
+            }
+
             aeResolved.setStackSize(input.getStackSize());
             result[i] = aeResolved;
         }
+
         return result;
     }
 
@@ -221,11 +212,7 @@ public final class WildcardPatternExpander {
         ItemStack cached = GTUtility.isStackInvalid(resolved) ? null : GTUtility.copyAmount(1, resolved);
 
         synchronized (RESOLVED_ITEMS) {
-            Map<Materials, ItemStack> byMaterial = RESOLVED_ITEMS.get(prefix);
-            if (byMaterial == null) {
-                byMaterial = new IdentityHashMap<>();
-                RESOLVED_ITEMS.put(prefix, byMaterial);
-            }
+            Map<Materials, ItemStack> byMaterial = RESOLVED_ITEMS.computeIfAbsent(prefix, k -> new IdentityHashMap<>());
             byMaterial.put(material, cached);
         }
         return cached == null ? null : cached.copy();
@@ -235,18 +222,7 @@ public final class WildcardPatternExpander {
         return stack != null && stack.getItem() == GTN_Items.WILDCARD_PREFIX;
     }
 
-    private static void addUnique(List<ICraftingPatternDetails> result, Set<String> fingerprints,
-        ICraftingPatternDetails details) {
-        IAEStack[] inputs = details instanceof WildcardPatternDetails
-            ? ((WildcardPatternDetails) details).getCondensedAEInputs()
-            : AEPatternStackAccess.getInputs(details);
-        IAEStack[] outputs = details instanceof WildcardPatternDetails
-            ? ((WildcardPatternDetails) details).getCondensedAEOutputs()
-            : AEPatternStackAccess.getOutputs(details);
-        if (fingerprints.add(fingerprint(inputs, outputs))) result.add(details);
-    }
-
-    private static String fingerprint(IAEStack[] inputs, IAEStack[] outputs) {
+    private static String fingerprint(IAEStack<?>[] inputs, IAEStack<?>[] outputs) {
         StringBuilder builder = new StringBuilder(256);
         appendStacks(builder, inputs);
         builder.append(" -> ");
@@ -270,13 +246,22 @@ public final class WildcardPatternExpander {
                     .toString() : "");
     }
 
-    private static void appendStacks(StringBuilder builder, IAEStack[] stacks) {
-        if (stacks == null) return;
-        for (IAEStack stack : stacks) {
-            if (stack == null) continue;
-            if (stack instanceof IAEItemStack) {
-                ItemStack item = ((IAEItemStack) stack).getItemStack();
-                if (item == null) continue;
+    private static void appendStacks(StringBuilder builder, IAEStack<?>[] stacks) {
+        if (stacks == null) {
+            return;
+        }
+
+        for (IAEStack<?> stack : stacks) {
+            if (stack == null) {
+                continue;
+            }
+
+            if (stack instanceof IAEItemStack aeItemStack) {
+                ItemStack item = aeItemStack.getItemStack();
+                if (item == null) {
+                    continue;
+                }
+
                 builder.append('I')
                     .append(Item.getIdFromItem(item.getItem()))
                     .append(':')
@@ -288,9 +273,12 @@ public final class WildcardPatternExpander {
                         item.hasTagCompound() ? item.getTagCompound()
                             .toString() : "")
                     .append(';');
-            } else if (stack instanceof IAEFluidStack) {
-                FluidStack fluid = ((IAEFluidStack) stack).getFluidStack();
-                if (fluid == null || fluid.getFluid() == null) continue;
+            } else if (stack instanceof IAEFluidStack aeFluidStack) {
+                FluidStack fluid = aeFluidStack.getFluidStack();
+                if (fluid == null || fluid.getFluid() == null) {
+                    continue;
+                }
+
                 builder.append('F')
                     .append(
                         fluid.getFluid()

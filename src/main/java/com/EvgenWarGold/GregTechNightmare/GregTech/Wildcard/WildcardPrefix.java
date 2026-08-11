@@ -7,7 +7,6 @@ import gregtech.api.enums.OrePrefixes;
 
 public enum WildcardPrefix {
 
-    // Metadata is persisted in worlds and encoded patterns. Existing entries must never be reordered.
     INGOT("ingot", "ingot"),
     PLATE("plate", "plate"),
     DUST("dust", "dust"),
@@ -137,7 +136,6 @@ public enum WildcardPrefix {
         return meta >= 0 && meta < VALUES.length ? VALUES[meta] : null;
     }
 
-    // OrePrefixes is extensible in GT5U and cannot be resolved with Enum.valueOf.
     private static OrePrefixes resolveOrePrefix(String name) {
         try {
             Field field = OrePrefixes.class.getField(name);

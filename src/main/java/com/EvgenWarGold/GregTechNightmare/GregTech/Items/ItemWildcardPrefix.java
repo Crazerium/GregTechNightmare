@@ -1,7 +1,9 @@
-package com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard;
+package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
 import java.util.List;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPrefix;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPrefixItemRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,7 +82,9 @@ public final class ItemWildcardPrefix extends Item {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltip, boolean advanced) {
         WildcardPrefix prefix = WildcardPrefix.byMeta(stack.getItemDamage());
-        if (prefix == null) return;
+        if (prefix == null) {
+            return;
+        }
 
         String kind = prefix.isFluid() ? StatCollector.translateToLocal("GTN.Wildcard.tooltip.fluid")
             : prefix.getOrePrefixName();

@@ -12,19 +12,19 @@ import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IAEStack;
 import gregtech.api.enums.Materials;
 
-final class WildcardPatternVariant {
+public final class WildcardPatternVariant {
 
     private final Materials material;
-    private final IAEStack[] aeInputs;
-    private final IAEStack[] aeOutputs;
-    private final IAEStack[] condensedAEInputs;
-    private final IAEStack[] condensedAEOutputs;
+    private final IAEStack<?>[] aeInputs;
+    private final IAEStack<?>[] aeOutputs;
+    private final IAEStack<?>[] condensedAEInputs;
+    private final IAEStack<?>[] condensedAEOutputs;
     private final IAEItemStack[] itemInputs;
     private final IAEItemStack[] itemOutputs;
     private final IAEItemStack[] condensedItemInputs;
     private final IAEItemStack[] condensedItemOutputs;
 
-    WildcardPatternVariant(Materials material, IAEStack[] inputs, IAEStack[] outputs) {
+    public WildcardPatternVariant(Materials material, IAEStack<?>[] inputs, IAEStack<?>[] outputs) {
         this.material = material;
         this.aeInputs = AEPatternStackAccess.copy(inputs);
         this.aeOutputs = AEPatternStackAccess.copy(outputs);
@@ -36,19 +36,19 @@ final class WildcardPatternVariant {
         this.condensedItemOutputs = legacyItems(condensedAEOutputs);
     }
 
-    WildcardPatternDetails bind(ICraftingPatternDetails delegate) {
+    public WildcardPatternDetails bind(ICraftingPatternDetails delegate) {
         return new WildcardPatternDetails(delegate, this);
     }
 
-    Materials getMaterial() {
+    public Materials getMaterial() {
         return material;
     }
 
-    IAEStack[] getAEInputs() {
+    public IAEStack<?>[] getAEInputs() {
         return AEPatternStackAccess.copy(aeInputs);
     }
 
-    IAEStack[] getAEOutputs() {
+    public IAEStack<?>[] getAEOutputs() {
         return AEPatternStackAccess.copy(aeOutputs);
     }
 
@@ -56,64 +56,66 @@ final class WildcardPatternVariant {
         return blacklist != null && (blacklist.blocksMaterial(material) || blacklist.blocksOutputs(aeOutputs));
     }
 
-    IAEStack[] getCondensedAEInputs() {
+    public IAEStack<?>[] getCondensedAEInputs() {
         return AEPatternStackAccess.copy(condensedAEInputs);
     }
 
-    IAEStack[] getCondensedAEInputsView() {
+    public IAEStack<?>[] getCondensedAEInputsView() {
         return condensedAEInputs;
     }
 
-    IAEStack[] getCondensedAEOutputs() {
+    public IAEStack<?>[] getCondensedAEOutputs() {
         return AEPatternStackAccess.copy(condensedAEOutputs);
     }
 
-    IAEStack[] getCondensedAEOutputsView() {
+    public IAEStack<?>[] getCondensedAEOutputsView() {
         return condensedAEOutputs;
     }
 
-    IAEItemStack[] getItemInputs() {
+    public IAEItemStack[] getItemInputs() {
         return copyItems(itemInputs);
     }
 
-    IAEItemStack getItemInput(int index) {
+    public IAEItemStack getItemInput(int index) {
         return index < 0 || index >= itemInputs.length ? null : itemInputs[index];
     }
 
-    int getItemInputCount() {
+    public int getItemInputCount() {
         return itemInputs.length;
     }
 
-    IAEItemStack[] getItemOutputs() {
+    public IAEItemStack[] getItemOutputs() {
         return copyItems(itemOutputs);
     }
 
-    ItemStack getFirstItemOutput() {
+    public ItemStack getFirstItemOutput() {
         for (IAEItemStack output : itemOutputs) {
             if (output != null && output.getStackSize() > 0) return output.getItemStack();
         }
         return null;
     }
 
-    IAEItemStack[] getCondensedItemInputs() {
+    public IAEItemStack[] getCondensedItemInputs() {
         return copyItems(condensedItemInputs);
     }
 
-    IAEItemStack[] getCondensedItemOutputs() {
+    public IAEItemStack[] getCondensedItemOutputs() {
         return copyItems(condensedItemOutputs);
     }
 
-    private static IAEItemStack[] legacyItems(IAEStack[] source) {
+    private static IAEItemStack[] legacyItems(IAEStack<?>[] source) {
         List<IAEItemStack> result = new ArrayList<>();
-        for (IAEStack stack : source) {
-            if (stack instanceof IAEItemStack) {
-                result.add(((IAEItemStack) stack).copy());
-            } else if (stack instanceof IAEFluidStack) {
-                IAEItemStack packet = AE2FCFluidPacketBridge.toPacket((IAEFluidStack) stack);
-                if (packet != null) result.add(packet);
+        for (IAEStack<?> stack : source) {
+            if (stack instanceof IAEItemStack aeItemStack) {
+                result.add(aeItemStack.copy());
+            } else if (stack instanceof IAEFluidStack aeFluidStack) {
+                IAEItemStack packet = AE2FCFluidPacketBridge.toPacket(aeFluidStack);
+                if (packet != null) {
+                    result.add(packet);
+                }
             }
         }
-        return result.toArray(new IAEItemStack[result.size()]);
+        return result.toArray(new IAEItemStack[0]);
     }
 
     private static IAEItemStack[] copyItems(IAEItemStack[] source) {
@@ -124,36 +126,40 @@ final class WildcardPatternVariant {
         return copy;
     }
 
-    private static IAEStack[] condense(IAEStack[] source) {
-        List<IAEStack> condensed = new ArrayList<>();
-        for (IAEStack stack : source) {
-            if (stack == null || stack.getStackSize() <= 0) continue;
-            IAEStack matching = findMatching(condensed, stack);
+    private static IAEStack<?>[] condense(IAEStack<?>[] source) {
+        List<IAEStack<?>> condensed = new ArrayList<>();
+        for (IAEStack<?> stack : source) {
+            if (stack == null || stack.getStackSize() <= 0) {
+                continue;
+            }
+            IAEStack<?> matching = findMatching(condensed, stack);
             if (matching == null) {
                 condensed.add(stack.copy());
             } else {
                 matching.setStackSize(matching.getStackSize() + stack.getStackSize());
             }
         }
-        return condensed.toArray(new IAEStack[condensed.size()]);
+        return condensed.toArray(new IAEStack[0]);
     }
 
-    private static IAEStack findMatching(List<IAEStack> candidates, IAEStack wanted) {
-        for (IAEStack candidate : candidates) {
-            if (sameTypeAndContent(candidate, wanted)) return candidate;
+    private static IAEStack<?> findMatching(List<IAEStack<?>> candidates, IAEStack<?> wanted) {
+        for (IAEStack<?> candidate : candidates) {
+            if (sameTypeAndContent(candidate, wanted)) {
+                return candidate;
+            }
         }
         return null;
     }
 
-    private static boolean sameTypeAndContent(IAEStack first, IAEStack second) {
-        if (first instanceof IAEItemStack && second instanceof IAEItemStack) {
-            ItemStack a = ((IAEItemStack) first).getItemStack();
-            ItemStack b = ((IAEItemStack) second).getItemStack();
+    private static boolean sameTypeAndContent(IAEStack<?> first, IAEStack<?> second) {
+        if (first instanceof IAEItemStack firstStack && second instanceof IAEItemStack secondStack) {
+            ItemStack a = firstStack.getItemStack();
+            ItemStack b = secondStack.getItemStack();
             return a != null && b != null && a.isItemEqual(b) && ItemStack.areItemStackTagsEqual(a, b);
         }
-        if (first instanceof IAEFluidStack && second instanceof IAEFluidStack) {
-            FluidStack a = ((IAEFluidStack) first).getFluidStack();
-            FluidStack b = ((IAEFluidStack) second).getFluidStack();
+        if (first instanceof IAEFluidStack firstFluidStack && second instanceof IAEFluidStack secondFluidStack) {
+            FluidStack a = firstFluidStack.getFluidStack();
+            FluidStack b = secondFluidStack.getFluidStack();
             return a != null && b != null && a.isFluidEqual(b);
         }
         return false;

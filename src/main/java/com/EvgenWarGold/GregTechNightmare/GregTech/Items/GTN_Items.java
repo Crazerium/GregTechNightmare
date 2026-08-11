@@ -2,7 +2,6 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
 import net.minecraft.item.Item;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.ItemWildcardPrefix;
 import com.EvgenWarGold.GregTechNightmare.GregTechNightmare;
 
 public class GTN_Items {

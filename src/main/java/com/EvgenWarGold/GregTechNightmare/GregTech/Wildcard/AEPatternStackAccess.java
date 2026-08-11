@@ -14,29 +14,36 @@ public final class AEPatternStackAccess {
 
     private AEPatternStackAccess() {}
 
-    public static IAEStack[] getInputs(ICraftingPatternDetails details) {
+    public static IAEStack<?>[] getInputs(ICraftingPatternDetails details) {
         return read(details, true);
     }
 
-    public static IAEStack[] getOutputs(ICraftingPatternDetails details) {
+    public static IAEStack<?>[] getOutputs(ICraftingPatternDetails details) {
         return read(details, false);
     }
 
-    private static IAEStack[] read(ICraftingPatternDetails details, boolean inputs) {
-        if (details == null) return new IAEStack[0];
+    private static IAEStack<?>[] read(ICraftingPatternDetails details, boolean inputs) {
+        if (details == null) {
+            return new IAEStack[0];
+        }
 
         Accessors accessors = getAccessors(details.getClass());
         Method method = inputs ? accessors.inputs : accessors.outputs;
         if (method != null) {
             try {
                 Object value = method.invoke(details);
-                if (value instanceof IAEStack[]) return copy((IAEStack[]) value);
+                if (value instanceof IAEStack<?>[] aeStack) {
+                    return copy(aeStack);
+                }
             } catch (ReflectiveOperationException | RuntimeException ignored) {}
         }
 
         IAEItemStack[] fallback = inputs ? details.getInputs() : details.getOutputs();
-        if (fallback == null) return new IAEStack[0];
-        IAEStack[] result = new IAEStack[fallback.length];
+        if (fallback == null) {
+            return new IAEStack[0];
+        }
+
+        IAEStack<?>[] result = new IAEStack[fallback.length];
         for (int i = 0; i < fallback.length; i++) {
             result[i] = fallback[i] == null ? null : fallback[i].copy();
         }
@@ -72,9 +79,12 @@ public final class AEPatternStackAccess {
         return null;
     }
 
-    public static IAEStack[] copy(IAEStack[] source) {
-        if (source == null) return new IAEStack[0];
-        IAEStack[] result = new IAEStack[source.length];
+    public static IAEStack<?>[] copy(IAEStack<?>[] source) {
+        if (source == null) {
+            return new IAEStack[0];
+        }
+
+        IAEStack<?>[] result = new IAEStack[source.length];
         for (int i = 0; i < source.length; i++) {
             result[i] = source[i] == null ? null : source[i].copy();
         }

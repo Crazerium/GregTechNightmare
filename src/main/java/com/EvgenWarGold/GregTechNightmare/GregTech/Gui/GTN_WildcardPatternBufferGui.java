@@ -88,10 +88,6 @@ public final class GTN_WildcardPatternBufferGui extends MTEHatchBaseGui<GTN_Wild
                 return true;
             }
 
-            @Override
-            public boolean closeOnOutOfBoundsClick() {
-                return false;
-            }
         }.size(198, 256);
 
         panel.child(
@@ -127,9 +123,9 @@ public final class GTN_WildcardPatternBufferGui extends MTEHatchBaseGui<GTN_Wild
             .gridOfWidthHeight(
                 1,
                 1,
-                ($x, $y, index) -> new PatternSlot().slot(
+                (_, _, _) -> new PatternSlot().slot(
                     new ModularSlot(machine.inventoryHandler, GTN_WildcardPatternBuffer.PRIMARY_PATTERN_SLOT)
-                        .changeListener((stack, amountChanged, client, initialization) -> {
+                        .changeListener((stack, _, client, _) -> {
                             if (!client) {
                                 machine.onPatternChange(GTN_WildcardPatternBuffer.PRIMARY_PATTERN_SLOT, stack);
                             }
@@ -143,7 +139,7 @@ public final class GTN_WildcardPatternBufferGui extends MTEHatchBaseGui<GTN_Wild
 
         if (circuitSlot instanceof GhostCircuitSlotWidget ghostCircuitSlot) {
             ghostCircuitSlot.getSlot()
-                .changeListener((newItem, amountChanged, client, initialization) -> {
+                .changeListener((_, _, client, _) -> {
                     if (!client) {
                         IGregTechTileEntity base = machine.getBaseMetaTileEntity();
                         if (base != null) {
@@ -179,7 +175,10 @@ public final class GTN_WildcardPatternBufferGui extends MTEHatchBaseGui<GTN_Wild
         String tooltipKey = direction < 0 ? "GTN.Wildcard.blacklist.page.previous" : "GTN.Wildcard.blacklist.page.next";
 
         return new ButtonWidget<>().onMousePressed(mouseButton -> {
-            if (mouseButton != 0) return false;
+            if (mouseButton != 0) {
+                return false;
+            }
+
             blacklistPage = Math.floorMod(blacklistPage + direction, GTN_WildcardPatternBuffer.BLACKLIST_PAGE_COUNT);
             return true;
         })
@@ -303,8 +302,4 @@ public final class GTN_WildcardPatternBufferGui extends MTEHatchBaseGui<GTN_Wild
         return false;
     }
 
-    @Override
-    protected boolean supportsBottomRowOverlap() {
-        return false;
-    }
 }
