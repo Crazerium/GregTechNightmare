@@ -19,7 +19,10 @@ public final class CraftingInputMEIntrospection {
     private CraftingInputMEIntrospection() {}
 
     public static Object findLivePatternSlot(Object host, ICraftingPatternDetails source) {
-        if (host == null || source == null) return null;
+        if (host == null || source == null) {
+            return null;
+        }
+
         return findPatternSlot(host, source).slot;
     }
 
