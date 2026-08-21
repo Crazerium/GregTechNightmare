@@ -20,6 +20,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPatternBlack
 import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPatternExpander;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPatternExpansionCache;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.cleanroommc.modularui.factory.PosGuiData;
 import com.cleanroommc.modularui.screen.ModularPanel;
 import com.cleanroommc.modularui.screen.UISettings;
@@ -40,10 +41,12 @@ import appeng.items.misc.ItemEncodedPattern;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
 
+@IMetaTileEntity.SkipGenerateDescription
 public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     public static final int PHYSICAL_PATTERN_SLOTS = 36;
@@ -81,7 +84,7 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     public GTN_WildcardPatternBuffer(int aID, String aName) {
 
-        super(aID, aName, aName, true);
+        super(aID, aName, GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.name"), true);
     }
 
     public GTN_WildcardPatternBuffer(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
@@ -312,8 +315,8 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
                     .setToggle(() -> disablePatternOptimization, value -> disablePatternOptimization = value)
                     .setStaticTexture(GTUITextures.OVERLAY_BUTTON_PATTERN_OPTIMIZE)
                     .setVariableBackground(GTUITextures.BUTTON_STANDARD_TOGGLE)
-                    .addTooltip(0, "Pattern Optimization:\n§7Allowed")
-                    .addTooltip(1, "Pattern Optimization:\n§7Disabled")
+                    .addTooltip(0, StatCollector.translateToLocal("GTN.Wildcard.patternOptimization.allowed"))
+                    .addTooltip(1, StatCollector.translateToLocal("GTN.Wildcard.patternOptimization.disabled"))
                     .setPos(98, 9)
                     .setSize(16, 16))
             .widget(new ButtonWidget().setOnClick((clickData, widget) -> {
@@ -364,11 +367,13 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     @Override
     public String[] getDescription() {
-        return new String[] { "One encoded pattern expands for every compatible GregTech material.",
-            "Supports AE item and fluid processing patterns through AE2 Fluid Crafting.",
-            "Programmed Circuit and nine shared slots are available in the dedicated GUI.",
-            "Blacklist supports material-wide input mode and exact output mode.",
-            "Wildcard token stack size becomes the requested item count or fluid amount in mB.",
-            "Requires an AE channel.", "Author: §aCrazer", "Added by: " + Constants.MOD_NAME };
+        return new String[] { GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.00"),
+            GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.01"),
+            GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.02"),
+            GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.03"),
+            GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.04"),
+            GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.tooltip.05"),
+            GTN_Utils.tr("GTN.Wildcard.tooltip.author", "§aCrazer"),
+            GTN_Utils.tr("GTN.Hatch.common.addedBy", Constants.MOD_NAME) };
     }
 }

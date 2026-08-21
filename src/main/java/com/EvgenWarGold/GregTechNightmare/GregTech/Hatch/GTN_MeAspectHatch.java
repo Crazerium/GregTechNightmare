@@ -16,6 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Textures.GTN_BlockIcons;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
 import appeng.api.config.Actionable;
 import appeng.api.networking.GridFlags;
@@ -47,6 +48,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumicenergistics.common.storage.AEEssentiaStack;
 
+@IMetaTileEntity.SkipGenerateDescription
 public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IActionHost, IGridProxyable {
 
     private int texturePage = 0;
@@ -65,7 +67,7 @@ public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IAc
     private int tickCounter = 0;
 
     public GTN_MeAspectHatch(int aID, String aName) {
-        super(aID, aName, aName, 3, 0, "");
+        super(aID, aName, GTN_Utils.tr("GTN.Hatch.MeAspectHatch.name"), 3, 0, "");
         this.machineSource = new MachineSource(this);
     }
 
@@ -116,8 +118,9 @@ public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IAc
 
     @Override
     public String[] getDescription() {
-        return new String[] { "§7Extracts essentia directly from ME Network", "§7Connect ME cable to: §afront face",
-            "Added by: " + Constants.MOD_NAME };
+        return new String[] { GTN_Utils.tr("GTN.Hatch.MeAspectHatch.tooltip.00"),
+            GTN_Utils.tr("GTN.Hatch.MeAspectHatch.tooltip.01"),
+            GTN_Utils.tr("GTN.Hatch.common.addedBy", Constants.MOD_NAME) };
     }
 
     @Override

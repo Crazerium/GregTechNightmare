@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
@@ -23,8 +22,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.Mixins.Late.MultiblockTooltipBuilderAccessor;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
+import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import cpw.mods.fml.relauncher.Side;
@@ -82,13 +81,6 @@ public class GTN_LargeBioLab extends GTN_MultiBlockBase<GTN_LargeBioLab> {
 
     @Override
     public void createGtnTooltip(GTN_MultiBlockTooltipBuilder builder) {
-        MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) builder;
-        accessor.getILines()
-            .remove(EnumChatFormatting.GRAY + "Author: " + getAuthor().name);
-
-        builder.addInfo("Glass tier must be at least the recipe tier");
-        builder.addInfo("Each glass tier above recipe gives 10% fluid discount (max 80%)");
-        builder.addAuthor(getAuthor());
         builder.addInputBus()
             .addOutputBus()
             .addInputHatch()
@@ -103,9 +95,11 @@ public class GTN_LargeBioLab extends GTN_MultiBlockBase<GTN_LargeBioLab> {
 
     public static List<String> getRecipeInfo(RecipeDisplayInfo recipeInfo) {
         return List.of(
-            "Minimum glass tier: " + GTValues.VN[recipeInfo.recipe.mSpecialValue],
-            "Each glass tier above recipe:",
-            "10% fluid discount (max 80%)");
+            GTN_Utils.tr(
+                "multiblock.LargeBioLab.recipe_info.minimum_glass_tier",
+                GTValues.VN[recipeInfo.recipe.mSpecialValue]),
+            GTN_Utils.tr("multiblock.LargeBioLab.recipe_info.glass_tier_bonus"),
+            GTN_Utils.tr("multiblock.LargeBioLab.recipe_info.fluid_discount"));
     }
 
     @Override

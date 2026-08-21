@@ -448,6 +448,31 @@ Author_Structure=Автор структуры: §6%s
 
 #Hatch
 GTN.gui.text.sensor=Порог обнаружения
+GTN.Hatch.common.addedBy=Добавлено: %s
+GTN.Hatch.SensorHatch.name=Сенсорный люк
+GTN.Hatch.SensorHatch.tooltip.00=Считывает информацию с мультиблока.
+GTN.Hatch.SensorHatch.tooltip.01=Нажмите ПКМ, чтобы открыть GUI и изменить настройки.
+GTN.Hatch.ManaHatch.name=Люк маны
+GTN.Hatch.ManaHatch.tooltip.00=Хранит ману из Botania
+GTN.Hatch.ManaHatch.tooltip.01=§7Вместимость:§c 1§7 бассейн маны
+GTN.Hatch.ManaHatch.tooltip.02=§7Принимает ману от: §aраспространителей маны§7
+GTN.Hatch.ManaHatch.tooltip.03=§7Используйте §aПосох леса§7, чтобы посмотреть количество маны
+GTN.Hatch.AspectHatch.name=Люк аспектов
+GTN.Hatch.AspectHatch.tooltip.00=Хранит эссенцию из Thaumcraft
+GTN.Hatch.AspectHatch.tooltip.01=§7Вместимость: §a256 §7единиц любого аспекта
+GTN.Hatch.AspectHatch.tooltip.02=§7Принимает эссенцию от: §aтруб для эссенцийб§7
+GTN.Hatch.MeAspectHatch.name=ME-люк аспектов
+GTN.Hatch.MeAspectHatch.tooltip.00=§7Извлекает эссенцию напрямую из ME-сети
+GTN.Hatch.MeAspectHatch.tooltip.01=§7Подключите ME-кабель к: §aпередней стороне
+GTN.Hatch.WildcardPatternBuffer.name=ME-буфер шаблонов с подстановкой
+GTN.Hatch.WildcardPatternBuffer.tooltip.00=Один закодированный шаблон разворачивается для каждого совместимого материала GregTech.
+GTN.Hatch.WildcardPatternBuffer.tooltip.01=Поддерживает предметные и жидкостные шаблоны обработки AE через AE2 Fluid Crafting.
+GTN.Hatch.WildcardPatternBuffer.tooltip.02=Программируемая схема и девять общих слотов доступны в отдельном GUI.
+GTN.Hatch.WildcardPatternBuffer.tooltip.03=Чёрный список поддерживает режим входного материала и режим точного выхода.
+GTN.Hatch.WildcardPatternBuffer.tooltip.04=Размер стака токена задаёт требуемое число предметов или объём жидкости в mB.
+GTN.Hatch.WildcardPatternBuffer.tooltip.05=Требует канал AE.
+GTN.Wildcard.patternOptimization.allowed=Оптимизация шаблонов:\n§7Разрешена
+GTN.Wildcard.patternOptimization.disabled=Оптимизация шаблонов:\n§7Отключена
 
 #Others
 GTN.TooltipBuilder.basic_info=Основная информация:
@@ -457,6 +482,7 @@ GTN.TooltipBuilder.DynamoOrBufferedHatch=Энерговывод | Буфериз
 GTN.TooltipBuilder.ManaHatch=Люк маны
 GTN.TooltipBuilder.AspectHatch=Люк аспектов
 GTN.TooltipBuilder.MeAspectHatch=ME-люк аспектов
+GTN.TooltipBuilder.HatchRequirement= - минимум %s шт. на любом блоке, отмеченном точкой подсказки %s
 GTN.StructureLib.text.missing_block=§cОтсутствует блок: %s
 GTN.StructureLib.text.invalid_placement=§cНеверное расположение блока
 GTN.Tooltip.mana_hud.tier.0=§cТир I
@@ -569,7 +595,18 @@ GTN.Wildcard.tooltip.dragFromNei=Перетащите из NEI во входно
 #Large BioLab
 multiblock.LargeBioLab=Большая биолаборатория
 multiblock.LargeBioLab.machine_type=Биоинженерная станция
-multiblock.LargeBioLab.tooltip.00=Гарантированный выход вместо результатов Bio Lab с шансом
-multiblock.LargeBioLab.tooltip.01=Расходует больше ресурсов, чем обычная Bio Lab
+multiblock.LargeBioLab.tooltip.00=Гарантированный выход вместо вероятностных результатов обычной биолаборатории
+multiblock.LargeBioLab.tooltip.01=Расходует больше ресурсов, чем обычная биолаборатория
 multiblock.LargeBioLab.tooltip.02=Требует энергетический люк не ниже §5UV§7
+multiblock.LargeBioLab.tooltip.03=Тир стекла должен быть не ниже тира рецепта
+multiblock.LargeBioLab.tooltip.04=Каждый тир стекла выше тира рецепта снижает расход жидкостей на 10% (макс. 80%)
+multiblock.LargeBioLab.recipe_info.minimum_glass_tier=Минимальный тир стекла: %s
+multiblock.LargeBioLab.recipe_info.glass_tier_bonus=Каждый тир стекла выше тира рецепта:
+multiblock.LargeBioLab.recipe_info.fluid_discount=снижает расход жидкостей на 10% (макс. 80%)
 
+# GT machine names - standard localization keys
+gt.blockmachines.sensor_hatch.name=Сенсорный люк
+gt.blockmachines.mana_hatch.name=Люк маны
+gt.blockmachines.aspect_hatch.name=Люк аспектов
+gt.blockmachines.me_aspect_hatch.name=ME-люк аспектов
+gt.blockmachines.me_wildcard_pattern_buffer.name=ME-буфер шаблонов с подстановкой
