@@ -60,9 +60,15 @@ public class GTN_LargeBioLab extends GTN_MultiBlockBase<GTN_LargeBioLab> {
         return List.of(
             new StructureVariant<>(
                 "LargeBioLab",
-                new String[][] { { "AAAAA", "AAAAA", "AAFAA", "AAAAA", "AAAAA" },
-                    { "AAAAA", "G   G", "G C G", "G   G", "AAAAA" }, { "AAAAA", "G C G", "F U F", "G C G", "AAAAA" },
-                    { "AAAAA", "G   G", "G C G", "G   G", "AAAAA" }, { "AA~AA", "AAAAA", "AAFAA", "AAAAA", "AAAAA" } },
+                // spotless:off
+                new String[][] {
+                    {"AAAAA", "AAAAA", "AAFAA", "AAAAA", "AAAAA"},
+                    {"AAAAA", "G   G", "G C G", "G   G", "AAAAA"},
+                    {"AAAAA", "G C G", "F U F", "G C G", "AAAAA"},
+                    {"AAAAA", "G   G", "G C G", "G   G", "AAAAA"},
+                    {"AA~AA", "AAAAA", "AAFAA", "AAAAA", "AAAAA"}
+                },
+                // spotless:on
                 new MultiblockOffsets(2, 4, 0),
                 new MultiblockArea(5, 5, 5),
                 1,
