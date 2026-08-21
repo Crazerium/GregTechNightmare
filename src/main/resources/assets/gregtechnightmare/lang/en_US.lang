@@ -27,6 +27,7 @@ gtn.recipe.GasCollectorRecipes=Gas Collector
 gtn.recipe.VacuumNukeRecipes=Vacuum Nuke
 gtn.recipe.ImprovedAlgaeFarmRecipes=Improved Algae Farm
 gtn.recipe.ImprovedSliceNSpliceRecipes= Improved Slice'N'Splice
+gtn.recipe.LargeBioLabRecipes=Large Bio Lab
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -564,3 +565,10 @@ GTN.Wildcard.blacklist.page.next=Next blacklist page
 GTN.Wildcard.tooltip.author=Author: %s
 GTN.Wildcard.tooltip.addedBy=Added by: %s
 GTN.Wildcard.tooltip.dragFromNei=Drag from NEI into an input or output slot of a Pattern Terminal.
+
+#Large BioLab
+multiblock.LargeBioLab=Large Bio Lab
+multiblock.LargeBioLab.machine_type=Bioengineering Station
+multiblock.LargeBioLab.tooltip.00=Guaranteed outputs instead of chance-based Bio Lab results
+multiblock.LargeBioLab.tooltip.01=Uses more resources than the original Bio Lab
+multiblock.LargeBioLab.tooltip.02=Requires at least a §5UV§7 energy hatch

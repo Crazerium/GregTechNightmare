@@ -12,6 +12,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.GregTech.Gui.GTN_WildcardPatternBufferGui;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardBlacklistMode;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Wildcard.WildcardPatternBlacklist;
@@ -41,7 +43,6 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.render.TextureFactory;
 import gregtech.common.tileentities.machines.MTEHatchCraftingInputME;
-import org.jetbrains.annotations.NotNull;
 
 public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
@@ -300,8 +301,7 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
                     .build()
                     .setPos(8, 36))
             .widget(
-                new ButtonWidget()
-                    .setOnClick((clickData, _) -> { if (clickData.mouseButton == 0) refundAll(false); })
+                new ButtonWidget().setOnClick((clickData, _) -> { if (clickData.mouseButton == 0) refundAll(false); })
                     .setPlayClickSound(true)
                     .setBackground(GTUITextures.BUTTON_STANDARD, GTUITextures.OVERLAY_BUTTON_EXPORT)
                     .addTooltip(StatCollector.translateToLocal("GT5U.gui.tooltip.hatch.crafting_input_me.export"))
