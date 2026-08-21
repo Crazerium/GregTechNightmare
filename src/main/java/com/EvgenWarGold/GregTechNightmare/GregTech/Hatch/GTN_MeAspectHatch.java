@@ -67,7 +67,7 @@ public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IAc
     private int tickCounter = 0;
 
     public GTN_MeAspectHatch(int aID, String aName) {
-        super(aID, aName, GTN_Utils.tr("GTN.Hatch.MeAspectHatch.name"), 3, 0, "");
+        super(aID, aName, aName, 3, 0, "");
         this.machineSource = new MachineSource(this);
     }
 
@@ -526,9 +526,9 @@ public class GTN_MeAspectHatch extends MTEHatch implements IAspectContainer, IAc
         NBTTagCompound tag = accessor.getNBTData();
 
         if (tag.getBoolean("isOnline")) {
-            currenttip.add("ME Network: §aOnline");
+            currenttip.add(GTN_Utils.tr("GTN.Hatch.MeAspectHatch.waila.online"));
         } else {
-            currenttip.add("ME Network: §cOffline");
+            currenttip.add(GTN_Utils.tr("GTN.Hatch.MeAspectHatch.waila.offline"));
         }
     }
 }

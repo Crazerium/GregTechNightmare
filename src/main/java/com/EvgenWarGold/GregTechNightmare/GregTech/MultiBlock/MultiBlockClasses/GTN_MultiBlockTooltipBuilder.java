@@ -87,7 +87,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    public static String getLocalizedAuthor(Authors author) {
+    private static String getLocalizedAuthor(Authors author) {
         return switch (author) {
             case EVGEN_WAR_GOLD -> tr("Author_EvgenWarGold");
             case CRAZER -> tr("Author_Crazer");
@@ -109,14 +109,14 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
-    private GTN_MultiBlockTooltipBuilder addHatch(String key, int count, int dot) {
+    private GTN_MultiBlockTooltipBuilder addHatch(String hatchName, int count, int dot) {
         MultiblockTooltipBuilderAccessor accessor = (MultiblockTooltipBuilderAccessor) this;
         List<String> sLines = accessor.getSLines();
         String formattedCount = EnumChatFormatting.RED + String.valueOf(count) + EnumChatFormatting.YELLOW;
         String formattedDot = EnumChatFormatting.RED + String.valueOf(dot) + EnumChatFormatting.YELLOW;
         sLines.add(
             EnumChatFormatting.AQUA + TAB
-                + key
+                + hatchName
                 + EnumChatFormatting.YELLOW
                 + tr("GTN.TooltipBuilder.HatchRequirement", formattedCount, formattedDot));
         return this;

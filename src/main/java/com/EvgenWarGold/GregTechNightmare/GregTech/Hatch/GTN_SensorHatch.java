@@ -37,7 +37,7 @@ public class GTN_SensorHatch extends MTEHatch {
     private static final IIconContainer textureFont_Glow = Textures.BlockIcons.OVERLAY_HATCH_HEAT_SENSOR_GLOW;
 
     public GTN_SensorHatch(int aID, String aName) {
-        super(aID, aName, GTN_Utils.tr("GTN.Hatch.SensorHatch.name"), 3, 0, "");
+        super(aID, aName, aName, 3, 0, "");
     }
 
     public GTN_SensorHatch(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {

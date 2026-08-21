@@ -66,7 +66,7 @@ public class GTN_AspectHatch extends MTEHatch implements IAspectContainer, IEsse
     private static ITexture cachedArcaneStoneBlockTexture = null;
 
     public GTN_AspectHatch(int aID, String aName) {
-        super(aID, aName, GTN_Utils.tr("GTN.Hatch.AspectHatch.name"), 3, 0, "");
+        super(aID, aName, aName, 3, 0, "");
     }
 
     public GTN_AspectHatch(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {

@@ -84,7 +84,7 @@ public class GTN_WildcardPatternBuffer extends MTEHatchCraftingInputME {
 
     public GTN_WildcardPatternBuffer(int aID, String aName) {
 
-        super(aID, aName, GTN_Utils.tr("GTN.Hatch.WildcardPatternBuffer.name"), true);
+        super(aID, aName, aName, true);
     }
 
     public GTN_WildcardPatternBuffer(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {

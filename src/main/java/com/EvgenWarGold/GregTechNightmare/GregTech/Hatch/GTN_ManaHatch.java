@@ -48,7 +48,7 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
     private static ITexture cachedLivingRockTexture = null;
 
     public GTN_ManaHatch(int aID, String aName) {
-        super(aID, aName, GTN_Utils.tr("GTN.Hatch.ManaHatch.name"), 3, 0, "");
+        super(aID, aName, aName, 3, 0, "");
     }
 
     public GTN_ManaHatch(String aName, int aTier, String[] aDescription, ITexture[][][] aTextures) {
