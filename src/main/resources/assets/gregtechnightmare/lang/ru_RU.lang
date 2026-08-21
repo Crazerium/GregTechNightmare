@@ -607,3 +607,13 @@ gt.blockmachines.mana_hatch.name=Люк маны
 gt.blockmachines.aspect_hatch.name=Люк аспектов
 gt.blockmachines.me_aspect_hatch.name=ME-люк аспектов
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME-буфер шаблонов с подстановкой
+
+# Welcome message
+GTN.Welcome.header=GregTechNightmare от %s
+GTN.Welcome.description.0=Добавляет новые мультиблоки и изменения для GTNH.
+GTN.Welcome.description.1=Что-то становится проще, что-то — сложнее.
+GTN.Welcome.description.2=Всё ради большего веселья и хаоса!
+GTN.Welcome.greeting=Наслаждайся кошмаром, %s. Играй со стилем!
+GTN.Welcome.github.label=GitHub:
+GTN.Welcome.github.open=Нажмите, чтобы открыть
+GTN.Welcome.github.hover=Нажмите, чтобы открыть репозиторий GitHub

@@ -607,3 +607,13 @@ gt.blockmachines.mana_hatch.name=Mana Hatch
 gt.blockmachines.aspect_hatch.name=Aspect Hatch
 gt.blockmachines.me_aspect_hatch.name=ME Aspect Hatch
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME Wildcard Pattern Buffer
+
+# Welcome message
+GTN.Welcome.header=GregTechNightmare by %s
+GTN.Welcome.description.0=Adds new multiblocks and tweaks to GTNH.
+GTN.Welcome.description.1=Makes some things easier, some things harder.
+GTN.Welcome.description.2=All for more fun and chaos!
+GTN.Welcome.greeting=Enjoy the nightmare, %s. Play with style!
+GTN.Welcome.github.label=GitHub:
+GTN.Welcome.github.open=Click to open
+GTN.Welcome.github.hover=Click to open GitHub repository
