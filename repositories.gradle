@@ -16,16 +16,4 @@ repositories {
             includeGroup("com.github.slprime")
         }
     }
-
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "LocalThaumcraft"
-                url = rootDir.toPath().resolve(".local-maven").toUri()
-            }
-        }
-        filter {
-            includeGroup("thaumcraft")
-        }
-    }
 }
