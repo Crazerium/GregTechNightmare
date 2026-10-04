@@ -1,7 +1,13 @@
 
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository
+
 plugins {
     id("com.gtnewhorizons.gtnhconvention")
 }
+
+repositories.matching { repo ->
+    repo is MavenArtifactRepository && repo.url.host.equals("gregtech.overminddl1.com", ignoreCase = true)
+}.toList().forEach { repositories.remove(it) }
 
 listOf("runClient", "runClient17", "runClient21", "runClient25").forEach { taskName ->
     tasks.named<JavaExec>(taskName) {
