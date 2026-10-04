@@ -1,11 +1,31 @@
 // Add any additional repositories for your dependencies here.
 
 repositories {
-    maven {
-        url = "https://slprime.github.io/ChromaticTooltips/"
+    exclusiveContent {
+        forRepositories(
+            maven {
+                name = "ChromaticTooltips"
+                url = "https://slprime.github.io/ChromaticTooltips/"
+            },
+            maven {
+                name = "ChromaticTooltipsCompat"
+                url = "https://slprime.github.io/ChromaticTooltipsCompat/"
+            }
+        )
+        filter {
+            includeGroup("com.github.slprime")
+        }
     }
 
-    maven {
-        url = "https://slprime.github.io/ChromaticTooltipsCompat/"
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "LocalThaumcraft"
+                url = rootDir.toPath().resolve(".local-maven").toUri()
+            }
+        }
+        filter {
+            includeGroup("thaumcraft")
+        }
     }
 }
