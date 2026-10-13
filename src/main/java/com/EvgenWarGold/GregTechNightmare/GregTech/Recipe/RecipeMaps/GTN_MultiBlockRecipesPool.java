@@ -53,6 +53,7 @@ import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTRecipeConstants;
+import gregtech.api.util.GTUtility;
 import gregtech.api.util.recipe.Scanning;
 import gtPlusPlus.core.material.MaterialMisc;
 import gtPlusPlus.core.material.MaterialsAlloy;
@@ -410,10 +411,10 @@ public class GTN_MultiBlockRecipesPool {
 
         // Zero Power WireMill
         GTN_RecipeBuilder.builder()
-            .metadata(RESEARCH_ITEM, GregtechItemList.Industrial_WireFactory.get(1))
+            .metadata(RESEARCH_ITEM, ItemList.IndustrialWireFactory.get(1))
             .metadata(SCANNING, new Scanning(30 * MINUTES, 30))
             .itemInputs(
-                GregtechItemList.Industrial_WireFactory.get(64),
+                ItemList.IndustrialWireFactory.get(64),
                 ItemList.Field_Generator_ZPM.get(16),
                 ItemList.Conveyor_Module_ZPM.get(32),
                 getSuperDense(Materials.NaquadahAlloy, 64),
@@ -456,6 +457,48 @@ public class GTN_MultiBlockRecipesPool {
             .itemOutputs(GTN_ItemList.LargeBioLab.get(1))
             .eut(RECIPE_UV)
             .duration(60 * 20)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Industrial Crucible
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                ThaumcraftBlocks.Crucible.getItemStack(1),
+                ItemList.Hull_HV.get(1),
+                ItemList.Electric_Pump_HV.get(4),
+                ItemList.Electric_Motor_HV.get(4),
+                getCircuits(Materials.HV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialCrucible.get(1))
+            .eut(RECIPE_HV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Automated Infusion Matrix
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(32),
+                ThaumcraftBlocks.InfusionMatrix.getItemStack(1),
+                ItemList.Hull_IV.get(1),
+                ItemList.Field_Generator_IV.get(2),
+                ItemList.Electric_Piston_IV.get(4),
+                getCircuits(Materials.IV, 4)
+            )
+            .itemOutputs(GTN_ItemList.AutomatedInfusionMatrix.get(1))
+            .eut(RECIPE_IV)
+            .duration(20 * 120)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Runic Matrix Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(1),
+                getPlate(Materials.Thaumium, 6),
+                GTUtility.getIntegratedCircuit(1)
+            )
+            .itemOutputs(GTN_ItemList.RunicMatrixCasing.get(1))
+            .eut(RECIPE_EV)
+            .duration(20 * 10)
             .addTo(RecipeMaps.assemblerRecipes);
         //spotless:on
     }

@@ -1,6 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UV.GTN_LargeBioLab;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_EssentiaRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
 
 import gregtech.api.gui.modularui.GTUITextures;
@@ -21,6 +22,23 @@ public class GTN_Recipe {
         .maxIO(1, 1, 0, 1)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .build();
+    public static final RecipeMap<?> IndustrialCrucibleRecipes = RecipeMapBuilder
+        .of("gtn.recipe.IndustrialCrucibleRecipes")
+        .maxIO(17, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .frontend((ui, nei) -> new GTN_EssentiaRecipeFrontend(ui, nei, false))
+        .build();
+
+    public static final RecipeMap<?> AutomatedInfusionRecipes = RecipeMapBuilder
+        .of("gtn.recipe.AutomatedInfusionRecipes")
+        .maxIO(GTN_EssentiaRecipeFrontend.INFUSION_ITEM_SLOTS + GTN_EssentiaRecipeFrontend.MAX_ASPECT_SLOTS, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(120, 39)
+        .frontend((ui, nei) -> new GTN_EssentiaRecipeFrontend(ui, nei, true))
+        .build();
+
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder
         .of("gtn.recipe.LargeArcaneAssemblerRecipes")
         .maxIO(9, 1, 0, 0)

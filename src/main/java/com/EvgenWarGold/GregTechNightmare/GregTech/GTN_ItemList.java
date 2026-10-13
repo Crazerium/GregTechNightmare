@@ -49,6 +49,7 @@ public enum GTN_ItemList {
     CokeOvenCasing,
     ArborealCasing,
     SoulCasing,
+    RunicMatrixCasing,
     // endregion
     // region MultiBlock
     TestMultiBlock,
@@ -86,6 +87,8 @@ public enum GTN_ItemList {
     OrderModuleMagicGenerator,
     ItemCrate,
     LargeBioLab,
+    IndustrialCrucible,
+    AutomatedInfusionMatrix,
     // endregion
     // region Hatch
     SensorHatch,
@@ -93,6 +96,7 @@ public enum GTN_ItemList {
     AspectHatch,
     MeAspectHatch,
     WildcardPatternBuffer,
+    ThaumicCraftingInputHatch,
     // endregion
 
     ;

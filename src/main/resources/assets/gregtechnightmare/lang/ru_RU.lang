@@ -11,6 +11,7 @@ tile.GTN_MetaBlockCasing01.0.name=§cТестовый корпус
 tile.GTN_MetaBlockCasing01.1.name=Корпус коксовой печи
 tile.GTN_MetaBlockCasing01.2.name=Древесный корпус
 tile.GTN_MetaBlockCasing01.3.name=Корпус души
+tile.GTN_MatrixCasing.0.name=Рунический корпус матрицы
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aМакс. параллелей: §6%s
@@ -28,6 +29,8 @@ gtn.recipe.VacuumNukeRecipes=Вакуумная ядерная установк�
 gtn.recipe.ImprovedAlgaeFarmRecipes=Улучшенная ферма водорослей
 gtn.recipe.ImprovedSliceNSpliceRecipes= Улучшенный отрубатель и сращеватель
 gtn.recipe.LargeBioLabRecipes=Большая биолаборатория
+gtn.recipe.IndustrialCrucibleRecipes=Промышленный тигель
+gtn.recipe.AutomatedInfusionRecipes=Автоматическая руническая матрица
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=Любые брёвна
@@ -38,21 +41,21 @@ gtn.recipe.utils.generating_eu=Генерация: %s EU/т
 gtn.recipe.utils.temperature_increase=Повышение температуры: %s
 
 #SimpleCheckRecipeResult
-GT5U.gui.text.node_enough=Узел пуст
-GT5U.gui.text.sapling_enough=Саженцы закончились
-GT5U.gui.text.research_not_completed=§cНедостаточно исследований
-GT5U.gui.text.not_enough_aspects=§cНедостаточно аспектов
-GT5U.gui.text.meteor_mining=§dСейчас идёт добыча!
-GT5U.gui.text.meteor_waiting=§dОжидание метеорита...
-GT5U.gui.text.meteor_reset=§dСброс завершён! 
-GT5U.gui.text.missing_schematic=§dОтсутствует схема.
-GT5U.gui.text.not_enough_blood=§cНедостаточно крови.
-GT5U.gui.text.no_mode_selected=Режим не выбран
-GT5U.gui.text.not_enough_lp=§cНедостаточно LP
-GT5U.gui.text.not_enough_xp=§cНедостаточно жидкого опыта 
-GT5U.gui.text.not_enough_praecantatio=§cНедостаточно Praecantatio
-GT5U.gui.text.invalid_casing=§cНеверный корпус
-GT5U.gui.text.not_enough_water=Недостаточно §bводы
+GT5U.gui.text.recipe_result.node_enough=Узел пуст
+GT5U.gui.text.recipe_result.sapling_enough=Саженцы закончились
+GT5U.gui.text.recipe_result.research_not_completed=§cНедостаточно исследований
+GT5U.gui.text.recipe_result.not_enough_aspects=§cНедостаточно аспектов
+GT5U.gui.text.recipe_result.meteor_mining=§dСейчас идёт добыча!
+GT5U.gui.text.recipe_result.meteor_waiting=§dОжидание метеорита...
+GT5U.gui.text.recipe_result.meteor_reset=§dСброс завершён! 
+GT5U.gui.text.recipe_result.missing_schematic=§dОтсутствует схема.
+GT5U.gui.text.recipe_result.not_enough_blood=§cНедостаточно крови.
+GT5U.gui.text.recipe_result.no_mode_selected=Режим не выбран
+GT5U.gui.text.recipe_result.not_enough_lp=§cНедостаточно LP
+GT5U.gui.text.recipe_result.not_enough_xp=§cНедостаточно жидкого опыта 
+GT5U.gui.text.recipe_result.not_enough_praecantatio=§cНедостаточно Praecantatio
+GT5U.gui.text.recipe_result.invalid_casing=§cНеверный корпус
+GT5U.gui.text.recipe_result.not_enough_water=Недостаточно §bводы
 
 #TestMultiBlock
 multiblock.Test=§cТестовый мультиблок
@@ -470,6 +473,10 @@ GTN.Hatch.WildcardPatternBuffer.tooltip.04=Размер стака токена 
 GTN.Hatch.WildcardPatternBuffer.tooltip.05=Требует канал AE.
 GTN.Wildcard.patternOptimization.allowed=Оптимизация шаблонов:\n§7Разрешена
 GTN.Wildcard.patternOptimization.disabled=Оптимизация шаблонов:\n§7Отключена
+GTN.Hatch.ThaumicCraftingInput.tooltip.00=Эссенция из шаблона закидывается AE2 в буфер хатча
+GTN.Hatch.ThaumicCraftingInput.tooltip.01=Недостающая эссенция берётся из подключённой ME-сети
+GTN.Hatch.ThaumicCraftingInput.waila.essentia=Эссенция в буфере:
+GTN.Hatch.ThaumicCraftingInput.waila.empty=Буфер эссенции пуст
 
 #Others
 GTN.TooltipBuilder.basic_info=Основная информация:
@@ -600,6 +607,23 @@ multiblock.LargeBioLab.tooltip.04=Каждый тир стекла выше ти
 multiblock.LargeBioLab.recipe_info.minimum_glass_tier=Минимальный тир стекла: %s
 multiblock.LargeBioLab.recipe_info.glass_tier_bonus=Каждый тир стекла выше тира рецепта:
 multiblock.LargeBioLab.recipe_info.fluid_discount=снижает расход жидкостей на 10% (макс. 80%)
+
+#IndustrialCrucible
+multiblock.IndustrialCrucible=Промышленный тигель
+multiblock.IndustrialCrucible.machine_type=Алхимия
+multiblock.IndustrialCrucible.tooltip.00=Выполняет рецепты тигля с проверкой исследований владельца.
+multiblock.IndustrialCrucible.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME Thaumic Crafting Input Hatch или из его ME-сети
+multiblock.IndustrialCrucible.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше HV, ограничены доступной эссенцией
+multiblock.IndustrialCrucible.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#AutomatedInfusionMatrix
+multiblock.AutomatedInfusionMatrix=Автоматическая инфузионная матрица
+multiblock.AutomatedInfusionMatrix.machine_type=Инфузия
+multiblock.AutomatedInfusionMatrix.tooltip.00=Потребляет ингредиенты инфузии и эссенцию с проверкой исследований владельца.
+multiblock.AutomatedInfusionMatrix.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME Thaumic Crafting Input Hatch или из его ME-сети
+multiblock.AutomatedInfusionMatrix.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше IV, ограничены доступной эссенцией
+multiblock.AutomatedInfusionMatrix.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+multiblock.AutomatedInfusionMatrix.tooltip.04=§5После сборки рунические корпуса превращаются в рунную матрицу
 
 # GT machine names - standard localization keys
 gt.blockmachines.sensor_hatch.name=Сенсорный люк

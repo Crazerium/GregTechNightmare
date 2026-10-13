@@ -16,7 +16,6 @@ import net.minecraft.util.IIcon;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagAdmin;
 import com.EvgenWarGold.GregTechNightmare.GregTechNightmare;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

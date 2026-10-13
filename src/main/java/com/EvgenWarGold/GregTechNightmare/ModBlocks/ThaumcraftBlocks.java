@@ -14,6 +14,8 @@ public enum ThaumcraftBlocks {
     AlchemicalConstruct("blockMetalDevice", 9),
     AmberBlock("blockCosmeticOpaque"),
     ArcaneStoneBlock("blockCosmeticSolid", 6),
+    Crucible("blockMetalDevice", 0),
+    InfusionMatrix("blockStoneDevice", 2),
     ;
     //spotless:on
 
