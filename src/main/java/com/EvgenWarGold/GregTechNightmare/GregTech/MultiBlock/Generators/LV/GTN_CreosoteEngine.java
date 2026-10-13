@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -36,7 +35,6 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
     private static long DYNAMO_AMP;
     private static final int CREOSOTE_USAGE_PER_SEC = 25;
     private final static FluidStack CREOSOTE;
-    private final CasingData glass = createCasingData("glass");
 
     static {
         CREOSOTE = Materials.Creosote.getFluid(CREOSOTE_USAGE_PER_SEC);
@@ -90,7 +88,7 @@ public class GTN_CreosoteEngine extends GTN_MultiBlockBase<GTN_CreosoteEngine> {
             builder -> builder.addMainCasing('B', b -> b.hatches(InputHatch, Dynamo, Maintenance))
                 .addFrame('D', Materials.Iron)
                 .addFrame('E', Materials.Steel)
-                .addAllGlasses('F', glass)
+                .addAllGlasses('F')
                 .addCasing('C', GTN_Casings.SteelGearBoxCasing)
                 .addCasing('A', GTN_Casings.ULVMachineCasing));
     }
