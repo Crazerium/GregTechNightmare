@@ -8,6 +8,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_BL
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_META_ITEM_01_RecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_MTERecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_MultiBlockRecipesPool;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_ThaumcraftRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GasCollectorRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.ImprovedAlgaeFarmRecipesPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.ImprovedSliceNSpliceRecipesPool;
@@ -24,6 +25,7 @@ public class RecipeLoader {
         AdvancedBBFRecipesPool.init();
         AdvancedCokeOvenRecipesPool.init();
         LargeArcaneAssemblerRecipesPool.init();
+        GTN_ThaumcraftRecipesPool.init();
         GasCollectorRecipesPool.init();
         VacuumNukeRecipesPool.init();
         ImprovedAlgaeFarmRecipesPool.init();

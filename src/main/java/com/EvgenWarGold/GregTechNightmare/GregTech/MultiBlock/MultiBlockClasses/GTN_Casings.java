@@ -53,6 +53,9 @@ public enum GTN_Casings implements ICasing {
     SoulCasing
         (() -> GTN_Blocks.META_BLOCK_CASING_01, 3, gt(117, 0, 3)),
 
+    RunicMatrixCasing
+        (() -> GTN_Blocks.MATRIX_CASING, 0, gt(117, 1, 0)),
+
     TintedGlassWhite
         (() -> GregTechAPI.sBlockTintedGlass, 0, gt(16, 0, 0)),
 

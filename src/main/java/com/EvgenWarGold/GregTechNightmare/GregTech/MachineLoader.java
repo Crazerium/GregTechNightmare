@@ -4,6 +4,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ThaumicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AirModuleMagicGenerator;
@@ -19,7 +20,9 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ImprovedSliceNSplice;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_HighPowerComponentAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_ImprovedAlgaeFarm;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_IndustrialCrucible;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_AutomatedInfusionMatrix;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_BloodEnchanter;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
@@ -85,6 +88,9 @@ public final class MachineLoader {
         GTN_ItemList.WildcardPatternBuffer.set(new GTN_WildcardPatternBuffer(21_037, "ME Wildcard Pattern Buffer"));
         GTN_ItemList.ItemCrate.set(new GTN_ItemCrate(21_038, "ItemCrate"));
         GTN_ItemList.LargeBioLab.set(new GTN_LargeBioLab(21_039, "LargeBioLab"));
+        GTN_ItemList.IndustrialCrucible.set(new GTN_IndustrialCrucible(21_040, "IndustrialCrucible"));
+        GTN_ItemList.AutomatedInfusionMatrix.set(new GTN_AutomatedInfusionMatrix(21_041, "AutomatedInfusionMatrix"));
+        GTN_ItemList.ThaumicCraftingInputHatch.set(new GTN_ThaumicCraftingInputHatch(21_042, "ME Thaumic Crafting Input Hatch"));
         // spotless:on
     }
 }

@@ -12,6 +12,7 @@ public enum AppliedEnergisticsItems {
     MEController("tile.BlockController", "ME Controller"),
     AccelerationCard("item.ItemMultiMaterial", "Acceleration Card", 30),
     CapacityCard("item.ItemMultiMaterial", "Capacity Card", 27),
+    MEInterface("tile.BlockInterface", "ME Interface"),
     ;
     //spotless:on
 

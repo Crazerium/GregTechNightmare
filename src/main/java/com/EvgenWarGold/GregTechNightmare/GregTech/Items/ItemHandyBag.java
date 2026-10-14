@@ -22,12 +22,10 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagGuiHandler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagOperations;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
 import com.EvgenWarGold.GregTechNightmare.GregTechNightmare;
-import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
-
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 public class ItemHandyBag extends Item {
 
@@ -113,41 +111,23 @@ public class ItemHandyBag extends Item {
     }
 
     @Override
-    public boolean onItemUse(
-        ItemStack stack,
-        EntityPlayer player,
-        World world,
-        int x,
-        int y,
-        int z,
-        int side,
-        float hitX,
-        float hitY,
-        float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float hitX, float hitY, float hitZ) {
         if (!player.isSneaking()) return false;
         TileEntity tile = world.getTileEntity(x, y, z);
         return tryTileTransfer(stack, player, world, tile, side);
     }
 
-    public static boolean tryTileTransfer(
-        ItemStack stack,
-        EntityPlayer player,
-        World world,
-        TileEntity tile,
+    public static boolean tryTileTransfer(ItemStack stack, EntityPlayer player, World world, TileEntity tile,
         int side) {
         if (tile instanceof IGregTechTileEntity gte && gte.getMetaTileEntity() instanceof GTN_ItemCrate crate) {
             IInventory storage = crate.getHandyBagInventory();
             return storage != null && tryInventoryTransfer(stack, player, world, storage, side);
         }
-        return tile instanceof IInventory
-            && tryInventoryTransfer(stack, player, world, (IInventory) tile, side);
+        return tile instanceof IInventory && tryInventoryTransfer(stack, player, world, (IInventory) tile, side);
     }
 
-    public static boolean tryInventoryTransfer(
-        ItemStack stack,
-        EntityPlayer player,
-        World world,
-        IInventory inventory,
+    public static boolean tryInventoryTransfer(ItemStack stack, EntityPlayer player, World world, IInventory inventory,
         int side) {
         if (stack == null || player == null || world == null || inventory == null) return false;
         boolean dump = isRestockEnabled(stack);
@@ -157,8 +137,7 @@ public class ItemHandyBag extends Item {
 
         HandyBagData data = new HandyBagData(stack, player);
         if (data.getSelectedCardStack() == null || data.getStackLimit() <= 0) return false;
-        boolean moved = dump
-            ? HandyBagOperations.moveBagToInventory(data, inventory, side)
+        boolean moved = dump ? HandyBagOperations.moveBagToInventory(data, inventory, side)
             : HandyBagOperations.moveInventoryToBag(data, inventory, side, pickupMode == PICKUP_MATCHING);
         if (moved) world.playSoundAtEntity(player, "mob.endermen.portal", 0.2F, 1.8F);
         return true;
@@ -215,15 +194,13 @@ public class ItemHandyBag extends Item {
             EnumChatFormatting.GRAY
                 + tr("gtn.handybag.pickup_status", tr("gtn.handybag.pickup_mode." + getPickupMode(stack))));
         list.add(
-            EnumChatFormatting.GRAY
-                + tr(
-                    "gtn.handybag.restock_status",
-                    tr(isRestockEnabled(stack) ? "gtn.handybag.state.on" : "gtn.handybag.state.off")));
+            EnumChatFormatting.GRAY + tr(
+                "gtn.handybag.restock_status",
+                tr(isRestockEnabled(stack) ? "gtn.handybag.state.on" : "gtn.handybag.state.off")));
         list.add(
-            EnumChatFormatting.GRAY
-                + tr(
-                    "gtn.handybag.lock_status",
-                    tr(isLocked(stack) ? "gtn.handybag.state.on" : "gtn.handybag.state.off")));
+            EnumChatFormatting.GRAY + tr(
+                "gtn.handybag.lock_status",
+                tr(isLocked(stack) ? "gtn.handybag.state.on" : "gtn.handybag.state.off")));
         list.add(tr("gtn.handybag.block_transfer_hint"));
         list.add(tr("gtn.handybag.block_transfer_priority"));
         list.add(tr("gtn.handybag.middle_click_hint"));

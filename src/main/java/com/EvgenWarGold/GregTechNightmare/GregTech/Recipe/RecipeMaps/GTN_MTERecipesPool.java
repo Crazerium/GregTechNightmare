@@ -4,6 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
 import static gregtech.api.util.GTRecipeBuilder.MINUTES;
@@ -13,12 +14,14 @@ import static gregtech.api.util.GTRecipeConstants.SCANNING;
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.AppliedEnergisticsItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.recipe.RecipeMaps;
 import gregtech.api.util.GTOreDictUnificator;
 import gregtech.api.util.GTRecipeConstants;
 import gregtech.api.util.recipe.Scanning;
@@ -75,6 +78,20 @@ public class GTN_MTERecipesPool {
             .eut(RECIPE_LuV)
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
+
+        // ME Thaumic Crafting Input Hatch
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Hatch_Input_Bus_ME.get(1),
+                AppliedEnergisticsItems.MEInterface.get(1),
+                ThaumcraftBlocks.AlchemicalConstruct.getItemStack(2),
+                getPlate(Materials.Thaumium, 8),
+                getCircuits(Materials.IV, 2)
+            )
+            .itemOutputs(GTN_ItemList.ThaumicCraftingInputHatch.get(1))
+            .eut(RECIPE_IV)
+            .duration(20 * 30)
+            .addTo(RecipeMaps.assemblerRecipes);
 
         // Item Crate
         addCraftingRecipe(
