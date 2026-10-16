@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UV.GTN_LargeBioLab;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_EssentiaRecipeFrontend;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_ManaRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
 
 import gregtech.api.gui.modularui.GTUITextures;
@@ -37,6 +38,30 @@ public class GTN_Recipe {
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .progressBarPos(120, 39)
         .frontend((ui, nei) -> new GTN_EssentiaRecipeFrontend(ui, nei, true))
+        .build();
+
+    public static final RecipeMap<?> ManaInfusionRecipes = RecipeMapBuilder.of("gtn.recipe.ManaInfusionRecipes")
+        .maxIO(3, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, 8)
+        .frontend(GTN_ManaRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> RuneAltarRecipes = RecipeMapBuilder.of("gtn.recipe.RuneAltarRecipes")
+        .maxIO(13, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, 26)
+        .frontend(GTN_ManaRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> TerraPlateRecipes = RecipeMapBuilder.of("gtn.recipe.TerraPlateRecipes")
+        .maxIO(4, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, 8)
+        .frontend(GTN_ManaRecipeFrontend::new)
         .build();
 
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder

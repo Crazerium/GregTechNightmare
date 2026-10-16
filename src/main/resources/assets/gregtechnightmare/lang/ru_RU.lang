@@ -32,6 +32,9 @@ gtn.recipe.ImprovedSliceNSpliceRecipes= Улучшенный отрубател�
 gtn.recipe.LargeBioLabRecipes=Большая биолаборатория
 gtn.recipe.IndustrialCrucibleRecipes=Промышленный тигель
 gtn.recipe.AutomatedInfusionRecipes=Автоматическая руническая матрица
+gtn.recipe.ManaInfusionRecipes=Промышленный бассейн маны
+gtn.recipe.RuneAltarRecipes=Промышленный рунический алтарь
+gtn.recipe.TerraPlateRecipes=Промышленная плита земной агломерации
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=Любые брёвна
@@ -40,12 +43,14 @@ gtn.recipe.utils.multiblock_tier.2=Корпус: стабильный титан
 gtn.recipe.utils.multiblock_tier.3=Корпус: усиленный вольфрамстальной
 gtn.recipe.utils.generating_eu=Генерация: %s EU/т
 gtn.recipe.utils.temperature_increase=Повышение температуры: %s
+gtn.recipe.utils.mana_cost=Мана: %s за крафт
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.recipe_result.node_enough=Узел пуст
 GT5U.gui.text.recipe_result.sapling_enough=Саженцы закончились
 GT5U.gui.text.recipe_result.research_not_completed=§cНедостаточно исследований
 GT5U.gui.text.recipe_result.not_enough_aspects=§cНедостаточно аспектов
+GT5U.gui.text.recipe_result.not_enough_mana=§cНедостаточно маны
 GT5U.gui.text.recipe_result.meteor_mining=§dСейчас идёт добыча!
 GT5U.gui.text.recipe_result.meteor_waiting=§dОжидание метеорита...
 GT5U.gui.text.recipe_result.meteor_reset=§dСброс завершён! 
@@ -628,6 +633,30 @@ multiblock.AutomatedInfusionMatrix.tooltip.02=§bПараллели:§7 x2 за 
 multiblock.AutomatedInfusionMatrix.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
 multiblock.AutomatedInfusionMatrix.tooltip.04=§5После сборки рунические корпуса превращаются в рунную матрицу
 
+#IndustrialManaPool
+multiblock.IndustrialManaPool=Промышленный бассейн маны
+multiblock.IndustrialManaPool.machine_type=Наполнение маной
+multiblock.IndustrialManaPool.tooltip.00=Выполняет рецепты бассейна маны. Для алхимии и колдовства нужен катализатор во входной шине (не расходуется)
+multiblock.IndustrialManaPool.tooltip.01=§bМана:§7 фиксированная за крафт (см. NEI), из §aмана-люка§7 или §aME-люка магического автокрафта§7 (из шаблона или ME-сети)
+multiblock.IndustrialManaPool.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше MV, ограничены доступной маной
+multiblock.IndustrialManaPool.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#IndustrialRunicAltar
+multiblock.IndustrialRunicAltar=Промышленный рунический алтарь
+multiblock.IndustrialRunicAltar.machine_type=Рунический алтарь
+multiblock.IndustrialRunicAltar.tooltip.00=Выполняет рецепты рунического алтаря, живой камень входит в рецепт
+multiblock.IndustrialRunicAltar.tooltip.01=§bМана:§7 фиксированная за крафт (см. NEI), из §aмана-люка§7 или §aME-люка магического автокрафта§7 (из шаблона или ME-сети)
+multiblock.IndustrialRunicAltar.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше HV, ограничены доступной маной
+multiblock.IndustrialRunicAltar.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#IndustrialTerraPlate
+multiblock.IndustrialTerraPlate=Промышленная плита земной агломерации
+multiblock.IndustrialTerraPlate.machine_type=Земная агломерация
+multiblock.IndustrialTerraPlate.tooltip.00=Сплавляет манасталь, жемчуг маны и алмаз маны в терасталь
+multiblock.IndustrialTerraPlate.tooltip.01=§bМана:§7 фиксированная за крафт (см. NEI), из §aмана-люка§7 или §aME-люка магического автокрафта§7 (из шаблона или ME-сети)
+multiblock.IndustrialTerraPlate.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше EV, ограничены доступной маной
+multiblock.IndustrialTerraPlate.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
 #ME Mana
 gtn.mana=Мана
 item.gtn.ManaCell.1k.name=1k ME-ячейка маны
@@ -636,6 +665,7 @@ item.gtn.ManaCell.16k.name=16k ME-ячейка маны
 item.gtn.ManaCell.64k.name=64k ME-ячейка маны
 item.gtn.ManaCell.256k.name=256k ME-ячейка маны
 GTN.ManaCell.tooltip.stored=Мана: %s / %s
+GTN.ManaDisplay.tooltip.amount=%s маны
 tile.GTN_FluxManaPool.name=Флюиксовый бассейн маны
 
 # GT machine names - standard localization keys

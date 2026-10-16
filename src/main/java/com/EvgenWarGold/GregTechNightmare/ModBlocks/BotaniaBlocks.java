@@ -13,6 +13,10 @@ public enum BotaniaBlocks {
     LivingRock("livingrock"),
     ManaPool("pool"),
     AlfGlass("elfGlass"),
+    RuneAltar("runeAltar"),
+    TerraPlate("terraPlate"),
+    AlchemyCatalyst("alchemyCatalyst"),
+    ConjurationCatalyst("conjurationCatalyst"),
         ;
     //spotless:on
 

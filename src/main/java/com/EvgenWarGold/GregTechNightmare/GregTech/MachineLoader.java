@@ -18,9 +18,11 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ImprovedSliceNSplice;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_IndustrialTerraPlate;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_HighPowerComponentAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_ImprovedAlgaeFarm;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_IndustrialCrucible;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_IndustrialRunicAltar;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.HV.GTN_NodeEnergizer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_AutomatedInfusionMatrix;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_BloodEnchanter;
@@ -30,6 +32,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_IndustrialManaPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MagicEBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerBender;
@@ -91,6 +94,9 @@ public final class MachineLoader {
         GTN_ItemList.IndustrialCrucible.set(new GTN_IndustrialCrucible(21_040, "IndustrialCrucible"));
         GTN_ItemList.AutomatedInfusionMatrix.set(new GTN_AutomatedInfusionMatrix(21_041, "AutomatedInfusionMatrix"));
         GTN_ItemList.MagicCraftingInputHatch.set(new GTN_MagicCraftingInputHatch(21_042, "ME Magic Crafting Input Hatch"));
+        GTN_ItemList.IndustrialManaPool.set(new GTN_IndustrialManaPool(21_043, "IndustrialManaPool"));
+        GTN_ItemList.IndustrialRunicAltar.set(new GTN_IndustrialRunicAltar(21_044, "IndustrialRunicAltar"));
+        GTN_ItemList.IndustrialTerraPlate.set(new GTN_IndustrialTerraPlate(21_045, "IndustrialTerraPlate"));
         // spotless:on
     }
 }

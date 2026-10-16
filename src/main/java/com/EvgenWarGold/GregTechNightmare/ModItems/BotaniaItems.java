@@ -12,6 +12,7 @@ public enum BotaniaItems {
     TerraShatterer("terraPick", "Terra Shatterer"),
     ManaLensBore("lens", "Mana Lens: Bore", 7),
     ManaSteelIngot("manaResource", "Manasteel ingot"),
+    ManaPearl("manaResource", "Mana Pearl", 1),
     ManaDiamond("manaResource", "Mana Diamond", 2),
     GaiaSpirit("manaResource", "Gaia Spirit", 5),
     RuneOfEarth("rune", "Rune Of Earth", 2),

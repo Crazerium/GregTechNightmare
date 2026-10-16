@@ -85,7 +85,9 @@ public class AEManaStackType implements IAEStackType<AEManaStack> {
 
     @Override
     public AEManaStack convertStackFromItem(ItemStack itemStack) {
-        return null;
+        if (itemStack == null || !(itemStack.getItem() instanceof ItemManaDisplay)) return null;
+        long amount = ItemManaDisplay.getAmount(itemStack);
+        return amount > 0 ? new AEManaStack(amount) : null;
     }
 
     @Override

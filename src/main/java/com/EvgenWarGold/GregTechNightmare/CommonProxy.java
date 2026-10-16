@@ -9,6 +9,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagAdmin;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagGuiHandler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.HandyBagServerEvents;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.network.HandyBagNetwork;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
@@ -44,6 +45,10 @@ public class CommonProxy {
             .registries()
             .interfaceTerminal()
             .register(GTN_WildcardPatternBuffer.class);
+        AEApi.instance()
+            .registries()
+            .interfaceTerminal()
+            .register(GTN_MagicCraftingInputHatch.class);
     }
 
     public void init(FMLInitializationEvent event) {

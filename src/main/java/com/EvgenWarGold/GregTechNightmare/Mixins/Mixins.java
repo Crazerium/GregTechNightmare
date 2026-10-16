@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
+import com.gtnewhorizon.gtnhmixins.builders.TargetModBuilder;
 
 public enum Mixins implements IMixins {
 
@@ -32,6 +33,11 @@ public enum Mixins implements IMixins {
             "BlockTubeRendererMixin")
         // "FixMultiblockBuilderMixins")
         .setPhase(Phase.LATE)),
+
+    NOT_ENOUGH_ENERGISTICS(
+        new MixinBuilder("Not Enough Energistics").addRequiredMod(new TargetModBuilder().setModId("neenergistics"))
+            .addCommonMixins("PacketNEIPatternRecipeManaMixin")
+            .setPhase(Phase.LATE)),
 
     // MINECRAFT_EARLY(new MixinBuilder("Minecraft Early").addClientMixins("Test", "Test")
     // .setPhase(Phase.EARLY))

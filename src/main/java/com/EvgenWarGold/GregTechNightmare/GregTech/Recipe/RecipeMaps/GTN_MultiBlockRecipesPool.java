@@ -34,11 +34,13 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_RecipeBuilder;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.BloodMagicBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.DraconicEvolutionBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.EnderIOBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicBasesBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumicEnergeticsBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.EnderIOItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.NewHorizonsCoreModItems;
 import com.EvgenWarGold.GregTechNightmare.ModItems.TaintedMagicItems;
@@ -485,6 +487,51 @@ public class GTN_MultiBlockRecipesPool {
             )
             .itemOutputs(GTN_ItemList.AutomatedInfusionMatrix.get(1))
             .eut(RECIPE_IV)
+            .duration(20 * 120)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Industrial Mana Pool
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                BotaniaBlocks.ManaPool.getItemStack(4),
+                ItemList.Hull_MV.get(1),
+                ItemList.Electric_Pump_MV.get(4),
+                Materials.Manasteel.getPlates(16),
+                getCircuits(Materials.MV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialManaPool.get(1))
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Industrial Runic Altar
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                BotaniaBlocks.RuneAltar.getItemStack(4),
+                ItemList.Hull_HV.get(1),
+                ItemList.Robot_Arm_HV.get(4),
+                BotaniaItems.ManaDiamond.get(8),
+                getCircuits(Materials.HV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialRunicAltar.get(1))
+            .eut(RECIPE_HV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Industrial Terrestrial Agglomeration Plate
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(32),
+                BotaniaBlocks.TerraPlate.getItemStack(4),
+                ItemList.Hull_EV.get(1),
+                ItemList.Field_Generator_EV.get(2),
+                Materials.Terrasteel.getPlates(16),
+                getCircuits(Materials.EV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialTerraPlate.get(1))
+            .eut(RECIPE_EV)
             .duration(20 * 120)
             .addTo(RecipeMaps.assemblerRecipes);
 

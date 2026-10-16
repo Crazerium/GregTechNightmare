@@ -99,6 +99,9 @@ public enum GTN_ItemList {
     MeAspectHatch,
     WildcardPatternBuffer,
     MagicCraftingInputHatch,
+    IndustrialManaPool,
+    IndustrialRunicAltar,
+    IndustrialTerraPlate,
     // endregion
 
     ;

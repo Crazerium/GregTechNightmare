@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 
 import appeng.api.storage.IMEMonitor;
@@ -48,6 +49,29 @@ public final class GTN_ManaSources {
                 .extractMana(sources.monitors.get(i), missing);
         }
         return amount - missing;
+    }
+
+    /** Mana of the Mana Hatches and the Magic Crafting Input Hatches of the machine. */
+    public static long getTotalAvailable(GTN_MultiBlockBase<?> machine) {
+        long total = getAvailable(machine);
+        for (GTN_ManaHatch hatch : machine.manaHatches) total += hatch.getCurrentMana();
+        return total;
+    }
+
+    /** Takes {@code amount} mana from the Mana Hatches first, nothing is taken if there is not enough. */
+    public static boolean consumeTotal(GTN_MultiBlockBase<?> machine, long amount) {
+        if (amount <= 0) return true;
+        if (getTotalAvailable(machine) < amount) return false;
+        long missing = amount;
+        for (GTN_ManaHatch hatch : machine.manaHatches) {
+            if (missing <= 0) break;
+            int take = (int) Math.min(hatch.getCurrentMana(), missing);
+            if (take <= 0) continue;
+            hatch.extractMana(take, false);
+            missing -= take;
+        }
+        if (missing > 0) missing -= consume(machine, missing);
+        return missing <= 0;
     }
 
     private static Sources findSources(GTN_MultiBlockBase<?> machine) {

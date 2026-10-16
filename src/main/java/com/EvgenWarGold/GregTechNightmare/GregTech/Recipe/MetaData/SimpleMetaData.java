@@ -10,6 +10,8 @@ public class SimpleMetaData {
 
     public static final RecipeMetadataKey<AspectList> ASPECT_COST = new GTN_AspectCostMetadataKey();
 
+    public static final RecipeMetadataKey<Integer> MANA_COST = new GTN_ManaCostMetadataKey();
+
     public static final RecipeMetadataKey<String> RESEARCH_KEY = SimpleRecipeMetadataKey
         .create(String.class, "research_key");
 
