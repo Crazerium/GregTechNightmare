@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.EvgenWarGold.GregTechNightmare.Event.TooltipAdditionDisplayEvent;
@@ -9,10 +10,12 @@ import com.EvgenWarGold.GregTechNightmare.Event.WelcomeMessageEvent;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.ContainerHandyBag;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.client.GuiHandyBag;
 import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.client.HandyBagClientEvents;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.ItemStructuresLinkTool;
 import com.EvgenWarGold.GregTechNightmare.Tooltips.TooltipsLoader;
 import com.EvgenWarGold.GregTechNightmare.Utils.BlockHighlighter;
 
+import codechicken.nei.api.API;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -44,6 +47,9 @@ public class ClientProxy extends CommonProxy {
         FMLCommonHandler.instance()
             .bus()
             .register(new TooltipAdditionDisplayEvent());
+
+        // only stands for mana in the ME terminal tooltips
+        API.hideItem(new ItemStack(GTN_Items.MANA_DISPLAY));
     }
 
     @SideOnly(Side.CLIENT)
