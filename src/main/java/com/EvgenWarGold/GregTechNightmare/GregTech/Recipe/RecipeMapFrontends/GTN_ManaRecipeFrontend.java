@@ -1,28 +1,19 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.ItemManaDisplay;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
 import com.gtnewhorizons.modularui.api.math.Pos2d;
-import com.gtnewhorizons.modularui.api.math.Size;
 
 import codechicken.nei.PositionedStack;
 import gregtech.api.recipe.BasicUIPropertiesBuilder;
 import gregtech.api.recipe.NEIRecipePropertiesBuilder;
-import gregtech.api.recipe.RecipeMapFrontend;
 import gregtech.nei.GTNEIDefaultHandler;
 
 /**
- * NEI layout of the Botania machines: a grid of item inputs, then the recipe mana as an extra input slot. Moving the
- * recipe into a pattern terminal turns that slot into mana, so the pattern always carries the exact mana of one craft.
+ * Grid layout with the recipe mana in the side slot. Moving the recipe into a pattern terminal turns that slot into
+ * mana, so the pattern always carries the exact mana of one craft.
  */
-public class GTN_ManaRecipeFrontend extends RecipeMapFrontend {
-
-    private static final int SLOT = 18;
-    private static final int LEFT = 8;
-    private static final int TOP = 8;
+public class GTN_ManaRecipeFrontend extends GTN_GridRecipeFrontend {
 
     public GTN_ManaRecipeFrontend(BasicUIPropertiesBuilder uiPropertiesBuilder,
         NEIRecipePropertiesBuilder neiPropertiesBuilder) {
@@ -30,57 +21,9 @@ public class GTN_ManaRecipeFrontend extends RecipeMapFrontend {
     }
 
     /** The last input slot is the mana slot. */
-    private int getItemSlots() {
-        return uiProperties.maxItemInputs - 1;
-    }
-
-    /**
-     * Item grid width: one row for up to 3 items, otherwise 4 columns. Computed from the slot count because GT calls
-     * {@link #modifyNEIProperties} from the super constructor, before fields of this class are set.
-     */
-    private int getColumns() {
-        int itemSlots = getItemSlots();
-        return itemSlots <= 3 ? Math.max(itemSlots, 1) : 4;
-    }
-
-    private int getRows() {
-        return (getItemSlots() + getColumns() - 1) / getColumns();
-    }
-
     @Override
-    protected NEIRecipePropertiesBuilder modifyNEIProperties(NEIRecipePropertiesBuilder builder) {
-        int height = Math.max(TOP + getRows() * SLOT, TOP + 2 * SLOT) + 18;
-        return builder.recipeBackgroundSize(new Size(170, height));
-    }
-
-    @Override
-    public List<Pos2d> getItemInputPositions(int itemInputCount) {
-        List<Pos2d> result = new ArrayList<>(itemInputCount);
-        int itemSlots = getItemSlots();
-        for (int i = 0; i < itemInputCount; i++) {
-            if (i < itemSlots) {
-                result.add(new Pos2d(LEFT + (i % getColumns()) * SLOT, TOP + (i / getColumns()) * SLOT));
-            } else {
-                result.add(getManaSlotPosition());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public List<Pos2d> getItemOutputPositions(int itemOutputCount) {
-        List<Pos2d> result = new ArrayList<>(itemOutputCount);
-        for (int i = 0; i < itemOutputCount; i++) result.add(new Pos2d(138, getMiddleY() + i * SLOT));
-        return result;
-    }
-
-    /** Right of the item grid, in its middle row. */
-    private Pos2d getManaSlotPosition() {
-        return new Pos2d(LEFT + getColumns() * SLOT + 6, getMiddleY());
-    }
-
-    private int getMiddleY() {
-        return TOP + (Math.max(getRows(), 1) - 1) * SLOT / 2;
+    protected int getExtraItemSlots() {
+        return 1;
     }
 
     /**
@@ -98,7 +41,7 @@ public class GTN_ManaRecipeFrontend extends RecipeMapFrontend {
             minX = Math.min(minX, stack.relx);
             minY = Math.min(minY, stack.rely);
         }
-        Pos2d manaPos = getManaSlotPosition();
+        Pos2d manaPos = getSideSlotPosition();
         cachedRecipe.mInputs.add(
             new GTNEIDefaultHandler.FixedPositionedStack(
                 cachedRecipe,

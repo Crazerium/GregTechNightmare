@@ -1,9 +1,12 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ElvenGateway;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UV.GTN_LargeBioLab;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_EssentiaRecipeFrontend;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_GridRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_ManaRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_BotaniaRecipesPool;
 
 import gregtech.api.gui.modularui.GTUITextures;
 import gregtech.api.recipe.RecipeMap;
@@ -49,7 +52,7 @@ public class GTN_Recipe {
         .build();
 
     public static final RecipeMap<?> RuneAltarRecipes = RecipeMapBuilder.of("gtn.recipe.RuneAltarRecipes")
-        .maxIO(13, 1, 0, 0)
+        .maxIO(GTN_BotaniaRecipesPool.RUNE_ALTAR_ITEM_SLOTS + 1, 1, 0, 0)
         .minInputs(1, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .progressBarPos(110, 26)
@@ -62,6 +65,31 @@ public class GTN_Recipe {
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .progressBarPos(110, 8)
         .frontend(GTN_ManaRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> PureDaisyRecipes = RecipeMapBuilder.of("gtn.recipe.PureDaisyRecipes")
+        .maxIO(1, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(1))
+        .frontend(GTN_GridRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> PetalApothecaryRecipes = RecipeMapBuilder.of("gtn.recipe.PetalApothecaryRecipes")
+        .maxIO(GTN_BotaniaRecipesPool.PETAL_APOTHECARY_ITEM_SLOTS, 1, 1, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(GTN_BotaniaRecipesPool.PETAL_APOTHECARY_ITEM_SLOTS))
+        .frontend(GTN_GridRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> ElvenTradeRecipes = RecipeMapBuilder.of("gtn.recipe.ElvenTradeRecipes")
+        .maxIO(GTN_BotaniaRecipesPool.ELVEN_TRADE_ITEM_SLOTS, 1, 0, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(GTN_BotaniaRecipesPool.ELVEN_TRADE_ITEM_SLOTS))
+        .neiSpecialInfoFormatter(GTN_ElvenGateway::getRecipeInfo)
+        .frontend(GTN_GridRecipeFrontend::new)
         .build();
 
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder

@@ -16,6 +16,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Mage
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_WaterModuleMagicGenerator;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.HV.GTN_VacuumNuke;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.LV.GTN_CreosoteEngine;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ElvenGateway;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ExtremePowerCircuitAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_ImprovedSliceNSplice;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_IndustrialTerraPlate;
@@ -29,6 +30,8 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV.GTN_LaserMeteorMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LUV.GTN_LargeArcaneAssembler;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_GasCollector;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_IndustrialPetalApothecary;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_IndustrialPureDaisy;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
@@ -97,6 +100,9 @@ public final class MachineLoader {
         GTN_ItemList.IndustrialManaPool.set(new GTN_IndustrialManaPool(21_043, "IndustrialManaPool"));
         GTN_ItemList.IndustrialRunicAltar.set(new GTN_IndustrialRunicAltar(21_044, "IndustrialRunicAltar"));
         GTN_ItemList.IndustrialTerraPlate.set(new GTN_IndustrialTerraPlate(21_045, "IndustrialTerraPlate"));
+        GTN_ItemList.IndustrialPureDaisy.set(new GTN_IndustrialPureDaisy(21_046, "IndustrialPureDaisy"));
+        GTN_ItemList.IndustrialPetalApothecary.set(new GTN_IndustrialPetalApothecary(21_047, "IndustrialPetalApothecary"));
+        GTN_ItemList.ElvenGateway.set(new GTN_ElvenGateway(21_048, "ElvenGateway"));
         // spotless:on
     }
 }

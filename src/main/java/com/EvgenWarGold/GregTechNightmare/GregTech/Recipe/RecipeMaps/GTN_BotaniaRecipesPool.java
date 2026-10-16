@@ -2,6 +2,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps;
 
 import static gregtech.api.enums.TierEU.RECIPE_EV;
 import static gregtech.api.enums.TierEU.RECIPE_HV;
+import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -20,21 +24,30 @@ import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 
 import gregtech.api.enums.GTValues;
+import gregtech.api.enums.Materials;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.util.GTUtility;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.item.ModItems;
 
-/** Converts the Botania mana recipes into the recipe maps of the Botania machines. */
+/** Converts the Botania recipes into the recipe maps of the Botania machines. */
 public final class GTN_BotaniaRecipesPool {
 
     /** Mana of the Terrestrial Agglomeration Plate, hardcoded in Botania. */
     private static final int TERRA_PLATE_MANA = 500_000;
 
     /** Item slots of the runic altar recipe map in NEI, see {@link GTN_Recipe#RuneAltarRecipes}. */
-    private static final int RUNE_ALTAR_ITEM_SLOTS = 12;
+    public static final int RUNE_ALTAR_ITEM_SLOTS = 12;
+    public static final int PETAL_APOTHECARY_ITEM_SLOTS = 16;
+    public static final int ELVEN_TRADE_ITEM_SLOTS = 4;
+
+    /** Time of the Pure Daisy for one block. */
+    private static final int PURE_DAISY_TICKS = 150;
 
     /** Skip reason -> count, printed once after the conversion. */
     private static final Map<String, Integer> SKIPPED = new TreeMap<>();
@@ -44,17 +57,30 @@ public final class GTN_BotaniaRecipesPool {
     public static void init() {
         int infusionBefore = size(GTN_Recipe.ManaInfusionRecipes);
         int runeBefore = size(GTN_Recipe.RuneAltarRecipes);
+        int daisyBefore = size(GTN_Recipe.PureDaisyRecipes);
+        int petalBefore = size(GTN_Recipe.PetalApothecaryRecipes);
+        int elvenBefore = size(GTN_Recipe.ElvenTradeRecipes);
 
         for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) registerManaInfusion(recipe);
         for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes) registerRuneAltar(recipe);
         registerTerraPlate();
+        for (RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) registerPureDaisy(recipe);
+        for (RecipePetals recipe : BotaniaAPI.petalRecipes) registerPetalApothecary(recipe);
+        for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) registerElvenTrade(recipe);
 
         GTN_Logger.info(
-            "Botania recipes converted: mana infusion %d -> %d, runic altar %d -> %d, skipped: %s",
+            "Botania recipes converted: mana infusion %d -> %d, runic altar %d -> %d, pure daisy %d -> %d,"
+                + " petal apothecary %d -> %d, elven trade %d -> %d, skipped: %s",
             BotaniaAPI.manaInfusionRecipes.size(),
             size(GTN_Recipe.ManaInfusionRecipes) - infusionBefore,
             BotaniaAPI.runeAltarRecipes.size(),
             size(GTN_Recipe.RuneAltarRecipes) - runeBefore,
+            BotaniaAPI.pureDaisyRecipes.size(),
+            size(GTN_Recipe.PureDaisyRecipes) - daisyBefore,
+            BotaniaAPI.petalRecipes.size(),
+            size(GTN_Recipe.PetalApothecaryRecipes) - petalBefore,
+            BotaniaAPI.elvenTradeRecipes.size(),
+            size(GTN_Recipe.ElvenTradeRecipes) - elvenBefore,
             SKIPPED);
         SKIPPED.clear();
     }
@@ -91,15 +117,10 @@ public final class GTN_BotaniaRecipesPool {
             skip("runic altar: no inputs or output");
             return;
         }
-        // Botania inputs are one item each, identical ones are merged into one stack
-        Map<Object, Integer> counts = new LinkedHashMap<>();
-        for (Object input : recipe.getInputs()) {
-            Object key = toKey(input);
-            if (key == null) {
-                skip("runic altar: unknown input");
-                return;
-            }
-            counts.merge(key, 1, Integer::sum);
+        Map<Object, Integer> counts = countInputs(recipe.getInputs());
+        if (counts == null) {
+            skip("runic altar: unknown input");
+            return;
         }
         List<Object> inputs = new ArrayList<>();
         for (Map.Entry<Object, Integer> entry : counts.entrySet()) {
@@ -137,6 +158,100 @@ public final class GTN_BotaniaRecipesPool {
             .eut(RECIPE_EV)
             .duration(20 * 20)
             .addTo(GTN_Recipe.TerraPlateRecipes);
+    }
+
+    private static void registerPureDaisy(RecipePureDaisy recipe) {
+        Object input = recipe.getInput() instanceof Block block ? toBlockStack(block, GTValues.W) : recipe.getInput();
+        ItemStack output = toBlockStack(recipe.getOutput(), recipe.getOutputMeta());
+        Object itemInput = toInput(input, 1);
+        // blocks without an item (water, lava) cannot go through an input bus
+        if (output == null || itemInput == null) {
+            skip("pure daisy: block without item");
+            return;
+        }
+        addChecked(
+            GTN_Recipe.PureDaisyRecipes,
+            "pure daisy",
+            () -> GTValues.RA.stdBuilder()
+                .itemInputs(itemInput)
+                .itemOutputs(output)
+                .eut(RECIPE_LV)
+                .duration(PURE_DAISY_TICKS)
+                .addTo(GTN_Recipe.PureDaisyRecipes));
+    }
+
+    private static void registerPetalApothecary(RecipePetals recipe) {
+        ItemStack output = recipe.getOutput();
+        Map<Object, Integer> counts = countInputs(recipe.getInputs());
+        if (output == null || counts == null) {
+            skip("petal apothecary: unknown input or no output");
+            return;
+        }
+        List<Object> inputs = toInputs(counts);
+        // the seeds that finish the craft
+        inputs.add(new ItemStack(Items.wheat_seeds));
+        if (inputs.size() > PETAL_APOTHECARY_ITEM_SLOTS) {
+            skip("petal apothecary: too many different inputs");
+            return;
+        }
+        addChecked(
+            GTN_Recipe.PetalApothecaryRecipes,
+            "petal apothecary",
+            () -> GTValues.RA.stdBuilder()
+                .itemInputs(inputs.toArray())
+                .fluidInputs(Materials.Water.getFluid(1_000))
+                .itemOutputs(output.copy())
+                .eut(RECIPE_LV)
+                .duration(20 * 5)
+                .addTo(GTN_Recipe.PetalApothecaryRecipes));
+    }
+
+    private static void registerElvenTrade(RecipeElvenTrade recipe) {
+        ItemStack output = recipe.getOutput();
+        Map<Object, Integer> counts = countInputs(recipe.getInputs());
+        if (output == null || counts == null) {
+            skip("elven trade: unknown input or no output");
+            return;
+        }
+        List<Object> inputs = toInputs(counts);
+        if (inputs.size() > ELVEN_TRADE_ITEM_SLOTS) {
+            skip("elven trade: too many different inputs");
+            return;
+        }
+        addChecked(
+            GTN_Recipe.ElvenTradeRecipes,
+            "elven trade",
+            () -> GTValues.RA.stdBuilder()
+                .itemInputs(inputs.toArray())
+                .itemOutputs(output.copy())
+                .eut(RECIPE_EV)
+                .duration(20 * 5)
+                .addTo(GTN_Recipe.ElvenTradeRecipes));
+    }
+
+    /** Botania inputs are one item each, identical ones are counted together. Null if an input is unknown. */
+    private static Map<Object, Integer> countInputs(List<Object> botaniaInputs) {
+        if (botaniaInputs == null) return null;
+        Map<Object, Integer> counts = new LinkedHashMap<>();
+        for (Object input : botaniaInputs) {
+            Object key = toKey(input);
+            if (key == null) return null;
+            counts.merge(key, 1, Integer::sum);
+        }
+        return counts;
+    }
+
+    private static List<Object> toInputs(Map<Object, Integer> counts) {
+        List<Object> inputs = new ArrayList<>();
+        for (Map.Entry<Object, Integer> entry : counts.entrySet()) {
+            inputs.add(toInput(fromKey(entry.getKey()), entry.getValue()));
+        }
+        return inputs;
+    }
+
+    private static ItemStack toBlockStack(Block block, int meta) {
+        Item item = block == null ? null : Item.getItemFromBlock(block);
+        return item == null ? null : new ItemStack(item, 1, meta);
     }
 
     /** Ore names stay strings, items are compared by item, damage and NBT. */

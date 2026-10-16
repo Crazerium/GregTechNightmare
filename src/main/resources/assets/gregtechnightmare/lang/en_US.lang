@@ -35,6 +35,9 @@ gtn.recipe.AutomatedInfusionRecipes=Automated Infusion Matrix
 gtn.recipe.ManaInfusionRecipes=Industrial Mana Pool
 gtn.recipe.RuneAltarRecipes=Industrial Runic Altar
 gtn.recipe.TerraPlateRecipes=Industrial Terrestrial Agglomeration Plate
+gtn.recipe.PureDaisyRecipes=Industrial Pure Daisy
+gtn.recipe.PetalApothecaryRecipes=Industrial Petal Apothecary
+gtn.recipe.ElvenTradeRecipes=Elven Gateway
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -51,6 +54,7 @@ GT5U.gui.text.recipe_result.sapling_enough=Sapling is empty
 GT5U.gui.text.recipe_result.research_not_completed=§cNot enough Research
 GT5U.gui.text.recipe_result.not_enough_aspects=§cNot enough Aspects
 GT5U.gui.text.recipe_result.not_enough_mana=§cNot enough Mana
+GT5U.gui.text.shutdown_reason.not_enough_mana=§cNot enough Mana
 GT5U.gui.text.recipe_result.meteor_mining=§dCurrently Mining!
 GT5U.gui.text.recipe_result.meteor_waiting=§dWaiting for a Meteor...
 GT5U.gui.text.recipe_result.meteor_reset=§dReset completed! 
@@ -656,6 +660,37 @@ multiblock.IndustrialTerraPlate.tooltip.00=Fuses manasteel, a mana pearl and a m
 multiblock.IndustrialTerraPlate.tooltip.01=§bMana:§7 fixed per craft (see NEI), from a §aMana Hatch§7 or §aME Magic Crafting Input Hatch§7 (pattern or ME network)
 multiblock.IndustrialTerraPlate.tooltip.02=§bParallel:§7 x2 for every energy tier above EV, limited by available mana
 multiblock.IndustrialTerraPlate.tooltip.03=§eOverclock:§7 normal, uses the energy left after parallels
+
+#IndustrialPureDaisy
+multiblock.IndustrialPureDaisy=Industrial Pure Daisy
+multiblock.IndustrialPureDaisy.machine_type=Pure Daisy
+multiblock.IndustrialPureDaisy.tooltip.00=Purifies blocks like the Pure Daisy: stone into livingrock, wood into livingwood and more
+multiblock.IndustrialPureDaisy.tooltip.01=§bParallel:§7 x2 for every energy tier above LV
+multiblock.IndustrialPureDaisy.tooltip.02=§eOverclock:§7 normal, uses the energy left after parallels
+
+#IndustrialPetalApothecary
+multiblock.IndustrialPetalApothecary=Industrial Petal Apothecary
+multiblock.IndustrialPetalApothecary.machine_type=Petal Apothecary
+multiblock.IndustrialPetalApothecary.tooltip.00=Grows flowers from petal apothecary recipes, uses §91000 L of water§7 and seeds per craft
+multiblock.IndustrialPetalApothecary.tooltip.01=§bParallel:§7 x2 for every energy tier above LV
+multiblock.IndustrialPetalApothecary.tooltip.02=§eOverclock:§7 normal, uses the energy left after parallels
+
+#ElvenGateway
+multiblock.ElvenGateway=Elven Gateway
+multiblock.ElvenGateway.machine_type=Elven Trade
+multiblock.ElvenGateway.tooltip.00=Trades items with Alfheim like the Alfheim portal
+multiblock.ElvenGateway.tooltip.01=§bMana:§7 §b150,000§7 to open the portal once, then §b80 per second§7 while it is open, also when idle
+multiblock.ElvenGateway.tooltip.02=§7The portal closes when the mana runs out or the machine is disabled, then it has to be opened again
+multiblock.ElvenGateway.tooltip.03=§7Mana: §aMana Hatch§7 or §aME Magic Crafting Input Hatch§7 (pattern or ME network)
+multiblock.ElvenGateway.tooltip.04=§bParallel:§7 x2 for every energy tier above EV
+multiblock.ElvenGateway.tooltip.05=§eOverclock:§7 normal, uses the energy left after parallels
+multiblock.ElvenGateway.recipe_info.open_cost=Opening the portal: %s mana
+multiblock.ElvenGateway.recipe_info.drain=While open: %s mana per second
+multiblock.ElvenGateway.waila.open=§aPortal: §bopen
+multiblock.ElvenGateway.waila.closed=§aPortal: §cclosed
+multiblock.ElvenGateway.waila.drain=§aMana drain: §b%s §aper second
+multiblock.ElvenGateway.waila.open_cost=§aMana to open: §b%s
+multiblock.ElvenGateway.waila.available=§aAvailable mana: §b%s
 
 #ME Mana
 gtn.mana=Mana

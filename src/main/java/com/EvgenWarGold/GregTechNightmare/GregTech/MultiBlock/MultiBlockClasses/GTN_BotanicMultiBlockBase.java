@@ -4,6 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockC
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
+import static gregtech.api.enums.HatchElement.InputHatch;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
 import net.minecraft.item.ItemStack;
@@ -34,7 +35,7 @@ public abstract class GTN_BotanicMultiBlockBase<T extends GTN_BotanicMultiBlockB
 
     /** Main casing with all hatches of a Botania machine. */
     protected void addBotanicCasing(GTN_StructureBuilder<T> builder, char name) {
-        builder.addMainCasing(name, b -> b.hatches(InputBus, OutputBus, Energy, ExoticEnergy, ManaHatch));
+        builder.addMainCasing(name, b -> b.hatches(InputBus, InputHatch, OutputBus, Energy, ExoticEnergy, ManaHatch));
     }
 
     @Override

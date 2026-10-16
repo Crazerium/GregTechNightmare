@@ -35,6 +35,9 @@ gtn.recipe.AutomatedInfusionRecipes=Автоматическая руничес�
 gtn.recipe.ManaInfusionRecipes=Промышленный бассейн маны
 gtn.recipe.RuneAltarRecipes=Промышленный рунический алтарь
 gtn.recipe.TerraPlateRecipes=Промышленная плита земной агломерации
+gtn.recipe.PureDaisyRecipes=Промышленная чистая маргаритка
+gtn.recipe.PetalApothecaryRecipes=Промышленная лепестковая аптечка
+gtn.recipe.ElvenTradeRecipes=Эльфийские врата
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=Любые брёвна
@@ -51,6 +54,7 @@ GT5U.gui.text.recipe_result.sapling_enough=Саженцы закончились
 GT5U.gui.text.recipe_result.research_not_completed=§cНедостаточно исследований
 GT5U.gui.text.recipe_result.not_enough_aspects=§cНедостаточно аспектов
 GT5U.gui.text.recipe_result.not_enough_mana=§cНедостаточно маны
+GT5U.gui.text.shutdown_reason.not_enough_mana=§cНедостаточно маны
 GT5U.gui.text.recipe_result.meteor_mining=§dСейчас идёт добыча!
 GT5U.gui.text.recipe_result.meteor_waiting=§dОжидание метеорита...
 GT5U.gui.text.recipe_result.meteor_reset=§dСброс завершён! 
@@ -656,6 +660,37 @@ multiblock.IndustrialTerraPlate.tooltip.00=Сплавляет манасталь
 multiblock.IndustrialTerraPlate.tooltip.01=§bМана:§7 фиксированная за крафт (см. NEI), из §aмана-люка§7 или §aME-люка магического автокрафта§7 (из шаблона или ME-сети)
 multiblock.IndustrialTerraPlate.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше EV, ограничены доступной маной
 multiblock.IndustrialTerraPlate.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#IndustrialPureDaisy
+multiblock.IndustrialPureDaisy=Промышленная чистая маргаритка
+multiblock.IndustrialPureDaisy.machine_type=Чистая маргаритка
+multiblock.IndustrialPureDaisy.tooltip.00=Очищает блоки как чистая маргаритка: камень в живой камень, дерево в живое дерево и другое
+multiblock.IndustrialPureDaisy.tooltip.01=§bПараллели:§7 x2 за каждый тир энергии выше LV
+multiblock.IndustrialPureDaisy.tooltip.02=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#IndustrialPetalApothecary
+multiblock.IndustrialPetalApothecary=Промышленная лепестковая аптечка
+multiblock.IndustrialPetalApothecary.machine_type=Лепестковая аптечка
+multiblock.IndustrialPetalApothecary.tooltip.00=Выращивает цветы по рецептам аптечки, тратит §91000 л воды§7 и семена за крафт
+multiblock.IndustrialPetalApothecary.tooltip.01=§bПараллели:§7 x2 за каждый тир энергии выше LV
+multiblock.IndustrialPetalApothecary.tooltip.02=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+
+#ElvenGateway
+multiblock.ElvenGateway=Эльфийские врата
+multiblock.ElvenGateway.machine_type=Торговля с эльфами
+multiblock.ElvenGateway.tooltip.00=Обменивает предметы с Альвхеймом как портал в Альвхейм
+multiblock.ElvenGateway.tooltip.01=§bМана:§7 §b150 000§7 на открытие портала один раз, затем §b80 в секунду§7 пока он открыт, даже в простое
+multiblock.ElvenGateway.tooltip.02=§7Портал закрывается, если кончилась мана или машина выключена, и его нужно открывать снова
+multiblock.ElvenGateway.tooltip.03=§7Мана: §aмана-люк§7 или §aME-люк магического автокрафта§7 (из шаблона или ME-сети)
+multiblock.ElvenGateway.tooltip.04=§bПараллели:§7 x2 за каждый тир энергии выше EV
+multiblock.ElvenGateway.tooltip.05=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+multiblock.ElvenGateway.recipe_info.open_cost=Открытие портала: %s маны
+multiblock.ElvenGateway.recipe_info.drain=Пока открыт: %s маны в секунду
+multiblock.ElvenGateway.waila.open=§aПортал: §bоткрыт
+multiblock.ElvenGateway.waila.closed=§aПортал: §cзакрыт
+multiblock.ElvenGateway.waila.drain=§aРасход маны: §b%s §aв секунду
+multiblock.ElvenGateway.waila.open_cost=§aМана на открытие: §b%s
+multiblock.ElvenGateway.waila.available=§aДоступно маны: §b%s
 
 #ME Mana
 gtn.mana=Мана

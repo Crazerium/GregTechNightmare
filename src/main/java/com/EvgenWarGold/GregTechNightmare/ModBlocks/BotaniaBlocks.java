@@ -11,6 +11,10 @@ public enum BotaniaBlocks {
 
     // spotless:off
     LivingRock("livingrock"),
+    LivingWood("livingwood"),
+    PetalApothecary("altar"),
+    AlfPortal("alfheimPortal"),
+    NaturaPylon("pylon", 1),
     ManaPool("pool"),
     AlfGlass("elfGlass"),
     RuneAltar("runeAltar"),

@@ -535,6 +535,50 @@ public class GTN_MultiBlockRecipesPool {
             .duration(20 * 120)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Industrial Pure Daisy
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                BotaniaBlocks.LivingWood.getItemStack(16),
+                BotaniaBlocks.LivingRock.getItemStack(16),
+                ItemList.Hull_LV.get(1),
+                ItemList.Electric_Motor_LV.get(2),
+                getCircuits(Materials.LV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialPureDaisy.get(1))
+            .eut(RECIPE_LV)
+            .duration(20 * 30)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Industrial Petal Apothecary
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                BotaniaBlocks.PetalApothecary.getItemStack(4),
+                ItemList.Hull_LV.get(1),
+                ItemList.Electric_Pump_LV.get(2),
+                getCircuits(Materials.LV, 4)
+            )
+            .itemOutputs(GTN_ItemList.IndustrialPetalApothecary.get(1))
+            .eut(RECIPE_LV)
+            .duration(20 * 30)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Elven Gateway
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(32),
+                BotaniaBlocks.AlfPortal.getItemStack(1),
+                BotaniaBlocks.NaturaPylon.getItemStack(2),
+                ItemList.Hull_EV.get(1),
+                ItemList.Field_Generator_EV.get(2),
+                getCircuits(Materials.EV, 4)
+            )
+            .itemOutputs(GTN_ItemList.ElvenGateway.get(1))
+            .eut(RECIPE_EV)
+            .duration(20 * 120)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

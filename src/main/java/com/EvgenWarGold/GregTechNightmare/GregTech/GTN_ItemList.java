@@ -102,6 +102,9 @@ public enum GTN_ItemList {
     IndustrialManaPool,
     IndustrialRunicAltar,
     IndustrialTerraPlate,
+    IndustrialPureDaisy,
+    IndustrialPetalApothecary,
+    ElvenGateway,
     // endregion
 
     ;
