@@ -5,6 +5,7 @@ item.GTN_MetaItem01.0.name=§cТестовый предмет
 item.GTN_MetaItem01.1.name=Улучшенная глина
 item.GTN_MetaItem01.2.name=Схема метеоритного бурильщика I уровня
 item.GTN_MetaItem01.3.name=Схема метеоритного бурильщика II уровня
+item.GTN_MetaItem01.4.name=Корпус ME-ячейки маны
 
 #Blocks
 tile.GTN_MetaBlockCasing01.0.name=§cТестовый корпус

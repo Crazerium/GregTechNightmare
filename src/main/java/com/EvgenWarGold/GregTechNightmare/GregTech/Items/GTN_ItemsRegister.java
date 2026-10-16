@@ -50,6 +50,9 @@ public class GTN_ItemsRegister {
         // MeteorMinerSchematic2
         GTN_ItemList.MeteorMinerSchematic2.set(META_ITEM_01.registerVariant(3));
 
+        // Mana ME Storage Housing
+        GTN_ItemList.ManaStorageHousing.set(META_ITEM_01.registerVariant(4));
+
         GTN_ItemList.ManaProspector.set(MANA_PROSPECTOR);
 
         GTN_ItemList.HandyBag.set(new net.minecraft.item.ItemStack(HANDY_BAG, 1, 0));

@@ -6,13 +6,17 @@ import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
+import static gregtech.api.util.GTModHandler.addShapelessCraftingRecipe;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
+import com.EvgenWarGold.GregTechNightmare.ModItems.AppliedEnergisticsItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.ItemList;
@@ -110,6 +114,50 @@ public class GTN_ItemRecipesPool {
             .eut(RECIPE_IV)
             .duration(20 * 20)
             .addTo(RecipeMaps.assemblerRecipes);
+
+        // ME Mana Storage Cells
+        // Mana ME Storage Housing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                AppliedEnergisticsItems.EmptyStorageCell.get(1),
+                BotaniaItems.GaiaSpirit.get(1),
+                Materials.Terrasteel.getPlates(2),
+                BotaniaItems.ManaDiamond.get(1)
+            )
+            .itemOutputs(GTN_ItemList.ManaStorageHousing.get(1))
+
+            .eut(RECIPE_HV)
+            .duration(20 * 20)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // ME Mana Storage Cells: component + Mana ME Storage Housing
+        addManaCellRecipe(0, AppliedEnergisticsItems.Cell1kPart.get(1));
+        addManaCellRecipe(1, AppliedEnergisticsItems.Cell4kPart.get(1));
+        addManaCellRecipe(2, AppliedEnergisticsItems.Cell16kPart.get(1));
+        addManaCellRecipe(3, AppliedEnergisticsItems.Cell64kPart.get(1));
+        addManaCellRecipe(4, AppliedEnergisticsItems.Cell256kPart.get(1));
+
+        // Fluix Mana Pool
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                BotaniaBlocks.ManaPool.getItemStack(),
+                AppliedEnergisticsItems.MEInterface.get(1),
+                AppliedEnergisticsItems.EngineeringProcessor.get(2),
+                AppliedEnergisticsItems.FluixCrystal.get(8),
+                Materials.Manasteel.getPlates(8),
+                BotaniaItems.ManaDiamond.get(2)
+            )
+            .itemOutputs(GTN_ItemList.FluxManaPool.get(1))
+
+            .eut(RECIPE_HV)
+            .duration(20 * 30)
+            .addTo(RecipeMaps.assemblerRecipes);
         // spotless:on
+    }
+
+    private static void addManaCellRecipe(int meta, ItemStack component) {
+        addShapelessCraftingRecipe(
+            new ItemStack(GTN_Items.MANA_CELL, 1, meta),
+            new Object[] { component, GTN_ItemList.ManaStorageHousing.get(1) });
     }
 }
