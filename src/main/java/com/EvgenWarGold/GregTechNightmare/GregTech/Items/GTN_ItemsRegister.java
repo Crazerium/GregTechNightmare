@@ -2,6 +2,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.HANDY_BAG;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.LINK_TOOL;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.MANA_CELL;
+import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.MANA_DISPLAY;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.MANA_PROSPECTOR;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.MEMORY_CARD;
 import static com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items.META_ITEM_01;
@@ -22,7 +24,8 @@ public class GTN_ItemsRegister {
     }
 
     private static void registryItems() {
-        Item[] itemsToReg = { META_ITEM_01, LINK_TOOL, MANA_PROSPECTOR, WILDCARD_PREFIX, HANDY_BAG, MEMORY_CARD };
+        Item[] itemsToReg = { META_ITEM_01, LINK_TOOL, MANA_PROSPECTOR, WILDCARD_PREFIX, HANDY_BAG, MEMORY_CARD,
+            MANA_CELL, MANA_DISPLAY };
 
         for (Item item : itemsToReg) {
             GameRegistry.registerItem(item, item.unlocalizedName);

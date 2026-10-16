@@ -625,6 +625,16 @@ multiblock.AutomatedInfusionMatrix.tooltip.02=§bParallel:§7 x2 for every energ
 multiblock.AutomatedInfusionMatrix.tooltip.03=§eOverclock:§7 normal, uses the energy left after parallels
 multiblock.AutomatedInfusionMatrix.tooltip.04=§5Once formed, the Runic Matrix Casings turn into the runic matrix
 
+#ME Mana
+gtn.mana=Mana
+item.gtn.ManaCell.1k.name=1k ME Mana Storage Cell
+item.gtn.ManaCell.4k.name=4k ME Mana Storage Cell
+item.gtn.ManaCell.16k.name=16k ME Mana Storage Cell
+item.gtn.ManaCell.64k.name=64k ME Mana Storage Cell
+item.gtn.ManaCell.256k.name=256k ME Mana Storage Cell
+GTN.ManaCell.tooltip.stored=Mana: %s / %s
+tile.GTN_FluxManaPool.name=Fluix Mana Pool
+
 # GT machine names - standard localization keys
 gt.blockmachines.sensor_hatch.name=Sensor Hatch
 gt.blockmachines.mana_hatch.name=Mana Hatch

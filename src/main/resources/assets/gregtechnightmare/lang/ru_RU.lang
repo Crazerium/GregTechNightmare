@@ -625,6 +625,16 @@ multiblock.AutomatedInfusionMatrix.tooltip.02=§bПараллели:§7 x2 за 
 multiblock.AutomatedInfusionMatrix.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
 multiblock.AutomatedInfusionMatrix.tooltip.04=§5После сборки рунические корпуса превращаются в рунную матрицу
 
+#ME Mana
+gtn.mana=Мана
+item.gtn.ManaCell.1k.name=1k ME-ячейка маны
+item.gtn.ManaCell.4k.name=4k ME-ячейка маны
+item.gtn.ManaCell.16k.name=16k ME-ячейка маны
+item.gtn.ManaCell.64k.name=64k ME-ячейка маны
+item.gtn.ManaCell.256k.name=256k ME-ячейка маны
+GTN.ManaCell.tooltip.stored=Мана: %s / %s
+tile.GTN_FluxManaPool.name=Флюиксовый бассейн маны
+
 # GT machine names - standard localization keys
 gt.blockmachines.sensor_hatch.name=Сенсорный люк
 gt.blockmachines.mana_hatch.name=Люк маны

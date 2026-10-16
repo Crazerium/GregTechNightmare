@@ -12,10 +12,14 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.HandyBag.network.HandyBagNetw
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_ItemsRegister;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MachineLoader;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.AEManaStackType;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.GTN_ManaStorageLink;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeLoader;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.RecipeResultRegisters;
 
 import appeng.api.AEApi;
+import appeng.api.storage.data.AEStackTypeRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -29,6 +33,8 @@ import gregtech.api.enums.Mods;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
+        // AE2 assigns network ids to stack types in its init, so the mana type must be registered in preInit
+        AEStackTypeRegistry.register(AEManaStackType.MANA_STACK_TYPE);
         GTN_ItemsRegister.init();
         GTN_BlocksRegister.init();
         HandyBagNetwork.init();
@@ -42,6 +48,9 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         MachineLoader.init();
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new GTN_ManaStorageLink.Ticker());
         RecipeResultRegisters.init();
         HandyBagAdmin.registerPermission();
     }

@@ -11,7 +11,12 @@ public enum Mixins implements IMixins {
         .addCommonMixins(
             "MTEHatchCraftingInputMEMixin",
             "MTEHatchCraftingInputMEPatternSlotMixin",
-            "MTEHatchPatternProviderMixin")
+            "MTEHatchPatternProviderMixin",
+            "PartSharedItemBusManaMixin",
+            "PartFluidImportBusManaMixin",
+            "PartBaseImportBusManaMixin",
+            "PartBaseExportBusManaMixin",
+            "PartStorageBusManaMixin")
         .addClientMixins(
             "FixTreeSprouterCrushMixins",
             "MTEMultiblockBaseMixins",

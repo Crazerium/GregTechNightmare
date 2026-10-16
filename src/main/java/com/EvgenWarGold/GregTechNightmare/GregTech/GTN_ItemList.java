@@ -50,6 +50,7 @@ public enum GTN_ItemList {
     ArborealCasing,
     SoulCasing,
     RunicMatrixCasing,
+    FluxManaPool,
     // endregion
     // region MultiBlock
     TestMultiBlock,

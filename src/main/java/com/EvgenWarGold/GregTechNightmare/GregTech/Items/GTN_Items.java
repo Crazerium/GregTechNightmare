@@ -2,6 +2,8 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Items;
 
 import net.minecraft.item.Item;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.ItemManaCell;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.ItemManaDisplay;
 import com.EvgenWarGold.GregTechNightmare.GregTechNightmare;
 
 public class GTN_Items {
@@ -14,4 +16,6 @@ public class GTN_Items {
         .setTextureName(GregTechNightmare.RESOURCE_ROOT_ID + ":ManaProspector");
     public static final Item HANDY_BAG = new ItemHandyBag();
     public static final Item MEMORY_CARD = new ItemMemoryCard();
+    public static final Item MANA_CELL = new ItemManaCell();
+    public static final Item MANA_DISPLAY = new ItemManaDisplay();
 }
