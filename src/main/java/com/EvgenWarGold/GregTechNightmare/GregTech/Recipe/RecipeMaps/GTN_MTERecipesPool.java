@@ -79,7 +79,7 @@ public class GTN_MTERecipesPool {
             .duration(20 * 60)
             .addTo(GTRecipeConstants.AssemblyLine);
 
-        // ME Thaumic Crafting Input Hatch
+        // ME Magic Crafting Input Hatch
         GTValues.RA.stdBuilder()
             .itemInputs(
                 ItemList.Hatch_Input_Bus_ME.get(1),
@@ -88,7 +88,7 @@ public class GTN_MTERecipesPool {
                 getPlate(Materials.Thaumium, 8),
                 getCircuits(Materials.IV, 2)
             )
-            .itemOutputs(GTN_ItemList.ThaumicCraftingInputHatch.get(1))
+            .itemOutputs(GTN_ItemList.MagicCraftingInputHatch.get(1))
             .eut(RECIPE_IV)
             .duration(20 * 30)
             .addTo(RecipeMaps.assemblerRecipes);

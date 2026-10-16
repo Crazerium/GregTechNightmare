@@ -1,10 +1,10 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ThaumicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Generators.EV.Magen.GTN_AirModuleMagicGenerator;
@@ -90,7 +90,7 @@ public final class MachineLoader {
         GTN_ItemList.LargeBioLab.set(new GTN_LargeBioLab(21_039, "LargeBioLab"));
         GTN_ItemList.IndustrialCrucible.set(new GTN_IndustrialCrucible(21_040, "IndustrialCrucible"));
         GTN_ItemList.AutomatedInfusionMatrix.set(new GTN_AutomatedInfusionMatrix(21_041, "AutomatedInfusionMatrix"));
-        GTN_ItemList.ThaumicCraftingInputHatch.set(new GTN_ThaumicCraftingInputHatch(21_042, "ME Thaumic Crafting Input Hatch"));
+        GTN_ItemList.MagicCraftingInputHatch.set(new GTN_MagicCraftingInputHatch(21_042, "ME Magic Crafting Input Hatch"));
         // spotless:on
     }
 }

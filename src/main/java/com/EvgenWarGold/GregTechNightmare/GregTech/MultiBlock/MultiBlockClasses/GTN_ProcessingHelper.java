@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.GTN_ManaSources;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultMessage;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
@@ -798,8 +799,9 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
     // endregion
 
     // region Mana
+    /** Mana Hatches first, then Magic Crafting Input Hatches (their buffer and their ME network). */
     public boolean consumeMana(int amount, boolean simulate) {
-        int total = 0;
+        long total = 0;
 
         for (GTN_ManaHatch hatch : multiblock.manaHatches) {
             total += hatch.getCurrentMana();
@@ -807,6 +809,10 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             if (total >= amount) {
                 break;
             }
+        }
+
+        if (total < amount) {
+            total += GTN_ManaSources.getAvailable(multiblock);
         }
 
         if (total < amount) {
@@ -835,6 +841,10 @@ public class GTN_ProcessingHelper<T extends GTN_MultiBlockBase<T>> {
             if (remaining == 0) {
                 break;
             }
+        }
+
+        if (remaining > 0) {
+            GTN_ManaSources.consume(multiblock, remaining);
         }
 
         return true;

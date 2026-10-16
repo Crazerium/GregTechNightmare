@@ -171,11 +171,7 @@ public class GTN_MagicEBF extends GTN_MultiBlockBase<GTN_MagicEBF> {
         super.runMachine(aBaseMetaTileEntity, aTick);
 
         if (mMaxProgresstime > 0 && aTick % 20 == 0) {
-            if (manaHatches.isEmpty()) {
-                stopMachine(ShutDownReasonRegistry.CRITICAL_NONE);
-                causeMaintenanceIssue();
-            }
-
+            // mana comes from a Mana Hatch or an ME Magic Crafting Input Hatch
             if (!processingHelper.consumeMana(MANA_CONSUME)) {
                 stopMachine(ShutDownReasonRegistry.CRITICAL_NONE);
                 causeMaintenanceIssue();

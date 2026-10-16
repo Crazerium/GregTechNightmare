@@ -281,8 +281,9 @@ multiblock.ZeroPowerWireMill.tooltip.01=§aРазрешён скип тиров
 multiblock.MagicEBF=Магическая ЭДП
 multiblock.MagicEBF.machine_type=Доменная печь
 multiblock.MagicEBF.tooltip.00=Улучшенная магическая версия доменной печи
-multiblock.MagicEBF.tooltip.01=Потребляет §bману§7 со скоростью §c1 §aMana Spreader
+multiblock.MagicEBF.tooltip.01=Потребляет §b210 маны в секунду§7 во время работы (§c1 §aMana Spreader§7): §b210 × время рецепта в секундах§7 на крафт
 multiblock.MagicEBF.tooltip.02=§aНе создаёт загрязнения
+multiblock.MagicEBF.tooltip.03=§7Мана: §aMana Hatch§7 или §aME-люк магического автокрафта§7 (из шаблона или ME-сети)
 
 #MagicGenerator
 multiblock.MagicGenerator=Магический генератор
@@ -473,10 +474,11 @@ GTN.Hatch.WildcardPatternBuffer.tooltip.04=Размер стака токена 
 GTN.Hatch.WildcardPatternBuffer.tooltip.05=Требует канал AE.
 GTN.Wildcard.patternOptimization.allowed=Оптимизация шаблонов:\n§7Разрешена
 GTN.Wildcard.patternOptimization.disabled=Оптимизация шаблонов:\n§7Отключена
-GTN.Hatch.ThaumicCraftingInput.tooltip.00=Эссенция из шаблона закидывается AE2 в буфер хатча
-GTN.Hatch.ThaumicCraftingInput.tooltip.01=Недостающая эссенция берётся из подключённой ME-сети
-GTN.Hatch.ThaumicCraftingInput.waila.essentia=Эссенция в буфере:
-GTN.Hatch.ThaumicCraftingInput.waila.empty=Буфер эссенции пуст
+GTN.Hatch.MagicCraftingInput.tooltip.00=Эссенция и мана из шаблона закидываются AE2 в буфер хатча
+GTN.Hatch.MagicCraftingInput.tooltip.01=Недостающие эссенция и мана берутся из подключённой ME-сети
+GTN.Hatch.MagicCraftingInput.waila.essentia=Эссенция в буфере:
+GTN.Hatch.MagicCraftingInput.waila.empty=Буфер пуст
+GTN.Hatch.MagicCraftingInput.waila.mana=Мана в буфере: %s
 
 #Others
 GTN.TooltipBuilder.basic_info=Основная информация:
@@ -612,7 +614,7 @@ multiblock.LargeBioLab.recipe_info.fluid_discount=снижает расход ж
 multiblock.IndustrialCrucible=Промышленный тигель
 multiblock.IndustrialCrucible.machine_type=Алхимия
 multiblock.IndustrialCrucible.tooltip.00=Выполняет рецепты тигля с проверкой исследований владельца.
-multiblock.IndustrialCrucible.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME-люке тауматургического автокрафта
+multiblock.IndustrialCrucible.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME-люке магического автокрафта
 multiblock.IndustrialCrucible.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше HV, ограничены доступной эссенцией
 multiblock.IndustrialCrucible.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
 
@@ -620,7 +622,7 @@ multiblock.IndustrialCrucible.tooltip.03=§eРазгон:§7 обычный, н�
 multiblock.AutomatedInfusionMatrix=Автоматическая инфузионная матрица
 multiblock.AutomatedInfusionMatrix.machine_type=Инфузия
 multiblock.AutomatedInfusionMatrix.tooltip.00=Потребляет ингредиенты инфузии и эссенцию с проверкой исследований владельца.
-multiblock.AutomatedInfusionMatrix.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME-люке тауматургического автокрафта
+multiblock.AutomatedInfusionMatrix.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME-люке магического автокрафта
 multiblock.AutomatedInfusionMatrix.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше IV, ограничены доступной эссенцией
 multiblock.AutomatedInfusionMatrix.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
 multiblock.AutomatedInfusionMatrix.tooltip.04=§5После сборки рунические корпуса превращаются в рунную матрицу
@@ -641,7 +643,7 @@ gt.blockmachines.mana_hatch.name=Люк маны
 gt.blockmachines.aspect_hatch.name=Люк аспектов
 gt.blockmachines.me_aspect_hatch.name=ME-люк аспектов
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME-буфер шаблонов с подстановкой
-gt.blockmachines.me_thaumic_crafting_input_hatch.name=ME-люк тауматургического автокрафта
+gt.blockmachines.me_magic_crafting_input_hatch.name=ME-люк магического автокрафта
 
 # Welcome message
 GTN.Welcome.header=GregTechNightmare от %s

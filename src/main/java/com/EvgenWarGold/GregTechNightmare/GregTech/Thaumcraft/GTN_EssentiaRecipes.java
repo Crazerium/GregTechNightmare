@@ -3,7 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.Thaumcraft;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ThaumicCraftingInputHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 
 import appeng.api.storage.IMEMonitor;
@@ -22,9 +22,9 @@ public final class GTN_EssentiaRecipes {
 
     private static final class Sources {
 
-        final List<GTN_ThaumicCraftingInputHatch> hatches = new ArrayList<>();
+        final List<GTN_MagicCraftingInputHatch> hatches = new ArrayList<>();
         /** One entry per ME network, so several hatches on the same network do not count its essentia twice. */
-        final List<GTN_ThaumicCraftingInputHatch> networkHatches = new ArrayList<>();
+        final List<GTN_MagicCraftingInputHatch> networkHatches = new ArrayList<>();
         final List<IMEMonitor<AEEssentiaStack>> monitors = new ArrayList<>();
     }
 
@@ -57,7 +57,7 @@ public final class GTN_EssentiaRecipes {
         if (!hasEnough(sources, cost, multiplier)) return false;
         for (Aspect aspect : cost.getAspects()) {
             long missing = (long) cost.getAmount(aspect) * multiplier;
-            for (GTN_ThaumicCraftingInputHatch hatch : sources.hatches) {
+            for (GTN_MagicCraftingInputHatch hatch : sources.hatches) {
                 if (missing <= 0) break;
                 missing -= hatch.takeStoredEssentia(aspect, (int) Math.min(Integer.MAX_VALUE, missing));
             }
@@ -80,9 +80,9 @@ public final class GTN_EssentiaRecipes {
 
     private static long getAvailable(Sources sources, Aspect aspect) {
         long total = 0;
-        for (GTN_ThaumicCraftingInputHatch hatch : sources.hatches) total += hatch.getStoredEssentia(aspect);
+        for (GTN_MagicCraftingInputHatch hatch : sources.hatches) total += hatch.getStoredEssentia(aspect);
         for (IMEMonitor<AEEssentiaStack> monitor : sources.monitors) {
-            total += GTN_ThaumicCraftingInputHatch.getEssentiaAmount(monitor, aspect);
+            total += GTN_MagicCraftingInputHatch.getEssentiaAmount(monitor, aspect);
         }
         return total;
     }
@@ -90,7 +90,7 @@ public final class GTN_EssentiaRecipes {
     private static Sources findSources(GTN_MultiBlockBase<?> machine) {
         Sources sources = new Sources();
         for (IDualInputHatch dualInput : machine.mDualInputHatches) {
-            if (!(dualInput instanceof GTN_ThaumicCraftingInputHatch hatch)) continue;
+            if (!(dualInput instanceof GTN_MagicCraftingInputHatch hatch)) continue;
             if (hatch.getBaseMetaTileEntity() == null) continue;
             sources.hatches.add(hatch);
             IMEMonitor<AEEssentiaStack> monitor = hatch.getEssentiaMonitor();

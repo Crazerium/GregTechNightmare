@@ -281,8 +281,9 @@ multiblock.ZeroPowerWireMill.tooltip.01=§aTier skipping allowed
 multiblock.MagicEBF=Magic EBF
 multiblock.MagicEBF.machine_type=EBF
 multiblock.MagicEBF.tooltip.00=An enhanced magical version of the EBF
-multiblock.MagicEBF.tooltip.01=Consumes §bmana §7at the rate of §c1 §aMana Spreaders
+multiblock.MagicEBF.tooltip.01=Consumes §b210 mana per second§7 while working (§c1 §aMana Spreader§7): §b210 × recipe time in seconds§7 per craft
 multiblock.MagicEBF.tooltip.02=§aDoes not generate pollution
+multiblock.MagicEBF.tooltip.03=§7Mana: §aMana Hatch§7 or §aME Magic Crafting Input Hatch§7 (pattern or ME network)
 
 #MagicGenerator
 multiblock.MagicGenerator=Magic Generator
@@ -473,10 +474,11 @@ GTN.Hatch.WildcardPatternBuffer.tooltip.04=Wildcard token stack size becomes the
 GTN.Hatch.WildcardPatternBuffer.tooltip.05=Requires an AE channel.
 GTN.Wildcard.patternOptimization.allowed=Pattern Optimization:\n§7Allowed
 GTN.Wildcard.patternOptimization.disabled=Pattern Optimization:\n§7Disabled
-GTN.Hatch.ThaumicCraftingInput.tooltip.00=Essentia written in a pattern is pushed by AE2 into the hatch buffer
-GTN.Hatch.ThaumicCraftingInput.tooltip.01=Missing essentia is taken from the connected ME network
-GTN.Hatch.ThaumicCraftingInput.waila.essentia=Essentia in buffer:
-GTN.Hatch.ThaumicCraftingInput.waila.empty=Essentia buffer is empty
+GTN.Hatch.MagicCraftingInput.tooltip.00=Essentia and mana written in a pattern are pushed by AE2 into the hatch buffer
+GTN.Hatch.MagicCraftingInput.tooltip.01=Missing essentia and mana are taken from the connected ME network
+GTN.Hatch.MagicCraftingInput.waila.essentia=Essentia in buffer:
+GTN.Hatch.MagicCraftingInput.waila.empty=Buffer is empty
+GTN.Hatch.MagicCraftingInput.waila.mana=Mana in buffer: %s
 
 #Others
 GTN.TooltipBuilder.basic_info=Basic Info:
@@ -612,7 +614,7 @@ multiblock.LargeBioLab.recipe_info.fluid_discount=10% fluid discount (max 80%)
 multiblock.IndustrialCrucible=Industrial Crucible
 multiblock.IndustrialCrucible.machine_type=Alchemy
 multiblock.IndustrialCrucible.tooltip.00=Processes crucible recipes, respecting the owner research.
-multiblock.IndustrialCrucible.tooltip.01=§dEssentia:§7 from AE2 patterns in the ME Thaumic Crafting Input Hatch
+multiblock.IndustrialCrucible.tooltip.01=§dEssentia:§7 from AE2 patterns in the ME Magic Crafting Input Hatch
 multiblock.IndustrialCrucible.tooltip.02=§bParallel:§7 x2 for every energy tier above HV, limited by available essentia
 multiblock.IndustrialCrucible.tooltip.03=§eOverclock:§7 normal, uses the energy left after parallels
 
@@ -620,7 +622,7 @@ multiblock.IndustrialCrucible.tooltip.03=§eOverclock:§7 normal, uses the energ
 multiblock.AutomatedInfusionMatrix=Automated Infusion Matrix
 multiblock.AutomatedInfusionMatrix.machine_type=Infusion
 multiblock.AutomatedInfusionMatrix.tooltip.00=Consumes infusion ingredients and essentia, respecting the owner research.
-multiblock.AutomatedInfusionMatrix.tooltip.01=§dEssentia:§7 from AE2 patterns in the ME Thaumic Crafting Input Hatch
+multiblock.AutomatedInfusionMatrix.tooltip.01=§dEssentia:§7 from AE2 patterns in the ME Magic Crafting Input Hatch
 multiblock.AutomatedInfusionMatrix.tooltip.02=§bParallel:§7 x2 for every energy tier above IV, limited by available essentia
 multiblock.AutomatedInfusionMatrix.tooltip.03=§eOverclock:§7 normal, uses the energy left after parallels
 multiblock.AutomatedInfusionMatrix.tooltip.04=§5Once formed, the Runic Matrix Casings turn into the runic matrix
@@ -641,7 +643,7 @@ gt.blockmachines.mana_hatch.name=Mana Hatch
 gt.blockmachines.aspect_hatch.name=Aspect Hatch
 gt.blockmachines.me_aspect_hatch.name=ME Aspect Hatch
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME Wildcard Pattern Buffer
-gt.blockmachines.me_thaumic_crafting_input_hatch.name=ME Thaumic Crafting Input Hatch
+gt.blockmachines.me_magic_crafting_input_hatch.name=ME Magic Crafting Input Hatch
 
 # Welcome message
 GTN.Welcome.header=GregTechNightmare by %s

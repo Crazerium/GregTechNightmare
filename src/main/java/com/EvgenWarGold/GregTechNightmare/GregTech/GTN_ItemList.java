@@ -97,7 +97,7 @@ public enum GTN_ItemList {
     AspectHatch,
     MeAspectHatch,
     WildcardPatternBuffer,
-    ThaumicCraftingInputHatch,
+    MagicCraftingInputHatch,
     // endregion
 
     ;
