@@ -38,6 +38,7 @@ gtn.recipe.TerraPlateRecipes=Промышленная плита земной а
 gtn.recipe.PureDaisyRecipes=Промышленная чистая маргаритка
 gtn.recipe.PetalApothecaryRecipes=Промышленная лепестковая аптечка
 gtn.recipe.ElvenTradeRecipes=Эльфийские врата
+gtn.recipe.GreenhouseRecipes=Ботаническая оранжерея
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=Любые брёвна
@@ -47,6 +48,8 @@ gtn.recipe.utils.multiblock_tier.3=Корпус: усиленный вольфр
 gtn.recipe.utils.generating_eu=Генерация: %s EU/т
 gtn.recipe.utils.temperature_increase=Повышение температуры: %s
 gtn.recipe.utils.mana_cost=Мана: %s за крафт
+gtn.recipe.utils.mana_output=Выход маны: %s
+gtn.recipe.utils.flower_lifetime=Жизнь цветка: %s с
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.recipe_result.node_enough=Узел пуст
@@ -55,6 +58,7 @@ GT5U.gui.text.recipe_result.research_not_completed=§cНедостаточно �
 GT5U.gui.text.recipe_result.not_enough_aspects=§cНедостаточно аспектов
 GT5U.gui.text.recipe_result.not_enough_mana=§cНедостаточно маны
 GT5U.gui.text.shutdown_reason.not_enough_mana=§cНедостаточно маны
+GT5U.gui.text.recipe_result.mana_output_full=§cНет места для маны в выходных люках
 GT5U.gui.text.recipe_result.meteor_mining=§dСейчас идёт добыча!
 GT5U.gui.text.recipe_result.meteor_waiting=§dОжидание метеорита...
 GT5U.gui.text.recipe_result.meteor_reset=§dСброс завершён! 
@@ -489,6 +493,9 @@ GTN.Hatch.MagicCraftingInput.tooltip.01=Недостающие эссенция 
 GTN.Hatch.MagicCraftingInput.waila.essentia=Эссенция в буфере:
 GTN.Hatch.MagicCraftingInput.waila.empty=Буфер пуст
 GTN.Hatch.MagicCraftingInput.waila.mana=Мана в буфере: %s
+GTN.Hatch.MeManaOutputHatch.tooltip.00=§7Отправляет ману, сделанную машиной, в ME-сеть
+GTN.Hatch.MeManaOutputHatch.tooltip.01=§7Подключите ME-кабель к: §aпередней стороне§7. Буфер: §b%s§7 маны, пока сеть заполнена
+GTN.Hatch.MeManaOutputHatch.waila.buffer=Мана в буфере: §b%s
 
 #Others
 GTN.TooltipBuilder.basic_info=Основная информация:
@@ -498,6 +505,7 @@ GTN.TooltipBuilder.DynamoOrBufferedHatch=Энерговывод | Буфериз
 GTN.TooltipBuilder.ManaHatch=Люк маны
 GTN.TooltipBuilder.AspectHatch=Люк аспектов
 GTN.TooltipBuilder.MeAspectHatch=ME-люк аспектов
+GTN.TooltipBuilder.MeManaOutputHatch=ME-люк вывода маны
 GTN.TooltipBuilder.HatchRequirement= - минимум %s шт. на любом блоке, отмеченном точкой подсказки %s
 GTN.StructureLib.text.missing_block=§cОтсутствует блок: %s
 GTN.StructureLib.text.invalid_placement=§cНеверное расположение блока
@@ -692,6 +700,16 @@ multiblock.ElvenGateway.waila.drain=§aРасход маны: §b%s §aв сек
 multiblock.ElvenGateway.waila.open_cost=§aМана на открытие: §b%s
 multiblock.ElvenGateway.waila.available=§aДоступно маны: §b%s
 
+#BotanicalGreenhouse
+multiblock.BotanicalGreenhouse=Ботаническая оранжерея
+multiblock.BotanicalGreenhouse.machine_type=Генератор маны
+multiblock.BotanicalGreenhouse.tooltip.00=Генерирующие цветы во входной шине тратят своё топливо как в Ботании и дают ману
+multiblock.BotanicalGreenhouse.tooltip.01=§bМана:§7 в §aME-люки вывода маны§7 (ME-сеть) или §aмана-люки
+multiblock.BotanicalGreenhouse.tooltip.02=§bПараллели:§7 по одной на цветок, до §b16§7 цветков на MV, x2 за каждый тир энергии выше MV
+multiblock.BotanicalGreenhouse.tooltip.03=§7Цветы не тратятся, пассивные цветы (Гидроангеи) увядают после своего срока работы из Ботании
+multiblock.BotanicalGreenhouse.tooltip.04=§eРазгон:§7 нет, топливо горит столько же, сколько в Ботании
+multiblock.BotanicalGreenhouse.waila.mana_rate=§aМана: §b%s §aв секунду
+
 #ME Mana
 gtn.mana=Мана
 item.gtn.ManaCell.1k.name=1k ME-ячейка маны
@@ -710,6 +728,7 @@ gt.blockmachines.aspect_hatch.name=Люк аспектов
 gt.blockmachines.me_aspect_hatch.name=ME-люк аспектов
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME-буфер шаблонов с подстановкой
 gt.blockmachines.me_magic_crafting_input_hatch.name=ME-люк магического автокрафта
+gt.blockmachines.me_mana_output_hatch.name=ME-люк вывода маны
 
 # Welcome message
 GTN.Welcome.header=GregTechNightmare от %s

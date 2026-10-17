@@ -51,10 +51,15 @@ public abstract class GTN_BotanicMultiBlockBase<T extends GTN_BotanicMultiBlockB
         return Authors.CRAZER;
     }
 
+    /** False for machines that make no items. */
+    protected boolean needsOutputBus() {
+        return true;
+    }
+
     @Override
     protected boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
         return super.GTN_checkMachine(gte, stack) && (!mInputBusses.isEmpty() || !mDualInputHatches.isEmpty())
-            && !mOutputBusses.isEmpty()
+            && (!needsOutputBus() || !mOutputBusses.isEmpty())
             && (!mEnergyHatches.isEmpty() || !mExoticEnergyHatches.isEmpty());
     }
 

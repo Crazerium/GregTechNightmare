@@ -46,6 +46,7 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
     private static final String MANA_HATCH = tr("GTN.TooltipBuilder.ManaHatch");
     private static final String ASPECT_HATCH = tr("GTN.TooltipBuilder.AspectHatch");
     private static final String ME_ASPECT_HATCH = tr("GTN.TooltipBuilder.MeAspectHatch");
+    private static final String ME_MANA_OUTPUT_HATCH = tr("GTN.TooltipBuilder.MeManaOutputHatch");
     private static final String DIMENSIONS = tr("GT5U.MBTT.Dimensions");
     private static final String STRUCTURE = tr("GT5U.MBTT.Structure");
     private static final String[] DOTS = IntStream.range(0, 16)
@@ -197,6 +198,11 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
         return this;
     }
 
+    public GTN_MultiBlockTooltipBuilder addMeManaOutputHatch(int count, int dot) {
+        addHatch(ME_MANA_OUTPUT_HATCH, count, dot);
+        return this;
+    }
+
     public GTN_MultiBlockTooltipBuilder addAspectHatch(int count, int dot) {
         addHatch(ASPECT_HATCH, count, dot);
         return this;
@@ -279,6 +285,11 @@ public class GTN_MultiBlockTooltipBuilder extends MultiblockTooltipBuilder {
 
     public GTN_MultiBlockTooltipBuilder addManaHatch() {
         addManaHatch(1, 1);
+        return this;
+    }
+
+    public GTN_MultiBlockTooltipBuilder addMeManaOutputHatch() {
+        addMeManaOutputHatch(1, 1);
         return this;
     }
 

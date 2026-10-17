@@ -4,6 +4,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.EV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UV.GTN_LargeBioLab;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_EssentiaRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_GridRecipeFrontend;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_ManaOutputRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GTN_ManaRecipeFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMapFrontends.GasCollectorRecipesFrontend;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_BotaniaRecipesPool;
@@ -90,6 +91,14 @@ public class GTN_Recipe {
         .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(GTN_BotaniaRecipesPool.ELVEN_TRADE_ITEM_SLOTS))
         .neiSpecialInfoFormatter(GTN_ElvenGateway::getRecipeInfo)
         .frontend(GTN_GridRecipeFrontend::new)
+        .build();
+
+    public static final RecipeMap<?> GreenhouseRecipes = RecipeMapBuilder.of("gtn.recipe.GreenhouseRecipes")
+        .maxIO(2, 1, 1, 0)
+        .minInputs(1, 0)
+        .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(2))
+        .frontend(GTN_ManaOutputRecipeFrontend::new)
         .build();
 
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder

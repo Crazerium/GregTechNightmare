@@ -4,6 +4,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeManaOutputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_WildcardPatternBuffer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Example.GTN_TestMultiBlock;
@@ -35,6 +36,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_ItemCrate;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_LowPowerVoidMiner;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.LV.GTN_TreeSprouter;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_BotanicalGreenhouse;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_IndustrialManaPool;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MagicEBF;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.MV.GTN_MediumPowerAssembler;
@@ -103,6 +105,8 @@ public final class MachineLoader {
         GTN_ItemList.IndustrialPureDaisy.set(new GTN_IndustrialPureDaisy(21_046, "IndustrialPureDaisy"));
         GTN_ItemList.IndustrialPetalApothecary.set(new GTN_IndustrialPetalApothecary(21_047, "IndustrialPetalApothecary"));
         GTN_ItemList.ElvenGateway.set(new GTN_ElvenGateway(21_048, "ElvenGateway"));
+        GTN_ItemList.BotanicalGreenhouse.set(new GTN_BotanicalGreenhouse(21_049, "BotanicalGreenhouse"));
+        GTN_ItemList.MeManaOutputHatch.set(new GTN_MeManaOutputHatch(21_050, "ME Mana Output Hatch"));
         // spotless:on
     }
 }

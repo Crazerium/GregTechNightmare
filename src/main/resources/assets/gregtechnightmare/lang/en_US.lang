@@ -38,6 +38,7 @@ gtn.recipe.TerraPlateRecipes=Industrial Terrestrial Agglomeration Plate
 gtn.recipe.PureDaisyRecipes=Industrial Pure Daisy
 gtn.recipe.PetalApothecaryRecipes=Industrial Petal Apothecary
 gtn.recipe.ElvenTradeRecipes=Elven Gateway
+gtn.recipe.GreenhouseRecipes=Botanical Greenhouse
 
 #RecipeUtils
 gtn.recipe.utils.all_logs=All Logs
@@ -47,6 +48,8 @@ gtn.recipe.utils.multiblock_tier.3=Casing: Robust Tungstensteel
 gtn.recipe.utils.generating_eu=Generating: %s EU/t
 gtn.recipe.utils.temperature_increase=Temperature increase: %s
 gtn.recipe.utils.mana_cost=Mana: %s per craft
+gtn.recipe.utils.mana_output=Mana output: %s
+gtn.recipe.utils.flower_lifetime=Flower lifetime: %s s
 
 #SimpleCheckRecipeResult
 GT5U.gui.text.recipe_result.node_enough=Node is empty
@@ -55,6 +58,7 @@ GT5U.gui.text.recipe_result.research_not_completed=§cNot enough Research
 GT5U.gui.text.recipe_result.not_enough_aspects=§cNot enough Aspects
 GT5U.gui.text.recipe_result.not_enough_mana=§cNot enough Mana
 GT5U.gui.text.shutdown_reason.not_enough_mana=§cNot enough Mana
+GT5U.gui.text.recipe_result.mana_output_full=§cNo space for the mana in the output hatches
 GT5U.gui.text.recipe_result.meteor_mining=§dCurrently Mining!
 GT5U.gui.text.recipe_result.meteor_waiting=§dWaiting for a Meteor...
 GT5U.gui.text.recipe_result.meteor_reset=§dReset completed! 
@@ -489,6 +493,9 @@ GTN.Hatch.MagicCraftingInput.tooltip.01=Missing essentia and mana are taken from
 GTN.Hatch.MagicCraftingInput.waila.essentia=Essentia in buffer:
 GTN.Hatch.MagicCraftingInput.waila.empty=Buffer is empty
 GTN.Hatch.MagicCraftingInput.waila.mana=Mana in buffer: %s
+GTN.Hatch.MeManaOutputHatch.tooltip.00=§7Sends the mana made by the machine into the ME network
+GTN.Hatch.MeManaOutputHatch.tooltip.01=§7Connect ME cable to: §afront face§7. Buffer: §b%s§7 mana while the network is full
+GTN.Hatch.MeManaOutputHatch.waila.buffer=Mana in buffer: §b%s
 
 #Others
 GTN.TooltipBuilder.basic_info=Basic Info:
@@ -498,6 +505,7 @@ GTN.TooltipBuilder.DynamoOrBufferedHatch=Dynamo | Buffered Hatch
 GTN.TooltipBuilder.ManaHatch=Mana Hatch
 GTN.TooltipBuilder.AspectHatch=Aspect Hatch
 GTN.TooltipBuilder.MeAspectHatch=ME Aspect Hatch
+GTN.TooltipBuilder.MeManaOutputHatch=ME Mana Output Hatch
 GTN.TooltipBuilder.HatchRequirement= - at least %s in any hint dot %s block
 GTN.StructureLib.text.missing_block=§cMissing block: %s
 GTN.StructureLib.text.invalid_placement=§cInvalid block placement
@@ -692,6 +700,16 @@ multiblock.ElvenGateway.waila.drain=§aMana drain: §b%s §aper second
 multiblock.ElvenGateway.waila.open_cost=§aMana to open: §b%s
 multiblock.ElvenGateway.waila.available=§aAvailable mana: §b%s
 
+#BotanicalGreenhouse
+multiblock.BotanicalGreenhouse=Botanical Greenhouse
+multiblock.BotanicalGreenhouse.machine_type=Mana Generator
+multiblock.BotanicalGreenhouse.tooltip.00=Generating flowers in the input bus use their fuel like in Botania and make mana
+multiblock.BotanicalGreenhouse.tooltip.01=§bMana:§7 into §aME Mana Output Hatches§7 (ME network) or §aMana Hatches
+multiblock.BotanicalGreenhouse.tooltip.02=§bParallel:§7 one per flower, up to §b16§7 flowers at MV, x2 for every energy tier above MV
+multiblock.BotanicalGreenhouse.tooltip.03=§7Flowers are not consumed, passive flowers (Hydroangeas) wither after their Botania lifetime of work
+multiblock.BotanicalGreenhouse.tooltip.04=§eOverclock:§7 none, the fuel burns as long as in Botania
+multiblock.BotanicalGreenhouse.waila.mana_rate=§aMana: §b%s §aper second
+
 #ME Mana
 gtn.mana=Mana
 item.gtn.ManaCell.1k.name=1k ME Mana Storage Cell
@@ -710,6 +728,7 @@ gt.blockmachines.aspect_hatch.name=Aspect Hatch
 gt.blockmachines.me_aspect_hatch.name=ME Aspect Hatch
 gt.blockmachines.me_wildcard_pattern_buffer.name=ME Wildcard Pattern Buffer
 gt.blockmachines.me_magic_crafting_input_hatch.name=ME Magic Crafting Input Hatch
+gt.blockmachines.me_mana_output_hatch.name=ME Mana Output Hatch
 
 # Welcome message
 GTN.Welcome.header=GregTechNightmare by %s

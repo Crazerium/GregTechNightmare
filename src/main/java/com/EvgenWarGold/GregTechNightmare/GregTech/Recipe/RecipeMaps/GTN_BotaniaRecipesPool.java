@@ -12,9 +12,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import com.EvgenWarGold.GregTechNightmare.GTN_Logger;
@@ -26,6 +29,7 @@ import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
 import gregtech.api.recipe.RecipeMap;
+import gregtech.api.util.GTRecipeBuilder;
 import gregtech.api.util.GTUtility;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -34,6 +38,8 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibBlockNames;
 
 /** Converts the Botania recipes into the recipe maps of the Botania machines. */
 public final class GTN_BotaniaRecipesPool {
@@ -49,6 +55,17 @@ public final class GTN_BotaniaRecipesPool {
     /** Time of the Pure Daisy for one block. */
     private static final int PURE_DAISY_TICKS = 150;
 
+    /** Endoflame: burns half the furnace time of the fuel, up to 16 000 ticks, and makes 3 mana every 2 ticks. */
+    private static final int ENDOFLAME_MAX_BURN = 32_000;
+    /** Hydroangeas: one water block burns 40 ticks, 1 mana every 2 ticks. */
+    private static final int HYDROANGEAS_TICKS = 40;
+    private static final int HYDROANGEAS_MANA = 20;
+    /** Thermalily: one lava block burns 900 ticks at 20 mana per tick, then the flower cools down for 6000 ticks. */
+    private static final int THERMALILY_TICKS = 900 + 6000;
+    private static final int THERMALILY_MANA = 900 * 20;
+    /** Energy of one flower in the greenhouse. */
+    private static final int GREENHOUSE_EUT = 8;
+
     /** Skip reason -> count, printed once after the conversion. */
     private static final Map<String, Integer> SKIPPED = new TreeMap<>();
 
@@ -60,6 +77,7 @@ public final class GTN_BotaniaRecipesPool {
         int daisyBefore = size(GTN_Recipe.PureDaisyRecipes);
         int petalBefore = size(GTN_Recipe.PetalApothecaryRecipes);
         int elvenBefore = size(GTN_Recipe.ElvenTradeRecipes);
+        int greenhouseBefore = size(GTN_Recipe.GreenhouseRecipes);
 
         for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) registerManaInfusion(recipe);
         for (RecipeRuneAltar recipe : BotaniaAPI.runeAltarRecipes) registerRuneAltar(recipe);
@@ -67,10 +85,11 @@ public final class GTN_BotaniaRecipesPool {
         for (RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) registerPureDaisy(recipe);
         for (RecipePetals recipe : BotaniaAPI.petalRecipes) registerPetalApothecary(recipe);
         for (RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) registerElvenTrade(recipe);
+        registerGreenhouse();
 
         GTN_Logger.info(
             "Botania recipes converted: mana infusion %d -> %d, runic altar %d -> %d, pure daisy %d -> %d,"
-                + " petal apothecary %d -> %d, elven trade %d -> %d, skipped: %s",
+                + " petal apothecary %d -> %d, elven trade %d -> %d, greenhouse %d, skipped: %s",
             BotaniaAPI.manaInfusionRecipes.size(),
             size(GTN_Recipe.ManaInfusionRecipes) - infusionBefore,
             BotaniaAPI.runeAltarRecipes.size(),
@@ -81,6 +100,7 @@ public final class GTN_BotaniaRecipesPool {
             size(GTN_Recipe.PetalApothecaryRecipes) - petalBefore,
             BotaniaAPI.elvenTradeRecipes.size(),
             size(GTN_Recipe.ElvenTradeRecipes) - elvenBefore,
+            size(GTN_Recipe.GreenhouseRecipes) - greenhouseBefore,
             SKIPPED);
         SKIPPED.clear();
     }
@@ -227,6 +247,65 @@ public final class GTN_BotaniaRecipesPool {
                 .eut(RECIPE_EV)
                 .duration(20 * 5)
                 .addTo(GTN_Recipe.ElvenTradeRecipes));
+    }
+
+    private static void registerGreenhouse() {
+        ItemStack endoflame = ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME);
+        Object[] fuels = { new ItemStack(Items.coal, 1, 0), new ItemStack(Items.coal, 1, 1),
+            new ItemStack(Blocks.coal_block), new ItemStack(Items.blaze_rod), "logWood", "plankWood", "stickWood" };
+        for (Object fuel : fuels) registerEndoflame(endoflame, fuel);
+
+        // passive flowers wither after the Botania decay time, like a flower placed in the world
+        int decay = Math.max(0, BotaniaAPI.internalHandler.getPassiveFlowerDecay());
+        addGreenhouse(
+            ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS),
+            null,
+            Materials.Water.getFluid(1_000),
+            HYDROANGEAS_TICKS,
+            HYDROANGEAS_MANA,
+            decay);
+        addGreenhouse(
+            ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY),
+            null,
+            Materials.Lava.getFluid(1_000),
+            THERMALILY_TICKS,
+            THERMALILY_MANA,
+            0);
+    }
+
+    private static void registerEndoflame(ItemStack flower, Object fuel) {
+        ItemStack sample = fuel instanceof String oreName ? getFirstOre(oreName) : (ItemStack) fuel;
+        int burnTicks = sample == null ? 0
+            : Math.min(ENDOFLAME_MAX_BURN, TileEntityFurnace.getItemBurnTime(sample)) / 2;
+        if (burnTicks <= 0) {
+            skip("greenhouse: fuel without burn time");
+            return;
+        }
+        addGreenhouse(flower, toInput(fuel, 1), null, burnTicks, burnTicks * 3 / 2, 0);
+    }
+
+    /** The flower stays in the input bus, a lifetime above 0 makes it wither after that many ticks of work. */
+    private static void addGreenhouse(ItemStack flower, Object itemFuel, FluidStack fluidFuel, int ticks, int mana,
+        int lifetime) {
+        List<Object> inputs = new ArrayList<>();
+        inputs.add(GTUtility.copyAmount(0, flower));
+        if (itemFuel != null) inputs.add(itemFuel);
+        addChecked(GTN_Recipe.GreenhouseRecipes, "greenhouse", () -> {
+            GTRecipeBuilder builder = GTValues.RA.stdBuilder()
+                .itemInputs(inputs.toArray())
+                .metadata(SimpleMetaData.MANA_OUTPUT, mana)
+                .nbtSensitive()
+                .eut(GREENHOUSE_EUT)
+                .duration(ticks);
+            if (fluidFuel != null) builder.fluidInputs(fluidFuel);
+            if (lifetime > 0) builder.metadata(SimpleMetaData.FLOWER_LIFETIME, lifetime);
+            builder.addTo(GTN_Recipe.GreenhouseRecipes);
+        });
+    }
+
+    private static ItemStack getFirstOre(String oreName) {
+        List<ItemStack> ores = OreDictionary.getOres(oreName);
+        return ores.isEmpty() ? null : ores.get(0);
     }
 
     /** Botania inputs are one item each, identical ones are counted together. Null if an input is unknown. */

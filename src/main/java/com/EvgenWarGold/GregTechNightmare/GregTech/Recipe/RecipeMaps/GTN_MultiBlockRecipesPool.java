@@ -579,6 +579,21 @@ public class GTN_MultiBlockRecipesPool {
             .duration(20 * 120)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Botanical Greenhouse
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(16),
+                new ItemStack(Blocks.glass, 32),
+                BotaniaBlocks.ManaPool.getItemStack(1),
+                ItemList.Hull_MV.get(1),
+                ItemList.Electric_Pump_MV.get(2),
+                getCircuits(Materials.MV, 4)
+            )
+            .itemOutputs(GTN_ItemList.BotanicalGreenhouse.get(1))
+            .eut(RECIPE_MV)
+            .duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

@@ -12,6 +12,10 @@ public class SimpleMetaData {
 
     public static final RecipeMetadataKey<Integer> MANA_COST = new GTN_ManaCostMetadataKey();
 
+    public static final RecipeMetadataKey<Integer> MANA_OUTPUT = new GTN_ManaOutputMetadataKey();
+
+    public static final RecipeMetadataKey<Integer> FLOWER_LIFETIME = new GTN_FlowerLifetimeMetadataKey();
+
     public static final RecipeMetadataKey<String> RESEARCH_KEY = SimpleRecipeMetadataKey
         .create(String.class, "research_key");
 

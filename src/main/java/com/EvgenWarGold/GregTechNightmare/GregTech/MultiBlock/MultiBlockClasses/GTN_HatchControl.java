@@ -3,6 +3,7 @@ package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeManaOutputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -71,6 +72,14 @@ public class GTN_HatchControl<T extends GTN_MultiBlockBase<T>> {
         return multiblock.manaHatches.add(manaHatch);
     }
 
+    public final boolean addMeManaOutputHatchToMachineList(IGregTechTileEntity tileEntity) {
+        if (baseCheckHatch(tileEntity)) return false;
+
+        if (!(tileEntity.getMetaTileEntity() instanceof GTN_MeManaOutputHatch hatch)) return false;
+
+        return multiblock.meManaOutputHatches.add(hatch);
+    }
+
     public final boolean addAspectHatchToMachineList(IGregTechTileEntity tileEntity) {
         if (baseCheckHatch(tileEntity)) return false;
 
@@ -112,6 +121,7 @@ public class GTN_HatchControl<T extends GTN_MultiBlockBase<T>> {
         for (MTEHatch h : multiblock.manaHatches) h.updateTexture(textureId);
         for (MTEHatch h : multiblock.aspectHatches) h.updateTexture(textureId);
         for (MTEHatch h : multiblock.meAspectHatches) h.updateTexture(textureId);
+        for (MTEHatch h : multiblock.meManaOutputHatches) h.updateTexture(textureId);
         for (MTEHatch h : multiblock.mDynamoHatches) h.updateTexture(textureId);
         for (MTEHatch h : multiblock.dynamoMultiHatches) h.updateTexture(textureId);
     }
@@ -126,6 +136,7 @@ public class GTN_HatchControl<T extends GTN_MultiBlockBase<T>> {
         multiblock.manaHatches.clear();
         multiblock.aspectHatches.clear();
         multiblock.meAspectHatches.clear();
+        multiblock.meManaOutputHatches.clear();
         multiblock.dynamoMultiHatches.clear();
     }
     // endregion

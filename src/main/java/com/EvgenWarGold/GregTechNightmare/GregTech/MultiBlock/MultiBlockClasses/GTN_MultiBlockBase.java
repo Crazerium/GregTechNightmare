@@ -34,6 +34,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeManaOutputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeResult.ResultInsufficientRangeTier;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
@@ -93,6 +94,7 @@ public abstract class GTN_MultiBlockBase<T extends GTN_MultiBlockBase<T>> extend
     public ArrayList<GTN_ManaHatch> manaHatches = new ArrayList<>();
     public ArrayList<GTN_AspectHatch> aspectHatches = new ArrayList<>();
     public ArrayList<GTN_MeAspectHatch> meAspectHatches = new ArrayList<>();
+    public ArrayList<GTN_MeManaOutputHatch> meManaOutputHatches = new ArrayList<>();
     public ArrayList<MTEHatchDynamoMulti> dynamoMultiHatches = new ArrayList<>();
     protected final GTN_HatchControl<?> hatchControl;
     // Processing

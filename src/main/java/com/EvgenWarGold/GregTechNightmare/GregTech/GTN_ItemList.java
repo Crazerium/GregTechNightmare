@@ -105,6 +105,8 @@ public enum GTN_ItemList {
     IndustrialPureDaisy,
     IndustrialPetalApothecary,
     ElvenGateway,
+    BotanicalGreenhouse,
+    MeManaOutputHatch,
     // endregion
 
     ;

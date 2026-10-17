@@ -7,6 +7,7 @@ import java.util.List;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeManaOutputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_SensorHatch;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
 
@@ -63,6 +64,16 @@ public enum GTN_HatchElement implements IHatchElement<GTN_MultiBlockBase<?>> {
         @Override
         public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
             return gtnMultiBlockBase.manaHatches.size();
+        }
+    },
+
+    MeManaOutputHatch("GTN.TooltipBuilder.MeManaOutputHatch",
+        (base, tile, casing) -> base.hatchControl.addMeManaOutputHatchToMachineList(tile),
+        GTN_MeManaOutputHatch.class) {
+
+        @Override
+        public long count(GTN_MultiBlockBase<?> gtnMultiBlockBase) {
+            return gtnMultiBlockBase.meManaOutputHatches.size();
         }
     },
 

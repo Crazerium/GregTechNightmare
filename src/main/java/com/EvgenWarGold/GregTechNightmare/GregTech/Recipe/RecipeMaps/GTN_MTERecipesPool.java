@@ -4,6 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getFluid;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getWireGt01;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_RecipeUtils.getCircuits;
+import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_IV;
 import static gregtech.api.enums.TierEU.RECIPE_LuV;
 import static gregtech.api.util.GTModHandler.addCraftingRecipe;
@@ -15,6 +16,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.BotaniaBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 import com.EvgenWarGold.GregTechNightmare.ModItems.AppliedEnergisticsItems;
+import com.EvgenWarGold.GregTechNightmare.ModItems.BotaniaItems;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict;
 
 import gregtech.api.enums.GTValues;
@@ -90,6 +92,19 @@ public class GTN_MTERecipesPool {
             )
             .itemOutputs(GTN_ItemList.MagicCraftingInputHatch.get(1))
             .eut(RECIPE_IV)
+            .duration(20 * 30)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // ME Mana Output Hatch
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Hatch_Output_ME.get(1),
+                GTN_ItemList.ManaHatch.get(1),
+                BotaniaItems.ManaDiamond.get(2),
+                getCircuits(Materials.HV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MeManaOutputHatch.get(1))
+            .eut(RECIPE_HV)
             .duration(20 * 30)
             .addTo(RecipeMaps.assemblerRecipes);
 

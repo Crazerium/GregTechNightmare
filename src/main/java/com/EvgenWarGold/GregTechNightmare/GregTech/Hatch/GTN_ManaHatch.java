@@ -246,6 +246,10 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         super.onBlockDestroyed();
     }
 
+    public int getMaxMana() {
+        return MAX_MANA;
+    }
+
     @Override
     public boolean isFull() {
         return getCurrentMana() >= MAX_MANA;
