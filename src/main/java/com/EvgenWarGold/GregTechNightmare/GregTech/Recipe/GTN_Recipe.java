@@ -94,10 +94,10 @@ public class GTN_Recipe {
         .build();
 
     public static final RecipeMap<?> GreenhouseRecipes = RecipeMapBuilder.of("gtn.recipe.GreenhouseRecipes")
-        .maxIO(2, 1, 1, 0)
+        .maxIO(GTN_BotaniaRecipesPool.GREENHOUSE_ITEM_SLOTS, 1, 1, 0)
         .minInputs(1, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
-        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(2))
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(GTN_BotaniaRecipesPool.GREENHOUSE_ITEM_SLOTS))
         .frontend(GTN_ManaOutputRecipeFrontend::new)
         .build();
 

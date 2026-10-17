@@ -15,8 +15,10 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -51,6 +53,8 @@ public final class GTN_BotaniaRecipesPool {
     public static final int RUNE_ALTAR_ITEM_SLOTS = 12;
     public static final int PETAL_APOTHECARY_ITEM_SLOTS = 16;
     public static final int ELVEN_TRADE_ITEM_SLOTS = 4;
+    /** The flower and its fuel. */
+    public static final int GREENHOUSE_ITEM_SLOTS = 2;
 
     /** Time of the Pure Daisy for one block. */
     private static final int PURE_DAISY_TICKS = 150;
@@ -63,6 +67,28 @@ public final class GTN_BotaniaRecipesPool {
     /** Thermalily: one lava block burns 900 ticks at 20 mana per tick, then the flower cools down for 6000 ticks. */
     private static final int THERMALILY_TICKS = 900 + 6000;
     private static final int THERMALILY_MANA = 900 * 20;
+    /** Gourmaryllis: food with hunger h makes h * h * 64 mana (up to 8000) and digests for h * 10 ticks. */
+    private static final int GOURMARYLLIS_MAX_MANA = 8_000;
+    /**
+     * Munchdew: eats one leaf block every 4 ticks for 160 mana until its 10 000 mana buffer is full (62 leaves), then
+     * rests for 1600 ticks.
+     */
+    private static final int MUNCHDEW_LEAVES = 62;
+    private static final int MUNCHDEW_TICKS = MUNCHDEW_LEAVES * 4 + 1_600;
+    private static final int MUNCHDEW_MANA = MUNCHDEW_LEAVES * 160;
+    /** Kekimurus: eats one of the 6 cake slices every 80 ticks for 1800 mana. */
+    private static final int KEKIMURUS_TICKS = 6 * 80;
+    private static final int KEKIMURUS_MANA = 6 * 1_800;
+    /** Spectrolus: 300 mana per wool, Botania needs the colours in order, the machine sorts them itself. */
+    private static final int SPECTROLUS_TICKS = 20;
+    private static final int SPECTROLUS_MANA = 300;
+    /** Entropinnyum: one TNT explosion (80 ticks fuse) fills it with 6500 mana. */
+    private static final int ENTROPINNYUM_TICKS = 80;
+    private static final int ENTROPINNYUM_MANA = 6_500;
+    /** Arcane Rose: 50 mana per experience point, one point per tick. Liquid experience is 20 mB per point. */
+    private static final int ARCANE_ROSE_XP = 50;
+    private static final int ARCANE_ROSE_MANA_PER_XP = 50;
+    private static final int MB_PER_XP = 20;
     /** Energy of one flower in the greenhouse. */
     private static final int GREENHOUSE_EUT = 8;
 
@@ -259,18 +285,77 @@ public final class GTN_BotaniaRecipesPool {
         int decay = Math.max(0, BotaniaAPI.internalHandler.getPassiveFlowerDecay());
         addGreenhouse(
             ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_HYDROANGEAS),
-            null,
+            List.of(),
             Materials.Water.getFluid(1_000),
             HYDROANGEAS_TICKS,
             HYDROANGEAS_MANA,
             decay);
         addGreenhouse(
             ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_THERMALILY),
-            null,
+            List.of(),
             Materials.Lava.getFluid(1_000),
             THERMALILY_TICKS,
             THERMALILY_MANA,
             0);
+
+        for (Object item : Item.itemRegistry) {
+            if (item instanceof ItemFood food) registerGourmaryllis(food);
+        }
+        addFlowerFuel(
+            LibBlockNames.SUBTILE_MUNCHDEW,
+            List.of((Object) new Object[] { "treeLeaves", MUNCHDEW_LEAVES }),
+            null,
+            MUNCHDEW_TICKS,
+            MUNCHDEW_MANA);
+        addFlowerFuel(
+            LibBlockNames.SUBTILE_KEKIMURUS,
+            List.of(new ItemStack(Items.cake)),
+            null,
+            KEKIMURUS_TICKS,
+            KEKIMURUS_MANA);
+        // the machine feeds the wool in colour order itself, so every colour is a recipe of its own
+        for (int color = 0; color < 16; color++) {
+            addFlowerFuel(
+                LibBlockNames.SUBTILE_SPECTROLUS,
+                List.of(new ItemStack(Blocks.wool, 1, color)),
+                null,
+                SPECTROLUS_TICKS,
+                SPECTROLUS_MANA);
+        }
+        addFlowerFuel(
+            LibBlockNames.SUBTILE_ENTROPINNYUM,
+            List.of(new ItemStack(Blocks.tnt)),
+            null,
+            ENTROPINNYUM_TICKS,
+            ENTROPINNYUM_MANA);
+        FluidStack xp = FluidRegistry.getFluidStack("xpjuice", ARCANE_ROSE_XP * MB_PER_XP);
+        if (xp != null) {
+            addFlowerFuel(
+                LibBlockNames.SUBTILE_ARCANE_ROSE,
+                List.of(),
+                xp,
+                ARCANE_ROSE_XP,
+                ARCANE_ROSE_XP * ARCANE_ROSE_MANA_PER_XP);
+        } else {
+            skip("greenhouse: no liquid experience");
+        }
+    }
+
+    private static void registerGourmaryllis(ItemFood food) {
+        ItemStack stack = new ItemStack(food);
+        int hunger;
+        try {
+            hunger = food.func_150905_g(stack);
+        } catch (RuntimeException e) {
+            hunger = 0;
+        }
+        if (hunger <= 0) return;
+        int mana = Math.min(GOURMARYLLIS_MAX_MANA, hunger * hunger * 64);
+        addFlowerFuel(LibBlockNames.SUBTILE_GOURMARYLLIS, List.of(stack), null, hunger * 10, mana);
+    }
+
+    private static void addFlowerFuel(String flower, List<?> itemFuels, FluidStack fluidFuel, int ticks, int mana) {
+        addGreenhouse(ItemBlockSpecialFlower.ofType(flower), itemFuels, fluidFuel, ticks, mana, 0);
     }
 
     private static void registerEndoflame(ItemStack flower, Object fuel) {
@@ -281,15 +366,15 @@ public final class GTN_BotaniaRecipesPool {
             skip("greenhouse: fuel without burn time");
             return;
         }
-        addGreenhouse(flower, toInput(fuel, 1), null, burnTicks, burnTicks * 3 / 2, 0);
+        addGreenhouse(flower, List.of(toInput(fuel, 1)), null, burnTicks, burnTicks * 3 / 2, 0);
     }
 
     /** The flower stays in the input bus, a lifetime above 0 makes it wither after that many ticks of work. */
-    private static void addGreenhouse(ItemStack flower, Object itemFuel, FluidStack fluidFuel, int ticks, int mana,
+    private static void addGreenhouse(ItemStack flower, List<?> itemFuels, FluidStack fluidFuel, int ticks, int mana,
         int lifetime) {
         List<Object> inputs = new ArrayList<>();
         inputs.add(GTUtility.copyAmount(0, flower));
-        if (itemFuel != null) inputs.add(itemFuel);
+        inputs.addAll(itemFuels);
         addChecked(GTN_Recipe.GreenhouseRecipes, "greenhouse", () -> {
             GTRecipeBuilder builder = GTValues.RA.stdBuilder()
                 .itemInputs(inputs.toArray())

@@ -19,11 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.EvgenWarGold.GregTechNightmare.Api.Dimensions;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeManaOutputHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Gui.GTN_BotanicalGreenhouseGui;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_BotanicMultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
@@ -46,6 +49,7 @@ import gregtech.api.util.GTRecipe;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.OverclockCalculator;
 import gregtech.api.util.ParallelHelper;
+import gregtech.common.gui.modularui.multiblock.base.MTEMultiBlockBaseGui;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 /**
@@ -270,10 +274,19 @@ public class GTN_BotanicalGreenhouse extends GTN_BotanicMultiBlockBase<GTN_Botan
         for (Object key : wear.func_150296_c()) flowerWear.put((String) key, wear.getLong((String) key));
     }
 
+    /** Mana per second of the running recipe. */
+    public long getManaPerSecond() {
+        return mMaxProgresstime > 0 ? pendingMana * 20 / mMaxProgresstime : 0;
+    }
+
+    @Override
+    protected @NotNull MTEMultiBlockBaseGui<?> getGui() {
+        return new GTN_BotanicalGreenhouseGui(this);
+    }
+
     @Override
     public void GTN_WailaNBT(TileEntity tile, Dimensions dimensions, NBTTagCompound tag) {
-        // mana per second of the running recipe
-        tag.setLong("manaPerSecond", mMaxProgresstime > 0 ? pendingMana * 20 / mMaxProgresstime : 0);
+        tag.setLong("manaPerSecond", getManaPerSecond());
     }
 
     @Override
