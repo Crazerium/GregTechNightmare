@@ -1,9 +1,14 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.Hatch;
 
+import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.formatNumber;
+
 import java.lang.reflect.Field;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -13,6 +18,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.EvgenWarGold.GregTechNightmare.GregTech.Mana.GTN_ManaBuses;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Textures.GTN_BlockIcons;
 import com.EvgenWarGold.GregTechNightmare.Utils.Constants;
 import com.EvgenWarGold.GregTechNightmare.Utils.GTN_Utils;
@@ -25,8 +31,12 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.implementations.MTEHatch;
 import gregtech.api.render.TextureFactory;
+import gregtech.api.util.GTUtility;
 import io.netty.buffer.ByteBuf;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.client.core.handler.HUDHandler;
@@ -40,7 +50,12 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
     private int texturePage = 0;
     private int textureIndex = 0;
     private boolean registered = false;
+    /** Mana the client knows about, to resend only changes. */
+    private int syncedMana = -1;
+    /** Sends the mana into the Botania blocks next to the hatch, for machines that make mana. */
+    private boolean outputMode = false;
     private static final String TAG_MANA = "mana";
+    private static final String TAG_OUTPUT_MODE = "outputMode";
     private static final String TAG_TEXTURE_PAGE = "texturePage";
     private static final String TAG_TEXTURE_INDEX = "textureIndex";
 
@@ -98,7 +113,7 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
     public String[] getDescription() {
         return new String[] { GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.00"),
             GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.01"), GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.02"),
-            GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.03"),
+            GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.03"), GTN_Utils.tr("GTN.Hatch.ManaHatch.tooltip.04"),
             GTN_Utils.tr("GTN.Hatch.common.addedBy", Constants.MOD_NAME) };
     }
 
@@ -108,6 +123,7 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         mana = aNBT.getInteger(TAG_MANA);
         texturePage = aNBT.getInteger(TAG_TEXTURE_PAGE);
         textureIndex = aNBT.getInteger(TAG_TEXTURE_INDEX);
+        outputMode = aNBT.getBoolean(TAG_OUTPUT_MODE);
     }
 
     @Override
@@ -115,6 +131,7 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         super.saveNBTData(aNBT);
         aNBT.setInteger(TAG_MANA, mana);
         aNBT.setInteger(TAG_TEXTURE_INDEX, textureIndex);
+        aNBT.setBoolean(TAG_OUTPUT_MODE, outputMode);
         aNBT.setInteger(TAG_TEXTURE_PAGE, texturePage);
     }
 
@@ -220,6 +237,67 @@ public class GTN_ManaHatch extends MTEHatch implements IManaPool, IWandHUD {
         } catch (Exception e) {
             return TextureFactory.of(textureFont);
         }
+    }
+
+    @Override
+    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        super.onPostTick(aBaseMetaTileEntity, aTick);
+        if (aBaseMetaTileEntity.isServerSide() && outputMode && aTick % 20 == 0) pushMana(aBaseMetaTileEntity);
+        // the wand HUD reads the client copy of the mana, it only comes with the block description
+        if (aBaseMetaTileEntity.isServerSide() && aTick % 20 == 0 && mana != syncedMana) {
+            syncedMana = mana;
+            aBaseMetaTileEntity.getWorld()
+                .markBlockForUpdate(
+                    aBaseMetaTileEntity.getXCoord(),
+                    aBaseMetaTileEntity.getYCoord(),
+                    aBaseMetaTileEntity.getZCoord());
+        }
+    }
+
+    /** Gives the mana to the pools and other receivers next to the hatch that have space for it. */
+    private void pushMana(IGregTechTileEntity base) {
+        for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+            if (mana <= 0) return;
+            TileEntity tile = base.getTileEntityAtSide(side);
+            if (!(tile instanceof IManaReceiver receiver) || !GTN_ManaBuses.isReadyForMana(tile)) continue;
+            int moved = (int) Math.min(mana, GTN_ManaBuses.getFreeSpace(tile));
+            if (moved <= 0) continue;
+            receiver.recieveMana(moved);
+            mana -= moved;
+            tile.getWorldObj()
+                .markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+        }
+    }
+
+    @Override
+    public void onScrewdriverRightClick(ForgeDirection side, EntityPlayer aPlayer, float aX, float aY, float aZ,
+        ItemStack aTool) {
+        outputMode = !outputMode;
+        GTUtility
+            .sendChatTrans(aPlayer, outputMode ? "GTN.Hatch.ManaHatch.mode.output" : "GTN.Hatch.ManaHatch.mode.input");
+    }
+
+    @Override
+    public void getWailaNBTData(EntityPlayerMP player, TileEntity tile, NBTTagCompound tag, World world, int x, int y,
+        int z) {
+        super.getWailaNBTData(player, tile, tag, world, x, y, z);
+        tag.setInteger(TAG_MANA, mana);
+        tag.setBoolean(TAG_OUTPUT_MODE, outputMode);
+    }
+
+    @Override
+    public void getWailaBody(ItemStack itemStack, List<String> currentTip, IWailaDataAccessor accessor,
+        IWailaConfigHandler config) {
+        super.getWailaBody(itemStack, currentTip, accessor, config);
+        currentTip.add(
+            GTN_Utils.tr(
+                "GTN.Hatch.ManaHatch.waila.mana",
+                formatNumber(
+                    accessor.getNBTData()
+                        .getInteger(TAG_MANA)),
+                formatNumber(MAX_MANA)));
+        if (accessor.getNBTData()
+            .getBoolean(TAG_OUTPUT_MODE)) currentTip.add(GTN_Utils.tr("GTN.Hatch.ManaHatch.waila.output"));
     }
 
     @Override
