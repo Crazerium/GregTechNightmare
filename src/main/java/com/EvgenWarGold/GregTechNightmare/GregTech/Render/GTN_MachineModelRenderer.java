@@ -20,46 +20,69 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * Draws the animated runic matrix (Blockbench model) inside the Automated Infusion Matrix structure.
+ * Draws the animated Blockbench model of a multiblock inside its structure, in place of its hidden casings.
  */
 @SideOnly(Side.CLIENT)
-public final class GTN_AutomatedInfusionMatrixRenderer {
+public final class GTN_MachineModelRenderer {
 
-    private static final ResourceLocation MODEL_LOCATION = new ResourceLocation(
-        GregTechNightmare.RESOURCE_ROOT_ID,
-        "models/auto_runic_matrix.bbmodel");
+    public static final GTN_MachineModelRenderer AUTOMATED_INFUSION_MATRIX = new GTN_MachineModelRenderer(
+        "models/auto_runic_matrix.bbmodel",
+        0,
+        1,
+        1,
+        1);
+    /** Twice the size of the Blockbench model: 6x4x2 blocks, centered between two columns and two rows. */
+    public static final GTN_MachineModelRenderer INDUSTRIAL_CRUCIBLE = new GTN_MachineModelRenderer(
+        "models/auto_alchemy_construct.bbmodel",
+        -0.5,
+        1,
+        1.5,
+        2);
+
     private static final String ANIMATION_NAME = "animation";
-
-    /** Where the bottom-center of the model sits, relative to the controller: blocks up / blocks back. */
-    public static final int MODEL_OFFSET_UP = 1;
-    public static final int MODEL_OFFSET_BACK = 1;
 
     /** Minimal block light of the model while idle / at full speed (0..240 lightmap units). */
     private static final int IDLE_GLOW = 96;
     private static final int ACTIVE_GLOW = 240;
 
-    private static GTN_BBModel model;
-    private static GTN_BBAnimation animation;
     private static final FloatBuffer BASIS = BufferUtils.createFloatBuffer(16);
 
-    private GTN_AutomatedInfusionMatrixRenderer() {}
+    private final ResourceLocation modelLocation;
+    /** Where the bottom-center of the model sits, relative to the controller center: blocks right, up and back. */
+    private final double offsetRight;
+    private final double offsetUp;
+    private final double offsetBack;
+    /** Size of the model; the animation is played as much slower, so the big parts do not move faster. */
+    private final float scale;
+    private GTN_BBModel model;
+    private GTN_BBAnimation animation;
 
-    public static float getAnimationLength() {
+    private GTN_MachineModelRenderer(String modelPath, double offsetRight, double offsetUp, double offsetBack,
+        float scale) {
+        this.modelLocation = new ResourceLocation(GregTechNightmare.RESOURCE_ROOT_ID, modelPath);
+        this.offsetRight = offsetRight;
+        this.offsetUp = offsetUp;
+        this.offsetBack = offsetBack;
+        this.scale = scale;
+    }
+
+    public float getAnimationLength() {
         ensureLoaded();
-        return animation == null ? 0 : animation.length;
+        return animation == null ? 0 : animation.length * scale;
     }
 
     /**
      * @param x,          y, z TESR offset of the controller block
      * @param controllerX world coordinates of the controller, used to sample light inside the structure
-     * @param time        animation time in seconds
+     * @param time        animation time in seconds, up to {@link #getAnimationLength()}
      * @param glow        0..1, how bright the model glows
      */
-    public static void render(double x, double y, double z, ExtendedFacing facing, World world, int controllerX,
+    public void render(double x, double y, double z, ExtendedFacing facing, World world, int controllerX,
         int controllerY, int controllerZ, float time, float glow) {
         ensureLoaded();
         if (model == null || facing == null) return;
 
+        ForgeDirection right = facing.getRelativeRightInWorld();
         ForgeDirection up = facing.getRelativeUpInWorld();
         ForgeDirection back = facing.getRelativeBackInWorld();
         // right-handed basis: model +Y = structure up, model +Z = into the structure, so model north faces the
@@ -77,9 +100,9 @@ public final class GTN_AutomatedInfusionMatrixRenderer {
                 | GL11.GL_LIGHTING_BIT);
 
         GL11.glTranslated(
-            x + 0.5 + up.offsetX * (MODEL_OFFSET_UP - 0.5) + back.offsetX * MODEL_OFFSET_BACK,
-            y + 0.5 + up.offsetY * (MODEL_OFFSET_UP - 0.5) + back.offsetY * MODEL_OFFSET_BACK,
-            z + 0.5 + up.offsetZ * (MODEL_OFFSET_UP - 0.5) + back.offsetZ * MODEL_OFFSET_BACK);
+            x + 0.5 + right.offsetX * offsetRight + up.offsetX * (offsetUp - 0.5) + back.offsetX * offsetBack,
+            y + 0.5 + right.offsetY * offsetRight + up.offsetY * (offsetUp - 0.5) + back.offsetY * offsetBack,
+            z + 0.5 + right.offsetZ * offsetRight + up.offsetZ * (offsetUp - 0.5) + back.offsetZ * offsetBack);
 
         BASIS.clear();
         BASIS.put(
@@ -88,7 +111,7 @@ public final class GTN_AutomatedInfusionMatrixRenderer {
         BASIS.flip();
         GL11.glMultMatrix(BASIS);
 
-        GL11.glScalef(1 / 16F, 1 / 16F, 1 / 16F);
+        GL11.glScalef(scale / 16F, scale / 16F, scale / 16F);
         GL11.glTranslatef(-8, 0, -8);
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -100,12 +123,12 @@ public final class GTN_AutomatedInfusionMatrixRenderer {
         GL11.glColor4f(1, 1, 1, 1);
         applyLight(
             world,
-            controllerX + up.offsetX * MODEL_OFFSET_UP + back.offsetX * MODEL_OFFSET_BACK,
-            controllerY + up.offsetY * MODEL_OFFSET_UP + back.offsetY * MODEL_OFFSET_BACK,
-            controllerZ + up.offsetZ * MODEL_OFFSET_UP + back.offsetZ * MODEL_OFFSET_BACK,
+            controllerX + (int) (up.offsetX * offsetUp + back.offsetX * offsetBack),
+            controllerY + (int) (up.offsetY * offsetUp + back.offsetY * offsetBack),
+            controllerZ + (int) (up.offsetZ * offsetUp + back.offsetZ * offsetBack),
             glow);
 
-        model.render(animation, time);
+        model.render(animation, time / scale);
 
         GL11.glPopAttrib();
         GL11.glPopMatrix();
@@ -119,9 +142,9 @@ public final class GTN_AutomatedInfusionMatrixRenderer {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, Math.max(blockLight, minGlow), skyLight);
     }
 
-    private static void ensureLoaded() {
+    private void ensureLoaded() {
         if (model != null) return;
-        model = GTN_BBModel.load(MODEL_LOCATION);
+        model = GTN_BBModel.load(modelLocation);
         animation = model.getAnimation(ANIMATION_NAME);
     }
 }

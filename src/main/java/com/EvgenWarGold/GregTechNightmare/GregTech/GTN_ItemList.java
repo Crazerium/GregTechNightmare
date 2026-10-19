@@ -51,6 +51,7 @@ public enum GTN_ItemList {
     ArborealCasing,
     SoulCasing,
     RunicMatrixCasing,
+    AlchemyConstructCasing,
     FluxManaPool,
     // endregion
     // region MultiBlock

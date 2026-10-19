@@ -1,36 +1,30 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.IV;
 
-import static com.gtnewhorizon.structurelib.structure.StructureUtility.ofBlockAnyMeta;
 import static gregtech.api.enums.HatchElement.Energy;
 import static gregtech.api.enums.HatchElement.ExoticEnergy;
 import static gregtech.api.enums.HatchElement.InputBus;
 import static gregtech.api.enums.HatchElement.OutputBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_Blocks;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Blocks.GTN_HideableCasing;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HiddenCasings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.OverclockType;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Render.BBModel.GTN_LoopAnimationState;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Render.GTN_AutomatedInfusionMatrixRenderer;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Render.GTN_MachineModelRenderer;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Thaumcraft.GTN_ThaumicProcessingLogic;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Thaumcraft.GTN_ThaumicSounds;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
-import com.gtnewhorizon.structurelib.alignment.enumerable.ExtendedFacing;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
 import cpw.mods.fml.relauncher.Side;
@@ -48,14 +42,8 @@ public class GTN_AutomatedInfusionMatrix extends GTN_MultiBlockBase<GTN_Automate
 
     /** Client-side playback of the matrix model animation. */
     private final GTN_LoopAnimationState animationState = new GTN_LoopAnimationState();
-    /** Last structure state sent to clients, so the model appears/disappears together with the structure. */
-    private boolean syncedMachine;
-
-    private static final String NBT_HIDDEN_CASINGS = "gtnHiddenCasings";
-    /** World coordinates (x, y, z triples) of the casings hidden by this controller. */
-    private int[] hiddenCasings = new int[0];
-    /** Set after the first structure check since loading. */
-    private boolean structureChecked;
+    /** The 3x2x3 volume above the base: right -1..1, up 1..2, back 0..2 relative to the controller. */
+    private final GTN_HiddenCasings hiddenCasings = new GTN_HiddenCasings(-1, 1, 1, 2, 0, 2);
 
     public GTN_AutomatedInfusionMatrix(int id, String name) {
         super(id, name);
@@ -106,7 +94,7 @@ public class GTN_AutomatedInfusionMatrix extends GTN_MultiBlockBase<GTN_Automate
     public IStructureDefinition<GTN_AutomatedInfusionMatrix> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addMainCasing('C', b -> b.hatches(InputBus, OutputBus, Energy, ExoticEnergy))
-                .addElement('M', ofBlockAnyMeta(GTN_Blocks.MATRIX_CASING, 0)));
+                .addElement('M', GTN_HiddenCasings.ofHideable(GTN_Casings.RunicMatrixCasing)));
     }
 
     @Override
@@ -152,78 +140,32 @@ public class GTN_AutomatedInfusionMatrix extends GTN_MultiBlockBase<GTN_Automate
     @Override
     public void checkMachine(IGregTechTileEntity gte, ItemStack stack, List<StructureError> errors) {
         super.checkMachine(gte, stack, errors);
-        structureChecked = true;
+        hiddenCasings.onStructureChecked();
     }
 
     @Override
     public void onPostTick(IGregTechTileEntity gte, long timer) {
         super.onPostTick(gte, timer);
-        if (!gte.isServerSide()) return;
-        // wait for the first structure check after loading, otherwise the casings would blink on chunk load
-        if (structureChecked && (hiddenCasings.length > 0) != mMachine) {
-            if (mMachine) hideCasings(gte);
-            else showCasings(gte);
-        }
-        if (syncedMachine != mMachine) {
-            syncedMachine = mMachine;
-            gte.issueTileUpdate();
-        }
+        hiddenCasings.update(gte, getExtendedFacing(), mMachine);
     }
 
     @Override
     public void onBlockDestroyed() {
         IGregTechTileEntity gte = getBaseMetaTileEntity();
-        if (gte != null && gte.isServerSide()) showCasings(gte);
+        if (gte != null && gte.isServerSide()) hiddenCasings.show(gte);
         super.onBlockDestroyed();
-    }
-
-    /** Hides the 3x2x3 volume above the base: right -1..1, up 1..2, back 0..2 relative to the controller. */
-    private void hideCasings(IGregTechTileEntity gte) {
-        ExtendedFacing facing = getExtendedFacing();
-        ForgeDirection right = facing.getRelativeRightInWorld();
-        ForgeDirection up = facing.getRelativeUpInWorld();
-        ForgeDirection back = facing.getRelativeBackInWorld();
-        World world = gte.getWorld();
-
-        List<Integer> hidden = new ArrayList<>();
-        for (int r = -1; r <= 1; r++) for (int u = 1; u <= 2; u++) for (int b = 0; b <= 2; b++) {
-            int x = gte.getXCoord() + right.offsetX * r + up.offsetX * u + back.offsetX * b;
-            int y = gte.getYCoord() + right.offsetY * r + up.offsetY * u + back.offsetY * b;
-            int z = gte.getZCoord() + right.offsetZ * r + up.offsetZ * u + back.offsetZ * b;
-            if (GTN_HideableCasing.setHidden(world, x, y, z, true)) {
-                hidden.add(x);
-                hidden.add(y);
-                hidden.add(z);
-            }
-        }
-        hiddenCasings = hidden.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
-        gte.markDirty();
-    }
-
-    private void showCasings(IGregTechTileEntity gte) {
-        World world = gte.getWorld();
-        for (int i = 0; i + 2 < hiddenCasings.length; i += 3) {
-            if (world.blockExists(hiddenCasings[i], hiddenCasings[i + 1], hiddenCasings[i + 2])) {
-                GTN_HideableCasing
-                    .setHidden(world, hiddenCasings[i], hiddenCasings[i + 1], hiddenCasings[i + 2], false);
-            }
-        }
-        hiddenCasings = new int[0];
-        gte.markDirty();
     }
 
     @Override
     public void saveNBTData(NBTTagCompound nbt) {
         super.saveNBTData(nbt);
-        nbt.setIntArray(NBT_HIDDEN_CASINGS, hiddenCasings);
+        hiddenCasings.save(nbt);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
         super.loadNBTData(nbt);
-        hiddenCasings = nbt.getIntArray(NBT_HIDDEN_CASINGS);
+        hiddenCasings.load(nbt);
     }
     // endregion
 
@@ -246,8 +188,9 @@ public class GTN_AutomatedInfusionMatrix extends GTN_MultiBlockBase<GTN_Automate
         IGregTechTileEntity base = getBaseMetaTileEntity();
         if (base == null || !mMachine) return;
 
-        float time = animationState.update(base.isActive(), GTN_AutomatedInfusionMatrixRenderer.getAnimationLength());
-        GTN_AutomatedInfusionMatrixRenderer.render(
+        float time = animationState
+            .update(base.isActive(), GTN_MachineModelRenderer.AUTOMATED_INFUSION_MATRIX.getAnimationLength());
+        GTN_MachineModelRenderer.AUTOMATED_INFUSION_MATRIX.render(
             x,
             y,
             z,

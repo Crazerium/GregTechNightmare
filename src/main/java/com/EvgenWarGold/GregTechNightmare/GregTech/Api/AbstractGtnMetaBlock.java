@@ -62,6 +62,11 @@ public abstract class AbstractGtnMetaBlock extends Block implements IHasVariantA
         list.addAll(Arrays.asList(getVariants()));
     }
 
+    /** The variant an item of this block stands for, for its name and tooltips. */
+    public int getItemVariant(int damage) {
+        return damage;
+    }
+
     @Override
     public int damageDropped(int metadata) {
         return metadata;

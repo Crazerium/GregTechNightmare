@@ -13,6 +13,7 @@ tile.GTN_MetaBlockCasing01.1.name=Корпус коксовой печи
 tile.GTN_MetaBlockCasing01.2.name=Древесный корпус
 tile.GTN_MetaBlockCasing01.3.name=Корпус души
 tile.GTN_MatrixCasing.0.name=Рунический корпус матрицы
+tile.GTN_MatrixCasing.1.name=Корпус алхимического конструкта
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aМакс. параллелей: §6%s
@@ -640,6 +641,7 @@ multiblock.IndustrialCrucible.tooltip.00=Выполняет рецепты ти�
 multiblock.IndustrialCrucible.tooltip.01=§dЭссенция:§7 из шаблонов AE2 в ME-люке магического автокрафта
 multiblock.IndustrialCrucible.tooltip.02=§bПараллели:§7 x2 за каждый тир энергии выше HV, ограничены доступной эссенцией
 multiblock.IndustrialCrucible.tooltip.03=§eРазгон:§7 обычный, на энергию, оставшуюся после параллелей
+multiblock.IndustrialCrucible.tooltip.04=§5После сборки корпуса алхимического конструкта превращаются в алхимический конструкт
 
 #AutomatedInfusionMatrix
 multiblock.AutomatedInfusionMatrix=Автоматическая инфузионная матрица

@@ -63,6 +63,11 @@ public class GTN_HideableCasing extends MetaBlockCasing {
     }
 
     @Override
+    public int getItemVariant(int damage) {
+        return damage & ~HIDDEN_FLAG;
+    }
+
+    @Override
     public int damageDropped(int metadata) {
         return metadata & ~HIDDEN_FLAG;
     }

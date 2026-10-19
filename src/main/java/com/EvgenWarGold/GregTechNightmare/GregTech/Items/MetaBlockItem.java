@@ -45,7 +45,7 @@ public class MetaBlockItem extends ItemBlock {
     @Override
     public void addInformation(ItemStack aItemStack, EntityPlayer p_77624_2_, List<String> theTooltipsList,
         boolean advanced) {
-        int meta = aItemStack.getItemDamage();
+        int meta = getMetaBlock().getItemVariant(aItemStack.getItemDamage());
 
         var tooltips = getMetaBlock().getTooltips(meta, IHasTooltips.isShiftKeyDown());
         if (tooltips != null) {
@@ -66,7 +66,7 @@ public class MetaBlockItem extends ItemBlock {
 
     @Override
     public String getUnlocalizedName(ItemStack aStack) {
-        return getMetaBlock().getUnlocalizedName() + "." + this.getDamage(aStack);
+        return getMetaBlock().getUnlocalizedName() + "." + getMetaBlock().getItemVariant(this.getDamage(aStack));
     }
 
     @Override

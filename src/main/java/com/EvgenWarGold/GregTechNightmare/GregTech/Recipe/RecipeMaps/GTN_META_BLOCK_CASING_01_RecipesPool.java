@@ -4,6 +4,7 @@ import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.create
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_InventoryUtils.setStackSize;
 import static com.EvgenWarGold.GregTechNightmare.Utils.GTN_OreDict.getPlate;
 import static gregtech.api.enums.TierEU.RECIPE_EV;
+import static gregtech.api.enums.TierEU.RECIPE_HV;
 import static gregtech.api.enums.TierEU.RECIPE_LV;
 import static gregtech.api.enums.TierEU.RECIPE_MV;
 import static gregtech.api.util.GTModHandler.addShapelessCraftingRecipe;
@@ -12,6 +13,7 @@ import net.minecraft.init.Blocks;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.GTN_ItemList;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.ModBlocks.ThaumcraftBlocks;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.enums.Materials;
@@ -73,6 +75,20 @@ public class GTN_META_BLOCK_CASING_01_RecipesPool {
             .itemOutputs(GTN_ItemList.RunicMatrixCasing.get(1))
 
             .eut(RECIPE_EV)
+            .duration(20 * 10)
+            .addTo(RecipeMaps.assemblerRecipes);
+
+        // Alchemy Construct Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(4),
+                ThaumcraftBlocks.AlchemicalConstruct.getItemStack(1),
+                getPlate(Materials.Thaumium, 8),
+                GTUtility.getIntegratedCircuit(1)
+            )
+            .itemOutputs(GTN_ItemList.AlchemyConstructCasing.get(4))
+
+            .eut(RECIPE_HV)
             .duration(20 * 10)
             .addTo(RecipeMaps.assemblerRecipes);
 

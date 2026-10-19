@@ -13,6 +13,7 @@ tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
 tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
 tile.GTN_MetaBlockCasing01.3.name=Soul Casing
 tile.GTN_MatrixCasing.0.name=Runic Matrix Casing
+tile.GTN_MatrixCasing.1.name=Alchemy Construct Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -640,6 +641,7 @@ multiblock.IndustrialCrucible.tooltip.00=Processes crucible recipes, respecting 
 multiblock.IndustrialCrucible.tooltip.01=§dEssentia:§7 from AE2 patterns in the ME Magic Crafting Input Hatch
 multiblock.IndustrialCrucible.tooltip.02=§bParallel:§7 x2 for every energy tier above HV, limited by available essentia
 multiblock.IndustrialCrucible.tooltip.03=§eOverclock:§7 normal, uses the energy left after parallels
+multiblock.IndustrialCrucible.tooltip.04=§5Once formed, the Alchemy Construct Casings turn into the alchemy construct
 
 #AutomatedInfusionMatrix
 multiblock.AutomatedInfusionMatrix=Automated Infusion Matrix

@@ -32,6 +32,7 @@ public class GTN_BlocksRegister {
         GTN_ItemList.ArborealCasing.set(META_BLOCK_CASING_01.registerVariant(2));
         GTN_ItemList.SoulCasing.set(META_BLOCK_CASING_01.registerVariant(3));
         GTN_ItemList.RunicMatrixCasing.set(MATRIX_CASING.registerVariant(0));
+        GTN_ItemList.AlchemyConstructCasing.set(MATRIX_CASING.registerVariant(1));
         GTN_ItemList.FluxManaPool.set(new ItemStack(FLUX_MANA_POOL));
     }
 }
