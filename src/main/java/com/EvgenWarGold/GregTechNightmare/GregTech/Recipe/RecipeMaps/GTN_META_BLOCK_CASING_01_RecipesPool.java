@@ -84,7 +84,7 @@ public class GTN_META_BLOCK_CASING_01_RecipesPool {
                 GTN_Casings.MagicCasing.getItemStack(4),
                 ThaumcraftBlocks.AlchemicalConstruct.getItemStack(1),
                 getPlate(Materials.Thaumium, 8),
-                GTUtility.getIntegratedCircuit(1)
+                GTUtility.getIntegratedCircuit(2)
             )
             .itemOutputs(GTN_ItemList.AlchemyConstructCasing.get(4))
 
