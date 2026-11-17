@@ -7,7 +7,13 @@ item.GTN_MetaItem01.2.name=Meteor Miner Schematic Tier I
 item.GTN_MetaItem01.3.name=Meteor Miner Schematic Tier II
 item.GTN_MetaItem01.4.name=Mana ME Storage Housing
 
+item.GTN_MetaItem01.5.name=Infinite Storage Component
+
 #Blocks
+tile.GTN_MetaBlockCasing01.4.name=ME Storage Core: 1 MiB
+tile.GTN_MetaBlockCasing01.5.name=ME Storage Core: 64 MiB
+tile.GTN_MetaBlockCasing01.6.name=ME Storage Core: 4 GiB
+tile.GTN_MetaBlockCasing01.7.name=ME Storage Core: 256 GiB
 tile.GTN_MetaBlockCasing01.0.name=§cTest Casing
 tile.GTN_MetaBlockCasing01.1.name=Coke Oven Casing
 tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
@@ -15,6 +21,31 @@ tile.GTN_MetaBlockCasing01.3.name=Soul Casing
 tile.GTN_MatrixCasing.0.name=Runic Matrix Casing
 tile.GTN_MatrixCasing.1.name=Alchemy Construct Casing
 tile.GTN_MatrixCasing.2.name=Arcane Assembler Casing
+
+#ME Storage
+GTN.MEStorage.connected=ME storage connected
+GTN.MEStorage.disconnected=ME access inactive or another hatch serves this storage
+GTN.MEStorage.no_owner=Player storage requires a controller owner
+multiblock.MEStorage=ME Storage
+multiblock.MEStorage.machine_type=ME Storage
+multiblock.MEStorage.tooltip.00=Stores items and fluids without a type limit. Powered by the ME network (32 AE/t)
+multiblock.MEStorage.tooltip.01=3x3 structure, length 3-10; 1-8 storage cores. Mix any core tiers
+multiblock.MEStorage.tooltip.02=Player mode shares the owner's storage; Machine mode uses a separate storage identity
+multiblock.MEStorage.tooltip.03=Switch mode with the GUI button or screwdriver. Existing contents stay in their storage
+multiblock.MEStorage.tooltip.04=Infinite mode: over 1,000,000,000,000 bytes and 64 Infinite Storage Components in the controller slot
+multiblock.MEStorage.tooltip.05=Breaking or unloading disables access without deleting contents. Overfilled storage allows extraction
+multiblock.MEStorage.tooltip.06=Requires one ME Data Access Hatch. Use the hologram stack size to select length
+GTN.MEStorage.mode=Storage: %s
+GTN.MEStorage.player=Player
+GTN.MEStorage.machine=Machine
+GTN.MEStorage.capacity=Bytes: %s / %s
+GTN.MEStorage.types=Types: %s items, %s fluids
+GTN.MEStorage.formed=Structure formed
+GTN.MEStorage.offline=Structure incomplete or disabled
+GTN.MEStorage.switch=Switch Player / Machine storage (owner only)
+GTN.MEStorage.priority=Storage priority: %s
+GTN.MEStorage.hatch.0=Connects ME Storage to an ME network. Requires a channel and 32 AE/t
+GTN.MEStorage.hatch.1=Screwdriver: priority +100; sneaking: -100. One connection per storage per network
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s

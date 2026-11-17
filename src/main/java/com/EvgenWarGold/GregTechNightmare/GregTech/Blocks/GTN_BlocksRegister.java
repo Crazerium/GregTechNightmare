@@ -31,6 +31,10 @@ public class GTN_BlocksRegister {
         GTN_ItemList.CokeOvenCasing.set(META_BLOCK_CASING_01.registerVariant(1));
         GTN_ItemList.ArborealCasing.set(META_BLOCK_CASING_01.registerVariant(2));
         GTN_ItemList.SoulCasing.set(META_BLOCK_CASING_01.registerVariant(3));
+        GTN_ItemList.MEStorageCore1M.set(META_BLOCK_CASING_01.registerVariant(4));
+        GTN_ItemList.MEStorageCore64M.set(META_BLOCK_CASING_01.registerVariant(5));
+        GTN_ItemList.MEStorageCore4G.set(META_BLOCK_CASING_01.registerVariant(6));
+        GTN_ItemList.MEStorageCore256G.set(META_BLOCK_CASING_01.registerVariant(7));
         GTN_ItemList.RunicMatrixCasing.set(MATRIX_CASING.registerVariant(0));
         GTN_ItemList.AlchemyConstructCasing.set(MATRIX_CASING.registerVariant(1));
         GTN_ItemList.ArcaneAssemblerCasing.set(MATRIX_CASING.registerVariant(2));

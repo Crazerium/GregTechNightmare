@@ -52,6 +52,7 @@ public class GTN_ItemsRegister {
 
         // Mana ME Storage Housing
         GTN_ItemList.ManaStorageHousing.set(META_ITEM_01.registerVariant(4));
+        GTN_ItemList.InfiniteStorageComponent.set(META_ITEM_01.registerVariant(5));
 
         GTN_ItemList.ManaProspector.set(MANA_PROSPECTOR);
 

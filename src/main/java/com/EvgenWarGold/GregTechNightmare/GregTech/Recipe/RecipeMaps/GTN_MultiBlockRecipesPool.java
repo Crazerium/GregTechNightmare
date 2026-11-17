@@ -594,6 +594,19 @@ public class GTN_MultiBlockRecipesPool {
             .duration(20 * 60)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // ME Storage
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.DataDriveMachineCasing.getItemStack(4),
+                ItemList.Hull_LuV.get(1),
+                GTN_ItemList.MEStorageCore1M.get(2),
+                ItemList.Sensor_LuV.get(2),
+                getCircuits(Materials.LuV, 4)
+            )
+            .itemOutputs(GTN_ItemList.MEStorage.get(1))
+            .eut(RECIPE_LuV).duration(20 * 60)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

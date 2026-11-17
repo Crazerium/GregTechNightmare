@@ -109,6 +109,13 @@ public enum GTN_ItemList {
     ElvenGateway,
     BotanicalGreenhouse,
     MeManaOutputHatch,
+    MEStorage,
+    MEDataAccessHatch,
+    MEStorageCore1M,
+    MEStorageCore64M,
+    MEStorageCore4G,
+    MEStorageCore256G,
+    InfiniteStorageComponent,
     // endregion
 
     ;

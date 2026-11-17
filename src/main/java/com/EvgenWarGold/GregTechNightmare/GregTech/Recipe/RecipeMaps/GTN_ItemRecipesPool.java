@@ -26,6 +26,17 @@ import gregtech.api.recipe.RecipeMaps;
 public class GTN_ItemRecipesPool {
 
     public static void init() {
+        // Infinite Storage Component
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_ItemList.MEStorageCore4G.get(1),
+                ItemList.Emitter_UHV.get(2),
+                ItemList.QuantumStar.get(1),
+                Materials.Neutronium.getPlates(4))
+            .itemOutputs(GTN_ItemList.InfiniteStorageComponent.get(1))
+            .eut(1966080)
+            .duration(20 * 120)
+            .addTo(RecipeMaps.assemblerRecipes);
         // spotless:off
         // Mana Prospector
         addCraftingRecipe(

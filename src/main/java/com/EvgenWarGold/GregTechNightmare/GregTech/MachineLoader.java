@@ -1,6 +1,7 @@
 package com.EvgenWarGold.GregTechNightmare.GregTech;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_AspectHatch;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MEDataAccessHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MagicCraftingInputHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_ManaHatch;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Hatch.GTN_MeAspectHatch;
@@ -51,6 +52,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.STEAM.G
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UHV.GTN_UltimatePrecise;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.UV.GTN_LargeBioLab;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.Processing.ZPM.GTN_ZeroPowerWireMill;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Storage.GTN_MEStorage;
 
 public final class MachineLoader {
 
@@ -107,6 +109,8 @@ public final class MachineLoader {
         GTN_ItemList.ElvenGateway.set(new GTN_ElvenGateway(21_048, "ElvenGateway"));
         GTN_ItemList.BotanicalGreenhouse.set(new GTN_BotanicalGreenhouse(21_049, "BotanicalGreenhouse"));
         GTN_ItemList.MeManaOutputHatch.set(new GTN_MeManaOutputHatch(21_050, "ME Mana Output Hatch"));
+        GTN_ItemList.MEStorage.set(new GTN_MEStorage(21_051, "MEStorage"));
+        GTN_ItemList.MEDataAccessHatch.set(new GTN_MEDataAccessHatch(21_052, "ME Data Access Hatch"));
         // spotless:on
     }
 }

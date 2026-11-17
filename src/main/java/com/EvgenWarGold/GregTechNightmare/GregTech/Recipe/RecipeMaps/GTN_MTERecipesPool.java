@@ -119,6 +119,19 @@ public class GTN_MTERecipesPool {
                 'R', GTOreDictUnificator.get(OrePrefixes.stickLong, Materials.Steel, 1),
                 'C', ItemList.Automation_ChestBuffer_ULV.get(1)
             });
+        // ME Data Access Hatch
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                ItemList.Hull_LuV.get(1),
+                AppliedEnergisticsItems.MEInterface.get(2),
+                AppliedEnergisticsItems.EngineeringProcessor.get(8),
+                ItemList.Emitter_LuV.get(2),
+                getCircuits(Materials.LuV, 2)
+            )
+            .itemOutputs(GTN_ItemList.MEDataAccessHatch.get(1))
+            .eut(RECIPE_LuV).duration(20 * 40)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         // spotless:on
     }
 }

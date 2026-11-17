@@ -7,7 +7,13 @@ item.GTN_MetaItem01.2.name=Схема метеоритного бурильщи�
 item.GTN_MetaItem01.3.name=Схема метеоритного бурильщика II уровня
 item.GTN_MetaItem01.4.name=Корпус ME-ячейки маны
 
+item.GTN_MetaItem01.5.name=Бесконечный компонент хранения
+
 #Blocks
+tile.GTN_MetaBlockCasing01.4.name=Ядро МЭ-хранилища: 1 МиБ
+tile.GTN_MetaBlockCasing01.5.name=Ядро МЭ-хранилища: 64 МиБ
+tile.GTN_MetaBlockCasing01.6.name=Ядро МЭ-хранилища: 4 ГиБ
+tile.GTN_MetaBlockCasing01.7.name=Ядро МЭ-хранилища: 256 ГиБ
 tile.GTN_MetaBlockCasing01.0.name=§cТестовый корпус
 tile.GTN_MetaBlockCasing01.1.name=Корпус коксовой печи
 tile.GTN_MetaBlockCasing01.2.name=Древесный корпус
@@ -15,6 +21,31 @@ tile.GTN_MetaBlockCasing01.3.name=Корпус души
 tile.GTN_MatrixCasing.0.name=Рунический корпус матрицы
 tile.GTN_MatrixCasing.1.name=Корпус алхимического конструкта
 tile.GTN_MatrixCasing.2.name=Корпус магического сборщика
+
+#ME Storage
+GTN.MEStorage.connected=Хранилище подключено к МЭ
+GTN.MEStorage.disconnected=МЭ-доступ отключён или хранилище обслуживает другой люк
+GTN.MEStorage.no_owner=Для личного хранилища требуется владелец контроллера
+multiblock.MEStorage=МЭ-хранилище
+multiblock.MEStorage.machine_type=МЭ-хранилище
+multiblock.MEStorage.tooltip.00=Хранит предметы и жидкости без лимита типов. Питание от МЭ-сети: 32 AE/т
+multiblock.MEStorage.tooltip.01=Структура 3x3, длина 3-10; 1-8 ядер. Можно смешивать уровни ядер
+multiblock.MEStorage.tooltip.02=Режим игрока открывает общее хранилище владельца; режим машины — отдельное
+multiblock.MEStorage.tooltip.03=Режим меняется кнопкой в интерфейсе или отвёрткой. Содержимое остаётся в своём хранилище
+multiblock.MEStorage.tooltip.04=Бесконечность: более 1 000 000 000 000 байт и 64 бесконечных компонента в слоте контроллера
+multiblock.MEStorage.tooltip.05=Разборка и выгрузка отключают доступ без удаления запасов. Из переполненного хранилища можно извлекать
+multiblock.MEStorage.tooltip.06=Нужен один МЭ-люк доступа к данным. Размер стака голограммы выбирает длину
+GTN.MEStorage.mode=Хранилище: %s
+GTN.MEStorage.player=Игрок
+GTN.MEStorage.machine=Машина
+GTN.MEStorage.capacity=Байт: %s / %s
+GTN.MEStorage.types=Типов: %s предметов, %s жидкостей
+GTN.MEStorage.formed=Структура собрана
+GTN.MEStorage.offline=Структура не собрана или отключена
+GTN.MEStorage.switch=Переключить хранилище игрока / машины (только владелец)
+GTN.MEStorage.priority=Приоритет хранилища: %s
+GTN.MEStorage.hatch.0=Подключает МЭ-хранилище к МЭ-сети. Требует канал и 32 AE/т
+GTN.MEStorage.hatch.1=Отвёртка: приоритет +100; с Shift: -100. Одно подключение хранилища на сеть
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aМакс. параллелей: §6%s

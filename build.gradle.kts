@@ -3,6 +3,18 @@ plugins {
     id("com.gtnewhorizons.gtnhconvention")
 }
 
+tasks.register<JavaExec>("testMEStorage") {
+    group = "verification"
+    description = "Checks ME storage accounting and NBT persistence with isolated AE stack fixtures."
+    dependsOn(tasks.named("testClasses"))
+    classpath = sourceSets["test"].runtimeClasspath
+    mainClass.set("com.EvgenWarGold.GregTechNightmare.GregTech.Storage.MEStorageDataTest")
+}
+
+tasks.named("check") {
+    dependsOn("testMEStorage")
+}
+
 listOf("runClient", "runClient17", "runClient21", "runClient25").forEach { taskName ->
     tasks.named<JavaExec>(taskName) {
         val filteredMessages = listOf(
