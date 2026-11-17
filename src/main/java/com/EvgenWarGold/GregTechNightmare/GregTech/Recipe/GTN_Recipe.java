@@ -103,8 +103,10 @@ public class GTN_Recipe {
 
     public static final RecipeMap<?> ArcaneAssemblerRecipes = RecipeMapBuilder
         .of("gtn.recipe.LargeArcaneAssemblerRecipes")
-        .maxIO(9, 1, 0, 0)
+        .maxIO(10, 1, 0, 0)
         .minInputs(1, 0)
+        .progressBarPos(110, GTN_GridRecipeFrontend.getProgressBarY(10))
+        .frontend(GTN_GridRecipeFrontend::new)
         .build();
     public static final RecipeMap<?> GasCollectorRecipes = RecipeMapBuilder.of("gtn.recipe.GasCollectorRecipes")
         .maxIO(1, 0, 0, 11)

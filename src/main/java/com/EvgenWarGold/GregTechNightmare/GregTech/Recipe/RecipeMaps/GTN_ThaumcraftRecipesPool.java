@@ -142,22 +142,22 @@ public final class GTN_ThaumcraftRecipesPool {
         recipes.add(pending);
     }
 
-    private static final class PendingRecipe {
+    static final class PendingRecipe {
 
-        private final List<ItemStack[]> inputs = new ArrayList<>();
+        final List<ItemStack[]> inputs = new ArrayList<>();
         private final ItemStack output;
         private final AspectList aspects;
         private final String research;
         private int circuit;
 
-        private PendingRecipe(ItemStack output, AspectList aspects, String research) {
+        PendingRecipe(ItemStack output, AspectList aspects, String research) {
             this.output = output;
             this.aspects = aspects;
             this.research = research == null ? "" : research;
         }
     }
 
-    private static void registerWithCircuits(List<PendingRecipe> recipes, RecipeMap<?> map, String kind, int eut,
+    static void registerWithCircuits(List<PendingRecipe> recipes, RecipeMap<?> map, String kind, int eut,
         int duration) {
         // Color the conflict graph before registering anything: both sides must require a circuit.
         // Alternative catalysts of the same Thaumcraft recipe always use the same configuration.

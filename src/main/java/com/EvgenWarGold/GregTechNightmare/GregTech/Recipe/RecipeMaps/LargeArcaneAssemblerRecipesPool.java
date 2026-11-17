@@ -6,11 +6,9 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
-import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.RecipeMaps.GTN_ThaumcraftRecipesPool.PendingRecipe;
 
-import gregtech.api.enums.GTValues;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
@@ -19,6 +17,7 @@ import thaumcraft.common.config.ConfigItems;
 public class LargeArcaneAssemblerRecipesPool {
 
     public static void init() {
+        List<PendingRecipe> recipes = new ArrayList<>();
         for (Object obj : ThaumcraftApi.getCraftingRecipes()) {
 
             if (!(obj instanceof IArcaneRecipe)) continue;
@@ -43,17 +42,11 @@ public class LargeArcaneAssemblerRecipesPool {
                 }
                 fixedInputs.add(copy);
             }
-            String researchKey = recipe.getResearch();
-            AspectList aspects = recipe.getAspects();
-            GTValues.RA.stdBuilder()
-                .itemInputs(fixedInputs.toArray(new ItemStack[0]))
-                .itemOutputs(output.copy())
-                .duration(20)
-                .eut(2048)
-                .metadata(SimpleMetaData.ASPECT_COST, aspects)
-                .metadata(SimpleMetaData.RESEARCH_KEY, researchKey)
-                .addTo(GTN_Recipe.ArcaneAssemblerRecipes);
+            PendingRecipe pending = new PendingRecipe(output, recipe.getAspects(), recipe.getResearch());
+            pending.inputs.add(fixedInputs.toArray(new ItemStack[0]));
+            recipes.add(pending);
         }
+        GTN_ThaumcraftRecipesPool.registerWithCircuits(recipes, GTN_Recipe.ArcaneAssemblerRecipes, "arcane", 2048, 20);
     }
 
     private static ItemStack[] convertRecipeInput(IArcaneRecipe recipe) {
