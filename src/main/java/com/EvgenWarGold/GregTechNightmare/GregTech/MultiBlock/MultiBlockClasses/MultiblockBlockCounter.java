@@ -30,13 +30,14 @@ public class MultiblockBlockCounter {
     private static final int MAX_TIERS_TO_CHECK = 50;
 
     private final Map<String, Integer> blockCounts = new HashMap<>();
-    private static final ConstructableData data = new ConstructableData();
+    private final ConstructableData data = new ConstructableData();
     private final Map<IStructureElement<IConstructable>, Integer> elementCountMap = new HashMap<>();
 
     private static final String LAZY_ELEMENT = "com.gtnewhorizon.structurelib.structure.LazyStructureElement";
     private static final String ON_ELEMENT_PASS = "com.gtnewhorizon.structurelib.structure.OnElementPass";
 
-    public Map<String, Integer> getBlockCounts(IConstructable multiblock) {
+    // NEI builds tooltips concurrently, including multiple requests for the same controller.
+    public synchronized Map<String, Integer> getBlockCounts(IConstructable multiblock) {
         analyzeMultiblock(multiblock);
         return new HashMap<>(blockCounts);
     }

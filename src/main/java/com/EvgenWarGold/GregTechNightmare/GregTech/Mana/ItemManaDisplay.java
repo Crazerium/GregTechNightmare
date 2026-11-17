@@ -4,17 +4,20 @@ import static com.gtnewhorizon.gtnhlib.util.numberformatting.NumberFormatUtil.fo
 
 import java.util.List;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 
 import com.EvgenWarGold.GregTechNightmare.GregTech.Items.GTN_Items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.block.mana.BlockPool;
 
 /**
  * Display-only item that stands for mana: in NEI tooltips of the ME terminal ({@link AEManaStack#getItemStackForNEI})
@@ -27,8 +30,25 @@ public class ItemManaDisplay extends Item {
 
     public ItemManaDisplay() {
         setUnlocalizedName("gtn.ManaDisplay");
-        setTextureName("botania:manaPearl");
         setMaxStackSize(64);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getSpriteNumber() {
+        return 0;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister register) {
+        // Botania registers the shared mana texture in the block atlas.
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int damage) {
+        return BlockPool.manaIcon;
     }
 
     /** Stack that stands for {@code amount} mana. */
