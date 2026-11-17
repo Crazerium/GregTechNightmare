@@ -14,6 +14,7 @@ tile.GTN_MetaBlockCasing01.2.name=Arboreal Casing
 tile.GTN_MetaBlockCasing01.3.name=Soul Casing
 tile.GTN_MatrixCasing.0.name=Runic Matrix Casing
 tile.GTN_MatrixCasing.1.name=Alchemy Construct Casing
+tile.GTN_MatrixCasing.2.name=Arcane Assembler Casing
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aMax Parallel: §6%s
@@ -139,7 +140,7 @@ multiblock.NodeEnergizer.tooltip.05=HV bus enables aspect modifiers (Item stack 
 #LargeArcaneAssembler
 multiblock.LargeArcaneAssembler=Large Arcane Assembler
 multiblock.LargeArcaneAssembler.machine_type=Arcane Assembler
-multiblock.LargeArcaneAssembler.tooltip.00=Energy hatch tier limited by §fGlass tier
+multiblock.LargeArcaneAssembler.tooltip.00=§5Once formed, the Arcane Assembler Casings turn into the arcane assembler
 multiblock.LargeArcaneAssembler.tooltip.01=Requires a §aEnergized Node§7  in a structure
 multiblock.LargeArcaneAssembler.tooltip.02=Requires a §aResearch§7 for craft
 multiblock.LargeArcaneAssembler.tooltip.03=Speed is always 1 sec

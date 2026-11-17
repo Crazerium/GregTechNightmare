@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import org.jetbrains.annotations.NotNull;
@@ -21,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import com.EvgenWarGold.GregTechNightmare.Client.ArcaneAssemblerCraftingFX;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockArea;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Api.MultiblockOffsets;
-import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.CasingData;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_Casings;
+import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_HiddenCasings;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockBase;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_MultiBlockTooltipBuilder;
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.GTN_ProcessingLogic;
@@ -30,6 +31,7 @@ import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.
 import com.EvgenWarGold.GregTechNightmare.GregTech.MultiBlock.MultiBlockClasses.StructureVariant;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.GTN_Recipe;
 import com.EvgenWarGold.GregTechNightmare.GregTech.Recipe.MetaData.SimpleMetaData;
+import com.EvgenWarGold.GregTechNightmare.GregTech.Render.GTN_MachineModelRenderer;
 import com.EvgenWarGold.GregTechNightmare.Utils.Authors;
 import com.gtnewhorizon.structurelib.structure.IStructureDefinition;
 
@@ -38,12 +40,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.SoundResource;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.logic.ProcessingLogic;
-import gregtech.api.metatileentity.implementations.MTEHatchEnergy;
 import gregtech.api.recipe.RecipeMap;
 import gregtech.api.recipe.check.CheckRecipeResult;
 import gregtech.api.recipe.check.CheckRecipeResultRegistry;
 import gregtech.api.recipe.check.SimpleCheckRecipeResult;
+import gregtech.api.structure.error.StructureError;
 import gregtech.api.util.GTRecipe;
+import gregtech.common.render.IMTERenderer;
+import io.netty.buffer.ByteBuf;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.research.ResearchCategories;
@@ -52,9 +56,10 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.research.ResearchManager;
 
-public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcaneAssembler> {
+public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcaneAssembler> implements IMTERenderer {
 
-    private final CasingData glass = createCasingData("glass");
+    /** Everything above the base: right -2..2, up 1..5, back 0..4 relative to the controller. */
+    private final GTN_HiddenCasings hiddenCasings = new GTN_HiddenCasings(-2, 2, 1, 5, 0, 4);
     protected ArrayList<String> research = new ArrayList<>();
 
     public GTN_LargeArcaneAssembler(int id, String name) {
@@ -72,11 +77,11 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
                 "LargeArcaneAssembler",
                 // spotless:off
                 new String[][]{
-                    {"BBBBB", "BAAAB", "BAAAB", "BAAAB", "BBBBB"},
-                    {"BAAAB", "A   A", "A   A", "A   A", "BAAAB"},
-                    {"BAAAB", "A   A", "A E A", "A   A", "BAAAB"},
-                    {"BAAAB", "A   A", "A   A", "A   A", "BAAAB"},
-                    {"BAAAB", "A   A", "A D A", "A   A", "BAAAB"},
+                    {"HHHHH", "HHHHH", "HHHHH", "HHHHH", "HHHHH"},
+                    {"HHHHH", "H   H", "H   H", "H   H", "HHHHH"},
+                    {"HHHHH", "H   H", "H E H", "H   H", "HHHHH"},
+                    {"HHHHH", "H   H", "H   H", "H   H", "HHHHH"},
+                    {"HHHHH", "H   H", "H D H", "H   H", "HHHHH"},
                     {"BB~BB", "BCCCB", "BCCCB", "BCCCB", "BBBBB"}
                 },
                 //spotless:on
@@ -107,7 +112,7 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     public IStructureDefinition<GTN_LargeArcaneAssembler> getStructureDefinition() {
         return buildStructureDefinition(
             builder -> builder.addElement('C', ofBlock(blockMetalDevice, 9))
-                .addAllGlasses('A', glass)
+                .addElement('H', GTN_HiddenCasings.ofHideable(GTN_Casings.ArcaneAssemblerCasing))
                 .addElement('D', ofBlock(blockStoneDevice, 10))
                 .addElement('E', ofBlock(blockStoneDevice, 11))
                 .addMainCasing('B', b -> b.hatches(InputBus, OutputBus, Energy)));
@@ -127,11 +132,13 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
             list.appendTag(tag);
         }
         nbt.setTag("ResearchList", list);
+        hiddenCasings.save(nbt);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound nbt) {
         super.loadNBTData(nbt);
+        hiddenCasings.load(nbt);
         research.clear();
         if (nbt.hasKey("ResearchList")) {
             NBTTagList list = nbt.getTagList("ResearchList", 10);
@@ -170,9 +177,23 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
     }
 
     @Override
+    public void checkMachine(IGregTechTileEntity gte, ItemStack stack, List<StructureError> errors) {
+        super.checkMachine(gte, stack, errors);
+        hiddenCasings.onStructureChecked();
+    }
+
+    @Override
+    public void onBlockDestroyed() {
+        IGregTechTileEntity gte = getBaseMetaTileEntity();
+        if (gte != null && gte.isServerSide()) hiddenCasings.show(gte);
+        super.onBlockDestroyed();
+    }
+
+    @Override
     public void onPostTick(IGregTechTileEntity gte, long timer) {
         super.onPostTick(gte, timer);
         if (!gte.isClientSide()) {
+            hiddenCasings.update(gte, getExtendedFacing(), mMachine);
             return;
         }
         if (!gte.isActive()) {
@@ -245,19 +266,46 @@ public class GTN_LargeArcaneAssembler extends GTN_MultiBlockBase<GTN_LargeArcane
             .setMaxParallelSupplier(this::getMaxParallelRecipes);
     }
 
-    @Override
-    public boolean GTN_checkMachine(IGregTechTileEntity gte, ItemStack stack) {
-        for (MTEHatchEnergy hatch : mEnergyHatches) {
-            if (hatch.mTier > glass.getCasingTier()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     protected SoundResource getActivitySoundLoop() {
         return SoundResource.GTCEU_LOOP_ASSEMBLER;
     }
+
+    // region Render
+    @Override
+    public void writeToStream(ByteBuf buffer) {
+        super.writeToStream(buffer);
+        buffer.writeBoolean(mMachine);
+    }
+
+    @Override
+    public void readFromStream(ByteBuf buffer) {
+        super.readFromStream(buffer);
+        mMachine = buffer.readBoolean();
+    }
+
+    @Override
+    public void renderTESR(double x, double y, double z, float timeSinceLastTick) {
+        IGregTechTileEntity base = getBaseMetaTileEntity();
+        if (base == null || !mMachine) return;
+        GTN_MachineModelRenderer.LARGE_ARCANE_ASSEMBLER.render(
+            x,
+            y,
+            z,
+            getExtendedFacing(),
+            base.getWorld(),
+            base.getXCoord(),
+            base.getYCoord(),
+            base.getZCoord(),
+            0,
+            base.isActive() ? 1 : 0);
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox(int x, int y, int z) {
+        // the model stands on the base and covers the whole 5x6x5 structure; facing can point anywhere
+        return AxisAlignedBB.getBoundingBox(x - 5, y - 6, z - 5, x + 6, y + 7, z + 6);
+    }
+    // endregion
 }

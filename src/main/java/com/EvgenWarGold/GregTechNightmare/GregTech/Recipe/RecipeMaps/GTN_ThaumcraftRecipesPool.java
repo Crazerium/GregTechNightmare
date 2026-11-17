@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableSet;
 
 import gregtech.api.enums.GTValues;
 import gregtech.api.recipe.RecipeMap;
+import gregtech.api.util.GTUtility;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
@@ -37,6 +38,8 @@ public final class GTN_ThaumcraftRecipesPool {
     private GTN_ThaumcraftRecipesPool() {}
 
     public static void init() {
+        List<PendingRecipe> crucibleRecipes = new ArrayList<>();
+        List<PendingRecipe> infusionRecipes = new ArrayList<>();
         int crucibleSource = 0;
         int infusionSource = 0;
         int crucibleBefore = size(GTN_Recipe.IndustrialCrucibleRecipes);
@@ -45,12 +48,15 @@ public final class GTN_ThaumcraftRecipesPool {
         for (Object entry : ThaumcraftApi.getCraftingRecipes()) {
             if (entry instanceof CrucibleRecipe crucible) {
                 crucibleSource++;
-                registerCrucible(crucible);
+                registerCrucible(crucible, crucibleRecipes);
             } else if (entry instanceof InfusionRecipe infusion) {
                 infusionSource++;
-                registerInfusion(infusion);
+                registerInfusion(infusion, infusionRecipes);
             }
         }
+
+        registerWithCircuits(crucibleRecipes, GTN_Recipe.IndustrialCrucibleRecipes, "crucible", 480, 20 * 16);
+        registerWithCircuits(infusionRecipes, GTN_Recipe.AutomatedInfusionRecipes, "infusion", 7680, 20 * 40);
 
         GTN_Logger.info(
             "Thaumcraft recipes converted: crucible %d -> %d, infusion %d -> %d, skipped: %s",
@@ -62,18 +68,19 @@ public final class GTN_ThaumcraftRecipesPool {
         SKIPPED.clear();
     }
 
-    private static void registerCrucible(CrucibleRecipe recipe) {
+    private static void registerCrucible(CrucibleRecipe recipe, List<PendingRecipe> recipes) {
         ItemStack output = recipe.getRecipeOutput();
         if (output == null || recipe.aspects == null) {
             skip("crucible: no output or aspects");
             return;
         }
         Object catalyst = recipe.catalyst;
+        PendingRecipe pending = new PendingRecipe(output, recipe.aspects, recipe.key);
         if (catalyst instanceof ItemStack item) {
-            addCrucibleRecipe(item, output, recipe.aspects, recipe.key);
+            addCrucibleInput(pending, item);
         } else if (catalyst instanceof List<?>options) {
             for (Object option : options) {
-                if (option instanceof ItemStack item) addCrucibleRecipe(item, output, recipe.aspects, recipe.key);
+                if (option instanceof ItemStack item) addCrucibleInput(pending, item);
             }
         } else {
             skip(
@@ -81,27 +88,18 @@ public final class GTN_ThaumcraftRecipesPool {
                     : catalyst.getClass()
                         .getSimpleName()));
         }
+        if (!pending.inputs.isEmpty()) recipes.add(pending);
     }
 
-    private static void addCrucibleRecipe(ItemStack catalyst, ItemStack output, AspectList aspects, String research) {
+    private static void addCrucibleInput(PendingRecipe pending, ItemStack catalyst) {
         if (catalyst.stackSize <= 0) {
             skip("crucible: empty catalyst");
             return;
         }
-        addChecked(
-            GTN_Recipe.IndustrialCrucibleRecipes,
-            "crucible",
-            () -> GTValues.RA.stdBuilder()
-                .itemInputs(catalyst.copy())
-                .itemOutputs(output.copy())
-                .metadata(SimpleMetaData.RESEARCH_KEY, research == null ? "" : research)
-                .metadata(SimpleMetaData.ASPECT_COST, aspects)
-                .eut(480)
-                .duration(20 * 16)
-                .addTo(GTN_Recipe.IndustrialCrucibleRecipes));
+        pending.inputs.add(new ItemStack[] { catalyst.copy() });
     }
 
-    private static void registerInfusion(InfusionRecipe recipe) {
+    private static void registerInfusion(InfusionRecipe recipe, List<PendingRecipe> recipes) {
         if (!PLAIN_INFUSION_CLASSES.contains(
             recipe.getClass()
                 .getSimpleName())) {
@@ -135,22 +133,103 @@ public final class GTN_ThaumcraftRecipesPool {
             inputs.add(component.copy());
         }
         inputs = mergeIdenticalInputs(inputs);
-        if (inputs.size() > GTN_EssentiaRecipeFrontend.INFUSION_ITEM_SLOTS) {
+        if (inputs.size() > GTN_EssentiaRecipeFrontend.INFUSION_ITEM_SLOTS - 1) {
             skip("infusion: too many different inputs");
             return;
         }
-        ItemStack[] itemInputs = inputs.toArray(new ItemStack[0]);
-        addChecked(
-            GTN_Recipe.AutomatedInfusionRecipes,
-            "infusion",
-            () -> GTValues.RA.stdBuilder()
-                .itemInputs(itemInputs)
-                .itemOutputs(output.copy())
-                .metadata(SimpleMetaData.RESEARCH_KEY, recipe.getResearch() == null ? "" : recipe.getResearch())
-                .metadata(SimpleMetaData.ASPECT_COST, recipe.getAspects())
-                .eut(7680)
-                .duration(20 * 40)
-                .addTo(GTN_Recipe.AutomatedInfusionRecipes));
+        PendingRecipe pending = new PendingRecipe(output, recipe.getAspects(), recipe.getResearch());
+        pending.inputs.add(inputs.toArray(new ItemStack[0]));
+        recipes.add(pending);
+    }
+
+    private static final class PendingRecipe {
+
+        private final List<ItemStack[]> inputs = new ArrayList<>();
+        private final ItemStack output;
+        private final AspectList aspects;
+        private final String research;
+        private int circuit;
+
+        private PendingRecipe(ItemStack output, AspectList aspects, String research) {
+            this.output = output;
+            this.aspects = aspects;
+            this.research = research == null ? "" : research;
+        }
+    }
+
+    private static void registerWithCircuits(List<PendingRecipe> recipes, RecipeMap<?> map, String kind, int eut,
+        int duration) {
+        // Color the conflict graph before registering anything: both sides must require a circuit.
+        // Alternative catalysts of the same Thaumcraft recipe always use the same configuration.
+        boolean[][] conflicts = new boolean[recipes.size()][recipes.size()];
+        for (int i = 0; i < recipes.size(); i++) {
+            for (int j = 0; j < i; j++) {
+                conflicts[i][j] = conflicts[j][i] = conflicts(recipes.get(i), recipes.get(j));
+            }
+        }
+        int assigned = 0;
+        for (int i = 0; i < recipes.size(); i++) {
+            boolean hasConflict = false;
+            boolean[] used = new boolean[25];
+            for (int j = 0; j < recipes.size(); j++) {
+                if (!conflicts[i][j]) continue;
+                hasConflict = true;
+                used[recipes.get(j).circuit] = true;
+            }
+            if (!hasConflict) continue;
+            int circuit = 1;
+            while (circuit <= 24 && used[circuit]) circuit++;
+            if (circuit > 24) {
+                throw new IllegalStateException(
+                    "Too many conflicting Thaumcraft " + kind + " recipes for circuits 1-24");
+            }
+            recipes.get(i).circuit = circuit;
+            assigned++;
+        }
+        for (PendingRecipe recipe : recipes) {
+            for (ItemStack[] variant : recipe.inputs) {
+                List<ItemStack> inputs = new ArrayList<>();
+                for (ItemStack item : variant) inputs.add(item.copy());
+                if (recipe.circuit > 0) inputs.add(GTUtility.getIntegratedCircuit(recipe.circuit));
+                addChecked(
+                    map,
+                    kind,
+                    () -> GTValues.RA.stdBuilder()
+                        .itemInputs(inputs.toArray(new ItemStack[0]))
+                        .itemOutputs(recipe.output.copy())
+                        .metadata(SimpleMetaData.RESEARCH_KEY, recipe.research)
+                        .metadata(SimpleMetaData.ASPECT_COST, recipe.aspects)
+                        .eut(eut)
+                        .duration(duration)
+                        .addTo(map));
+            }
+        }
+        GTN_Logger.info("Thaumcraft %s recipes requiring selector circuits: %d", kind, assigned);
+    }
+
+    private static boolean conflicts(PendingRecipe first, PendingRecipe second) {
+        for (ItemStack[] a : first.inputs) {
+            for (ItemStack[] b : second.inputs) {
+                if (containsInputTypes(a, b) || containsInputTypes(b, a)) return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean containsInputTypes(ItemStack[] available, ItemStack[] required) {
+        // Counts cannot disambiguate batches. Ignore NBT conservatively, as ordinary GT recipes do,
+        // and account for ore unification and wildcard damage when comparing ingredient types.
+        for (ItemStack ingredient : required) {
+            boolean found = false;
+            for (ItemStack input : available) {
+                if (GTUtility.areUnificationsEqual(input, ingredient, true)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
+        }
+        return true;
     }
 
     /** Adds a recipe and records it if GT rejected it while building. */

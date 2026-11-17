@@ -14,6 +14,7 @@ tile.GTN_MetaBlockCasing01.2.name=Древесный корпус
 tile.GTN_MetaBlockCasing01.3.name=Корпус души
 tile.GTN_MatrixCasing.0.name=Рунический корпус матрицы
 tile.GTN_MatrixCasing.1.name=Корпус алхимического конструкта
+tile.GTN_MatrixCasing.2.name=Корпус магического сборщика
 
 #MultiBlock Waila Info
 multiblock.waila.max_parallel=§aМакс. параллелей: §6%s
@@ -139,7 +140,7 @@ multiblock.NodeEnergizer.tooltip.05=Шина HV включает модифик�
 #LargeArcaneAssembler
 multiblock.LargeArcaneAssembler=Большой магический сборщик
 multiblock.LargeArcaneAssembler.machine_type=Магический сборщик
-multiblock.LargeArcaneAssembler.tooltip.00=Тир энергетического люка ограничен §fтиром стекла
+multiblock.LargeArcaneAssembler.tooltip.00=§5После сборки корпуса магического сборщика превращаются в магический сборщик
 multiblock.LargeArcaneAssembler.tooltip.01=Требует §aвозбуждённый узел§7 в структуре
 multiblock.LargeArcaneAssembler.tooltip.02=Для крафта требуется §aисследование§7
 multiblock.LargeArcaneAssembler.tooltip.03=Скорость всегда 1 секунда

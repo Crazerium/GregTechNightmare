@@ -27,6 +27,7 @@ public final class GTN_MachineModelRenderer {
 
     public static final GTN_MachineModelRenderer AUTOMATED_INFUSION_MATRIX = new GTN_MachineModelRenderer(
         "models/auto_runic_matrix.bbmodel",
+        8,
         0,
         1,
         1,
@@ -34,10 +35,19 @@ public final class GTN_MachineModelRenderer {
     /** Twice the size of the Blockbench model: 6x4x2 blocks, centered between two columns and two rows. */
     public static final GTN_MachineModelRenderer INDUSTRIAL_CRUCIBLE = new GTN_MachineModelRenderer(
         "models/auto_alchemy_construct.bbmodel",
+        8,
         -0.5,
         1,
         1.5,
         2);
+    /** Whole-machine model (5x5x6 blocks) drawn over the structure, centered on the controller column. */
+    public static final GTN_MachineModelRenderer LARGE_ARCANE_ASSEMBLER = new GTN_MachineModelRenderer(
+        "models/arcane_assembler.bbmodel",
+        8,
+        0,
+        0,
+        2,
+        1);
 
     private static final String ANIMATION_NAME = "animation";
 
@@ -48,6 +58,8 @@ public final class GTN_MachineModelRenderer {
     private static final FloatBuffer BASIS = BufferUtils.createFloatBuffer(16);
 
     private final ResourceLocation modelLocation;
+    /** X and Z of the model bottom-center in Blockbench pixels: 8 for block models, 0 for entity models. */
+    private final float modelCenter;
     /** Where the bottom-center of the model sits, relative to the controller center: blocks right, up and back. */
     private final double offsetRight;
     private final double offsetUp;
@@ -57,9 +69,10 @@ public final class GTN_MachineModelRenderer {
     private GTN_BBModel model;
     private GTN_BBAnimation animation;
 
-    private GTN_MachineModelRenderer(String modelPath, double offsetRight, double offsetUp, double offsetBack,
-        float scale) {
+    private GTN_MachineModelRenderer(String modelPath, float modelCenter, double offsetRight, double offsetUp,
+        double offsetBack, float scale) {
         this.modelLocation = new ResourceLocation(GregTechNightmare.RESOURCE_ROOT_ID, modelPath);
+        this.modelCenter = modelCenter;
         this.offsetRight = offsetRight;
         this.offsetUp = offsetUp;
         this.offsetBack = offsetBack;
@@ -112,7 +125,7 @@ public final class GTN_MachineModelRenderer {
         GL11.glMultMatrix(BASIS);
 
         GL11.glScalef(scale / 16F, scale / 16F, scale / 16F);
-        GL11.glTranslatef(-8, 0, -8);
+        GL11.glTranslatef(-modelCenter, 0, -modelCenter);
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glDisable(GL11.GL_CULL_FACE);

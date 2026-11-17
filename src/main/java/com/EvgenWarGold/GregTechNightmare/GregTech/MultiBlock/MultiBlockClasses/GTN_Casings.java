@@ -59,6 +59,9 @@ public enum GTN_Casings implements ICasing {
     AlchemyConstructCasing
         (() -> GTN_Blocks.MATRIX_CASING, 1, gt(117, 1, 1)),
 
+    ArcaneAssemblerCasing
+        (() -> GTN_Blocks.MATRIX_CASING, 2, gt(117, 1, 2)),
+
     TintedGlassWhite
         (() -> GregTechAPI.sBlockTintedGlass, 0, gt(16, 0, 0)),
 

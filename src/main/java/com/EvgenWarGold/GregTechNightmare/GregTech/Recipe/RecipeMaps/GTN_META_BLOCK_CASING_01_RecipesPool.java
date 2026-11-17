@@ -92,6 +92,20 @@ public class GTN_META_BLOCK_CASING_01_RecipesPool {
             .duration(20 * 10)
             .addTo(RecipeMaps.assemblerRecipes);
 
+        // Arcane Assembler Casing
+        GTValues.RA.stdBuilder()
+            .itemInputs(
+                GTN_Casings.MagicCasing.getItemStack(4),
+                getPlate(Materials.Void, 4),
+                getPlate(Materials.Thaumium, 8),
+                GTUtility.getIntegratedCircuit(3)
+            )
+            .itemOutputs(GTN_ItemList.ArcaneAssemblerCasing.get(4))
+
+            .eut(RECIPE_EV)
+            .duration(20 * 10)
+            .addTo(RecipeMaps.assemblerRecipes);
+
         //spotless:on
     }
 }

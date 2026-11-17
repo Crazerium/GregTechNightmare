@@ -35,10 +35,10 @@ import thaumcraft.api.aspects.AspectList;
 public class GTN_EssentiaRecipeFrontend extends RecipeMapFrontend {
 
     public static final int MAX_ASPECT_SLOTS = 16;
-    /** 6x4 grid: the central item and the pedestal items of the biggest infusion recipes. */
-    public static final int INFUSION_ITEM_SLOTS = 24;
+    /** 6x4 ingredient grid plus one selector circuit slot. */
+    public static final int INFUSION_ITEM_SLOTS = 25;
     private static final int INFUSION_GRID_COLUMNS = 6;
-    private static final int CRUCIBLE_ITEM_SLOTS = 1;
+    public static final int CRUCIBLE_ITEM_SLOTS = 2;
 
     private final boolean infusion;
 
@@ -95,9 +95,13 @@ public class GTN_EssentiaRecipeFrontend extends RecipeMapFrontend {
         int reserved = infusion ? INFUSION_ITEM_SLOTS : CRUCIBLE_ITEM_SLOTS;
         for (int i = 0; i < itemInputCount; i++) {
             if (i < reserved) {
+                if (infusion && i == INFUSION_ITEM_SLOTS - 1) {
+                    result.add(new Pos2d(116, 12));
+                    continue;
+                }
                 result.add(
                     infusion ? new Pos2d(8 + (i % INFUSION_GRID_COLUMNS) * 18, 12 + (i / INFUSION_GRID_COLUMNS) * 18)
-                        : new Pos2d(8, 17));
+                        : new Pos2d(8 + i * 18, 17));
             } else {
                 int aspectIndex = i - reserved;
                 result.add(new Pos2d(8 + (aspectIndex % 8) * 18, (infusion ? 94 : 53) + (aspectIndex / 8) * 18));

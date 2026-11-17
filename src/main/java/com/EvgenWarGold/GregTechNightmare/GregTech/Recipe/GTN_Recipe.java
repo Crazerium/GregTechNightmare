@@ -29,7 +29,7 @@ public class GTN_Recipe {
         .build();
     public static final RecipeMap<?> IndustrialCrucibleRecipes = RecipeMapBuilder
         .of("gtn.recipe.IndustrialCrucibleRecipes")
-        .maxIO(17, 1, 0, 0)
+        .maxIO(GTN_EssentiaRecipeFrontend.CRUCIBLE_ITEM_SLOTS + GTN_EssentiaRecipeFrontend.MAX_ASPECT_SLOTS, 1, 0, 0)
         .minInputs(1, 0)
         .progressBar(GTUITextures.PROGRESSBAR_ARROW_MULTIPLE)
         .frontend((ui, nei) -> new GTN_EssentiaRecipeFrontend(ui, nei, false))
